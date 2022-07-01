@@ -39,7 +39,7 @@ const (
 // ApplyAmendment updates a Membership based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *Membership) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *Membership) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -244,7 +244,7 @@ const (
 // ApplyAmendment updates a Currency based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *Currency) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *Currency) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -342,7 +342,7 @@ const (
 // ApplyAmendment updates a ShareCommon based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ShareCommon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *ShareCommon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -457,7 +457,7 @@ const (
 // ApplyAmendment updates a BondFixedRate based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -885,7 +885,7 @@ const (
 // ApplyAmendment updates a Coupon based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -1091,7 +1091,7 @@ const (
 // ApplyAmendment updates a LoyaltyPoints based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *LoyaltyPoints) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *LoyaltyPoints) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -1246,7 +1246,7 @@ const (
 // ApplyAmendment updates a TicketAdmission based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *TicketAdmission) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *TicketAdmission) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -1498,7 +1498,7 @@ const (
 // ApplyAmendment updates a CasinoChip based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *CasinoChip) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *CasinoChip) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -1673,7 +1673,7 @@ const (
 // ApplyAmendment updates a InformationServiceLicense based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *InformationServiceLicense) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *InformationServiceLicense) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -1811,7 +1811,7 @@ const (
 // ApplyAmendment updates a AgeRestrictionField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AgeRestrictionField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *AgeRestrictionField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -1819,7 +1819,7 @@ func (a *AgeRestrictionField) ApplyAmendment(fip permissions.FieldIndexPath, ope
 	}
 
 	switch fip[0] {
-	case AgeRestrictionFieldLower: // uint32
+	case AgeRestrictionFieldLower: // uint8
 
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Lower : %v", fip)
@@ -1828,10 +1828,10 @@ func (a *AgeRestrictionField) ApplyAmendment(fip permissions.FieldIndexPath, ope
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Lower amendment value failed to deserialize : %s", err)
 		} else {
-			a.Lower = uint32(value)
+			a.Lower = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
-	case AgeRestrictionFieldUpper: // uint32
+	case AgeRestrictionFieldUpper: // uint8
 
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Upper : %v", fip)
@@ -1840,7 +1840,7 @@ func (a *AgeRestrictionField) ApplyAmendment(fip permissions.FieldIndexPath, ope
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Upper amendment value failed to deserialize : %s", err)
 		} else {
-			a.Upper = uint32(value)
+			a.Upper = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 	}
@@ -1860,7 +1860,7 @@ func (a *AgeRestrictionField) CreateAmendments(fip permissions.FieldIndexPath,
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
 
-	// Lower uint32
+	// Lower uint8
 	fip = append(ofip, AgeRestrictionFieldLower)
 	if a.Lower != newValue.Lower {
 		var buf bytes.Buffer
@@ -1874,7 +1874,7 @@ func (a *AgeRestrictionField) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Upper uint32
+	// Upper uint8
 	fip = append(ofip, AgeRestrictionFieldUpper)
 	if a.Upper != newValue.Upper {
 		var buf bytes.Buffer
@@ -1901,7 +1901,7 @@ const (
 // ApplyAmendment updates a CurrencyValueField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *CurrencyValueField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *CurrencyValueField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -1928,7 +1928,7 @@ func (a *CurrencyValueField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 		}
 		a.CurrencyCode = string(data)
 		return permissions.SubPermissions(fip, operation, false)
-	case CurrencyValueFieldPrecision: // uint32
+	case CurrencyValueFieldPrecision: // uint8
 
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Precision : %v", fip)
@@ -1937,7 +1937,7 @@ func (a *CurrencyValueField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
 		} else {
-			a.Precision = uint32(value)
+			a.Precision = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 	}
@@ -1980,7 +1980,7 @@ func (a *CurrencyValueField) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Precision uint32
+	// Precision uint8
 	fip = append(ofip, CurrencyValueFieldPrecision)
 	if a.Precision != newValue.Precision {
 		var buf bytes.Buffer
@@ -2006,7 +2006,7 @@ const (
 // ApplyAmendment updates a RateField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *RateField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *RateField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -2014,7 +2014,7 @@ func (a *RateField) ApplyAmendment(fip permissions.FieldIndexPath, operation uin
 	}
 
 	switch fip[0] {
-	case RateFieldPrecision: // uint32
+	case RateFieldPrecision: // uint8
 
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Precision : %v", fip)
@@ -2023,7 +2023,7 @@ func (a *RateField) ApplyAmendment(fip permissions.FieldIndexPath, operation uin
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
 		} else {
-			a.Precision = uint32(value)
+			a.Precision = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 	case RateFieldValue: // uint64
@@ -2055,7 +2055,7 @@ func (a *RateField) CreateAmendments(fip permissions.FieldIndexPath,
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
 
-	// Precision uint32
+	// Precision uint8
 	fip = append(ofip, RateFieldPrecision)
 	if a.Precision != newValue.Precision {
 		var buf bytes.Buffer
@@ -2090,12 +2090,12 @@ func (a *RateField) CreateAmendments(fip permissions.FieldIndexPath,
 func CreatePayloadAmendments(fip permissions.FieldIndexPath,
 	instrumentType, payload, newPayload []byte) ([]*internal.Amendment, error) {
 
-	current, err := Deserialize(instrumentType, payload)
+	current, err := DeserializeV1(instrumentType, payload)
 	if err != nil {
 		return nil, errors.Wrap(err, "deserialize payload")
 	}
 
-	new, err := Deserialize(instrumentType, newPayload)
+	new, err := DeserializeV1(instrumentType, newPayload)
 	if err != nil {
 		return nil, errors.Wrap(err, "deserialize payload")
 	}

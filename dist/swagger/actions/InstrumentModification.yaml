@@ -29,4 +29,9 @@ properties:
       See Governance for more details.
     type: string
     example: "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
+  InstrumentPayloadVersion:
+    description:  >
+      This field is set by the decoder and should not be set outside of that. The version of the
+      encoding of the payload. v0 is protobuf and v1 is BSOR.
+    type: number
 

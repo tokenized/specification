@@ -18,7 +18,11 @@ import (
 	"github.com/tokenized/pkg/bsor"
 	"github.com/tokenized/pkg/json"
 	"github.com/tokenized/specification/dist/golang/actions"
+	"github.com/tokenized/specification/dist/golang/instruments"
+	"github.com/tokenized/specification/dist/golang/messages"
 	actionsv0 "github.com/tokenized/specification/dist/golang/v0/actions"
+	instrumentsv0 "github.com/tokenized/specification/dist/golang/v0/instruments"
+	messagesv0 "github.com/tokenized/specification/dist/golang/v0/messages"
 
 	"github.com/pkg/errors"
 	"golang.org/x/crypto/ripemd160"
@@ -72,6 +76,92 @@ func Serialize(action actions.Action, isTest bool) (bitcoin.Script, error) {
 	return scriptItems.Script()
 }
 
+// DeserializeInstrumentPayload decodes an instrument payload. Use InstrumentPayloadVersion, which
+// is set by the decoder, for version to specify which encoding is used.
+func DeserializeInstrumentPayload(version uint8, code []byte,
+	payload []byte) (instruments.Instrument, error) {
+
+	if version == 0 {
+		payloadv0, err := instrumentsv0.DeserializeV0(code, payload)
+		if err != nil {
+			return nil, err
+		}
+
+		return convertInstrumentV0toV1(code, payloadv0)
+	}
+
+	if version == 1 {
+		return instruments.DeserializeV1(code, payload)
+	}
+
+	return nil, errors.Wrap(ErrUnknownVersion, "instrument payload")
+}
+
+// convertInstrumentV0toV1 is needed to read the old protobuf structures into the new bsor
+// structures. It requires the json field names to match and be the same type.
+func convertInstrumentV0toV1(code []byte,
+	instrumentv0 instrumentsv0.Instrument) (instruments.Instrument, error) {
+
+	js, err := json.Marshal(instrumentv0)
+	if err != nil {
+		return nil, errors.Wrap(err, "json marshal")
+	}
+
+	instrumentv1 := instruments.NewInstrumentFromCode(string(code))
+	if instrumentv1 == nil {
+		return nil, fmt.Errorf("No action for code: %s", string(code))
+	}
+
+	if err := json.Unmarshal(js, instrumentv1); err != nil {
+		return nil, errors.Wrap(err, "json unmarshal")
+	}
+
+	return instrumentv1, nil
+}
+
+// DeserializeMessagePayload decodes a message payload. Use MessagePayloadVersion, which is set by
+// the decoder, for version to specify which encoding is used.
+func DeserializeMessagePayload(version uint8, code uint16,
+	payload []byte) (messages.Message, error) {
+
+	if version == 0 {
+		payloadv0, err := messagesv0.DeserializeV0(uint32(code), payload)
+		if err != nil {
+			return nil, err
+		}
+
+		return convertMessageV0toV1(code, payloadv0)
+	}
+
+	if version == 1 {
+		return messages.DeserializeV1(code, payload)
+	}
+
+	return nil, errors.Wrap(ErrUnknownVersion, "instrument payload")
+}
+
+// convertMessageV0toV1 is needed to read the old protobuf structures into the new bsor
+// structures. It requires the json field names to match and be the same type.
+func convertMessageV0toV1(code uint16,
+	messagev0 messagesv0.Message) (messages.Message, error) {
+
+	js, err := json.Marshal(messagev0)
+	if err != nil {
+		return nil, errors.Wrap(err, "json marshal")
+	}
+
+	messagev1 := messages.NewMessageFromCode(code)
+	if messagev1 == nil {
+		return nil, fmt.Errorf("No action for code: %d", code)
+	}
+
+	if err := json.Unmarshal(js, messagev1); err != nil {
+		return nil, errors.Wrap(err, "json unmarshal")
+	}
+
+	return messagev1, nil
+}
+
 // Deserialize reads an action from a Tokenized OP_RETURN script.
 func Deserialize(script bitcoin.Script, isTest bool) (actions.Action, error) {
 	r := bytes.NewReader(script)
@@ -107,7 +197,6 @@ func parseEnvelopeV0(r *bytes.Reader, isTest bool) (actions.Action, error) {
 	}
 
 	version := msg.PayloadVersion()
-
 	if version == 0 {
 		return parseV0(msg.PayloadIdentifier(), msg.Payload())
 	}
@@ -155,7 +244,7 @@ func parseEnvelopeV1(r *bytes.Reader, isTest bool) (actions.Action, error) {
 }
 
 func parseV0(code []byte, payload []byte) (actions.Action, error) {
-	actionv0, err := actionsv0.Deserialize(code, payload)
+	actionv0, err := actionsv0.DeserializeV0(code, payload)
 	if err != nil {
 		return nil, errors.Wrap(err, "deserialize v0")
 	}
@@ -165,7 +254,7 @@ func parseV0(code []byte, payload []byte) (actions.Action, error) {
 }
 
 func parseV1(payload bitcoin.ScriptItems) (actions.Action, error) {
-	return actions.Deserialize(payload)
+	return actions.DeserializeV1(payload)
 }
 
 // convertV0toV1 is needed to read the old protobuf structures into the new bsor structures. It

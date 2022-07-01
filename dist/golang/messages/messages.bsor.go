@@ -40,7 +40,7 @@ type SettlementRequest struct {
 
 type OutputMetadata struct {
 	OutputDescription string            `bsor:"1" json:"OutputDescription"`
-	Tags              []uint32          `bsor:"2" json:"Tags"`
+	Tags              []uint8           `bsor:"2" json:"Tags"`
 	CustomTags        []*OutputTagField `bsor:"3" json:"CustomTags"`
 }
 
@@ -50,22 +50,22 @@ type Distribution struct {
 }
 
 type InitiateRelationship struct {
-	Type                uint32               `bsor:"1" json:"Type"`
+	Type                uint8                `bsor:"1" json:"Type"`
 	Seed                []byte               `bsor:"2" json:"Seed"`
 	Flag                []byte               `bsor:"3" json:"Flag"`
-	EncryptionType      uint32               `bsor:"4" json:"EncryptionType"`
-	ProofOfIdentityType uint32               `bsor:"5" json:"ProofOfIdentityType"`
+	EncryptionType      uint8                `bsor:"4" json:"EncryptionType"`
+	ProofOfIdentityType uint8                `bsor:"5" json:"ProofOfIdentityType"`
 	ProofOfIdentity     []byte               `bsor:"6" json:"ProofOfIdentity"`
 	ChannelParties      []*ChannelPartyField `bsor:"7" json:"ChannelParties"`
 }
 
 type PendingAcceptRelationship struct {
-	ProofOfIdentityType uint32 `bsor:"1" json:"ProofOfIdentityType"`
+	ProofOfIdentityType uint8  `bsor:"1" json:"ProofOfIdentityType"`
 	ProofOfIdentity     []byte `bsor:"2" json:"ProofOfIdentity"`
 }
 
 type AcceptRelationship struct {
-	ProofOfIdentityType uint32 `bsor:"1" json:"ProofOfIdentityType"`
+	ProofOfIdentityType uint8  `bsor:"1" json:"ProofOfIdentityType"`
 	ProofOfIdentity     []byte `bsor:"2" json:"ProofOfIdentity"`
 }
 
@@ -82,7 +82,7 @@ type InitiateThread struct {
 }
 
 type AdministratorField struct {
-	Type uint32 `bsor:"1" json:"Type"`
+	Type uint8  `bsor:"1" json:"Type"`
 	Name string `bsor:"2" json:"Name"`
 }
 
@@ -123,7 +123,7 @@ type IdentityOracleProofField struct {
 }
 
 type ManagerField struct {
-	Type uint32 `bsor:"1" json:"Type"`
+	Type uint8  `bsor:"1" json:"Type"`
 	Name string `bsor:"2" json:"Name"`
 }
 
@@ -131,7 +131,7 @@ type OracleSignatureField struct {
 	OracleURL          string       `bsor:"1" json:"OracleURL"`
 	BlockHeight        uint32       `bsor:"2" json:"BlockHeight"`
 	ValidityPeriod     *PeriodField `bsor:"3" json:"ValidityPeriod"`
-	SignatureAlgorithm uint32       `bsor:"4" json:"SignatureAlgorithm"`
+	SignatureAlgorithm uint8        `bsor:"4" json:"SignatureAlgorithm"`
 	Signature          []byte       `bsor:"5" json:"Signature"`
 }
 

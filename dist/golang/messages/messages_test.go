@@ -7,7 +7,7 @@ import (
 func TestEmptyDeserialize(t *testing.T) {
 	var ok bool
 	// PublicMessage identifies a payload as a PublicMessage message.
-	messagePublicMessage, err := Deserialize(CodePublicMessage, nil)
+	messagePublicMessage, err := DeserializeV1(CodePublicMessage, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for PublicMessage : %s", err)
 	}
@@ -17,7 +17,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// PrivateMessage identifies a payload as a PrivateMessage message.
-	messagePrivateMessage, err := Deserialize(CodePrivateMessage, nil)
+	messagePrivateMessage, err := DeserializeV1(CodePrivateMessage, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for PrivateMessage : %s", err)
 	}
@@ -27,7 +27,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// RevertedTx identifies a payload as a RevertedTx message.
-	messageRevertedTx, err := Deserialize(CodeRevertedTx, nil)
+	messageRevertedTx, err := DeserializeV1(CodeRevertedTx, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for RevertedTx : %s", err)
 	}
@@ -37,7 +37,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Offer identifies a payload as a Offer message.
-	messageOffer, err := Deserialize(CodeOffer, nil)
+	messageOffer, err := DeserializeV1(CodeOffer, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Offer : %s", err)
 	}
@@ -47,7 +47,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// SignatureRequest identifies a payload as a SignatureRequest message.
-	messageSignatureRequest, err := Deserialize(CodeSignatureRequest, nil)
+	messageSignatureRequest, err := DeserializeV1(CodeSignatureRequest, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for SignatureRequest : %s", err)
 	}
@@ -57,7 +57,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// SettlementRequest identifies a payload as a SettlementRequest message.
-	messageSettlementRequest, err := Deserialize(CodeSettlementRequest, nil)
+	messageSettlementRequest, err := DeserializeV1(CodeSettlementRequest, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for SettlementRequest : %s", err)
 	}
@@ -67,7 +67,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// OutputMetadata identifies a payload as a OutputMetadata message.
-	messageOutputMetadata, err := Deserialize(CodeOutputMetadata, nil)
+	messageOutputMetadata, err := DeserializeV1(CodeOutputMetadata, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for OutputMetadata : %s", err)
 	}
@@ -77,7 +77,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Distribution identifies a payload as a Distribution message.
-	messageDistribution, err := Deserialize(CodeDistribution, nil)
+	messageDistribution, err := DeserializeV1(CodeDistribution, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Distribution : %s", err)
 	}
@@ -87,7 +87,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// InitiateRelationship identifies a payload as a InitiateRelationship message.
-	messageInitiateRelationship, err := Deserialize(CodeInitiateRelationship, nil)
+	messageInitiateRelationship, err := DeserializeV1(CodeInitiateRelationship, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for InitiateRelationship : %s", err)
 	}
@@ -97,7 +97,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// PendingAcceptRelationship identifies a payload as a PendingAcceptRelationship message.
-	messagePendingAcceptRelationship, err := Deserialize(CodePendingAcceptRelationship, nil)
+	messagePendingAcceptRelationship, err := DeserializeV1(CodePendingAcceptRelationship, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for PendingAcceptRelationship : %s", err)
 	}
@@ -107,7 +107,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// AcceptRelationship identifies a payload as a AcceptRelationship message.
-	messageAcceptRelationship, err := Deserialize(CodeAcceptRelationship, nil)
+	messageAcceptRelationship, err := DeserializeV1(CodeAcceptRelationship, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for AcceptRelationship : %s", err)
 	}
@@ -117,7 +117,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// RelationshipAmendment identifies a payload as a RelationshipAmendment message.
-	messageRelationshipAmendment, err := Deserialize(CodeRelationshipAmendment, nil)
+	messageRelationshipAmendment, err := DeserializeV1(CodeRelationshipAmendment, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for RelationshipAmendment : %s", err)
 	}
@@ -127,7 +127,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// InitiateThread identifies a payload as a InitiateThread message.
-	messageInitiateThread, err := Deserialize(CodeInitiateThread, nil)
+	messageInitiateThread, err := DeserializeV1(CodeInitiateThread, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for InitiateThread : %s", err)
 	}

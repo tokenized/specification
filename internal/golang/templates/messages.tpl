@@ -11,7 +11,7 @@ import (
 )
 
 type Message interface {
-	Code() uint32
+	Code() uint16
 
 	Validate() error
 	Equal(interface{}) bool
@@ -23,12 +23,12 @@ type Message interface {
 const (
 {{- range .Messages }}
 	// Code{{.Name}} identifies a payload as a {{.Name}} message.
-	Code{{.Name}} = uint32({{.Code}})
+	Code{{.Name}} = uint16({{.Code}})
 {{ end }}
 )
 
 // NewMessageFromCode returns a new object of the correct type for the code.
-func NewMessageFromCode(code uint32) Message {
+func NewMessageFromCode(code uint16) Message {
 	switch code {
 {{- range .Messages }}
 	case Code{{.Name}}:
@@ -39,8 +39,8 @@ func NewMessageFromCode(code uint32) Message {
 	}
 }
 
-// Deserialize reads a message from a byte slice.
-func Deserialize(code uint32, payload []byte) (Message, error) {
+// DeserializeV1 reads a message from a byte slice.
+func DeserializeV1(code uint16, payload []byte) (Message, error) {
 	result := NewMessageFromCode(code)
 	if result == nil {
 		return nil, fmt.Errorf("Unknown message code : %d", code)
@@ -56,7 +56,7 @@ func Deserialize(code uint32, payload []byte) (Message, error) {
 }
 
 {{ range .Messages }}
-func (a *{{.Name}}) Code() uint32 {
+func (a *{{.Name}}) Code() uint16 {
 	return Code{{.Name}}
 }
 

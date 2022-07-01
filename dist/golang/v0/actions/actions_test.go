@@ -4,10 +4,10 @@ import (
 	"testing"
 )
 
-func TestEmptyDeserialize(t *testing.T) {
+func TestEmptyDeserializeV0(t *testing.T) {
 	var ok bool
 	// ContractOffer identifies a payload as a ContractOffer message.
-	actionContractOffer, err := Deserialize([]byte(CodeContractOffer), nil)
+	actionContractOffer, err := DeserializeV0([]byte(CodeContractOffer), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for ContractOffer : %s", err)
 	}
@@ -17,7 +17,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// ContractFormation identifies a payload as a ContractFormation message.
-	actionContractFormation, err := Deserialize([]byte(CodeContractFormation), nil)
+	actionContractFormation, err := DeserializeV0([]byte(CodeContractFormation), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for ContractFormation : %s", err)
 	}
@@ -27,7 +27,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// ContractAmendment identifies a payload as a ContractAmendment message.
-	actionContractAmendment, err := Deserialize([]byte(CodeContractAmendment), nil)
+	actionContractAmendment, err := DeserializeV0([]byte(CodeContractAmendment), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for ContractAmendment : %s", err)
 	}
@@ -37,7 +37,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// StaticContractFormation identifies a payload as a StaticContractFormation message.
-	actionStaticContractFormation, err := Deserialize([]byte(CodeStaticContractFormation), nil)
+	actionStaticContractFormation, err := DeserializeV0([]byte(CodeStaticContractFormation), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for StaticContractFormation : %s", err)
 	}
@@ -47,7 +47,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// ContractAddressChange identifies a payload as a ContractAddressChange message.
-	actionContractAddressChange, err := Deserialize([]byte(CodeContractAddressChange), nil)
+	actionContractAddressChange, err := DeserializeV0([]byte(CodeContractAddressChange), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for ContractAddressChange : %s", err)
 	}
@@ -57,7 +57,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// BodyOfAgreementOffer identifies a payload as a BodyOfAgreementOffer message.
-	actionBodyOfAgreementOffer, err := Deserialize([]byte(CodeBodyOfAgreementOffer), nil)
+	actionBodyOfAgreementOffer, err := DeserializeV0([]byte(CodeBodyOfAgreementOffer), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for BodyOfAgreementOffer : %s", err)
 	}
@@ -67,7 +67,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// BodyOfAgreementFormation identifies a payload as a BodyOfAgreementFormation message.
-	actionBodyOfAgreementFormation, err := Deserialize([]byte(CodeBodyOfAgreementFormation), nil)
+	actionBodyOfAgreementFormation, err := DeserializeV0([]byte(CodeBodyOfAgreementFormation), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for BodyOfAgreementFormation : %s", err)
 	}
@@ -77,7 +77,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// BodyOfAgreementAmendment identifies a payload as a BodyOfAgreementAmendment message.
-	actionBodyOfAgreementAmendment, err := Deserialize([]byte(CodeBodyOfAgreementAmendment), nil)
+	actionBodyOfAgreementAmendment, err := DeserializeV0([]byte(CodeBodyOfAgreementAmendment), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for BodyOfAgreementAmendment : %s", err)
 	}
@@ -87,7 +87,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// InstrumentDefinition identifies a payload as a InstrumentDefinition message.
-	actionInstrumentDefinition, err := Deserialize([]byte(CodeInstrumentDefinition), nil)
+	actionInstrumentDefinition, err := DeserializeV0([]byte(CodeInstrumentDefinition), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for InstrumentDefinition : %s", err)
 	}
@@ -97,7 +97,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// InstrumentCreation identifies a payload as a InstrumentCreation message.
-	actionInstrumentCreation, err := Deserialize([]byte(CodeInstrumentCreation), nil)
+	actionInstrumentCreation, err := DeserializeV0([]byte(CodeInstrumentCreation), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for InstrumentCreation : %s", err)
 	}
@@ -107,7 +107,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// InstrumentModification identifies a payload as a InstrumentModification message.
-	actionInstrumentModification, err := Deserialize([]byte(CodeInstrumentModification), nil)
+	actionInstrumentModification, err := DeserializeV0([]byte(CodeInstrumentModification), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for InstrumentModification : %s", err)
 	}
@@ -117,7 +117,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Transfer identifies a payload as a Transfer message.
-	actionTransfer, err := Deserialize([]byte(CodeTransfer), nil)
+	actionTransfer, err := DeserializeV0([]byte(CodeTransfer), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Transfer : %s", err)
 	}
@@ -127,7 +127,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Settlement identifies a payload as a Settlement message.
-	actionSettlement, err := Deserialize([]byte(CodeSettlement), nil)
+	actionSettlement, err := DeserializeV0([]byte(CodeSettlement), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Settlement : %s", err)
 	}
@@ -137,7 +137,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Proposal identifies a payload as a Proposal message.
-	actionProposal, err := Deserialize([]byte(CodeProposal), nil)
+	actionProposal, err := DeserializeV0([]byte(CodeProposal), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Proposal : %s", err)
 	}
@@ -147,7 +147,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Vote identifies a payload as a Vote message.
-	actionVote, err := Deserialize([]byte(CodeVote), nil)
+	actionVote, err := DeserializeV0([]byte(CodeVote), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Vote : %s", err)
 	}
@@ -157,7 +157,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// BallotCast identifies a payload as a BallotCast message.
-	actionBallotCast, err := Deserialize([]byte(CodeBallotCast), nil)
+	actionBallotCast, err := DeserializeV0([]byte(CodeBallotCast), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for BallotCast : %s", err)
 	}
@@ -167,7 +167,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// BallotCounted identifies a payload as a BallotCounted message.
-	actionBallotCounted, err := Deserialize([]byte(CodeBallotCounted), nil)
+	actionBallotCounted, err := DeserializeV0([]byte(CodeBallotCounted), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for BallotCounted : %s", err)
 	}
@@ -177,7 +177,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Result identifies a payload as a Result message.
-	actionResult, err := Deserialize([]byte(CodeResult), nil)
+	actionResult, err := DeserializeV0([]byte(CodeResult), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Result : %s", err)
 	}
@@ -187,7 +187,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Order identifies a payload as a Order message.
-	actionOrder, err := Deserialize([]byte(CodeOrder), nil)
+	actionOrder, err := DeserializeV0([]byte(CodeOrder), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Order : %s", err)
 	}
@@ -197,7 +197,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Freeze identifies a payload as a Freeze message.
-	actionFreeze, err := Deserialize([]byte(CodeFreeze), nil)
+	actionFreeze, err := DeserializeV0([]byte(CodeFreeze), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Freeze : %s", err)
 	}
@@ -207,7 +207,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Thaw identifies a payload as a Thaw message.
-	actionThaw, err := Deserialize([]byte(CodeThaw), nil)
+	actionThaw, err := DeserializeV0([]byte(CodeThaw), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Thaw : %s", err)
 	}
@@ -217,7 +217,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Confiscation identifies a payload as a Confiscation message.
-	actionConfiscation, err := Deserialize([]byte(CodeConfiscation), nil)
+	actionConfiscation, err := DeserializeV0([]byte(CodeConfiscation), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Confiscation : %s", err)
 	}
@@ -227,7 +227,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Reconciliation identifies a payload as a Reconciliation message.
-	actionReconciliation, err := Deserialize([]byte(CodeReconciliation), nil)
+	actionReconciliation, err := DeserializeV0([]byte(CodeReconciliation), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Reconciliation : %s", err)
 	}
@@ -237,7 +237,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Establishment identifies a payload as a Establishment message.
-	actionEstablishment, err := Deserialize([]byte(CodeEstablishment), nil)
+	actionEstablishment, err := DeserializeV0([]byte(CodeEstablishment), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Establishment : %s", err)
 	}
@@ -247,7 +247,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Addition identifies a payload as a Addition message.
-	actionAddition, err := Deserialize([]byte(CodeAddition), nil)
+	actionAddition, err := DeserializeV0([]byte(CodeAddition), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Addition : %s", err)
 	}
@@ -257,7 +257,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Alteration identifies a payload as a Alteration message.
-	actionAlteration, err := Deserialize([]byte(CodeAlteration), nil)
+	actionAlteration, err := DeserializeV0([]byte(CodeAlteration), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Alteration : %s", err)
 	}
@@ -267,7 +267,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Removal identifies a payload as a Removal message.
-	actionRemoval, err := Deserialize([]byte(CodeRemoval), nil)
+	actionRemoval, err := DeserializeV0([]byte(CodeRemoval), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Removal : %s", err)
 	}
@@ -277,7 +277,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Message identifies a payload as a Message message.
-	actionMessage, err := Deserialize([]byte(CodeMessage), nil)
+	actionMessage, err := DeserializeV0([]byte(CodeMessage), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Message : %s", err)
 	}
@@ -287,7 +287,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Rejection identifies a payload as a Rejection message.
-	actionRejection, err := Deserialize([]byte(CodeRejection), nil)
+	actionRejection, err := DeserializeV0([]byte(CodeRejection), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Rejection : %s", err)
 	}

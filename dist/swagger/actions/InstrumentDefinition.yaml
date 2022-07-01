@@ -78,4 +78,9 @@ properties:
     type: array
     items:
       type: string
+  InstrumentPayloadVersion:
+    description:  >
+      This field is set by the decoder and should not be set outside of that. The version of the
+      encoding of the payload. v0 is protobuf and v1 is BSOR.
+    type: number
 

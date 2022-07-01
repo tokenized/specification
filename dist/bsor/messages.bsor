@@ -1,38 +1,23 @@
 version 0
 
-RevertedTx {
-  1 Timestamp   uint64
-  2 Transaction binary
-}
-
-Offer {
-  1 Timestamp uint64
-  2 Payload   binary
-}
-
-TargetAddressField {
-  1 Address  binary
-  2 Quantity uint64
+OutpointField {
+  1 TxId        binary
+  2 OutputIndex uint32
 }
 
 InitiateRelationship {
-  1 Type                uint32
+  1 Type                uint8
   2 Seed                binary
   3 Flag                binary
-  4 EncryptionType      uint32
-  5 ProofOfIdentityType uint32
+  4 EncryptionType      uint8
+  5 ProofOfIdentityType uint8
   6 ProofOfIdentity     binary
   7 ChannelParties      []*ChannelPartyField
 }
 
-PendingAcceptRelationship {
-  1 ProofOfIdentityType uint32
-  2 ProofOfIdentity     binary
-}
-
-AcceptRelationship {
-  1 ProofOfIdentityType uint32
-  2 ProofOfIdentity     binary
+ChannelPartyField {
+  1 AdministrativeAddress binary
+  2 OutputIndex           uint32
 }
 
 PublicMessage {
@@ -41,6 +26,21 @@ PublicMessage {
   3 Regarding     *OutpointField
   4 PublicMessage *DocumentField
   5 Attachments   []*DocumentField
+}
+
+SignatureRequest {
+  1 Timestamp uint64
+  2 Payload   binary
+}
+
+Distribution {
+  1 InstrumentCode binary
+  2 Timestamp      uint64
+}
+
+AcceptRelationship {
+  1 ProofOfIdentityType uint8
+  2 ProofOfIdentity     binary
 }
 
 DocumentField {
@@ -57,30 +57,9 @@ PrivateMessage {
   5 Attachments    []*DocumentField
 }
 
-SignatureRequest {
+Offer {
   1 Timestamp uint64
   2 Payload   binary
-}
-
-OutputMetadata {
-  1 OutputDescription string
-  2 Tags              []uint32
-  3 CustomTags        []*OutputTagField
-}
-
-Distribution {
-  1 InstrumentCode binary
-  2 Timestamp      uint64
-}
-
-ChannelPartyField {
-  1 AdministrativeAddress binary
-  2 OutputIndex           uint32
-}
-
-InitiateThread {
-  1 Flag binary
-  2 Seed binary
 }
 
 SettlementRequest {
@@ -88,6 +67,27 @@ SettlementRequest {
   2 TransferTxId binary
   3 ContractFees []*TargetAddressField
   4 Settlement   binary
+}
+
+TargetAddressField {
+  1 Address  binary
+  2 Quantity uint64
+}
+
+PendingAcceptRelationship {
+  1 ProofOfIdentityType uint8
+  2 ProofOfIdentity     binary
+}
+
+RevertedTx {
+  1 Timestamp   uint64
+  2 Transaction binary
+}
+
+OutputMetadata {
+  1 OutputDescription string
+  2 Tags              binary
+  3 CustomTags        []*OutputTagField
 }
 
 OutputTagField {
@@ -101,9 +101,9 @@ RelationshipAmendment {
   4 DropMemberIndexes    uint32
 }
 
-OutpointField {
-  1 TxId        binary
-  2 OutputIndex uint32
+InitiateThread {
+  1 Flag binary
+  2 Seed binary
 }
 
 

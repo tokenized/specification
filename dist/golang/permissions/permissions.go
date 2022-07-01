@@ -132,7 +132,7 @@ func (ps Permissions) PermissionOf(fip FieldIndexPath) Permission {
 // working through an amendment.
 // The permissions are returned in order with the first item the most specific to the field. The
 // most specific to the field is the one with the closest path.
-func (ps Permissions) SubPermissions(fip FieldIndexPath, operation uint32,
+func (ps Permissions) SubPermissions(fip FieldIndexPath, operation uint8,
 	isList bool) (Permissions, error) {
 
 	var result Permissions

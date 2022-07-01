@@ -150,8 +150,8 @@ func TestInstrumentDefinitionResponseFees(t *testing.T) {
 
 	responseTx := wire.NewMsgTx(1)
 
-	// From Contract (-3 for good measure. not sure why but the test is 3 off)
-	responseTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(&bitcoin.Hash32{}, 0), make([]byte, 1+74+34-3)))
+	// From Contract
+	responseTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(&bitcoin.Hash32{}, 0), make([]byte, 1+74+34)))
 
 	// To Contract
 	responseTx.AddTxOut(wire.NewTxOut(dustLimit, make([]byte, 26)))

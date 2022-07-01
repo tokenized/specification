@@ -2,7 +2,7 @@ package actions
 
 type ContractOffer struct {
 	ContractName              string                           `bsor:"1" json:"ContractName"`
-	BodyOfAgreementType       uint32                           `bsor:"2" json:"BodyOfAgreementType"`
+	BodyOfAgreementType       uint8                            `bsor:"2" json:"BodyOfAgreementType"`
 	BodyOfAgreement           []byte                           `bsor:"3" json:"BodyOfAgreement"`
 	SupportingDocs            []*DocumentField                 `bsor:"5" json:"SupportingDocs"`
 	ContractExpiration        uint64                           `bsor:"8" json:"ContractExpiration"`
@@ -19,7 +19,7 @@ type ContractOffer struct {
 	MasterAddress             []byte                           `bsor:"24" json:"MasterAddress"`
 	EntityContract            []byte                           `bsor:"25" json:"EntityContract"`
 	OperatorEntityContract    []byte                           `bsor:"26" json:"OperatorEntityContract"`
-	ContractType              uint32                           `bsor:"27" json:"ContractType"`
+	ContractType              uint8                            `bsor:"27" json:"ContractType"`
 	Services                  []*ServiceField                  `bsor:"28" json:"Services"`
 	AdminIdentityCertificates []*AdminIdentityCertificateField `bsor:"29" json:"AdminIdentityCertificates"`
 	GoverningLaw              string                           `bsor:"30" json:"GoverningLaw"`
@@ -28,7 +28,7 @@ type ContractOffer struct {
 
 type ContractFormation struct {
 	ContractName              string                           `bsor:"1" json:"ContractName"`
-	BodyOfAgreementType       uint32                           `bsor:"2" json:"BodyOfAgreementType"`
+	BodyOfAgreementType       uint8                            `bsor:"2" json:"BodyOfAgreementType"`
 	BodyOfAgreement           []byte                           `bsor:"3" json:"BodyOfAgreement"`
 	SupportingDocs            []*DocumentField                 `bsor:"5" json:"SupportingDocs"`
 	ContractExpiration        uint64                           `bsor:"8" json:"ContractExpiration"`
@@ -46,7 +46,7 @@ type ContractFormation struct {
 	Timestamp                 uint64                           `bsor:"25" json:"Timestamp"`
 	EntityContract            []byte                           `bsor:"26" json:"EntityContract"`
 	OperatorEntityContract    []byte                           `bsor:"27" json:"OperatorEntityContract"`
-	ContractType              uint32                           `bsor:"28" json:"ContractType"`
+	ContractType              uint8                            `bsor:"28" json:"ContractType"`
 	Services                  []*ServiceField                  `bsor:"29" json:"Services"`
 	AdminIdentityCertificates []*AdminIdentityCertificateField `bsor:"30" json:"AdminIdentityCertificates"`
 	AdminAddress              []byte                           `bsor:"31" json:"AdminAddress"`
@@ -66,7 +66,7 @@ type ContractAmendment struct {
 type StaticContractFormation struct {
 	ContractName               string           `bsor:"1" json:"ContractName"`
 	ContractCode               []byte           `bsor:"2" json:"ContractCode"`
-	BodyOfAgreementType        uint32           `bsor:"3" json:"BodyOfAgreementType"`
+	BodyOfAgreementType        uint8            `bsor:"3" json:"BodyOfAgreementType"`
 	BodyOfAgreement            []byte           `bsor:"4" json:"BodyOfAgreement"`
 	ContractType               string           `bsor:"5" json:"ContractType"`
 	SupportingDocs             []*DocumentField `bsor:"6" json:"SupportingDocs"`
@@ -110,14 +110,15 @@ type InstrumentDefinition struct {
 	InstrumentPermissions            []byte   `bsor:"1" json:"InstrumentPermissions"`
 	EnforcementOrdersPermitted       bool     `bsor:"4" json:"EnforcementOrdersPermitted"`
 	VotingRights                     bool     `bsor:"5" json:"VotingRights"`
-	VoteMultiplier                   uint32   `bsor:"6" json:"VoteMultiplier"`
+	VoteMultiplier                   uint8    `bsor:"6" json:"VoteMultiplier"`
 	AdministrationProposal           bool     `bsor:"7" json:"AdministrationProposal"`
 	HolderProposal                   bool     `bsor:"8" json:"HolderProposal"`
-	InstrumentModificationGovernance uint32   `bsor:"9" json:"InstrumentModificationGovernance"`
+	InstrumentModificationGovernance uint8    `bsor:"9" json:"InstrumentModificationGovernance"`
 	AuthorizedTokenQty               uint64   `bsor:"10" json:"AuthorizedTokenQty"`
 	InstrumentType                   string   `bsor:"11" bsor_fixed_size:"3" json:"InstrumentType"`
 	InstrumentPayload                []byte   `bsor:"12" json:"InstrumentPayload"`
 	TradeRestrictions                []string `bsor:"13" json:"TradeRestrictions"`
+	InstrumentPayloadVersion         uint8    `bsor:"14" json:"InstrumentPayloadVersion"`
 }
 
 type InstrumentCreation struct {
@@ -126,24 +127,26 @@ type InstrumentCreation struct {
 	InstrumentPermissions            []byte   `bsor:"3" json:"InstrumentPermissions"`
 	EnforcementOrdersPermitted       bool     `bsor:"6" json:"EnforcementOrdersPermitted"`
 	VotingRights                     bool     `bsor:"7" json:"VotingRights"`
-	VoteMultiplier                   uint32   `bsor:"8" json:"VoteMultiplier"`
+	VoteMultiplier                   uint8    `bsor:"8" json:"VoteMultiplier"`
 	AdministrationProposal           bool     `bsor:"9" json:"AdministrationProposal"`
 	HolderProposal                   bool     `bsor:"10" json:"HolderProposal"`
-	InstrumentModificationGovernance uint32   `bsor:"11" json:"InstrumentModificationGovernance"`
+	InstrumentModificationGovernance uint8    `bsor:"11" json:"InstrumentModificationGovernance"`
 	AuthorizedTokenQty               uint64   `bsor:"12" json:"AuthorizedTokenQty"`
 	InstrumentType                   string   `bsor:"13" bsor_fixed_size:"3" json:"InstrumentType"`
 	InstrumentPayload                []byte   `bsor:"14" json:"InstrumentPayload"`
 	InstrumentRevision               uint32   `bsor:"15" json:"InstrumentRevision"`
 	Timestamp                        uint64   `bsor:"16" json:"Timestamp"`
 	TradeRestrictions                []string `bsor:"17" json:"TradeRestrictions"`
+	InstrumentPayloadVersion         uint8    `bsor:"18" json:"InstrumentPayloadVersion"`
 }
 
 type InstrumentModification struct {
-	InstrumentType     string            `bsor:"1" bsor_fixed_size:"3" json:"InstrumentType"`
-	InstrumentCode     []byte            `bsor:"2" json:"InstrumentCode"`
-	InstrumentRevision uint32            `bsor:"3" json:"InstrumentRevision"`
-	Amendments         []*AmendmentField `bsor:"4" json:"Amendments"`
-	RefTxID            []byte            `bsor:"5" json:"RefTxID"`
+	InstrumentType           string            `bsor:"1" bsor_fixed_size:"3" json:"InstrumentType"`
+	InstrumentCode           []byte            `bsor:"2" json:"InstrumentCode"`
+	InstrumentRevision       uint32            `bsor:"3" json:"InstrumentRevision"`
+	Amendments               []*AmendmentField `bsor:"4" json:"Amendments"`
+	RefTxID                  []byte            `bsor:"5" json:"RefTxID"`
+	InstrumentPayloadVersion uint8             `bsor:"6" json:"InstrumentPayloadVersion"`
 }
 
 type Transfer struct {
@@ -159,13 +162,13 @@ type Settlement struct {
 }
 
 type Proposal struct {
-	Type                 uint32            `bsor:"1" json:"Type"`
+	Type                 uint8             `bsor:"1" json:"Type"`
 	InstrumentType       string            `bsor:"2" bsor_fixed_size:"3" json:"InstrumentType"`
 	InstrumentCode       []byte            `bsor:"3" json:"InstrumentCode"`
-	VoteSystem           uint32            `bsor:"4" json:"VoteSystem"`
+	VoteSystem           uint8             `bsor:"4" json:"VoteSystem"`
 	ProposedAmendments   []*AmendmentField `bsor:"5" json:"ProposedAmendments"`
 	VoteOptions          string            `bsor:"6" json:"VoteOptions"`
-	VoteMax              uint32            `bsor:"7" json:"VoteMax"`
+	VoteMax              uint8             `bsor:"7" json:"VoteMax"`
 	ProposalDescription  string            `bsor:"8" json:"ProposalDescription"`
 	ProposalDocumentHash []byte            `bsor:"9" json:"ProposalDocumentHash"`
 	VoteCutOffTimestamp  uint64            `bsor:"10" json:"VoteCutOffTimestamp"`
@@ -207,11 +210,11 @@ type Order struct {
 	DepositAddress           []byte                       `bsor:"7" json:"DepositAddress"`
 	AuthorityName            string                       `bsor:"8" json:"AuthorityName"`
 	AuthorityPublicKey       []byte                       `bsor:"9" json:"AuthorityPublicKey"`
-	SignatureAlgorithm       uint32                       `bsor:"10" json:"SignatureAlgorithm"`
+	SignatureAlgorithm       uint8                        `bsor:"10" json:"SignatureAlgorithm"`
 	OrderSignature           []byte                       `bsor:"11" json:"OrderSignature"`
 	BitcoinDispersions       []*QuantityIndexField        `bsor:"14" json:"BitcoinDispersions"`
 	Message                  string                       `bsor:"15" json:"Message"`
-	SupportingEvidenceFormat uint32                       `bsor:"16" json:"SupportingEvidenceFormat"`
+	SupportingEvidenceFormat uint8                        `bsor:"16" json:"SupportingEvidenceFormat"`
 	SupportingEvidence       []byte                       `bsor:"17" json:"SupportingEvidence"`
 	ReferenceTransactions    []*ReferenceTransactionField `bsor:"18" json:"ReferenceTransactions"`
 }
@@ -263,22 +266,23 @@ type Removal struct {
 }
 
 type Message struct {
-	SenderIndexes   []uint32 `bsor:"1" json:"SenderIndexes"`
-	ReceiverIndexes []uint32 `bsor:"2" json:"ReceiverIndexes"`
-	MessageCode     uint32   `bsor:"3" json:"MessageCode"`
-	MessagePayload  []byte   `bsor:"4" json:"MessagePayload"`
+	SenderIndexes         []uint32 `bsor:"1" json:"SenderIndexes"`
+	ReceiverIndexes       []uint32 `bsor:"2" json:"ReceiverIndexes"`
+	MessageCode           uint16   `bsor:"3" json:"MessageCode"`
+	MessagePayload        []byte   `bsor:"4" json:"MessagePayload"`
+	MessagePayloadVersion uint8    `bsor:"5" json:"MessagePayloadVersion"`
 }
 
 type Rejection struct {
 	AddressIndexes     []uint32 `bsor:"1" json:"AddressIndexes"`
 	RejectAddressIndex uint32   `bsor:"2" json:"RejectAddressIndex"`
-	RejectionCode      uint32   `bsor:"3" json:"RejectionCode"`
+	RejectionCode      uint8    `bsor:"3" json:"RejectionCode"`
 	Message            string   `bsor:"4" json:"Message"`
 	Timestamp          uint64   `bsor:"5" json:"Timestamp"`
 }
 
 type AdministratorField struct {
-	Type uint32 `bsor:"1" json:"Type"`
+	Type uint8  `bsor:"1" json:"Type"`
 	Name string `bsor:"2" json:"Name"`
 }
 
@@ -291,15 +295,15 @@ type AdminIdentityCertificateField struct {
 
 type AmendmentField struct {
 	FieldIndexPath []byte `bsor:"1" json:"FieldIndexPath"`
-	Operation      uint32 `bsor:"2" json:"Operation"`
+	Operation      uint8  `bsor:"2" json:"Operation"`
 	Data           []byte `bsor:"3" json:"Data"`
 }
 
 type InstrumentReceiverField struct {
 	Address               []byte `bsor:"1" json:"Address"`
 	Quantity              uint64 `bsor:"2" json:"Quantity"`
-	OracleSigAlgorithm    uint32 `bsor:"3" json:"OracleSigAlgorithm"`
-	OracleIndex           uint32 `bsor:"4" json:"OracleIndex"`
+	OracleSigAlgorithm    uint8  `bsor:"3" json:"OracleSigAlgorithm"`
+	OracleIndex           uint8  `bsor:"4" json:"OracleIndex"`
 	OracleConfirmationSig []byte `bsor:"5" json:"OracleConfirmationSig"`
 	OracleSigBlockHeight  uint32 `bsor:"6" json:"OracleSigBlockHeight"`
 	OracleSigExpiry       uint64 `bsor:"7" json:"OracleSigExpiry"`
@@ -363,13 +367,13 @@ type EntityField struct {
 }
 
 type ManagerField struct {
-	Type uint32 `bsor:"1" json:"Type"`
+	Type uint8  `bsor:"1" json:"Type"`
 	Name string `bsor:"2" json:"Name"`
 }
 
 type OracleField struct {
-	OracleTypes    []uint32 `bsor:"4" json:"OracleTypes"`
-	EntityContract []byte   `bsor:"5" json:"EntityContract"`
+	OracleTypes    []uint8 `bsor:"4" json:"OracleTypes"`
+	EntityContract []byte  `bsor:"5" json:"EntityContract"`
 }
 
 type QuantityIndexField struct {
@@ -383,7 +387,7 @@ type ReferenceTransactionField struct {
 }
 
 type ServiceField struct {
-	Type      uint32 `bsor:"1" json:"Type"`
+	Type      uint8  `bsor:"1" json:"Type"`
 	URL       string `bsor:"2" json:"URL"`
 	PublicKey []byte `bsor:"3" json:"PublicKey"`
 }
@@ -396,8 +400,8 @@ type TargetAddressField struct {
 type VotingSystemField struct {
 	Name                    string `bsor:"1" json:"Name"`
 	VoteType                string `bsor:"2" bsor_fixed_size:"1" json:"VoteType"`
-	TallyLogic              uint32 `bsor:"3" json:"TallyLogic"`
-	ThresholdPercentage     uint32 `bsor:"4" json:"ThresholdPercentage"`
+	TallyLogic              uint8  `bsor:"3" json:"TallyLogic"`
+	ThresholdPercentage     uint8  `bsor:"4" json:"ThresholdPercentage"`
 	VoteMultiplierPermitted bool   `bsor:"5" json:"VoteMultiplierPermitted"`
 	HolderProposalFee       uint64 `bsor:"6" json:"HolderProposalFee"`
 }

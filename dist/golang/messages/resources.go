@@ -358,7 +358,7 @@ type RolesCode struct {
 }
 
 // RolesData holds a mapping of Roles codes.
-func RolesData(code uint32) *RolesCode {
+func RolesData(code uint8) *RolesCode {
 	switch code {
 
 	case RolesAccountant:
@@ -598,8 +598,8 @@ func RolesData(code uint32) *RolesCode {
 }
 
 // RolesMap returns a mapping of Roles objects with the code as the key.
-func RolesMap() map[uint32]*RolesCode {
-	return map[uint32]*RolesCode{
+func RolesMap() map[uint8]*RolesCode {
+	return map[uint8]*RolesCode{
 
 		RolesAccountant: &RolesCode{
 			Name:        "Accountant",
@@ -905,7 +905,7 @@ type TagsCode struct {
 }
 
 // TagsData holds a mapping of Tags codes.
-func TagsData(code uint32) *TagsCode {
+func TagsData(code uint8) *TagsCode {
 	switch code {
 
 	case TagsHousing:
@@ -1145,8 +1145,8 @@ func TagsData(code uint32) *TagsCode {
 }
 
 // TagsMap returns a mapping of Tags objects with the code as the key.
-func TagsMap() map[uint32]*TagsCode {
-	return map[uint32]*TagsCode{
+func TagsMap() map[uint8]*TagsCode {
+	return map[uint8]*TagsCode{
 
 		TagsHousing: &TagsCode{
 			Name:        "Housing",

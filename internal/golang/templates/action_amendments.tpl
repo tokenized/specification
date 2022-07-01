@@ -16,13 +16,13 @@ import (
 
 const (
 	// AmendmentOperationModify specifies an amendment is modifying a value.
-	AmendmentOperationModify = uint32(0)
+	AmendmentOperationModify = uint8(0)
 
 	// AmendmentOperationAddElement specifies an amendment is adding a new element to a list.
-	AmendmentOperationAddElement = uint32(1)
+	AmendmentOperationAddElement = uint8(1)
 
 	// AmendmentOperationRemoveElement specifies an amendment is removing an element from a list.
-	AmendmentOperationRemoveElement = uint32(2)
+	AmendmentOperationRemoveElement = uint8(2)
 )
 
 {{- range $i, $message := .Messages }}
@@ -74,7 +74,7 @@ func (a *ContractFormation) CreateAmendments(newValue *{{ $message.Name }}) ([]*
 // ApplyAmendment updates a {{ $message.Name }} based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -151,7 +151,7 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *{{ $message.Name }
 // ApplyAmendment updates a {{ $message.Name }} based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -221,7 +221,7 @@ func (a *InstrumentCreation) CreateAmendments(newValue *{{ $message.Name }}) ([]
 // ApplyAmendment updates a {{ $message.Name }} based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -266,7 +266,7 @@ const (
 // ApplyAmendment updates a {{ $message.Name }}Field based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *{{ $message.Name }}Field) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *{{ $message.Name }}Field) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {

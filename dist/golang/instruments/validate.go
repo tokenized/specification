@@ -445,14 +445,8 @@ func (a *AgeRestrictionField) Validate() error {
 	}
 
 	// Field Lower - uint
-	if a.Lower > uint32(max1ByteInteger) {
-		return fmt.Errorf("Lower over max value : %d > %d", a.Lower, max1ByteInteger)
-	}
 
 	// Field Upper - uint
-	if a.Upper > uint32(max1ByteInteger) {
-		return fmt.Errorf("Upper over max value : %d > %d", a.Upper, max1ByteInteger)
-	}
 
 	return nil
 }
@@ -480,9 +474,6 @@ func (a *CurrencyValueField) Validate() error {
 	}
 
 	// Field Precision - uint
-	if a.Precision > uint32(max1ByteInteger) {
-		return fmt.Errorf("Precision over max value : %d > %d", a.Precision, max1ByteInteger)
-	}
 	if a.Precision == 0 {
 		return fmt.Errorf("Precision required")
 	}
@@ -496,9 +487,6 @@ func (a *RateField) Validate() error {
 	}
 
 	// Field Precision - uint
-	if a.Precision > uint32(max1ByteInteger) {
-		return fmt.Errorf("Precision over max value : %d > %d", a.Precision, max1ByteInteger)
-	}
 
 	// Field Value - uint
 

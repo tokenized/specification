@@ -8,7 +8,7 @@ fields:
     label: Index
     description: "The index of the input/output (depending on context) sending/receiving the tokens."
     type: uint
-    size: 2
+    size: 4
     example: 0
 
   - name: Quantity

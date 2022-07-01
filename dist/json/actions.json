@@ -264,7 +264,7 @@
           "description": "Index of input containing the contract's address for this offset",
           "label": "Contract Index",
           "name": "ContractIndex",
-          "size": 2,
+          "size": 4,
           "type": "uint"
         },
         {
@@ -299,7 +299,7 @@
           "description": "Index of output containing the contract's address for this offset",
           "label": "Contract Index",
           "name": "ContractIndex",
-          "size": 2,
+          "size": 4,
           "type": "uint"
         },
         {
@@ -645,7 +645,7 @@
           "example": 0,
           "label": "Index",
           "name": "Index",
-          "size": 2,
+          "size": 4,
           "type": "uint"
         },
         {
@@ -1861,6 +1861,13 @@
           "listSize": "small",
           "name": "TradeRestrictions",
           "type": "Polity[]"
+        },
+        {
+          "description": "This field is set by the decoder and should not be set outside of that. The version of the encoding of the payload. v0 is protobuf and v1 is BSOR.",
+          "label": "Instrument Payload Version",
+          "name": "InstrumentPayloadVersion",
+          "size": 1,
+          "type": "uint"
         }
       ],
       "label": "Instrument Definition",
@@ -2014,6 +2021,13 @@
           "listSize": "small",
           "name": "TradeRestrictions",
           "type": "Polity[]"
+        },
+        {
+          "description": "This field is set by the decoder and should not be set outside of that. The version of the encoding of the payload. v0 is protobuf and v1 is BSOR.",
+          "label": "Instrument Payload Version",
+          "name": "InstrumentPayloadVersion",
+          "size": 1,
+          "type": "uint"
         }
       ],
       "label": "Instrument Creation",
@@ -2076,6 +2090,13 @@
           "label": "Ref Tx ID",
           "name": "RefTxID",
           "type": "TxId"
+        },
+        {
+          "description": "This field is set by the decoder and should not be set outside of that. The version of the encoding of the payload. v0 is protobuf and v1 is BSOR.",
+          "label": "Instrument Payload Version",
+          "name": "InstrumentPayloadVersion",
+          "size": 1,
+          "type": "uint"
         }
       ],
       "label": "Instrument Modification",
@@ -3158,6 +3179,13 @@
           "name": "MessagePayload",
           "type": "varbin",
           "varSize": "medium"
+        },
+        {
+          "description": "This field is set by the decoder and should not be set outside of that. The version of the encoding of the payload. v0 is protobuf and v1 is BSOR.",
+          "label": "Message Payload Version",
+          "name": "MessagePayloadVersion",
+          "size": 1,
+          "type": "uint"
         }
       ],
       "label": "Message",
@@ -3194,7 +3222,7 @@
           "description": "The address which is believed to have caused the rejection.",
           "label": "Reject Address Index",
           "name": "RejectAddressIndex",
-          "size": 2,
+          "size": 4,
           "type": "uint"
         },
         {

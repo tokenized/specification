@@ -7,7 +7,7 @@
           "name": "ProofOfIdentityType",
           "id": 1,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -86,7 +86,7 @@
           "name": "Type",
           "id": 1,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -107,14 +107,14 @@
           "name": "EncryptionType",
           "id": 4,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
           "name": "ProofOfIdentityType",
           "id": 5,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -203,8 +203,7 @@
           "name": "Tags",
           "id": 2,
           "type": {
-            "base_type": "uint32",
-            "is_array": true
+            "base_type": "binary"
           }
         },
         {
@@ -236,7 +235,7 @@
           "name": "ProofOfIdentityType",
           "id": 1,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {

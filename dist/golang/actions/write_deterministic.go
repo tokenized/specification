@@ -469,6 +469,10 @@ func (a *InstrumentDefinition) WriteDeterministic(w io.Writer) error {
 		}
 	}
 
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.InstrumentPayloadVersion)); err != nil {
+		return errors.Wrap(err, "InstrumentPayloadVersion")
+	}
+
 	return nil
 }
 
@@ -537,6 +541,10 @@ func (a *InstrumentCreation) WriteDeterministic(w io.Writer) error {
 		}
 	}
 
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.InstrumentPayloadVersion)); err != nil {
+		return errors.Wrap(err, "InstrumentPayloadVersion")
+	}
+
 	return nil
 }
 
@@ -563,6 +571,10 @@ func (a *InstrumentModification) WriteDeterministic(w io.Writer) error {
 
 	if _, err := w.Write(a.RefTxID[:]); err != nil {
 		return errors.Wrap(err, "RefTxID")
+	}
+
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.InstrumentPayloadVersion)); err != nil {
+		return errors.Wrap(err, "InstrumentPayloadVersion")
 	}
 
 	return nil
@@ -979,6 +991,10 @@ func (a *Message) WriteDeterministic(w io.Writer) error {
 
 	if _, err := w.Write(a.MessagePayload); err != nil {
 		return errors.Wrap(err, "MessagePayload")
+	}
+
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.MessagePayloadVersion)); err != nil {
+		return errors.Wrap(err, "MessagePayloadVersion")
 	}
 
 	return nil

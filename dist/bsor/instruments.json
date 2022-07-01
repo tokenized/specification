@@ -7,14 +7,14 @@
           "name": "Lower",
           "id": 1,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
           "name": "Upper",
           "id": 2,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         }
       ]
@@ -291,7 +291,7 @@
           "name": "Precision",
           "id": 3,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         }
       ]
@@ -453,7 +453,7 @@
           "name": "Precision",
           "id": 1,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {

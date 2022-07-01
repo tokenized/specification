@@ -92,8 +92,8 @@ func NewActionFromCode(code string) Action {
 	}
 }
 
-// Deserialize reads an action from a byte slice.
-func Deserialize(payload bitcoin.ScriptItems) (Action, error) {
+// DeserializeV1 reads an action from a byte slice.
+func DeserializeV1(payload bitcoin.ScriptItems) (Action, error) {
 	if len(payload) < 1 {
 		return nil, errors.New("No action code")
 	}
@@ -107,6 +107,17 @@ func Deserialize(payload bitcoin.ScriptItems) (Action, error) {
 		if _, err := bsor.Unmarshal(payload[1:], result); err != nil {
 			return nil, errors.Wrap(err, "unmarshal")
 		}
+	}
+
+	switch res := result.(type) {
+	case *InstrumentDefinition:
+		res.InstrumentPayloadVersion = 1
+	case *InstrumentModification:
+		res.InstrumentPayloadVersion = 1
+	case *InstrumentCreation:
+		res.InstrumentPayloadVersion = 1
+	case *Message:
+		res.MessagePayloadVersion = 1
 	}
 
 	return result, nil

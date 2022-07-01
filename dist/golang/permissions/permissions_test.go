@@ -10,7 +10,6 @@ import (
 )
 
 func Test_Base128(t *testing.T) {
-
 	tests := []struct {
 		value uint32
 		bits  []byte
@@ -233,7 +232,7 @@ func Test_SubPermissions(t *testing.T) {
 		name              string
 		permissions       Permissions
 		fip               FieldIndexPath
-		operation         uint32
+		operation         uint8
 		isList            bool
 		resultPermissions Permissions
 	}{

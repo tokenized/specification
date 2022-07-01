@@ -402,6 +402,7 @@
       "HolderProposal": "true",
       "InstrumentModificationGovernance": "1",
       "InstrumentPayload": null,
+      "InstrumentPayloadVersion": null,
       "InstrumentPermissions": null,
       "InstrumentType": "CCY",
       "TradeRestrictions": [
@@ -426,6 +427,7 @@
       "InstrumentIndex": "0",
       "InstrumentModificationGovernance": "1",
       "InstrumentPayload": null,
+      "InstrumentPayloadVersion": null,
       "InstrumentPermissions": null,
       "InstrumentRevision": "456789",
       "InstrumentType": "CCY",
@@ -450,6 +452,7 @@
         }
       ],
       "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+      "InstrumentPayloadVersion": null,
       "InstrumentRevision": "0",
       "InstrumentType": "SHC",
       "RefTxID": "9d1ef0b1201c1dec3c1eb1caf758a988205226173e988e7a04afb4ea9977f506"
@@ -725,6 +728,7 @@
     "fields": {
       "MessageCode": null,
       "MessagePayload": "Hello world!",
+      "MessagePayloadVersion": null,
       "ReceiverIndexes": [
         null
       ],

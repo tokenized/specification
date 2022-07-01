@@ -32,7 +32,7 @@ fields:
     label: Reject Address Index
     description: "The address which is believed to have caused the rejection."
     type: uint
-    size: 2
+    size: 4
 
   - name: RejectionCode
     label: Rejection Code

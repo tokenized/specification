@@ -95,7 +95,7 @@ func Deserialize(script bitcoin.Script, isTest bool) (actions.Action, error) {
 			return nil, ErrUnknownVersion
 		}
 
-		return actions.Deserialize(msg.PayloadIdentifier(), msg.Payload())
+		return actions.DeserializeV0(msg.PayloadIdentifier(), msg.Payload())
 
 	default:
 		protocols := msg.PayloadProtocols()
@@ -132,7 +132,7 @@ func Deserialize(script bitcoin.Script, isTest bool) (actions.Action, error) {
 			return result, nil
 		}
 
-		return actions.Deserialize(msg.PayloadAt(1), msg.PayloadAt(2))
+		return actions.DeserializeV0(msg.PayloadAt(1), msg.PayloadAt(2))
 	}
 }
 

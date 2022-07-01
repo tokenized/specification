@@ -93,17 +93,17 @@ type InformationServiceLicense struct {
 }
 
 type AgeRestrictionField struct {
-	Lower uint32 `bsor:"1" json:"Lower"`
-	Upper uint32 `bsor:"2" json:"Upper"`
+	Lower uint8 `bsor:"1" json:"Lower"`
+	Upper uint8 `bsor:"2" json:"Upper"`
 }
 
 type CurrencyValueField struct {
 	Value        uint64 `bsor:"1" json:"Value"`
 	CurrencyCode string `bsor:"2" bsor_fixed_size:"3" json:"CurrencyCode"`
-	Precision    uint32 `bsor:"3" json:"Precision"`
+	Precision    uint8  `bsor:"3" json:"Precision"`
 }
 
 type RateField struct {
-	Precision uint32 `bsor:"1" json:"Precision"`
+	Precision uint8  `bsor:"1" json:"Precision"`
 	Value     uint64 `bsor:"2" json:"Value"`
 }

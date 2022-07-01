@@ -741,6 +741,11 @@ func (l *InstrumentDefinition) Equal(right interface{}) bool {
 		}
 	}
 
+	// Field InstrumentPayloadVersion - uint
+	if c.InstrumentPayloadVersion != r.InstrumentPayloadVersion {
+		return false // fmt.Errorf("InstrumentPayloadVersion integer mismatched")
+	}
+
 	return true
 }
 
@@ -841,6 +846,11 @@ func (l *InstrumentCreation) Equal(right interface{}) bool {
 		}
 	}
 
+	// Field InstrumentPayloadVersion - uint
+	if c.InstrumentPayloadVersion != r.InstrumentPayloadVersion {
+		return false // fmt.Errorf("InstrumentPayloadVersion integer mismatched")
+	}
+
 	return true
 }
 
@@ -889,6 +899,11 @@ func (l *InstrumentModification) Equal(right interface{}) bool {
 	// Field RefTxID - bin
 	if !bytes.Equal(c.RefTxID, r.RefTxID) {
 		return false // fmt.Errorf("RefTxID bytes mismatched")
+	}
+
+	// Field InstrumentPayloadVersion - uint
+	if c.InstrumentPayloadVersion != r.InstrumentPayloadVersion {
+		return false // fmt.Errorf("InstrumentPayloadVersion integer mismatched")
 	}
 
 	return true
@@ -1654,6 +1669,11 @@ func (l *Message) Equal(right interface{}) bool {
 	// Field MessagePayload - varbin
 	if !bytes.Equal(c.MessagePayload, r.MessagePayload) {
 		return false // fmt.Errorf("MessagePayload bytes mismatched")
+	}
+
+	// Field MessagePayloadVersion - uint
+	if c.MessagePayloadVersion != r.MessagePayloadVersion {
+		return false // fmt.Errorf("MessagePayloadVersion integer mismatched")
 	}
 
 	return true

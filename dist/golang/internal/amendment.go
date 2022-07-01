@@ -6,7 +6,7 @@ import "bytes"
 // instruments, since instruments can't see the actions data structure.
 type Amendment struct {
 	FIP       []uint32
-	Operation uint32
+	Operation uint8
 	Data      []byte
 }
 

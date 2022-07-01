@@ -7,7 +7,7 @@ import (
 func TestEmptyDeserialize(t *testing.T) {
 	var ok bool
 	// Membership identifies a payload as a Membership message.
-	instrumentMembership, err := Deserialize([]byte(CodeMembership), nil)
+	instrumentMembership, err := DeserializeV0([]byte(CodeMembership), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Membership : %s", err)
 	}
@@ -17,7 +17,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Currency identifies a payload as a Currency message.
-	instrumentCurrency, err := Deserialize([]byte(CodeCurrency), nil)
+	instrumentCurrency, err := DeserializeV0([]byte(CodeCurrency), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Currency : %s", err)
 	}
@@ -27,7 +27,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// ShareCommon identifies a payload as a ShareCommon message.
-	instrumentShareCommon, err := Deserialize([]byte(CodeShareCommon), nil)
+	instrumentShareCommon, err := DeserializeV0([]byte(CodeShareCommon), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for ShareCommon : %s", err)
 	}
@@ -37,7 +37,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// BondFixedRate identifies a payload as a BondFixedRate message.
-	instrumentBondFixedRate, err := Deserialize([]byte(CodeBondFixedRate), nil)
+	instrumentBondFixedRate, err := DeserializeV0([]byte(CodeBondFixedRate), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for BondFixedRate : %s", err)
 	}
@@ -47,7 +47,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// Coupon identifies a payload as a Coupon message.
-	instrumentCoupon, err := Deserialize([]byte(CodeCoupon), nil)
+	instrumentCoupon, err := DeserializeV0([]byte(CodeCoupon), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for Coupon : %s", err)
 	}
@@ -57,7 +57,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// LoyaltyPoints identifies a payload as a LoyaltyPoints message.
-	instrumentLoyaltyPoints, err := Deserialize([]byte(CodeLoyaltyPoints), nil)
+	instrumentLoyaltyPoints, err := DeserializeV0([]byte(CodeLoyaltyPoints), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for LoyaltyPoints : %s", err)
 	}
@@ -67,7 +67,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// TicketAdmission identifies a payload as a TicketAdmission message.
-	instrumentTicketAdmission, err := Deserialize([]byte(CodeTicketAdmission), nil)
+	instrumentTicketAdmission, err := DeserializeV0([]byte(CodeTicketAdmission), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for TicketAdmission : %s", err)
 	}
@@ -77,7 +77,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// CasinoChip identifies a payload as a CasinoChip message.
-	instrumentCasinoChip, err := Deserialize([]byte(CodeCasinoChip), nil)
+	instrumentCasinoChip, err := DeserializeV0([]byte(CodeCasinoChip), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for CasinoChip : %s", err)
 	}
@@ -87,7 +87,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	}
 
 	// InformationServiceLicense identifies a payload as a InformationServiceLicense message.
-	instrumentInformationServiceLicense, err := Deserialize([]byte(CodeInformationServiceLicense), nil)
+	instrumentInformationServiceLicense, err := DeserializeV0([]byte(CodeInformationServiceLicense), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for InformationServiceLicense : %s", err)
 	}

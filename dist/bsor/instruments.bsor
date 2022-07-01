@@ -1,33 +1,16 @@
 version 0
 
-Membership {
+InformationServiceLicense {
   1 AgeRestriction      *AgeRestrictionField
-  2 ValidFrom           uint64
-  3 ExpirationTimestamp uint64
-  4 ID                  string
-  5 MembershipClass     string
-  6 RoleType            string
-  7 MembershipType      string
-  8 Description         string
-  9 TransfersPermitted  bool
+  2 ExpirationTimestamp uint64
+  3 ServiceName         string
+  4 TransfersPermitted  bool
+  5 URL                 string
 }
 
 AgeRestrictionField {
-  1 Lower uint32
-  2 Upper uint32
-}
-
-Currency {
-  1 CurrencyCode      string(3)
-  2 MonetaryAuthority string
-  4 Precision         uint64
-}
-
-ShareCommon {
-  1 Ticker             string(5)
-  2 ISIN               string(12)
-  3 Description        string
-  4 TransfersPermitted bool
+  1 Lower uint8
+  2 Upper uint8
 }
 
 BondFixedRate {
@@ -50,12 +33,32 @@ BondFixedRate {
 CurrencyValueField {
   1 Value        uint64
   2 CurrencyCode string(3)
-  3 Precision    uint32
+  3 Precision    uint8
 }
 
-RateField {
-  1 Precision uint32
-  2 Value     uint64
+TicketAdmission {
+   1 AgeRestriction      *AgeRestrictionField
+   3 Venue               string
+   5 Area                string
+   6 Seat                string
+   7 EventStartTimestamp uint64
+  10 EventName           string
+  11 TransfersPermitted  bool
+  12 Details             string
+  13 Section             string
+  14 Row                 string
+  15 EventEndTimestamp   uint64
+}
+
+Coupon {
+   1 RedeemingEntity     string
+   2 ValidFromTimestamp  uint64
+   3 ExpirationTimestamp uint64
+   6 CouponName          string
+   8 TransfersPermitted  bool
+   9 FaceValue           *CurrencyValueField
+  10 RedemptionVenue     string
+  11 Details             string
 }
 
 LoyaltyPoints {
@@ -75,37 +78,34 @@ CasinoChip {
   9 FaceValue           *CurrencyValueField
 }
 
-InformationServiceLicense {
+Membership {
   1 AgeRestriction      *AgeRestrictionField
-  2 ExpirationTimestamp uint64
-  3 ServiceName         string
-  4 TransfersPermitted  bool
-  5 URL                 string
+  2 ValidFrom           uint64
+  3 ExpirationTimestamp uint64
+  4 ID                  string
+  5 MembershipClass     string
+  6 RoleType            string
+  7 MembershipType      string
+  8 Description         string
+  9 TransfersPermitted  bool
 }
 
-Coupon {
-   1 RedeemingEntity     string
-   2 ValidFromTimestamp  uint64
-   3 ExpirationTimestamp uint64
-   6 CouponName          string
-   8 TransfersPermitted  bool
-   9 FaceValue           *CurrencyValueField
-  10 RedemptionVenue     string
-  11 Details             string
+Currency {
+  1 CurrencyCode      string(3)
+  2 MonetaryAuthority string
+  4 Precision         uint64
 }
 
-TicketAdmission {
-   1 AgeRestriction      *AgeRestrictionField
-   3 Venue               string
-   5 Area                string
-   6 Seat                string
-   7 EventStartTimestamp uint64
-  10 EventName           string
-  11 TransfersPermitted  bool
-  12 Details             string
-  13 Section             string
-  14 Row                 string
-  15 EventEndTimestamp   uint64
+ShareCommon {
+  1 Ticker             string(5)
+  2 ISIN               string(12)
+  3 Description        string
+  4 TransfersPermitted bool
+}
+
+RateField {
+  1 Precision uint8
+  2 Value     uint64
 }
 
 

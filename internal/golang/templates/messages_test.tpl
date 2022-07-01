@@ -11,7 +11,7 @@ func TestEmptyDeserialize(t *testing.T) {
     var ok bool
 {{- range .Messages }}
 	// {{.Name}} identifies a payload as a {{.Name}} message.
-	message{{.Name}}, err := Deserialize(Code{{.Name}}, nil)
+	message{{.Name}}, err := DeserializeV1(Code{{.Name}}, nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for {{.Name}} : %s", err)
 	}

@@ -19,7 +19,7 @@ type Instrument interface {
 	Bytes() ([]byte, error)
 	Serialize(buf *bytes.Buffer) error
 
-	ApplyAmendment(fip permissions.FieldIndexPath, operation uint32, data []byte,
+	ApplyAmendment(fip permissions.FieldIndexPath, operation uint8, data []byte,
 		permissions permissions.Permissions) (permissions.Permissions, error)
 }
 
@@ -60,8 +60,8 @@ func NewInstrumentFromCode(code string) Instrument {
 	}
 }
 
-// Deserialize reads an instrument from a byte slice.
-func Deserialize(code []byte, payload []byte) (Instrument, error) {
+// DeserializeV1 reads an instrument from a byte slice.
+func DeserializeV1(code []byte, payload []byte) (Instrument, error) {
 	result := NewInstrumentFromCode(string(code))
 	if result == nil {
 		return nil, fmt.Errorf("Unknown instrument code : %s", string(code))

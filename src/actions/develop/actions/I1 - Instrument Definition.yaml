@@ -108,3 +108,9 @@ fields:
     description: "If specified, the instrument can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
     type: Polity[]
     listSize: small
+
+  - name: InstrumentPayloadVersion
+    label: Instrument Payload Version
+    description: "This field is set by the decoder and should not be set outside of that. The version of the encoding of the payload. v0 is protobuf and v1 is BSOR."
+    type: uint
+    size: 1

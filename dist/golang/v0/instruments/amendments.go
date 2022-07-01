@@ -2090,12 +2090,12 @@ func (a *RateField) CreateAmendments(fip permissions.FieldIndexPath,
 func CreatePayloadAmendments(fip permissions.FieldIndexPath,
 	instrumentType, payload, newPayload []byte) ([]*internal.Amendment, error) {
 
-	current, err := Deserialize(instrumentType, payload)
+	current, err := DeserializeV0(instrumentType, payload)
 	if err != nil {
 		return nil, errors.Wrap(err, "deserialize payload")
 	}
 
-	new, err := Deserialize(instrumentType, newPayload)
+	new, err := DeserializeV0(instrumentType, newPayload)
 	if err != nil {
 		return nil, errors.Wrap(err, "deserialize payload")
 	}

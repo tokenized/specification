@@ -1760,6 +1760,17 @@ This action is used by the administration to define the properties/characteristi
         </td>
     </tr>
 
+    <tr>
+        <td>InstrumentPayloadVersion</td>
+        <td>
+            uint(1)
+        </td>
+        <td>
+            This field is set by the decoder and should not be set outside of that. The version of the encoding of the payload. v0 is protobuf and v1 is BSOR.
+            
+        </td>
+    </tr>
+
 </table>
 
 ##### Transaction Summary
@@ -2000,6 +2011,17 @@ This action creates an instrument in response to the administration&#39;s instru
         </td>
     </tr>
 
+    <tr>
+        <td>InstrumentPayloadVersion</td>
+        <td>
+            uint(1)
+        </td>
+        <td>
+            This field is set by the decoder and should not be set outside of that. The version of the encoding of the payload. v0 is protobuf and v1 is BSOR.
+            
+        </td>
+    </tr>
+
 </table>
 
 ##### Transaction Summary
@@ -2108,6 +2130,17 @@ Token Dilutions, Call Backs/Revocations, burning etc.
         </td>
         <td>
             The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>InstrumentPayloadVersion</td>
+        <td>
+            uint(1)
+        </td>
+        <td>
+            This field is set by the decoder and should not be set outside of that. The version of the encoding of the payload. v0 is protobuf and v1 is BSOR.
             
         </td>
     </tr>
@@ -3927,6 +3960,17 @@ The message action is a general purpose communication action. &#39;Twitter/SMS&#
         </td>
     </tr>
 
+    <tr>
+        <td>MessagePayloadVersion</td>
+        <td>
+            uint(1)
+        </td>
+        <td>
+            This field is set by the decoder and should not be set outside of that. The version of the encoding of the payload. v0 is protobuf and v1 is BSOR.
+            
+        </td>
+    </tr>
+
 </table>
 
 ##### Transaction Summary
@@ -3998,7 +4042,7 @@ Used to reject request actions that do not comply with the Contract. If money is
     <tr>
         <td>RejectAddressIndex</td>
         <td>
-            uint(2)
+            uint(4)
         </td>
         <td>
             The address which is believed to have caused the rejection.
@@ -4356,7 +4400,7 @@ InstrumentSettlement is the data required to settle an instrument transfer.
     <tr>
         <td>ContractIndex</td>
         <td>
-            uint(2)
+            uint(4)
         </td>
         <td>
             Index of input containing the contract&#39;s address for this offset
@@ -4415,7 +4459,7 @@ InstrumentTransfer is the data required to transfer an instrument.
     <tr>
         <td>ContractIndex</td>
         <td>
-            uint(2)
+            uint(4)
         </td>
         <td>
             Index of output containing the contract&#39;s address for this offset
@@ -4971,7 +5015,7 @@ A QuantityIndex contains a quantity, and an index. The quantity could be used to
     <tr>
         <td>Index</td>
         <td>
-            uint(2)
+            uint(4)
         </td>
         <td>
             The index of the input/output (depending on context) sending/receiving the tokens.

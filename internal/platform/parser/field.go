@@ -168,15 +168,23 @@ func (f *Field) GoSingularType() string {
 		case "uint":
 			if f.Size > 4 {
 				gt = "uint64"
-			} else {
+			} else if f.Size > 2 {
 				gt = "uint32"
+			} else if f.Size > 1 {
+				gt = "uint16"
+			} else {
+				gt = "uint8"
 			}
 
 		case "int":
 			if f.Size > 4 {
 				gt = "int64"
-			} else {
+			} else if f.Size > 2 {
 				gt = "int32"
+			} else if f.Size > 1 {
+				gt = "int16"
+			} else {
+				gt = "int8"
 			}
 		}
 
@@ -204,15 +212,23 @@ func (f *Field) GoSingularTypeWithPointer() string {
 		case "uint":
 			if f.Size > 4 {
 				gt = "uint64"
-			} else {
+			} else if f.Size > 2 {
 				gt = "uint32"
+			} else if f.Size > 1 {
+				gt = "uint16"
+			} else {
+				gt = "uint8"
 			}
 
 		case "int":
 			if f.Size > 4 {
 				gt = "int64"
-			} else {
+			} else if f.Size > 2 {
 				gt = "int32"
+			} else if f.Size > 1 {
+				gt = "int16"
+			} else {
+				gt = "int8"
 			}
 		}
 
@@ -267,15 +283,23 @@ func (f *Field) ProtobufType() string {
 	case "uint":
 		if f.Size > 4 {
 			baseType = "uint64"
-		} else {
+		} else if f.Size > 2 {
 			baseType = "uint32"
+		} else if f.Size > 1 {
+			baseType = "uint16"
+		} else {
+			baseType = "uint8"
 		}
 
 	case "int":
 		if f.Size > 4 {
 			baseType = "int64"
-		} else {
+		} else if f.Size > 2 {
 			baseType = "int32"
+		} else if f.Size > 1 {
+			baseType = "int16"
+		} else {
+			baseType = "int8"
 		}
 	}
 

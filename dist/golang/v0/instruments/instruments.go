@@ -98,8 +98,8 @@ func NewInstrumentFromCode(code string) Instrument {
 	}
 }
 
-// Deserialize reads an instrument from a byte slice.
-func Deserialize(code []byte, payload []byte) (Instrument, error) {
+// DeserializeV0 reads an instrument from a byte slice.
+func DeserializeV0(code []byte, payload []byte) (Instrument, error) {
 	result := NewInstrumentFromCode(string(code))
 	if result == nil {
 		return nil, fmt.Errorf("Unknown instrument code : %s", string(code))

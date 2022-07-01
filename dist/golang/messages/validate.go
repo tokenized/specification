@@ -180,9 +180,6 @@ func (a *OutputMetadata) Validate() error {
 		if TagsData(v) == nil {
 			return fmt.Errorf("Tags[%d] resource Tags value not defined : %v", i, v)
 		}
-		if v > uint32(max1ByteInteger) {
-			return fmt.Errorf("Tags[%d] over max value : %d > %d", i, v, max1ByteInteger)
-		}
 	}
 
 	// Field CustomTags - OutputTag
@@ -224,7 +221,7 @@ func (a *InitiateRelationship) Validate() error {
 
 	// Field Type - uint
 	foundType := false
-	for _, v := range []uint32{0, 1} {
+	for _, v := range []uint8{0, 1} {
 		if a.Type == v {
 			foundType = true
 			break
@@ -246,7 +243,7 @@ func (a *InitiateRelationship) Validate() error {
 
 	// Field EncryptionType - uint
 	foundEncryptionType := false
-	for _, v := range []uint32{0, 1} {
+	for _, v := range []uint8{0, 1} {
 		if a.EncryptionType == v {
 			foundEncryptionType = true
 			break
@@ -258,7 +255,7 @@ func (a *InitiateRelationship) Validate() error {
 
 	// Field ProofOfIdentityType - uint
 	foundProofOfIdentityType := false
-	for _, v := range []uint32{0, 1, 2} {
+	for _, v := range []uint8{0, 1, 2} {
 		if a.ProofOfIdentityType == v {
 			foundProofOfIdentityType = true
 			break
@@ -293,7 +290,7 @@ func (a *PendingAcceptRelationship) Validate() error {
 
 	// Field ProofOfIdentityType - uint
 	foundProofOfIdentityType := false
-	for _, v := range []uint32{0, 1, 2} {
+	for _, v := range []uint8{0, 1, 2} {
 		if a.ProofOfIdentityType == v {
 			foundProofOfIdentityType = true
 			break
@@ -318,7 +315,7 @@ func (a *AcceptRelationship) Validate() error {
 
 	// Field ProofOfIdentityType - uint
 	foundProofOfIdentityType := false
-	for _, v := range []uint32{0, 1, 2} {
+	for _, v := range []uint8{0, 1, 2} {
 		if a.ProofOfIdentityType == v {
 			foundProofOfIdentityType = true
 			break
@@ -384,9 +381,6 @@ func (a *AdministratorField) Validate() error {
 	// Field Type - uint  (Roles Resource)
 	if RolesData(a.Type) == nil {
 		return fmt.Errorf("Type resource Roles value not defined : %v", a.Type)
-	}
-	if a.Type > uint32(max1ByteInteger) {
-		return fmt.Errorf("Type over max value : %d > %d", a.Type, max1ByteInteger)
 	}
 
 	// Field Name - varchar
@@ -578,9 +572,6 @@ func (a *ManagerField) Validate() error {
 	if RolesData(a.Type) == nil {
 		return fmt.Errorf("Type resource Roles value not defined : %v", a.Type)
 	}
-	if a.Type > uint32(max1ByteInteger) {
-		return fmt.Errorf("Type over max value : %d > %d", a.Type, max1ByteInteger)
-	}
 
 	// Field Name - varchar
 	if len(a.Name) > max1ByteInteger {
@@ -608,9 +599,6 @@ func (a *OracleSignatureField) Validate() error {
 	}
 
 	// Field SignatureAlgorithm - uint
-	if a.SignatureAlgorithm > uint32(max1ByteInteger) {
-		return fmt.Errorf("SignatureAlgorithm over max value : %d > %d", a.SignatureAlgorithm, max1ByteInteger)
-	}
 
 	// Field Signature - varbin
 	if len(a.Signature) > max1ByteInteger {

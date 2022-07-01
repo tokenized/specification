@@ -38,7 +38,7 @@ const (
 // ApplyAmendment updates a {{ $message.Name }} based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -109,7 +109,7 @@ const (
 // ApplyAmendment updates a {{ $message.Name }}Field based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *{{ $message.Name }}Field) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *{{ $message.Name }}Field) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -161,12 +161,12 @@ func (a *{{ $message.Name }}Field) CreateAmendments(fip permissions.FieldIndexPa
 func CreatePayloadAmendments(fip permissions.FieldIndexPath,
 	instrumentType, payload, newPayload []byte) ([]*internal.Amendment, error) {
 
-	current, err := Deserialize(instrumentType, payload)
+	current, err := DeserializeV1(instrumentType, payload)
 	if err != nil {
 		return nil, errors.Wrap(err, "deserialize payload")
 	}
 
-	new, err := Deserialize(instrumentType, newPayload)
+	new, err := DeserializeV1(instrumentType, newPayload)
 	if err != nil {
 		return nil, errors.Wrap(err, "deserialize payload")
 	}

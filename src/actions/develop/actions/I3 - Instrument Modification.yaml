@@ -52,3 +52,9 @@ fields:
     label: Ref Tx ID
     description: "The Bitcoin transaction ID of the associated result action that permitted the modifications. See Governance for more details."
     type: TxId
+
+  - name: InstrumentPayloadVersion
+    label: Instrument Payload Version
+    description: "This field is set by the decoder and should not be set outside of that. The version of the encoding of the payload. v0 is protobuf and v1 is BSOR."
+    type: uint
+    size: 1

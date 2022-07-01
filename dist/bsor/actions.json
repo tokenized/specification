@@ -50,7 +50,7 @@
           "name": "Type",
           "id": 1,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -93,7 +93,7 @@
           "name": "Operation",
           "id": 2,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -417,7 +417,7 @@
           "name": "BodyOfAgreementType",
           "id": 2,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -554,7 +554,7 @@
           "name": "ContractType",
           "id": 28,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -620,7 +620,7 @@
           "name": "BodyOfAgreementType",
           "id": 2,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -750,7 +750,7 @@
           "name": "ContractType",
           "id": 27,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1054,7 +1054,7 @@
           "name": "VoteMultiplier",
           "id": 8,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1075,7 +1075,7 @@
           "name": "InstrumentModificationGovernance",
           "id": 11,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1121,6 +1121,13 @@
             "base_type": "string",
             "is_array": true
           }
+        },
+        {
+          "name": "InstrumentPayloadVersion",
+          "id": 18,
+          "type": {
+            "base_type": "uint8"
+          }
         }
       ]
     },
@@ -1151,7 +1158,7 @@
           "name": "VoteMultiplier",
           "id": 6,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1172,7 +1179,7 @@
           "name": "InstrumentModificationGovernance",
           "id": 9,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1203,6 +1210,13 @@
           "type": {
             "base_type": "string",
             "is_array": true
+          }
+        },
+        {
+          "name": "InstrumentPayloadVersion",
+          "id": 14,
+          "type": {
+            "base_type": "uint8"
           }
         }
       ]
@@ -1247,6 +1261,13 @@
           "type": {
             "base_type": "binary"
           }
+        },
+        {
+          "name": "InstrumentPayloadVersion",
+          "id": 6,
+          "type": {
+            "base_type": "uint8"
+          }
         }
       ]
     },
@@ -1270,14 +1291,14 @@
           "name": "OracleSigAlgorithm",
           "id": 3,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
           "name": "OracleIndex",
           "id": 4,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1391,7 +1412,7 @@
           "name": "Type",
           "id": 1,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1425,7 +1446,7 @@
           "name": "MessageCode",
           "id": 3,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint16"
           }
         },
         {
@@ -1433,6 +1454,13 @@
           "id": 4,
           "type": {
             "base_type": "binary"
+          }
+        },
+        {
+          "name": "MessagePayloadVersion",
+          "id": 5,
+          "type": {
+            "base_type": "uint8"
           }
         }
       ]
@@ -1443,8 +1471,7 @@
           "name": "OracleTypes",
           "id": 4,
           "type": {
-            "base_type": "uint32",
-            "is_array": true
+            "base_type": "binary"
           }
         },
         {
@@ -1530,7 +1557,7 @@
           "name": "SignatureAlgorithm",
           "id": 10,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1561,7 +1588,7 @@
           "name": "SupportingEvidenceFormat",
           "id": 16,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1589,7 +1616,7 @@
           "name": "Type",
           "id": 1,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1611,7 +1638,7 @@
           "name": "VoteSystem",
           "id": 4,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1635,7 +1662,7 @@
           "name": "VoteMax",
           "id": 7,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1755,7 +1782,7 @@
           "name": "RejectionCode",
           "id": 3,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1856,7 +1883,7 @@
           "name": "Type",
           "id": 1,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -1916,7 +1943,7 @@
           "name": "BodyOfAgreementType",
           "id": 3,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
@@ -2130,14 +2157,14 @@
           "name": "TallyLogic",
           "id": 3,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {
           "name": "ThresholdPercentage",
           "id": 4,
           "type": {
-            "base_type": "uint32"
+            "base_type": "uint8"
           }
         },
         {

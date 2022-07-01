@@ -95,8 +95,8 @@ func NewMessageFromCode(code uint32) Message {
 	}
 }
 
-// Deserialize reads a message from a byte slice.
-func Deserialize(code uint32, payload []byte) (Message, error) {
+// DeserializeV0 reads a message from a byte slice.
+func DeserializeV0(code uint32, payload []byte) (Message, error) {
 	result := NewMessageFromCode(code)
 	if result == nil {
 		return nil, fmt.Errorf("Unknown message code : %d", code)

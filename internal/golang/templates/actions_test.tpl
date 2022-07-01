@@ -12,7 +12,7 @@ func TestEmptyDeserialize(t *testing.T) {
 	action{{.Name}}ScriptItems := bitcoin.ScriptItems{
 		bitcoin.NewPushDataScriptItem([]byte(Code{{.Name}})),
 	}
-	action{{.Name}}, err := Deserialize(action{{.Name}}ScriptItems)
+	action{{.Name}}, err := DeserializeV1(action{{.Name}}ScriptItems)
 	if err != nil {
 		t.Fatalf("Failed deserialize for {{.Name}} : %s", err)
 	}

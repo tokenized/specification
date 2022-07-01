@@ -9,7 +9,7 @@ func TestEmptyDeserialize(t *testing.T) {
     var ok bool
 {{- range .Messages }}
 	// {{.Name}} identifies a payload as a {{.Name}} message.
-	instrument{{.Name}}, err := Deserialize([]byte(Code{{.Name}}), nil)
+	instrument{{.Name}}, err := DeserializeV1([]byte(Code{{.Name}}), nil)
 	if err != nil {
 		t.Fatalf("Failed deserialize for {{.Name}} : %s", err)
 	}

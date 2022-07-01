@@ -163,14 +163,6 @@ const (
             if !found{{ .Name }} {
                 return fmt.Errorf("{{ .Name }}[%d] value not within options {{ .BaseOptions }} : %d", i, a.{{ .Name }})
             }
-            {{- else if le .BaseSize 1 }}
-            if v > uint32(max1ByteInteger) {
-                return fmt.Errorf("{{ .Name }}[%d] over max value : %d > %d", i, v, max1ByteInteger)
-            }
-            {{- else if eq .BaseSize 2 }}
-            if v > uint32(max2ByteInteger) {
-                return fmt.Errorf("{{ .Name }}[%d] over max value : %d > %d", i, v, max2ByteInteger)
-            }
             {{- end }}
         {{- else if not .IsPrimitive }}
             if err := v.Validate(); err != nil {
@@ -250,14 +242,6 @@ const (
         }
         if !found{{ .Name }} {
             return fmt.Errorf("{{ .Name }} value not within options {{ .BaseOptions }} : %d", a.{{ .Name }})
-        }
-            {{- else if le .BaseSize 1 }}
-        if a.{{ .Name }} > uint32(max1ByteInteger) {
-            return fmt.Errorf("{{ .Name }} over max value : %d > %d", a.{{ .Name }}, max1ByteInteger)
-        }
-            {{- else if eq .BaseSize 2 }}
-        if a.{{ .Name }} > uint32(max2ByteInteger) {
-            return fmt.Errorf("{{ .Name }} over max value : %d > %d", a.{{ .Name }}, max2ByteInteger)
         }
             {{- end }}
         {{- else if not .IsPrimitive }}

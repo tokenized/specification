@@ -10,7 +10,7 @@ import (
 )
 
 type Message interface {
-	Code() uint32
+	Code() uint16
 
 	Validate() error
 	Equal(interface{}) bool
@@ -21,47 +21,47 @@ type Message interface {
 
 const (
 	// CodePublicMessage identifies a payload as a PublicMessage message.
-	CodePublicMessage = uint32(0002)
+	CodePublicMessage = uint16(0002)
 
 	// CodePrivateMessage identifies a payload as a PrivateMessage message.
-	CodePrivateMessage = uint32(0003)
+	CodePrivateMessage = uint16(0003)
 
 	// CodeRevertedTx identifies a payload as a RevertedTx message.
-	CodeRevertedTx = uint32(0004)
+	CodeRevertedTx = uint16(0004)
 
 	// CodeOffer identifies a payload as a Offer message.
-	CodeOffer = uint32(1001)
+	CodeOffer = uint16(1001)
 
 	// CodeSignatureRequest identifies a payload as a SignatureRequest message.
-	CodeSignatureRequest = uint32(1002)
+	CodeSignatureRequest = uint16(1002)
 
 	// CodeSettlementRequest identifies a payload as a SettlementRequest message.
-	CodeSettlementRequest = uint32(1003)
+	CodeSettlementRequest = uint16(1003)
 
 	// CodeOutputMetadata identifies a payload as a OutputMetadata message.
-	CodeOutputMetadata = uint32(1004)
+	CodeOutputMetadata = uint16(1004)
 
 	// CodeDistribution identifies a payload as a Distribution message.
-	CodeDistribution = uint32(1005)
+	CodeDistribution = uint16(1005)
 
 	// CodeInitiateRelationship identifies a payload as a InitiateRelationship message.
-	CodeInitiateRelationship = uint32(2001)
+	CodeInitiateRelationship = uint16(2001)
 
 	// CodePendingAcceptRelationship identifies a payload as a PendingAcceptRelationship message.
-	CodePendingAcceptRelationship = uint32(2002)
+	CodePendingAcceptRelationship = uint16(2002)
 
 	// CodeAcceptRelationship identifies a payload as a AcceptRelationship message.
-	CodeAcceptRelationship = uint32(2003)
+	CodeAcceptRelationship = uint16(2003)
 
 	// CodeRelationshipAmendment identifies a payload as a RelationshipAmendment message.
-	CodeRelationshipAmendment = uint32(2004)
+	CodeRelationshipAmendment = uint16(2004)
 
 	// CodeInitiateThread identifies a payload as a InitiateThread message.
-	CodeInitiateThread = uint32(2005)
+	CodeInitiateThread = uint16(2005)
 )
 
 // NewMessageFromCode returns a new object of the correct type for the code.
-func NewMessageFromCode(code uint32) Message {
+func NewMessageFromCode(code uint16) Message {
 	switch code {
 	case CodePublicMessage:
 		return &PublicMessage{}
@@ -94,8 +94,8 @@ func NewMessageFromCode(code uint32) Message {
 	}
 }
 
-// Deserialize reads a message from a byte slice.
-func Deserialize(code uint32, payload []byte) (Message, error) {
+// DeserializeV1 reads a message from a byte slice.
+func DeserializeV1(code uint16, payload []byte) (Message, error) {
 	result := NewMessageFromCode(code)
 	if result == nil {
 		return nil, fmt.Errorf("Unknown message code : %d", code)
@@ -110,7 +110,7 @@ func Deserialize(code uint32, payload []byte) (Message, error) {
 	return result, nil
 }
 
-func (a *PublicMessage) Code() uint32 {
+func (a *PublicMessage) Code() uint16 {
 	return CodePublicMessage
 }
 
@@ -129,7 +129,7 @@ func (a *PublicMessage) Serialize(buf *bytes.Buffer) error {
 	return err
 }
 
-func (a *PrivateMessage) Code() uint32 {
+func (a *PrivateMessage) Code() uint16 {
 	return CodePrivateMessage
 }
 
@@ -148,7 +148,7 @@ func (a *PrivateMessage) Serialize(buf *bytes.Buffer) error {
 	return err
 }
 
-func (a *RevertedTx) Code() uint32 {
+func (a *RevertedTx) Code() uint16 {
 	return CodeRevertedTx
 }
 
@@ -167,7 +167,7 @@ func (a *RevertedTx) Serialize(buf *bytes.Buffer) error {
 	return err
 }
 
-func (a *Offer) Code() uint32 {
+func (a *Offer) Code() uint16 {
 	return CodeOffer
 }
 
@@ -186,7 +186,7 @@ func (a *Offer) Serialize(buf *bytes.Buffer) error {
 	return err
 }
 
-func (a *SignatureRequest) Code() uint32 {
+func (a *SignatureRequest) Code() uint16 {
 	return CodeSignatureRequest
 }
 
@@ -205,7 +205,7 @@ func (a *SignatureRequest) Serialize(buf *bytes.Buffer) error {
 	return err
 }
 
-func (a *SettlementRequest) Code() uint32 {
+func (a *SettlementRequest) Code() uint16 {
 	return CodeSettlementRequest
 }
 
@@ -224,7 +224,7 @@ func (a *SettlementRequest) Serialize(buf *bytes.Buffer) error {
 	return err
 }
 
-func (a *OutputMetadata) Code() uint32 {
+func (a *OutputMetadata) Code() uint16 {
 	return CodeOutputMetadata
 }
 
@@ -243,7 +243,7 @@ func (a *OutputMetadata) Serialize(buf *bytes.Buffer) error {
 	return err
 }
 
-func (a *Distribution) Code() uint32 {
+func (a *Distribution) Code() uint16 {
 	return CodeDistribution
 }
 
@@ -262,7 +262,7 @@ func (a *Distribution) Serialize(buf *bytes.Buffer) error {
 	return err
 }
 
-func (a *InitiateRelationship) Code() uint32 {
+func (a *InitiateRelationship) Code() uint16 {
 	return CodeInitiateRelationship
 }
 
@@ -281,7 +281,7 @@ func (a *InitiateRelationship) Serialize(buf *bytes.Buffer) error {
 	return err
 }
 
-func (a *PendingAcceptRelationship) Code() uint32 {
+func (a *PendingAcceptRelationship) Code() uint16 {
 	return CodePendingAcceptRelationship
 }
 
@@ -300,7 +300,7 @@ func (a *PendingAcceptRelationship) Serialize(buf *bytes.Buffer) error {
 	return err
 }
 
-func (a *AcceptRelationship) Code() uint32 {
+func (a *AcceptRelationship) Code() uint16 {
 	return CodeAcceptRelationship
 }
 
@@ -319,7 +319,7 @@ func (a *AcceptRelationship) Serialize(buf *bytes.Buffer) error {
 	return err
 }
 
-func (a *RelationshipAmendment) Code() uint32 {
+func (a *RelationshipAmendment) Code() uint16 {
 	return CodeRelationshipAmendment
 }
 
@@ -338,7 +338,7 @@ func (a *RelationshipAmendment) Serialize(buf *bytes.Buffer) error {
 	return err
 }
 
-func (a *InitiateThread) Code() uint32 {
+func (a *InitiateThread) Code() uint16 {
 	return CodeInitiateThread
 }
 

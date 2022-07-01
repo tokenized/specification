@@ -30,4 +30,9 @@ properties:
       Message Types for a full list of potential use cases.
     type: string
     example: "Hello world!"
+  MessagePayloadVersion:
+    description:  >
+      This field is set by the decoder and should not be set outside of that. The version of the
+      encoding of the payload. v0 is protobuf and v1 is BSOR.
+    type: number
 

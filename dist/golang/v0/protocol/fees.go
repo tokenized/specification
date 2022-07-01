@@ -502,7 +502,7 @@ func EstimatedInstrumentModificationResponse(amendTx *wire.MsgTx, ac *actions.In
 		if fip[0] == actions.InstrumentFieldInstrumentPayload {
 			if payload == nil {
 				// Get payload object
-				payload, err = instruments.Deserialize([]byte(ac.InstrumentType), ac.InstrumentPayload)
+				payload, err = instruments.DeserializeV0([]byte(ac.InstrumentType), ac.InstrumentPayload)
 				if err != nil {
 					return 0, 0, fmt.Errorf("Instrument payload deserialize failed : %s %s",
 						ac.InstrumentType, err)

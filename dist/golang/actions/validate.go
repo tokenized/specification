@@ -29,7 +29,7 @@ func (a *ContractOffer) Validate() error {
 
 	// Field BodyOfAgreementType - uint
 	foundBodyOfAgreementType := false
-	for _, v := range []uint32{0, 1, 2} {
+	for _, v := range []uint8{0, 1, 2} {
 		if a.BodyOfAgreementType == v {
 			foundBodyOfAgreementType = true
 			break
@@ -44,7 +44,7 @@ func (a *ContractOffer) Validate() error {
 		return fmt.Errorf("BodyOfAgreement over max size : %d > %d", len(a.BodyOfAgreement), max4ByteInteger)
 	}
 	validValueFoundBodyOfAgreement := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint8{1} {
 		if a.BodyOfAgreementType == v {
 			validValueFoundBodyOfAgreement = true
 			break
@@ -76,7 +76,7 @@ func (a *ContractOffer) Validate() error {
 		return errors.Wrap(err, "Issuer")
 	}
 	validValueFoundIssuer := false
-	for _, v := range []uint32{0} {
+	for _, v := range []uint8{0} {
 		if a.ContractType == v {
 			validValueFoundIssuer = true
 			break
@@ -141,7 +141,7 @@ func (a *ContractOffer) Validate() error {
 		return fmt.Errorf("EntityContract over max size : %d > %d", len(a.EntityContract), max2ByteInteger)
 	}
 	validValueFoundEntityContract := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint8{1} {
 		if a.ContractType == v {
 			validValueFoundEntityContract = true
 			break
@@ -173,7 +173,7 @@ func (a *ContractOffer) Validate() error {
 
 	// Field ContractType - uint
 	foundContractType := false
-	for _, v := range []uint32{0, 1} {
+	for _, v := range []uint8{0, 1} {
 		if a.ContractType == v {
 			foundContractType = true
 			break
@@ -193,7 +193,7 @@ func (a *ContractOffer) Validate() error {
 		}
 	}
 	validValueFoundServices := false
-	for _, v := range []uint32{0} {
+	for _, v := range []uint8{0} {
 		if a.ContractType == v {
 			validValueFoundServices = true
 			break
@@ -238,7 +238,7 @@ func (a *ContractFormation) Validate() error {
 
 	// Field BodyOfAgreementType - uint
 	foundBodyOfAgreementType := false
-	for _, v := range []uint32{0, 1, 2} {
+	for _, v := range []uint8{0, 1, 2} {
 		if a.BodyOfAgreementType == v {
 			foundBodyOfAgreementType = true
 			break
@@ -253,7 +253,7 @@ func (a *ContractFormation) Validate() error {
 		return fmt.Errorf("BodyOfAgreement over max size : %d > %d", len(a.BodyOfAgreement), max4ByteInteger)
 	}
 	validValueFoundBodyOfAgreement := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint8{1} {
 		if a.BodyOfAgreementType == v {
 			validValueFoundBodyOfAgreement = true
 			break
@@ -285,7 +285,7 @@ func (a *ContractFormation) Validate() error {
 		return errors.Wrap(err, "Issuer")
 	}
 	validValueFoundIssuer := false
-	for _, v := range []uint32{0} {
+	for _, v := range []uint8{0} {
 		if a.ContractType == v {
 			validValueFoundIssuer = true
 			break
@@ -352,7 +352,7 @@ func (a *ContractFormation) Validate() error {
 		return fmt.Errorf("EntityContract over max size : %d > %d", len(a.EntityContract), max2ByteInteger)
 	}
 	validValueFoundEntityContract := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint8{1} {
 		if a.ContractType == v {
 			validValueFoundEntityContract = true
 			break
@@ -362,7 +362,7 @@ func (a *ContractFormation) Validate() error {
 		return fmt.Errorf("EntityContract is only allowed when ContractType value is within values [1] : %v", a.ContractType)
 	}
 	requiredValueFoundEntityContract := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint8{1} {
 		if a.ContractType == v {
 			requiredValueFoundEntityContract = true
 			break
@@ -384,7 +384,7 @@ func (a *ContractFormation) Validate() error {
 
 	// Field ContractType - uint
 	foundContractType := false
-	for _, v := range []uint32{0, 1} {
+	for _, v := range []uint8{0, 1} {
 		if a.ContractType == v {
 			foundContractType = true
 			break
@@ -404,7 +404,7 @@ func (a *ContractFormation) Validate() error {
 		}
 	}
 	validValueFoundServices := false
-	for _, v := range []uint32{0} {
+	for _, v := range []uint8{0} {
 		if a.ContractType == v {
 			validValueFoundServices = true
 			break
@@ -505,7 +505,7 @@ func (a *StaticContractFormation) Validate() error {
 
 	// Field BodyOfAgreementType - uint
 	foundBodyOfAgreementType := false
-	for _, v := range []uint32{1, 2} {
+	for _, v := range []uint8{1, 2} {
 		if a.BodyOfAgreementType == v {
 			foundBodyOfAgreementType = true
 			break
@@ -726,9 +726,6 @@ func (a *InstrumentDefinition) Validate() error {
 	// Field VotingRights - bool
 
 	// Field VoteMultiplier - uint
-	if a.VoteMultiplier > uint32(max1ByteInteger) {
-		return fmt.Errorf("VoteMultiplier over max value : %d > %d", a.VoteMultiplier, max1ByteInteger)
-	}
 
 	// Field AdministrationProposal - bool
 
@@ -736,7 +733,7 @@ func (a *InstrumentDefinition) Validate() error {
 
 	// Field InstrumentModificationGovernance - uint
 	foundInstrumentModificationGovernance := false
-	for _, v := range []uint32{0, 1} {
+	for _, v := range []uint8{0, 1} {
 		if a.InstrumentModificationGovernance == v {
 			foundInstrumentModificationGovernance = true
 			break
@@ -775,6 +772,8 @@ func (a *InstrumentDefinition) Validate() error {
 		}
 	}
 
+	// Field InstrumentPayloadVersion - uint
+
 	return nil
 }
 
@@ -801,9 +800,6 @@ func (a *InstrumentCreation) Validate() error {
 	// Field VotingRights - bool
 
 	// Field VoteMultiplier - uint
-	if a.VoteMultiplier > uint32(max1ByteInteger) {
-		return fmt.Errorf("VoteMultiplier over max value : %d > %d", a.VoteMultiplier, max1ByteInteger)
-	}
 
 	// Field AdministrationProposal - bool
 
@@ -811,7 +807,7 @@ func (a *InstrumentCreation) Validate() error {
 
 	// Field InstrumentModificationGovernance - uint
 	foundInstrumentModificationGovernance := false
-	for _, v := range []uint32{0, 1} {
+	for _, v := range []uint8{0, 1} {
 		if a.InstrumentModificationGovernance == v {
 			foundInstrumentModificationGovernance = true
 			break
@@ -847,6 +843,8 @@ func (a *InstrumentCreation) Validate() error {
 			return fmt.Errorf("[%d] TradeRestrictions size over max value : %d > %d", i, len(v), max1ByteInteger)
 		}
 	}
+
+	// Field InstrumentPayloadVersion - uint
 
 	return nil
 }
@@ -885,6 +883,8 @@ func (a *InstrumentModification) Validate() error {
 		return fmt.Errorf("RefTxID fixed width field wrong size : %d should be %d",
 			len(a.RefTxID), 32)
 	}
+
+	// Field InstrumentPayloadVersion - uint
 
 	return nil
 }
@@ -948,7 +948,7 @@ func (a *Proposal) Validate() error {
 
 	// Field Type - uint
 	foundType := false
-	for _, v := range []uint32{0, 1, 2} {
+	for _, v := range []uint8{0, 1, 2} {
 		if a.Type == v {
 			foundType = true
 			break
@@ -971,9 +971,6 @@ func (a *Proposal) Validate() error {
 	}
 
 	// Field VoteSystem - uint
-	if a.VoteSystem > uint32(max1ByteInteger) {
-		return fmt.Errorf("VoteSystem over max value : %d > %d", a.VoteSystem, max1ByteInteger)
-	}
 
 	// Field ProposedAmendments - Amendment
 	if len(a.ProposedAmendments) > max1ByteInteger {
@@ -991,9 +988,6 @@ func (a *Proposal) Validate() error {
 	}
 
 	// Field VoteMax - uint
-	if a.VoteMax > uint32(max1ByteInteger) {
-		return fmt.Errorf("VoteMax over max value : %d > %d", a.VoteMax, max1ByteInteger)
-	}
 
 	// Field ProposalDescription - varchar
 	if len(a.ProposalDescription) > max4ByteInteger {
@@ -1243,7 +1237,7 @@ func (a *Order) Validate() error {
 		return fmt.Errorf("AuthorityName over max size : %d > %d", len(a.AuthorityName), max1ByteInteger)
 	}
 	validValueFoundAuthorityName := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint8{1} {
 		if a.SignatureAlgorithm == v {
 			validValueFoundAuthorityName = true
 			break
@@ -1253,7 +1247,7 @@ func (a *Order) Validate() error {
 		return fmt.Errorf("AuthorityName is only allowed when SignatureAlgorithm value is within values [1] : %v", a.SignatureAlgorithm)
 	}
 	requiredValueFoundAuthorityName := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint8{1} {
 		if a.SignatureAlgorithm == v {
 			requiredValueFoundAuthorityName = true
 			break
@@ -1268,7 +1262,7 @@ func (a *Order) Validate() error {
 		return fmt.Errorf("AuthorityPublicKey over max size : %d > %d", len(a.AuthorityPublicKey), max1ByteInteger)
 	}
 	validValueFoundAuthorityPublicKey := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint8{1} {
 		if a.SignatureAlgorithm == v {
 			validValueFoundAuthorityPublicKey = true
 			break
@@ -1278,7 +1272,7 @@ func (a *Order) Validate() error {
 		return fmt.Errorf("AuthorityPublicKey is only allowed when SignatureAlgorithm value is within values [1] : %v", a.SignatureAlgorithm)
 	}
 	requiredValueFoundAuthorityPublicKey := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint8{1} {
 		if a.SignatureAlgorithm == v {
 			requiredValueFoundAuthorityPublicKey = true
 			break
@@ -1290,7 +1284,7 @@ func (a *Order) Validate() error {
 
 	// Field SignatureAlgorithm - uint
 	foundSignatureAlgorithm := false
-	for _, v := range []uint32{0, 1} {
+	for _, v := range []uint8{0, 1} {
 		if a.SignatureAlgorithm == v {
 			foundSignatureAlgorithm = true
 			break
@@ -1305,7 +1299,7 @@ func (a *Order) Validate() error {
 		return fmt.Errorf("OrderSignature over max size : %d > %d", len(a.OrderSignature), max1ByteInteger)
 	}
 	validValueFoundOrderSignature := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint8{1} {
 		if a.SignatureAlgorithm == v {
 			validValueFoundOrderSignature = true
 			break
@@ -1315,7 +1309,7 @@ func (a *Order) Validate() error {
 		return fmt.Errorf("OrderSignature is only allowed when SignatureAlgorithm value is within values [1] : %v", a.SignatureAlgorithm)
 	}
 	requiredValueFoundOrderSignature := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint8{1} {
 		if a.SignatureAlgorithm == v {
 			requiredValueFoundOrderSignature = true
 			break
@@ -1364,7 +1358,7 @@ func (a *Order) Validate() error {
 
 	// Field SupportingEvidenceFormat - uint
 	foundSupportingEvidenceFormat := false
-	for _, v := range []uint32{0, 1} {
+	for _, v := range []uint8{0, 1} {
 		if a.SupportingEvidenceFormat == v {
 			foundSupportingEvidenceFormat = true
 			break
@@ -1379,7 +1373,7 @@ func (a *Order) Validate() error {
 		return fmt.Errorf("SupportingEvidence over max size : %d > %d", len(a.SupportingEvidence), max1ByteInteger)
 	}
 	validValueFoundSupportingEvidence := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint8{1} {
 		if a.SupportingEvidenceFormat == v {
 			validValueFoundSupportingEvidence = true
 			break
@@ -1389,7 +1383,7 @@ func (a *Order) Validate() error {
 		return fmt.Errorf("SupportingEvidence is only allowed when SupportingEvidenceFormat value is within values [1] : %v", a.SupportingEvidenceFormat)
 	}
 	requiredValueFoundSupportingEvidence := false
-	for _, v := range []uint32{1} {
+	for _, v := range []uint8{1} {
 		if a.SupportingEvidenceFormat == v {
 			requiredValueFoundSupportingEvidence = true
 			break
@@ -1608,14 +1602,13 @@ func (a *Message) Validate() error {
 	}
 
 	// Field MessageCode - uint
-	if a.MessageCode > uint32(max2ByteInteger) {
-		return fmt.Errorf("MessageCode over max value : %d > %d", a.MessageCode, max2ByteInteger)
-	}
 
 	// Field MessagePayload - varbin
 	if len(a.MessagePayload) > max4ByteInteger {
 		return fmt.Errorf("MessagePayload over max size : %d > %d", len(a.MessagePayload), max4ByteInteger)
 	}
+
+	// Field MessagePayloadVersion - uint
 
 	return nil
 }
@@ -1631,16 +1624,10 @@ func (a *Rejection) Validate() error {
 	}
 
 	// Field RejectAddressIndex - uint
-	if a.RejectAddressIndex > uint32(max2ByteInteger) {
-		return fmt.Errorf("RejectAddressIndex over max value : %d > %d", a.RejectAddressIndex, max2ByteInteger)
-	}
 
 	// Field RejectionCode - uint  (Rejections Resource)
 	if RejectionsData(a.RejectionCode) == nil {
 		return fmt.Errorf("RejectionCode resource Rejections value not defined : %v", a.RejectionCode)
-	}
-	if a.RejectionCode > uint32(max1ByteInteger) {
-		return fmt.Errorf("RejectionCode over max value : %d > %d", a.RejectionCode, max1ByteInteger)
 	}
 
 	// Field Message - varchar
@@ -1661,9 +1648,6 @@ func (a *AdministratorField) Validate() error {
 	// Field Type - uint  (Roles Resource)
 	if RolesData(a.Type) == nil {
 		return fmt.Errorf("Type resource Roles value not defined : %v", a.Type)
-	}
-	if a.Type > uint32(max1ByteInteger) {
-		return fmt.Errorf("Type over max value : %d > %d", a.Type, max1ByteInteger)
 	}
 
 	// Field Name - varchar
@@ -1718,7 +1702,7 @@ func (a *AmendmentField) Validate() error {
 
 	// Field Operation - uint
 	foundOperation := false
-	for _, v := range []uint32{0, 1, 2} {
+	for _, v := range []uint8{0, 1, 2} {
 		if a.Operation == v {
 			foundOperation = true
 			break
@@ -1755,7 +1739,7 @@ func (a *InstrumentReceiverField) Validate() error {
 
 	// Field OracleSigAlgorithm - uint
 	foundOracleSigAlgorithm := false
-	for _, v := range []uint32{0, 1} {
+	for _, v := range []uint8{0, 1} {
 		if a.OracleSigAlgorithm == v {
 			foundOracleSigAlgorithm = true
 			break
@@ -1766,9 +1750,6 @@ func (a *InstrumentReceiverField) Validate() error {
 	}
 
 	// Field OracleIndex - uint
-	if a.OracleIndex > uint32(max1ByteInteger) {
-		return fmt.Errorf("OracleIndex over max value : %d > %d", a.OracleIndex, max1ByteInteger)
-	}
 
 	// Field OracleConfirmationSig - varbin
 	if len(a.OracleConfirmationSig) > 0 {
@@ -1793,9 +1774,6 @@ func (a *InstrumentSettlementField) Validate() error {
 	}
 
 	// Field ContractIndex - uint
-	if a.ContractIndex > uint32(max2ByteInteger) {
-		return fmt.Errorf("ContractIndex over max value : %d > %d", a.ContractIndex, max2ByteInteger)
-	}
 
 	// Field InstrumentType - fixedchar
 	if len(a.InstrumentType) != 0 && len(a.InstrumentType) != 3 {
@@ -1828,9 +1806,6 @@ func (a *InstrumentTransferField) Validate() error {
 	}
 
 	// Field ContractIndex - uint
-	if a.ContractIndex > uint32(max2ByteInteger) {
-		return fmt.Errorf("ContractIndex over max value : %d > %d", a.ContractIndex, max2ByteInteger)
-	}
 
 	// Field InstrumentType - fixedchar
 	if len(a.InstrumentType) != 0 && len(a.InstrumentType) != 3 {
@@ -2086,9 +2061,6 @@ func (a *ManagerField) Validate() error {
 	if RolesData(a.Type) == nil {
 		return fmt.Errorf("Type resource Roles value not defined : %v", a.Type)
 	}
-	if a.Type > uint32(max1ByteInteger) {
-		return fmt.Errorf("Type over max value : %d > %d", a.Type, max1ByteInteger)
-	}
 
 	// Field Name - varchar
 	if len(a.Name) > max1ByteInteger {
@@ -2109,7 +2081,7 @@ func (a *OracleField) Validate() error {
 	}
 	for i, v := range a.OracleTypes {
 		foundOracleTypes := false
-		for _, o := range []uint32{0, 1, 2} {
+		for _, o := range []uint8{0, 1, 2} {
 			if v == o {
 				foundOracleTypes = true
 				break
@@ -2139,9 +2111,6 @@ func (a *QuantityIndexField) Validate() error {
 	}
 
 	// Field Index - uint
-	if a.Index > uint32(max2ByteInteger) {
-		return fmt.Errorf("Index over max value : %d > %d", a.Index, max2ByteInteger)
-	}
 
 	// Field Quantity - uint
 
@@ -2173,7 +2142,7 @@ func (a *ServiceField) Validate() error {
 
 	// Field Type - uint
 	foundType := false
-	for _, v := range []uint32{0, 1, 2, 3} {
+	for _, v := range []uint8{0, 1, 2, 3} {
 		if a.Type == v {
 			foundType = true
 			break
@@ -2239,14 +2208,8 @@ func (a *VotingSystemField) Validate() error {
 	}
 
 	// Field TallyLogic - uint
-	if a.TallyLogic > uint32(max1ByteInteger) {
-		return fmt.Errorf("TallyLogic over max value : %d > %d", a.TallyLogic, max1ByteInteger)
-	}
 
 	// Field ThresholdPercentage - uint
-	if a.ThresholdPercentage > uint32(max1ByteInteger) {
-		return fmt.Errorf("ThresholdPercentage over max value : %d > %d", a.ThresholdPercentage, max1ByteInteger)
-	}
 
 	// Field VoteMultiplierPermitted - bool
 

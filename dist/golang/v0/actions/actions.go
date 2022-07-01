@@ -231,8 +231,8 @@ func NewActionFromCode(code string) Action {
 	}
 }
 
-// Deserialize reads an action from a byte slice.
-func Deserialize(code []byte, payload []byte) (Action, error) {
+// DeserializeV0 reads an action from a byte slice.
+func DeserializeV0(code []byte, payload []byte) (Action, error) {
 	result := NewActionFromCode(string(code))
 	if result == nil {
 		return nil, fmt.Errorf("Unknown action code : %s", string(code))

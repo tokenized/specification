@@ -16,13 +16,13 @@ import (
 
 const (
 	// AmendmentOperationModify specifies an amendment is modifying a value.
-	AmendmentOperationModify = uint32(0)
+	AmendmentOperationModify = uint8(0)
 
 	// AmendmentOperationAddElement specifies an amendment is adding a new element to a list.
-	AmendmentOperationAddElement = uint32(1)
+	AmendmentOperationAddElement = uint8(1)
 
 	// AmendmentOperationRemoveElement specifies an amendment is removing an element from a list.
-	AmendmentOperationRemoveElement = uint32(2)
+	AmendmentOperationRemoveElement = uint8(2)
 )
 
 // Contract Permission / Amendment Field Indices
@@ -80,7 +80,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		})
 	}
 
-	// BodyOfAgreementType uint32
+	// BodyOfAgreementType uint8
 	fip = []uint32{ContractFieldBodyOfAgreementType}
 	if a.BodyOfAgreementType != newValue.BodyOfAgreementType {
 		var buf bytes.Buffer
@@ -363,7 +363,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		})
 	}
 
-	// ContractType uint32
+	// ContractType uint8
 	fip = []uint32{ContractFieldContractType}
 	if a.ContractType != newValue.ContractType {
 		var buf bytes.Buffer
@@ -492,7 +492,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 // ApplyAmendment updates a ContractFormation based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -504,7 +504,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		a.ContractName = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case ContractFieldBodyOfAgreementType: // uint32
+	case ContractFieldBodyOfAgreementType: // uint8
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for BodyOfAgreementType : %v", fip)
 		}
@@ -512,7 +512,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("BodyOfAgreementType amendment value failed to deserialize : %s", err)
 		} else {
-			a.BodyOfAgreementType = uint32(value)
+			a.BodyOfAgreementType = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -867,7 +867,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		a.OperatorEntityContract = data
 		return permissions.SubPermissions(fip, operation, false)
 
-	case ContractFieldContractType: // uint32
+	case ContractFieldContractType: // uint8
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ContractType : %v", fip)
 		}
@@ -875,7 +875,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ContractType amendment value failed to deserialize : %s", err)
 		} else {
-			a.ContractType = uint32(value)
+			a.ContractType = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -1164,7 +1164,7 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *BodyOfAgreementOff
 // ApplyAmendment updates a BodyOfAgreementFormation based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -1342,6 +1342,7 @@ const (
 	InstrumentFieldInstrumentType                        = uint32(11)
 	InstrumentFieldInstrumentPayload                     = uint32(12)
 	InstrumentFieldTradeRestrictions                     = uint32(13)
+	InstrumentFieldInstrumentPayloadVersion              = uint32(14)
 )
 
 // CreateAmendments determines the differences between two InstrumentDefinitions and returns
@@ -1400,7 +1401,7 @@ func (a *InstrumentCreation) CreateAmendments(newValue *InstrumentDefinition) ([
 		})
 	}
 
-	// VoteMultiplier uint32
+	// VoteMultiplier uint8
 	fip = []uint32{InstrumentFieldVoteMultiplier}
 	if a.VoteMultiplier != newValue.VoteMultiplier {
 		var buf bytes.Buffer
@@ -1442,7 +1443,7 @@ func (a *InstrumentCreation) CreateAmendments(newValue *InstrumentDefinition) ([
 		})
 	}
 
-	// InstrumentModificationGovernance uint32
+	// InstrumentModificationGovernance uint8
 	fip = []uint32{InstrumentFieldInstrumentModificationGovernance}
 	if a.InstrumentModificationGovernance != newValue.InstrumentModificationGovernance {
 		var buf bytes.Buffer
@@ -1528,6 +1529,20 @@ func (a *InstrumentCreation) CreateAmendments(newValue *InstrumentDefinition) ([
 		result = append(result, amendment)
 	}
 
+	// InstrumentPayloadVersion uint8
+	fip = []uint32{InstrumentFieldInstrumentPayloadVersion}
+	if a.InstrumentPayloadVersion != newValue.InstrumentPayloadVersion {
+		var buf bytes.Buffer
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.InstrumentPayloadVersion)); err != nil {
+			return nil, errors.Wrap(err, "InstrumentPayloadVersion")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
 	r, err := convertAmendments(result)
 	if err != nil {
 		return nil, errors.Wrap(err, "convert amendments")
@@ -1539,7 +1554,7 @@ func (a *InstrumentCreation) CreateAmendments(newValue *InstrumentDefinition) ([
 // ApplyAmendment updates a InstrumentCreation based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *InstrumentCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *InstrumentCreation) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -1582,7 +1597,7 @@ func (a *InstrumentCreation) ApplyAmendment(fip permissions.FieldIndexPath, oper
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case InstrumentFieldVoteMultiplier: // uint32
+	case InstrumentFieldVoteMultiplier: // uint8
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for VoteMultiplier : %v", fip)
 		}
@@ -1590,7 +1605,7 @@ func (a *InstrumentCreation) ApplyAmendment(fip permissions.FieldIndexPath, oper
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("VoteMultiplier amendment value failed to deserialize : %s", err)
 		} else {
-			a.VoteMultiplier = uint32(value)
+			a.VoteMultiplier = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -1620,7 +1635,7 @@ func (a *InstrumentCreation) ApplyAmendment(fip permissions.FieldIndexPath, oper
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case InstrumentFieldInstrumentModificationGovernance: // uint32
+	case InstrumentFieldInstrumentModificationGovernance: // uint8
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for InstrumentModificationGovernance : %v", fip)
 		}
@@ -1628,7 +1643,7 @@ func (a *InstrumentCreation) ApplyAmendment(fip permissions.FieldIndexPath, oper
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("InstrumentModificationGovernance amendment value failed to deserialize : %s", err)
 		} else {
-			a.InstrumentModificationGovernance = uint32(value)
+			a.InstrumentModificationGovernance = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -1702,6 +1717,18 @@ func (a *InstrumentCreation) ApplyAmendment(fip permissions.FieldIndexPath, oper
 			return permissions.SubPermissions(fip, operation, true)
 		}
 
+	case InstrumentFieldInstrumentPayloadVersion: // uint8
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for InstrumentPayloadVersion : %v", fip)
+		}
+		buf := bytes.NewBuffer(data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("InstrumentPayloadVersion amendment value failed to deserialize : %s", err)
+		} else {
+			a.InstrumentPayloadVersion = uint8(value)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+
 	}
 
 	return nil, fmt.Errorf("Unknown instrument amendment field index : %v", fip)
@@ -1716,7 +1743,7 @@ const (
 // ApplyAmendment updates a AdministratorField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AdministratorField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *AdministratorField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -1724,7 +1751,7 @@ func (a *AdministratorField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 	}
 
 	switch fip[0] {
-	case AdministratorFieldType: // uint32
+	case AdministratorFieldType: // uint8
 		if RolesData(a.Type) == nil {
 			return nil, fmt.Errorf("Roles resource value not defined : %v", a.Type)
 		}
@@ -1735,7 +1762,7 @@ func (a *AdministratorField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Type amendment value failed to deserialize : %s", err)
 		} else {
-			a.Type = uint32(value)
+			a.Type = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -1770,7 +1797,7 @@ func (a *AdministratorField) CreateAmendments(fip permissions.FieldIndexPath,
 		return nil, nil
 	}
 
-	// Type uint32
+	// Type uint8
 	fip = append(ofip, AdministratorFieldType)
 	if a.Type != newValue.Type {
 		var buf bytes.Buffer
@@ -1807,7 +1834,7 @@ const (
 // ApplyAmendment updates a AdminIdentityCertificateField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AdminIdentityCertificateField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *AdminIdentityCertificateField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -1933,7 +1960,7 @@ const (
 // ApplyAmendment updates a AmendmentField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *AmendmentField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *AmendmentField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -1945,7 +1972,7 @@ func (a *AmendmentField) ApplyAmendment(fip permissions.FieldIndexPath, operatio
 		a.FieldIndexPath = data
 		return permissions.SubPermissions(fip, operation, false)
 
-	case AmendmentFieldOperation: // uint32
+	case AmendmentFieldOperation: // uint8
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Operation : %v", fip)
 		}
@@ -1953,7 +1980,7 @@ func (a *AmendmentField) ApplyAmendment(fip permissions.FieldIndexPath, operatio
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Operation amendment value failed to deserialize : %s", err)
 		} else {
-			a.Operation = uint32(value)
+			a.Operation = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -1997,7 +2024,7 @@ func (a *AmendmentField) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Operation uint32
+	// Operation uint8
 	fip = append(ofip, AmendmentFieldOperation)
 	if a.Operation != newValue.Operation {
 		var buf bytes.Buffer
@@ -2037,7 +2064,7 @@ const (
 // ApplyAmendment updates a InstrumentReceiverField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *InstrumentReceiverField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *InstrumentReceiverField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -2061,7 +2088,7 @@ func (a *InstrumentReceiverField) ApplyAmendment(fip permissions.FieldIndexPath,
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case InstrumentReceiverFieldOracleSigAlgorithm: // uint32
+	case InstrumentReceiverFieldOracleSigAlgorithm: // uint8
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for OracleSigAlgorithm : %v", fip)
 		}
@@ -2069,11 +2096,11 @@ func (a *InstrumentReceiverField) ApplyAmendment(fip permissions.FieldIndexPath,
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("OracleSigAlgorithm amendment value failed to deserialize : %s", err)
 		} else {
-			a.OracleSigAlgorithm = uint32(value)
+			a.OracleSigAlgorithm = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case InstrumentReceiverFieldOracleIndex: // uint32
+	case InstrumentReceiverFieldOracleIndex: // uint8
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for OracleIndex : %v", fip)
 		}
@@ -2081,7 +2108,7 @@ func (a *InstrumentReceiverField) ApplyAmendment(fip permissions.FieldIndexPath,
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("OracleIndex amendment value failed to deserialize : %s", err)
 		} else {
-			a.OracleIndex = uint32(value)
+			a.OracleIndex = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -2163,7 +2190,7 @@ func (a *InstrumentReceiverField) CreateAmendments(fip permissions.FieldIndexPat
 		})
 	}
 
-	// OracleSigAlgorithm uint32
+	// OracleSigAlgorithm uint8
 	fip = append(ofip, InstrumentReceiverFieldOracleSigAlgorithm)
 	if a.OracleSigAlgorithm != newValue.OracleSigAlgorithm {
 		var buf bytes.Buffer
@@ -2177,7 +2204,7 @@ func (a *InstrumentReceiverField) CreateAmendments(fip permissions.FieldIndexPat
 		})
 	}
 
-	// OracleIndex uint32
+	// OracleIndex uint8
 	fip = append(ofip, InstrumentReceiverFieldOracleIndex)
 	if a.OracleIndex != newValue.OracleIndex {
 		var buf bytes.Buffer
@@ -2242,7 +2269,7 @@ const (
 // ApplyAmendment updates a InstrumentSettlementField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *InstrumentSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *InstrumentSettlementField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -2460,7 +2487,7 @@ const (
 // ApplyAmendment updates a InstrumentTransferField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -2794,7 +2821,7 @@ const (
 // ApplyAmendment updates a ChapterField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -2986,7 +3013,7 @@ const (
 // ApplyAmendment updates a ClauseField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -3177,7 +3204,7 @@ const (
 // ApplyAmendment updates a DefinedTermField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *DefinedTermField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *DefinedTermField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -3251,7 +3278,7 @@ const (
 // ApplyAmendment updates a DocumentField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *DocumentField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *DocumentField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -3352,7 +3379,7 @@ const (
 // ApplyAmendment updates a EntityField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -3824,7 +3851,7 @@ const (
 // ApplyAmendment updates a ManagerField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ManagerField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *ManagerField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -3832,7 +3859,7 @@ func (a *ManagerField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 	}
 
 	switch fip[0] {
-	case ManagerFieldType: // uint32
+	case ManagerFieldType: // uint8
 		if RolesData(a.Type) == nil {
 			return nil, fmt.Errorf("Roles resource value not defined : %v", a.Type)
 		}
@@ -3843,7 +3870,7 @@ func (a *ManagerField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Type amendment value failed to deserialize : %s", err)
 		} else {
-			a.Type = uint32(value)
+			a.Type = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -3878,7 +3905,7 @@ func (a *ManagerField) CreateAmendments(fip permissions.FieldIndexPath,
 		return nil, nil
 	}
 
-	// Type uint32
+	// Type uint8
 	fip = append(ofip, ManagerFieldType)
 	if a.Type != newValue.Type {
 		var buf bytes.Buffer
@@ -3916,7 +3943,7 @@ const (
 // ApplyAmendment updates a OracleField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -3930,7 +3957,7 @@ func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 
 	case DeprecatedOracleFieldPublicKey: // deprecated
 
-	case OracleFieldOracleTypes: // []uint32
+	case OracleFieldOracleTypes: // []uint8
 		switch operation {
 		case 0: // Modify
 			if len(fip) != 2 { // includes list index
@@ -3944,7 +3971,7 @@ func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 				return nil, fmt.Errorf("OracleTypes amendment value failed to deserialize : %s", err)
 			} else {
-				a.OracleTypes[fip[1]] = uint32(value)
+				a.OracleTypes[fip[1]] = uint8(value)
 			}
 			return permissions.SubPermissions(fip, operation, true)
 
@@ -3954,13 +3981,13 @@ func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 					fip)
 			}
 
-			var newValue uint32
+			var newValue uint8
 			buf := bytes.NewBuffer(data)
 			if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 				return nil, fmt.Errorf("OracleTypes amendment value failed to deserialize : %s",
 					err)
 			} else {
-				newValue = uint32(value)
+				newValue = uint8(value)
 			}
 
 			if len(a.OracleTypes) <= int(fip[1]) {
@@ -3969,7 +3996,7 @@ func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			} else {
 				// Insert item at index specified by fip[1]
 				before := a.OracleTypes[:fip[1]]
-				after := make([]uint32, len(a.OracleTypes)-int(fip[1]))
+				after := make([]uint8, len(a.OracleTypes)-int(fip[1]))
 				copy(after, a.OracleTypes[fip[1]+1:]) // copy so slice reuse won't overwrite
 
 				a.OracleTypes = append(before, newValue)
@@ -4029,7 +4056,7 @@ func (a *OracleField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	// deprecated PublicKey deprecated
 
-	// OracleTypes []uint32
+	// OracleTypes []uint8
 	fip = append(ofip, OracleFieldOracleTypes)
 	OracleTypesMin := len(a.OracleTypes)
 	if OracleTypesMin > len(newValue.OracleTypes) {
@@ -4099,7 +4126,7 @@ const (
 // ApplyAmendment updates a QuantityIndexField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *QuantityIndexField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *QuantityIndexField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -4198,7 +4225,7 @@ const (
 // ApplyAmendment updates a ReferenceTransactionField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ReferenceTransactionField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *ReferenceTransactionField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -4349,7 +4376,7 @@ const (
 // ApplyAmendment updates a ServiceField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *ServiceField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *ServiceField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -4357,7 +4384,7 @@ func (a *ServiceField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 	}
 
 	switch fip[0] {
-	case ServiceFieldType: // uint32
+	case ServiceFieldType: // uint8
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Type : %v", fip)
 		}
@@ -4365,7 +4392,7 @@ func (a *ServiceField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("Type amendment value failed to deserialize : %s", err)
 		} else {
-			a.Type = uint32(value)
+			a.Type = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -4407,7 +4434,7 @@ func (a *ServiceField) CreateAmendments(fip permissions.FieldIndexPath,
 		return nil, nil
 	}
 
-	// Type uint32
+	// Type uint8
 	fip = append(ofip, ServiceFieldType)
 	if a.Type != newValue.Type {
 		var buf bytes.Buffer
@@ -4451,7 +4478,7 @@ const (
 // ApplyAmendment updates a TargetAddressField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *TargetAddressField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *TargetAddressField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -4541,7 +4568,7 @@ const (
 // ApplyAmendment updates a VotingSystemField based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *VotingSystemField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *VotingSystemField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint8,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -4557,7 +4584,7 @@ func (a *VotingSystemField) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		a.VoteType = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case VotingSystemFieldTallyLogic: // uint32
+	case VotingSystemFieldTallyLogic: // uint8
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for TallyLogic : %v", fip)
 		}
@@ -4565,11 +4592,11 @@ func (a *VotingSystemField) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("TallyLogic amendment value failed to deserialize : %s", err)
 		} else {
-			a.TallyLogic = uint32(value)
+			a.TallyLogic = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case VotingSystemFieldThresholdPercentage: // uint32
+	case VotingSystemFieldThresholdPercentage: // uint8
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ThresholdPercentage : %v", fip)
 		}
@@ -4577,7 +4604,7 @@ func (a *VotingSystemField) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
 			return nil, fmt.Errorf("ThresholdPercentage amendment value failed to deserialize : %s", err)
 		} else {
-			a.ThresholdPercentage = uint32(value)
+			a.ThresholdPercentage = uint8(value)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -4651,7 +4678,7 @@ func (a *VotingSystemField) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// TallyLogic uint32
+	// TallyLogic uint8
 	fip = append(ofip, VotingSystemFieldTallyLogic)
 	if a.TallyLogic != newValue.TallyLogic {
 		var buf bytes.Buffer
@@ -4665,7 +4692,7 @@ func (a *VotingSystemField) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// ThresholdPercentage uint32
+	// ThresholdPercentage uint8
 	fip = append(ofip, VotingSystemFieldThresholdPercentage)
 	if a.ThresholdPercentage != newValue.ThresholdPercentage {
 		var buf bytes.Buffer
