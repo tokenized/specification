@@ -116,16 +116,16 @@ const (
 	CodeAssetModification = "A3"
 
 	// ServiceTypeIdentityOracle identifies an identity oracle
-	ServiceTypeIdentityOracle = uint32(0)
+	ServiceTypeIdentityOracle = uint8(0)
 
 	// ServiceTypeAuthorityOracle identifies an authority oracle
-	ServiceTypeAuthorityOracle = uint32(1)
+	ServiceTypeAuthorityOracle = uint8(1)
 
 	// ServiceTypeEventOracle identifies an event oracle
-	ServiceTypeEventOracle = uint32(2)
+	ServiceTypeEventOracle = uint8(2)
 
 	// ServiceTypeContractOperator identifies a contract operator service
-	ServiceTypeContractOperator = uint32(3)
+	ServiceTypeContractOperator = uint8(3)
 
 	// ComplianceActionFreeze identifies a freeze type
 	ComplianceActionFreeze = "F"
@@ -140,21 +140,21 @@ const (
 	ComplianceActionReconciliation = "R"
 
 	// ContractTypeEntity identifies an entity contract
-	ContractTypeEntity = uint32(0)
+	ContractTypeEntity = uint8(0)
 
 	// ContractTypeInstrument identifies an instrument contract
-	ContractTypeInstrument = uint32(1)
+	ContractTypeInstrument = uint8(1)
 
 	// ContractBodyOfAgreementTypeNone identifies a contract with no body of agreement specified.
-	ContractBodyOfAgreementTypeNone = uint32(0)
+	ContractBodyOfAgreementTypeNone = uint8(0)
 
 	// ContractBodyOfAgreementTypeHash identifies a contract with the hash of the body of agreement
 	// document included.
-	ContractBodyOfAgreementTypeHash = uint32(1)
+	ContractBodyOfAgreementTypeHash = uint8(1)
 
 	// ContractBodyOfAgreementTypeFull identifies a contract with the a full body of agreement
 	// specified in a BodyOfAgreementFormation action.
-	ContractBodyOfAgreementTypeFull = uint32(2)
+	ContractBodyOfAgreementTypeFull = uint8(2)
 )
 
 // NewActionFromCode returns a new object of the correct type for the code.
