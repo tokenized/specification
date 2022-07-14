@@ -170,8 +170,8 @@ func TestInstrumentDefinitionResponseFees(t *testing.T) {
 
 func TestTransferResponseFees(t *testing.T) {
 	contractFees := []uint64{2000, 4000}
-	feeRate := float32(1.0)
-	dustFeeRate := float32(1.0)
+	feeRate := float32(0.05)
+	dustFeeRate := float32(0.0)
 
 	ac1 := make([]byte, 32)
 	rand.Read(ac1)

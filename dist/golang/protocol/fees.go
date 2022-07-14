@@ -748,7 +748,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 	txSizeOutputCount := wire.VarIntSerializeSize(uint64(outputCount))
 	settlementTxSize := txbuilder.BaseTxSize + txSizeInputs + txSizeOutputCount +
 		txSizeOutputs + txSizeSettlements
-	settlementTxFee := int(math.Ceil(float64(settlementTxSize) * float64(feeRate)))
+	settlementTxFee := txbuilder.EstimatedFeeValue(uint64(settlementTxSize), float64(feeRate))
 
 	// Sum funding for each contract's output.
 	funding := make([]uint64, len(request.Instruments))
