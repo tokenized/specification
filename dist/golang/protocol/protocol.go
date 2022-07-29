@@ -9,7 +9,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/tokenized/envelope/pkg/golang/envelope"
+	envelope "github.com/tokenized/envelope/pkg/golang/envelope"
+	envelopeBase "github.com/tokenized/envelope/pkg/golang/envelope/base"
 	envelopeV0 "github.com/tokenized/envelope/pkg/golang/envelope/v0"
 	envelopeV1 "github.com/tokenized/envelope/pkg/golang/envelope/v1"
 	"github.com/tokenized/pkg/bitcoin"
@@ -78,7 +79,7 @@ func Serialize(action actions.Action, isTest bool) (bitcoin.Script, error) {
 func Deserialize(script bitcoin.Script, isTest bool) (actions.Action, error) {
 	buf := bytes.NewReader(script)
 	message, err := envelope.Deserialize(buf)
-	if err == envelope.ErrNotEnvelope {
+	if err == envelopeBase.ErrNotEnvelope {
 		return nil, ErrNotTokenized
 	} else if err != nil {
 		return nil, err
@@ -138,7 +139,7 @@ func Deserialize(script bitcoin.Script, isTest bool) (actions.Action, error) {
 func ActionCodeForScript(script bitcoin.Script, isTest bool) (string, error) {
 	buf := bytes.NewReader(script)
 	message, err := envelope.Deserialize(buf)
-	if err == envelope.ErrNotEnvelope {
+	if err == envelopeBase.ErrNotEnvelope {
 		return "", ErrNotTokenized
 	} else if err != nil {
 		return "", err
@@ -190,7 +191,7 @@ func WrapAction(action actions.Action, isTest bool) (envelope.BaseMessage, error
 		return nil, errors.Wrap(err, "serialize action")
 	}
 
-	message := envelopeV1.NewMessage([][]byte{GetProtocolID(isTest)},
+	message := envelopeV1.NewMessage(envelopeBase.ProtocolIDs{GetProtocolID(isTest)},
 		[][]byte{bitcoin.PushNumberScript(int64(Version)), []byte(action.Code())})
 
 	if len(payload) > 0 {
@@ -204,7 +205,7 @@ func WrapAction(action actions.Action, isTest bool) (envelope.BaseMessage, error
 // SerializeFlagOutputScript creates a locking script containing the flag value for a relationship
 //   message.
 func SerializeFlagOutputScript(flag []byte) (bitcoin.Script, error) {
-	message := envelopeV1.NewMessage([][]byte{[]byte(FlagProtocolID)},
+	message := envelopeV1.NewMessage(envelopeBase.ProtocolIDs{[]byte(FlagProtocolID)},
 		[][]byte{bitcoin.PushNumberScript(int64(FlagVersion)), flag})
 
 	var buf bytes.Buffer
@@ -218,7 +219,7 @@ func SerializeFlagOutputScript(flag []byte) (bitcoin.Script, error) {
 func DeserializeFlagOutputScript(script bitcoin.Script) ([]byte, error) {
 	buf := bytes.NewReader(script)
 	message, err := envelope.Deserialize(buf)
-	if err == envelope.ErrNotEnvelope {
+	if err == envelopeBase.ErrNotEnvelope {
 		return nil, ErrNotFlag
 	} else if err != nil {
 		return nil, err
@@ -263,8 +264,8 @@ func DeserializeFlagOutputScript(script bitcoin.Script) ([]byte, error) {
 	}
 }
 
-// InstrumentCodeFromContract generates a "unique" deterministic instrument code from a contract public key
-//   hash and an instrument index.
+// InstrumentCodeFromContract generates a "unique" deterministic instrument code from a contract
+// public key hash and an instrument index.
 func InstrumentCodeFromContract(contractAddress bitcoin.RawAddress, index uint64) bitcoin.Hash20 {
 	hash256 := sha256.New()
 	hash256.Write(contractAddress.Bytes())
@@ -309,7 +310,8 @@ func InstrumentID(instrumentType string, code bitcoin.Hash20) string {
 	return instrumentType + bitcoin.Base58(b)
 }
 
-// InstrumentIDForRaw returns the instrument ID for an instrument type and instrument code in byte slice form.
+// InstrumentIDForRaw returns the instrument ID for an instrument type and instrument code in byte
+// slice form.
 func InstrumentIDForRaw(instrumentType string, instrumentCode []byte) (string, error) {
 	if instrumentType == BSVInstrumentID {
 		return instrumentType, nil
