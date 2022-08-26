@@ -27,8 +27,10 @@ fields:
     label: Instrument Senders
     description: "Each element has the value of tokens to be spent from the input address, which is referred to by the index."
     type: QuantityIndex[]
+    listSize: small
 
   - name: InstrumentReceivers
     label: Instrument Receivers
     description: "Each element has the value of tokens to be received, the address, and an oracle signature if required."
     type: InstrumentReceiver[]
+    listSize: small

@@ -27,3 +27,4 @@ fields:
     label: Settlements[]
     description: "Each element contains the resulting token balance of Instrument X for the output Address, which is referred to by the index."
     type: QuantityIndex[]
+    listSize: medium

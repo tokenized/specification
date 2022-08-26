@@ -4389,7 +4389,7 @@ InstrumentSettlement is the data required to settle an instrument transfer.
     <tr>
         <td>Settlements</td>
         <td>
-            <a href="#type-quantity-index">QuantityIndex[tiny]</a>
+            <a href="#type-quantity-index">QuantityIndex[medium]</a>
         </td>
         <td>
             Each element contains the resulting token balance of Instrument X for the output Address, which is referred to by the index.
@@ -4448,7 +4448,7 @@ InstrumentTransfer is the data required to transfer an instrument.
     <tr>
         <td>InstrumentSenders</td>
         <td>
-            <a href="#type-quantity-index">QuantityIndex[tiny]</a>
+            <a href="#type-quantity-index">QuantityIndex[small]</a>
         </td>
         <td>
             Each element has the value of tokens to be spent from the input address, which is referred to by the index.
@@ -4459,7 +4459,7 @@ InstrumentTransfer is the data required to transfer an instrument.
     <tr>
         <td>InstrumentReceivers</td>
         <td>
-            <a href="#type-instrument-receiver">InstrumentReceiver[tiny]</a>
+            <a href="#type-instrument-receiver">InstrumentReceiver[small]</a>
         </td>
         <td>
             Each element has the value of tokens to be received, the address, and an oracle signature if required.

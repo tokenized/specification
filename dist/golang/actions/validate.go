@@ -1810,8 +1810,8 @@ func (a *InstrumentSettlementField) Validate() error {
 	}
 
 	// Field Settlements - QuantityIndex
-	if len(a.Settlements) > max1ByteInteger {
-		return fmt.Errorf("Settlements list over max length : %d > %d", len(a.Settlements), max1ByteInteger)
+	if len(a.Settlements) > max4ByteInteger {
+		return fmt.Errorf("Settlements list over max length : %d > %d", len(a.Settlements), max4ByteInteger)
 	}
 	for i, v := range a.Settlements {
 		if err := v.Validate(); err != nil {
@@ -1845,8 +1845,8 @@ func (a *InstrumentTransferField) Validate() error {
 	}
 
 	// Field InstrumentSenders - QuantityIndex
-	if len(a.InstrumentSenders) > max1ByteInteger {
-		return fmt.Errorf("InstrumentSenders list over max length : %d > %d", len(a.InstrumentSenders), max1ByteInteger)
+	if len(a.InstrumentSenders) > max2ByteInteger {
+		return fmt.Errorf("InstrumentSenders list over max length : %d > %d", len(a.InstrumentSenders), max2ByteInteger)
 	}
 	for i, v := range a.InstrumentSenders {
 		if err := v.Validate(); err != nil {
@@ -1855,8 +1855,8 @@ func (a *InstrumentTransferField) Validate() error {
 	}
 
 	// Field InstrumentReceivers - InstrumentReceiver
-	if len(a.InstrumentReceivers) > max1ByteInteger {
-		return fmt.Errorf("InstrumentReceivers list over max length : %d > %d", len(a.InstrumentReceivers), max1ByteInteger)
+	if len(a.InstrumentReceivers) > max2ByteInteger {
+		return fmt.Errorf("InstrumentReceivers list over max length : %d > %d", len(a.InstrumentReceivers), max2ByteInteger)
 	}
 	for i, v := range a.InstrumentReceivers {
 		if err := v.Validate(); err != nil {

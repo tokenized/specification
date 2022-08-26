@@ -285,6 +285,7 @@
         {
           "description": "Each element contains the resulting token balance of Instrument X for the output Address, which is referred to by the index.",
           "label": "Settlements[]",
+          "listSize": "medium",
           "name": "Settlements",
           "type": "QuantityIndex[]"
         }
@@ -320,12 +321,14 @@
         {
           "description": "Each element has the value of tokens to be spent from the input address, which is referred to by the index.",
           "label": "Instrument Senders",
+          "listSize": "small",
           "name": "InstrumentSenders",
           "type": "QuantityIndex[]"
         },
         {
           "description": "Each element has the value of tokens to be received, the address, and an oracle signature if required.",
           "label": "Instrument Receivers",
+          "listSize": "small",
           "name": "InstrumentReceivers",
           "type": "InstrumentReceiver[]"
         }
