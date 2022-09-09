@@ -10,5 +10,7 @@ func Compile(
 	instruments parser.Schema,
 	messages parser.Schema,
 ) {
-	// TODO
+	// Actions
+	parser.TemplateToFile(actions, "internal/python/templates/actions.tpl",
+		distPath+"/python/"+"actions_generated.py")
 }
