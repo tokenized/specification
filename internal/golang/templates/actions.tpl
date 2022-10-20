@@ -116,3 +116,47 @@ func (a *{{.Name}}) Code() string {
 	return Code{{.Name}}
 }
 {{ end }}
+
+{{- range $i, $message := .Messages }}
+	{{- if eq $message.Name "ContractOffer" }}
+// Formation creates a contract formation with all the values from the contract offer.
+func (a *{{ $message.Name }}) Formation() (*ContractFormation, error) {
+	return &ContractFormation{
+	{{- range $offset, $field := .Fields }}
+		{{- if eq $field.Type "deprecated" }}
+		// deprecated {{ $field.Name }} {{ $field.GoType }}
+		{{- else if not (eq $field.Name "ContractOperatorIncluded") }}
+		{{ $field.Name }}: a.{{ $field.Name }},
+		{{- end }}
+	{{- end }}
+	}, nil
+}
+	{{- else if eq $message.Name "BodyOfAgreementOffer" }}
+// Formation creates a body of agreement formation with all the values from the body of agreement
+// offer.
+func (a *{{ $message.Name }}) Formation() (*BodyOfAgreementFormation, error) {
+	return &BodyOfAgreementFormation{
+	{{- range $offset, $field := .Fields }}
+		{{- if eq $field.Type "deprecated" }}
+		// deprecated {{ $field.Name }} {{ $field.GoType }}
+		{{- else }}
+		{{ $field.Name }}: a.{{ $field.Name }},
+		{{- end }}
+	{{- end }}
+	}, nil
+}
+	{{- else if eq $message.Name "InstrumentDefinition" }}
+// Creation creates an instrument creation with all the values from the instrument definition.
+func (a *{{ $message.Name }}) Creation() (*InstrumentCreation, error) {
+	return &InstrumentCreation{
+	{{- range $offset, $field := .Fields }}
+		{{- if eq $field.Type "deprecated" }}
+		// deprecated {{ $field.Name }} {{ $field.GoType }}
+		{{- else }}
+		{{ $field.Name }}: a.{{ $field.Name }},
+		{{- end }}
+	{{- end }}
+	}, nil
+}
+	{{ end }}
+{{ end }}

@@ -362,3 +362,67 @@ func (a *Message) Code() string {
 func (a *Rejection) Code() string {
 	return CodeRejection
 }
+
+// Formation creates a contract formation with all the values from the contract offer.
+func (a *ContractOffer) Formation() (*ContractFormation, error) {
+	return &ContractFormation{
+		ContractName:        a.ContractName,
+		BodyOfAgreementType: a.BodyOfAgreementType,
+		BodyOfAgreement:     a.BodyOfAgreement,
+		// deprecated ContractType deprecated
+		SupportingDocs: a.SupportingDocs,
+		// deprecated GoverningLaw deprecated
+		// deprecated Jurisdiction deprecated
+		ContractExpiration: a.ContractExpiration,
+		ContractURI:        a.ContractURI,
+		Issuer:             a.Issuer,
+		// deprecated IssuerLogoURL deprecated
+		// deprecated ContractOperator deprecated
+		// deprecated AdminOracle deprecated
+		// deprecated AdminOracleSignature deprecated
+		// deprecated AdminOracleSigBlockHeight deprecated
+		ContractFee:               a.ContractFee,
+		VotingSystems:             a.VotingSystems,
+		ContractPermissions:       a.ContractPermissions,
+		RestrictedQtyInstruments:  a.RestrictedQtyInstruments,
+		AdministrationProposal:    a.AdministrationProposal,
+		HolderProposal:            a.HolderProposal,
+		Oracles:                   a.Oracles,
+		MasterAddress:             a.MasterAddress,
+		EntityContract:            a.EntityContract,
+		OperatorEntityContract:    a.OperatorEntityContract,
+		ContractType:              a.ContractType,
+		Services:                  a.Services,
+		AdminIdentityCertificates: a.AdminIdentityCertificates,
+		GoverningLaw:              a.GoverningLaw,
+		Jurisdiction:              a.Jurisdiction,
+	}, nil
+}
+
+// Formation creates a body of agreement formation with all the values from the body of agreement
+// offer.
+func (a *BodyOfAgreementOffer) Formation() (*BodyOfAgreementFormation, error) {
+	return &BodyOfAgreementFormation{
+		Chapters:    a.Chapters,
+		Definitions: a.Definitions,
+	}, nil
+}
+
+// Creation creates an instrument creation with all the values from the instrument definition.
+func (a *InstrumentDefinition) Creation() (*InstrumentCreation, error) {
+	return &InstrumentCreation{
+		InstrumentPermissions: a.InstrumentPermissions,
+		// deprecated TransfersPermitted deprecated
+		// deprecated TradeRestrictionsDeprecated deprecated
+		EnforcementOrdersPermitted:       a.EnforcementOrdersPermitted,
+		VotingRights:                     a.VotingRights,
+		VoteMultiplier:                   a.VoteMultiplier,
+		AdministrationProposal:           a.AdministrationProposal,
+		HolderProposal:                   a.HolderProposal,
+		InstrumentModificationGovernance: a.InstrumentModificationGovernance,
+		AuthorizedTokenQty:               a.AuthorizedTokenQty,
+		InstrumentType:                   a.InstrumentType,
+		InstrumentPayload:                a.InstrumentPayload,
+		TradeRestrictions:                a.TradeRestrictions,
+	}, nil
+}
