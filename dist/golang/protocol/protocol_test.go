@@ -123,3 +123,27 @@ func TestInstrumentID_BSV(t *testing.T) {
 		t.Fatalf("got %v, want %v", id, instrumentType)
 	}
 }
+
+func Test_Deserialize_Empty(t *testing.T) {
+	transfer := &actions.Transfer{}
+	script, err := Serialize(transfer, true)
+	if err != nil {
+		t.Fatalf("Failed to serialize empty transfer : %s", err)
+	}
+
+	script[len(script)-6] = bitcoin.OP_3
+	script = append(script, bitcoin.OP_FALSE)
+	t.Logf("Script : %s", script)
+
+	action, err := Deserialize(script, true)
+	if err != nil {
+		t.Fatalf("Failed to deserialize empty transfer : %s", err)
+	}
+
+	if _, ok := action.(*actions.Transfer); !ok {
+		t.Errorf("Action not a transfer")
+	}
+
+	js, _ := json.MarshalIndent(action, "", "  ")
+	t.Logf("Action : %s", js)
+}

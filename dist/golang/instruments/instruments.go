@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 
+	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/specification/dist/golang/permissions"
 
 	"github.com/golang/protobuf/proto"
@@ -105,10 +106,16 @@ func Deserialize(code []byte, payload []byte) (Instrument, error) {
 		return nil, fmt.Errorf("Unknown instrument code : %s", string(code))
 	}
 
-	if len(payload) != 0 {
-		if err := proto.Unmarshal(payload, result); err != nil {
-			return nil, errors.Wrap(err, "Failed protobuf unmarshaling")
-		}
+	if len(payload) == 0 {
+		return result, nil // empty result
+	}
+
+	if len(payload) == 1 && payload[0] == bitcoin.OP_FALSE {
+		return result, nil // empty result
+	}
+
+	if err := proto.Unmarshal(payload, result); err != nil {
+		return nil, errors.Wrap(err, "protobuf unmarshal")
 	}
 
 	return result, nil
