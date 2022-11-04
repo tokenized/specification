@@ -1,14 +1,25 @@
 package messages
 
 import (
+	"fmt"
+
 	"github.com/tokenized/pkg/bitcoin"
 
 	"github.com/golang/protobuf/proto"
 	"github.com/pkg/errors"
 )
 
+const (
+	binaryVersion = uint8(0)
+)
+
 func (a *PublicMessage) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *PublicMessage) UnmarshalBinary(data []byte) error {
@@ -20,7 +31,15 @@ func (a *PublicMessage) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -28,7 +47,12 @@ func (a *PublicMessage) UnmarshalBinary(data []byte) error {
 }
 
 func (a *PrivateMessage) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *PrivateMessage) UnmarshalBinary(data []byte) error {
@@ -40,7 +64,15 @@ func (a *PrivateMessage) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -48,7 +80,12 @@ func (a *PrivateMessage) UnmarshalBinary(data []byte) error {
 }
 
 func (a *RevertedTx) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *RevertedTx) UnmarshalBinary(data []byte) error {
@@ -60,7 +97,15 @@ func (a *RevertedTx) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -68,7 +113,12 @@ func (a *RevertedTx) UnmarshalBinary(data []byte) error {
 }
 
 func (a *Offer) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *Offer) UnmarshalBinary(data []byte) error {
@@ -80,7 +130,15 @@ func (a *Offer) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -88,7 +146,12 @@ func (a *Offer) UnmarshalBinary(data []byte) error {
 }
 
 func (a *SignatureRequest) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *SignatureRequest) UnmarshalBinary(data []byte) error {
@@ -100,7 +163,15 @@ func (a *SignatureRequest) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -108,7 +179,12 @@ func (a *SignatureRequest) UnmarshalBinary(data []byte) error {
 }
 
 func (a *SettlementRequest) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *SettlementRequest) UnmarshalBinary(data []byte) error {
@@ -120,7 +196,15 @@ func (a *SettlementRequest) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -128,7 +212,12 @@ func (a *SettlementRequest) UnmarshalBinary(data []byte) error {
 }
 
 func (a *OutputMetadata) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *OutputMetadata) UnmarshalBinary(data []byte) error {
@@ -140,7 +229,15 @@ func (a *OutputMetadata) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -148,7 +245,12 @@ func (a *OutputMetadata) UnmarshalBinary(data []byte) error {
 }
 
 func (a *Distribution) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *Distribution) UnmarshalBinary(data []byte) error {
@@ -160,7 +262,15 @@ func (a *Distribution) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -168,7 +278,12 @@ func (a *Distribution) UnmarshalBinary(data []byte) error {
 }
 
 func (a *InitiateRelationship) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *InitiateRelationship) UnmarshalBinary(data []byte) error {
@@ -180,7 +295,15 @@ func (a *InitiateRelationship) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -188,7 +311,12 @@ func (a *InitiateRelationship) UnmarshalBinary(data []byte) error {
 }
 
 func (a *PendingAcceptRelationship) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *PendingAcceptRelationship) UnmarshalBinary(data []byte) error {
@@ -200,7 +328,15 @@ func (a *PendingAcceptRelationship) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -208,7 +344,12 @@ func (a *PendingAcceptRelationship) UnmarshalBinary(data []byte) error {
 }
 
 func (a *AcceptRelationship) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *AcceptRelationship) UnmarshalBinary(data []byte) error {
@@ -220,7 +361,15 @@ func (a *AcceptRelationship) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -228,7 +377,12 @@ func (a *AcceptRelationship) UnmarshalBinary(data []byte) error {
 }
 
 func (a *RelationshipAmendment) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *RelationshipAmendment) UnmarshalBinary(data []byte) error {
@@ -240,7 +394,15 @@ func (a *RelationshipAmendment) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -248,7 +410,12 @@ func (a *RelationshipAmendment) UnmarshalBinary(data []byte) error {
 }
 
 func (a *InitiateThread) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *InitiateThread) UnmarshalBinary(data []byte) error {
@@ -260,7 +427,15 @@ func (a *InitiateThread) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -268,7 +443,12 @@ func (a *InitiateThread) UnmarshalBinary(data []byte) error {
 }
 
 func (a *AdministratorField) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *AdministratorField) UnmarshalBinary(data []byte) error {
@@ -280,7 +460,15 @@ func (a *AdministratorField) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -288,7 +476,12 @@ func (a *AdministratorField) UnmarshalBinary(data []byte) error {
 }
 
 func (a *ChannelPartyField) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *ChannelPartyField) UnmarshalBinary(data []byte) error {
@@ -300,7 +493,15 @@ func (a *ChannelPartyField) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -308,7 +509,12 @@ func (a *ChannelPartyField) UnmarshalBinary(data []byte) error {
 }
 
 func (a *DocumentField) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *DocumentField) UnmarshalBinary(data []byte) error {
@@ -320,7 +526,15 @@ func (a *DocumentField) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -328,7 +542,12 @@ func (a *DocumentField) UnmarshalBinary(data []byte) error {
 }
 
 func (a *EntityField) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *EntityField) UnmarshalBinary(data []byte) error {
@@ -340,7 +559,15 @@ func (a *EntityField) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -348,7 +575,12 @@ func (a *EntityField) UnmarshalBinary(data []byte) error {
 }
 
 func (a *IdentityOracleProofField) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *IdentityOracleProofField) UnmarshalBinary(data []byte) error {
@@ -360,7 +592,15 @@ func (a *IdentityOracleProofField) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -368,7 +608,12 @@ func (a *IdentityOracleProofField) UnmarshalBinary(data []byte) error {
 }
 
 func (a *ManagerField) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *ManagerField) UnmarshalBinary(data []byte) error {
@@ -380,7 +625,15 @@ func (a *ManagerField) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -388,7 +641,12 @@ func (a *ManagerField) UnmarshalBinary(data []byte) error {
 }
 
 func (a *OracleSignatureField) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *OracleSignatureField) UnmarshalBinary(data []byte) error {
@@ -400,7 +658,15 @@ func (a *OracleSignatureField) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -408,7 +674,12 @@ func (a *OracleSignatureField) UnmarshalBinary(data []byte) error {
 }
 
 func (a *OutpointField) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *OutpointField) UnmarshalBinary(data []byte) error {
@@ -420,7 +691,15 @@ func (a *OutpointField) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -428,7 +707,12 @@ func (a *OutpointField) UnmarshalBinary(data []byte) error {
 }
 
 func (a *OutputTagField) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *OutputTagField) UnmarshalBinary(data []byte) error {
@@ -440,7 +724,15 @@ func (a *OutputTagField) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -448,7 +740,12 @@ func (a *OutputTagField) UnmarshalBinary(data []byte) error {
 }
 
 func (a *PaymailProofField) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *PaymailProofField) UnmarshalBinary(data []byte) error {
@@ -460,7 +757,15 @@ func (a *PaymailProofField) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -468,7 +773,12 @@ func (a *PaymailProofField) UnmarshalBinary(data []byte) error {
 }
 
 func (a *PeriodField) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *PeriodField) UnmarshalBinary(data []byte) error {
@@ -480,7 +790,15 @@ func (a *PeriodField) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -488,7 +806,12 @@ func (a *PeriodField) UnmarshalBinary(data []byte) error {
 }
 
 func (a *TargetAddressField) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *TargetAddressField) UnmarshalBinary(data []byte) error {
@@ -500,7 +823,15 @@ func (a *TargetAddressField) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 

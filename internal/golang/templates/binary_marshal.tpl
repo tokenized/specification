@@ -7,9 +7,18 @@ import (
 	"github.com/pkg/errors"
 )
 
+const (
+	binaryVersion = uint8(0)
+)
+
 {{ range .Messages }}
 func (a *{{ .Name }}) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *{{ .Name }}) UnmarshalBinary(data []byte) error {
@@ -21,7 +30,15 @@ func (a *{{ .Name }}) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
@@ -31,7 +48,12 @@ func (a *{{ .Name }}) UnmarshalBinary(data []byte) error {
 
 {{ range .FieldTypes }}
 func (a *{{ .Name }}Field) MarshalBinary() (data []byte, err error) {
-	return proto.Marshal(a)
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
 }
 
 func (a *{{ .Name }}Field) UnmarshalBinary(data []byte) error {
@@ -43,7 +65,15 @@ func (a *{{ .Name }}Field) UnmarshalBinary(data []byte) error {
 		return nil // empty result
 	}
 
-	if err := proto.Unmarshal(data, a); err != nil {
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
 		return errors.Wrap(err, "protobuf unmarshal")
 	}
 
