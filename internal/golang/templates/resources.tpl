@@ -33,7 +33,7 @@ func {{ $resource.Name }}Data(code {{ $resource.CodeType.GoType }}) *{{ $resourc
 		return &{{ $resource.Name }}Code{
 			Name: "{{ $name }}",
 			Label: "{{ $value.Label }}",
-			Description: "{{ $value.Description }}",
+			Description: `{{ text $value.Description }}`,
 			MetaData: `{{ $value.MetaDataJSON }}`,
 		}
 {{- end }}
@@ -54,7 +54,7 @@ func {{ $resource.Name }}Map() map[{{ $resource.CodeType.GoType }}]*{{ $resource
 			&{{ $resource.Name }}Code{
 				Name: "{{ $name }}",
 				Label: "{{ $value.Label }}",
-				Description: "{{ $value.Description }}",
+				Description: `{{ text $value.Description }}`,
 				MetaData: `{{ $value.MetaDataJSON }}`,
 			},
 {{- end }}

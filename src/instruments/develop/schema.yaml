@@ -22,16 +22,19 @@ messages:
   - "utility/TIC - Admission Ticket"
   - "utility/CHP - Casino Chip"
   - "utility/ISL - Information Service License"
+  - "utility/ART - Asset Referenced Token"
 
 # Register Resources
 resources:
   - "../../resources/develop/Currencies"
+  - "../../resources/develop/ReferencedAssetType"
 
 # Register Field Types
 fieldTypes:
   - "types/AgeRestriction"
   - "types/CurrencyValue"
   - "types/Rate"
+  - "types/ReferencedAsset"
 
 # Define Field Aliases
 fieldAliases:
@@ -42,6 +45,13 @@ fieldAliases:
       International Organization for Standardization code for Currency. 3 character code.
     example: AUD
     resource: Currencies
+
+  - name: ReferencedAssetType
+    type: uint
+    size: 8
+    description: Type of asset referenced by an Asset Referenced Token.
+    example: 1
+    resource: ReferencedAssetType
 
   - name: Timestamp
     type: uint

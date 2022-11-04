@@ -16,6 +16,7 @@ Resources are used to define lists of values, like the definitions of the possib
 - [Entities](#resource-entities)
 - [LegalSystems](#resource-legal-systems)
 - [Polities](#resource-polities)
+- [ReferencedAssetType](#resource-referenced-asset-type)
 - [Rejections](#resource-rejections)
 - [Roles](#resource-roles)
 - [Tags](#resource-tags)
@@ -801,6 +802,20 @@ Polities (eg. Countries/Nation-States (ISO-3166 Alpha-3), Political Unions, Inte
 - Yemen
 - Zambia
 - Zimbabwe
+</div>
+
+
+<a name="resource-referenced-asset-type"></a>
+#### ReferencedAssetType
+
+Type of asset referenced by an Asset Referenced Token.
+
+[View Source File](https://github.com/tokenized/specification/blob/master/src/resources/develop/ReferencedAssetType.yaml)
+
+<div class="content-list collection-method-list" markdown="1">
+- FiatCurrency
+- DigitalCurrency
+- PreciousMetal
 </div>
 
 

@@ -54,6 +54,9 @@ const (
 	// CodeInformationServiceLicense identifies a payload as a InformationServiceLicense instrument message.
 	CodeInformationServiceLicense = "ISL"
 
+	// CodeAssetReferencedToken identifies a payload as a AssetReferencedToken instrument message.
+	CodeAssetReferencedToken = "ART"
+
 	// BondTypeCorporate specifies a corporate bond.
 	BondTypeCorporate = "C"
 
@@ -94,6 +97,8 @@ func NewInstrumentFromCode(code string) Instrument {
 		return &CasinoChip{}
 	case CodeInformationServiceLicense:
 		return &InformationServiceLicense{}
+	case CodeAssetReferencedToken:
+		return &AssetReferencedToken{}
 	default:
 		return nil
 	}
@@ -286,6 +291,25 @@ func (a *InformationServiceLicense) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize InformationServiceLicense")
+	}
+
+	_, err = buf.Write(data)
+	return err
+}
+
+func (a *AssetReferencedToken) Code() string {
+	return CodeAssetReferencedToken
+}
+
+func (a *AssetReferencedToken) Bytes() ([]byte, error) {
+	return proto.Marshal(a)
+}
+
+// Serialize writes an instrument to a byte slice.
+func (a *AssetReferencedToken) Serialize(buf *bytes.Buffer) error {
+	data, err := proto.Marshal(a)
+	if err != nil {
+		return errors.Wrap(err, "Failed to serialize AssetReferencedToken")
 	}
 
 	_, err = buf.Write(data)

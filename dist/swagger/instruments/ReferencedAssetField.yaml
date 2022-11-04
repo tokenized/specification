@@ -1,0 +1,46 @@
+
+description: A value specified in terms of a currency.
+type: object
+properties:
+  Type:
+    description: The type of asset that is referenced.
+    type: number
+    example: 1
+  Name:
+    description: The name the asset that is referenced.
+    type: string
+    example: "United States Dollar, Gold, Bitcoin, Ethereum"
+  Description:
+    description: A description of the asset that is referenced.
+    type: string
+    example: "1/100th of a USD cent, 1 gram of gold, 1 satoshi of Bitcoin, 1 wei of Ethereum"
+  Unit:
+    description:  >
+      The name of the unit of the asset that is used to determine the quantity per token.
+    type: string
+    example: "dollar, gram, satoshi, wei"
+  Quantity:
+    description:  >
+      The quantity of tokens that equal one unit of the asset. Denominated in precision specified in
+      Precision field.
+    type: number
+    example: 100
+  Precision:
+    description:  >
+      Required field to specify the decimal precision of the quantity. It is the number of decimal
+      places between the number of tokens and the common unit of measure. So the precision should be
+      2 for the two decimal places in a dollar amount "$1.00".
+If the asset is the US Dollar, unit is
+      dollar, quantity is 1, and precision is 2, then 100 tokens represent a dollar.
+If the asset is
+      the US Dollar, unit is cent, quantity is 1, and precision is 3, then 1000 tokens represent a
+      cent.
+If the asset is gold, unit is a gram, quantity is 1, and precision is 1, then 10 tokens
+      represent a gram of gold.
+If the asset is Ethereum, unit is wei, quantity is 5, and precision
+      is 3, then 5000 tokens represent a wei of Ethereum.
+If the asset is Bitcoin, unit is satoshi,
+      quantity is 1, and precision is 0, then 1 token represents a satoshi.
+    type: number
+    example: 2
+

@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"fmt"
 
+	"github.com/golang/protobuf/proto"
 	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/specification/dist/golang/internal"
 	"github.com/tokenized/specification/dist/golang/permissions"
@@ -1802,6 +1803,178 @@ func (a *InformationServiceLicense) CreateAmendments(fip permissions.FieldIndexP
 	return result, nil
 }
 
+// AssetReferencedToken Permission / Amendment Field Indices
+const (
+	AssetReferencedTokenFieldReferencedAssets = uint32(1)
+	AssetReferencedTokenFieldDescription      = uint32(2)
+)
+
+// ApplyAmendment updates a AssetReferencedToken based on amendment data.
+// Note: This does not check permissions or data validity. This does check data format.
+// fip must have at least one value.
+func (a *AssetReferencedToken) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
+
+	if len(fip) == 0 {
+		return nil, errors.New("Empty instrument amendment field index path")
+	}
+
+	switch fip[0] {
+	case AssetReferencedTokenFieldReferencedAssets: // []ReferencedAssetField
+		if len(fip) == 1 && len(data) == 0 {
+			a.ReferencedAssets = nil
+			return permissions.SubPermissions(fip[1:], operation, true)
+		}
+		switch operation {
+		case 0: // Modify
+			if len(fip) < 3 { // includes list index and subfield index
+				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify ReferencedAssets : %v",
+					fip)
+			}
+			if int(fip[1]) >= len(a.ReferencedAssets) {
+				return nil, fmt.Errorf("Amendment element index out of range for modify ReferencedAssets : %d", fip[1])
+			}
+
+			subPermissions, err := permissions.SubPermissions(fip, operation, true)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.ReferencedAssets[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+		case 1: // Add element
+			if len(fip) > 2 { // includes list index
+				// Add is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.ReferencedAssets[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for add ReferencedAssets : %v",
+					fip)
+			}
+
+			newValue := &ReferencedAssetField{}
+			if len(data) != 0 { // Leave default values if data is empty
+				if err := proto.Unmarshal(data, newValue); err != nil {
+					return nil, fmt.Errorf("Amendment addition to ReferencedAssets failed to deserialize : %s",
+						err)
+				}
+			}
+
+			if len(a.ReferencedAssets) <= int(fip[1]) {
+				// Append item to the end
+				a.ReferencedAssets = append(a.ReferencedAssets, newValue)
+			} else {
+				// Insert item at index specified by fip[1]
+				before := a.ReferencedAssets[:fip[1]]
+				after := make([]*ReferencedAssetField, len(a.ReferencedAssets)-int(fip[1]))
+				copy(after, a.ReferencedAssets[fip[1]+1:]) // copy so slice reuse won't overwrite
+
+				a.ReferencedAssets = append(before, newValue)
+				a.ReferencedAssets = append(a.ReferencedAssets, after...)
+			}
+			return permissions.SubPermissions(fip, operation, true)
+
+		case 2: // Delete element
+			if len(fip) > 2 { // includes list index
+				// Delete is for sub-object
+				subPermissions, err := permissions.SubPermissions(fip, operation, true)
+				if err != nil {
+					return nil, errors.Wrap(err, "sub permissions")
+				}
+
+				return a.ReferencedAssets[fip[1]].ApplyAmendment(fip[2:], operation, data, subPermissions)
+
+			} else if len(fip) < 2 {
+				return nil, fmt.Errorf("Amendment field index path wrong depth for delete ReferencedAssets : %v",
+					fip)
+			}
+
+			// Remove item from list
+			a.ReferencedAssets = append(a.ReferencedAssets[:fip[1]], a.ReferencedAssets[fip[1]+1:]...)
+			return permissions.SubPermissions(fip, operation, true)
+		}
+
+	case AssetReferencedTokenFieldDescription: // string
+		a.Description = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+
+	}
+
+	return nil, fmt.Errorf("Unknown AssetReferencedToken amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two AssetReferencedTokens and returns
+// amendment data.
+func (a *AssetReferencedToken) CreateAmendments(fip permissions.FieldIndexPath,
+	newValue *AssetReferencedToken) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	// ReferencedAssets []ReferencedAssetField
+	fip = append(ofip, AssetReferencedTokenFieldReferencedAssets)
+	ReferencedAssetsMin := len(a.ReferencedAssets)
+	if ReferencedAssetsMin > len(newValue.ReferencedAssets) {
+		ReferencedAssetsMin = len(newValue.ReferencedAssets)
+	}
+
+	// Compare values
+	for i := 0; i < ReferencedAssetsMin; i++ {
+		lfip := append(fip, uint32(i))
+		ReferencedAssetsAmendments, err := a.ReferencedAssets[i].CreateAmendments(lfip,
+			newValue.ReferencedAssets[i])
+		if err != nil {
+			return nil, errors.Wrapf(err, "ReferencedAssets%d", i)
+		}
+		result = append(result, ReferencedAssetsAmendments...)
+	}
+
+	ReferencedAssetsMax := len(a.ReferencedAssets)
+	if ReferencedAssetsMax < len(newValue.ReferencedAssets) {
+		ReferencedAssetsMax = len(newValue.ReferencedAssets)
+	}
+
+	// Add/Remove values
+	for i := ReferencedAssetsMin; i < ReferencedAssetsMax; i++ {
+		amendment := &internal.Amendment{
+			FIP: append(fip, uint32(i)), // Add array index to path
+		}
+
+		if i < len(newValue.ReferencedAssets) {
+			amendment.Operation = 1 // Add element
+			b, err := proto.Marshal(newValue.ReferencedAssets[i])
+			if err != nil {
+				return nil, errors.Wrapf(err, "serialize ReferencedAssets %d", i)
+			}
+			amendment.Data = b
+		} else {
+			amendment.Operation = 2 // Remove element
+		}
+
+		result = append(result, amendment)
+	}
+
+	// Description string
+	fip = append(ofip, AssetReferencedTokenFieldDescription)
+	if a.Description != newValue.Description {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Description),
+		})
+	}
+
+	return result, nil
+}
+
 // AgeRestrictionField Permission / Amendment Field Indices
 const (
 	AgeRestrictionFieldLower = uint32(1)
@@ -2086,6 +2259,167 @@ func (a *RateField) CreateAmendments(fip permissions.FieldIndexPath,
 	return result, nil
 }
 
+// ReferencedAssetField Permission / Amendment Field Indices
+const (
+	ReferencedAssetFieldType        = uint32(1)
+	ReferencedAssetFieldName        = uint32(2)
+	ReferencedAssetFieldDescription = uint32(3)
+	ReferencedAssetFieldUnit        = uint32(4)
+	ReferencedAssetFieldQuantity    = uint32(5)
+	ReferencedAssetFieldPrecision   = uint32(6)
+)
+
+// ApplyAmendment updates a ReferencedAssetField based on amendment data.
+// Note: This does not check permissions or data validity. This does check data format.
+// fip must have at least one value.
+func (a *ReferencedAssetField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
+
+	if len(fip) == 0 {
+		return nil, errors.New("Empty ReferencedAsset amendment field index path")
+	}
+
+	switch fip[0] {
+	case ReferencedAssetFieldType: // uint64
+
+		if ReferencedAssetTypeData(a.Type) == nil {
+			return nil, fmt.Errorf("ReferencedAssetType resource value not defined : %v", a.Type)
+		}
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for Type : %v", fip)
+		}
+		buf := bytes.NewBuffer(data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("Type amendment value failed to deserialize : %s", err)
+		} else {
+			a.Type = uint64(value)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+	case ReferencedAssetFieldName: // string
+
+		a.Name = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+	case ReferencedAssetFieldDescription: // string
+
+		a.Description = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+	case ReferencedAssetFieldUnit: // string
+
+		a.Unit = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+	case ReferencedAssetFieldQuantity: // uint64
+
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for Quantity : %v", fip)
+		}
+		buf := bytes.NewBuffer(data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("Quantity amendment value failed to deserialize : %s", err)
+		} else {
+			a.Quantity = uint64(value)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+	case ReferencedAssetFieldPrecision: // uint32
+
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for Precision : %v", fip)
+		}
+		buf := bytes.NewBuffer(data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
+		} else {
+			a.Precision = uint32(value)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+	}
+
+	return nil, fmt.Errorf("Unknown ReferencedAsset amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two ReferencedAssets and returns
+// amendment data.
+func (a *ReferencedAssetField) CreateAmendments(fip permissions.FieldIndexPath,
+	newValue *ReferencedAssetField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	// Type uint64
+	fip = append(ofip, ReferencedAssetFieldType)
+	if a.Type != newValue.Type {
+		var buf bytes.Buffer
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Type)); err != nil {
+			return nil, errors.Wrap(err, "Type")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Name string
+	fip = append(ofip, ReferencedAssetFieldName)
+	if a.Name != newValue.Name {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Name),
+		})
+	}
+
+	// Description string
+	fip = append(ofip, ReferencedAssetFieldDescription)
+	if a.Description != newValue.Description {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Description),
+		})
+	}
+
+	// Unit string
+	fip = append(ofip, ReferencedAssetFieldUnit)
+	if a.Unit != newValue.Unit {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Unit),
+		})
+	}
+
+	// Quantity uint64
+	fip = append(ofip, ReferencedAssetFieldQuantity)
+	if a.Quantity != newValue.Quantity {
+		var buf bytes.Buffer
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Quantity)); err != nil {
+			return nil, errors.Wrap(err, "Quantity")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Precision uint32
+	fip = append(ofip, ReferencedAssetFieldPrecision)
+	if a.Precision != newValue.Precision {
+		var buf bytes.Buffer
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Precision)); err != nil {
+			return nil, errors.Wrap(err, "Precision")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	return result, nil
+}
+
 // CreatePayloadAmendments deserializes instrument payloads and create amendments for them.
 func CreatePayloadAmendments(fip permissions.FieldIndexPath,
 	instrumentType, payload, newPayload []byte) ([]*internal.Amendment, error) {
@@ -2128,6 +2462,9 @@ func CreatePayloadAmendments(fip permissions.FieldIndexPath,
 
 	case *InformationServiceLicense:
 		result, err = c.CreateAmendments(fip, new.(*InformationServiceLicense))
+
+	case *AssetReferencedToken:
+		result, err = c.CreateAmendments(fip, new.(*AssetReferencedToken))
 
 	}
 

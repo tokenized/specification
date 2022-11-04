@@ -1,0 +1,25 @@
+
+name: ReferencedAssetType
+description: Type of asset referenced by an Asset Referenced Token.
+codeType:
+    type: uint
+    size: 8
+
+values:
+  - code: 1
+    name: FiatCurrency
+    label: Fiat Currency
+    description: >
+      A currency issued by a central bank or government and bestowed value by a government.
+
+  - code: 2
+    name: DigitalCurrency
+    label: Digital Currency
+    description: >
+      A currency issued and operated digitally and not directly issued or run by a central bank or
+      government.
+
+  - code: 3
+    name: PreciousMetal
+    label: Precious Metal
+    description: A precious metal.

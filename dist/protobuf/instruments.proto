@@ -117,6 +117,12 @@ message InformationServiceLicense {
     string URL                                     = 5;   // varchar
 }
 
+// Message - Asset Referenced Token (ART)
+message AssetReferencedToken {
+    repeated ReferencedAssetField ReferencedAssets = 1;   // ReferencedAsset[]
+    string Description                             = 2;   // varchar
+}
+
 
 // Field - Age Restriction
 message AgeRestrictionField {
@@ -135,5 +141,15 @@ message CurrencyValueField {
 message RateField {
     uint32 Precision                               = 1;   // uint
     uint64 Value                                   = 2;   // uint
+}
+
+// Field - Referenced Asset
+message ReferencedAssetField {
+    uint64 Type                                    = 1;   // ReferencedAssetType
+    string Name                                    = 2;   // varchar
+    string Description                             = 3;   // varchar
+    string Unit                                    = 4;   // varchar
+    uint64 Quantity                                = 5;   // uint
+    uint32 Precision                               = 6;   // uint
 }
 

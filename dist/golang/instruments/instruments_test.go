@@ -96,4 +96,14 @@ func TestEmptyDeserialize(t *testing.T) {
 		t.Fatalf("Failed deserialize type check for InformationServiceLicense")
 	}
 
+	// AssetReferencedToken identifies a payload as a AssetReferencedToken message.
+	instrumentAssetReferencedToken, err := Deserialize([]byte(CodeAssetReferencedToken), nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for AssetReferencedToken : %s", err)
+	}
+	_, ok = instrumentAssetReferencedToken.(*AssetReferencedToken)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for AssetReferencedToken")
+	}
+
 }

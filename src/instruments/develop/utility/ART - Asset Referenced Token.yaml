@@ -1,0 +1,32 @@
+#
+# ART - Asset Referenced Token
+#
+
+code: ART
+name: AssetReferencedToken
+label: Asset Referenced Token
+description: >
+  A token with the purpose of maintaining a stable value by referring to the value of several fiat
+  currencies that are legal tender, one or several commodities or one or several crypto-assets, or a
+  combination of such assets.
+
+metadata:
+  kind: Utility
+  examples:
+    - Australian dollar
+    - Ethereum
+    - Gold
+
+fields:
+  - name: ReferencedAssets
+    label: Referenced Assets
+    type: ReferencedAsset[]
+    description: The assets referenced by this token. Basically the assets that "back" this token.
+    required: true
+
+  - name: Description
+    label: Description
+    type: varchar
+    varSize: small
+    example: Australian dollar
+    description: "The description of the token."

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z:github.com/tokenized/specification/dist/golang/instruments',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x11instruments.proto\x12\x0binstruments\"\xf6\x01\n\nMembership\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x11\n\tValidFrom\x18\x02 \x01(\x04\x12\x1b\n\x13\x45xpirationTimestamp\x18\x03 \x01(\x04\x12\n\n\x02ID\x18\x04 \x01(\t\x12\x17\n\x0fMembershipClass\x18\x05 \x01(\t\x12\x10\n\x08RoleType\x18\x06 \x01(\t\x12\x16\n\x0eMembershipType\x18\x07 \x01(\t\x12\x13\n\x0b\x44\x65scription\x18\x08 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\t \x01(\x08\"T\n\x08\x43urrency\x12\x14\n\x0c\x43urrencyCode\x18\x01 \x01(\t\x12\x19\n\x11MonetaryAuthority\x18\x02 \x01(\t\x12\x11\n\tPrecision\x18\x04 \x01(\x04J\x04\x08\x03\x10\x04\"\\\n\x0bShareCommon\x12\x0e\n\x06Ticker\x18\x01 \x01(\t\x12\x0c\n\x04ISIN\x18\x02 \x01(\t\x12\x13\n\x0b\x44\x65scription\x18\x03 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x04 \x01(\x08\"\xda\x03\n\rBondFixedRate\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x10\n\x08\x42ondType\x18\x02 \x01(\t\x12\x0c\n\x04ISIN\x18\x03 \x01(\t\x12\x12\n\nCollateral\x18\x04 \x01(\t\x12\x31\n\x08ParValue\x18\x05 \x01(\x0b\x32\x1f.instruments.CurrencyValueField\x12,\n\x0cInterestRate\x18\x06 \x01(\x0b\x32\x16.instruments.RateField\x12\"\n\x1aInterestPaymentInitialDate\x18\x07 \x01(\x04\x12!\n\x19InterestPaymentDateDeltas\x18\x08 \x03(\x04\x12\x36\n\x16LatePaymentPenaltyRate\x18\t \x01(\x0b\x32\x16.instruments.RateField\x12\x19\n\x11LatePaymentWindow\x18\n \x01(\x04\x12 \n\x18LatePaymentPenaltyPeriod\x18\x0b \x01(\x04\x12\x14\n\x0cMaturityDate\x18\x0c \x01(\x04\x12\x38\n\x0e\x41geRestriction\x18\r \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x1a\n\x12TransfersPermitted\x18\x0e \x01(\x08\"\xfa\x01\n\x06\x43oupon\x12\x17\n\x0fRedeemingEntity\x18\x01 \x01(\t\x12\x1a\n\x12ValidFromTimestamp\x18\x02 \x01(\x04\x12\x1b\n\x13\x45xpirationTimestamp\x18\x03 \x01(\x04\x12\x12\n\nCouponName\x18\x06 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x08 \x01(\x08\x12\x32\n\tFaceValue\x18\t \x01(\x0b\x32\x1f.instruments.CurrencyValueField\x12\x17\n\x0fRedemptionVenue\x18\n \x01(\t\x12\x0f\n\x07\x44\x65tails\x18\x0b \x01(\tJ\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06J\x04\x08\x07\x10\x08\"\xae\x01\n\rLoyaltyPoints\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x13\n\x0bProgramName\x18\x02 \x01(\t\x12\x1b\n\x13\x45xpirationTimestamp\x18\x04 \x01(\x04\x12\x0f\n\x07\x44\x65tails\x18\x05 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x06 \x01(\x08J\x04\x08\x03\x10\x04\"\xa4\x02\n\x0fTicketAdmission\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\r\n\x05Venue\x18\x03 \x01(\t\x12\x0c\n\x04\x41rea\x18\x05 \x01(\t\x12\x0c\n\x04Seat\x18\x06 \x01(\t\x12\x1b\n\x13\x45ventStartTimestamp\x18\x07 \x01(\x04\x12\x11\n\tEventName\x18\n \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x0b \x01(\x08\x12\x0f\n\x07\x44\x65tails\x18\x0c \x01(\t\x12\x0f\n\x07Section\x18\r \x01(\t\x12\x0b\n\x03Row\x18\x0e \x01(\t\x12\x19\n\x11\x45ventEndTimestamp\x18\x0f \x01(\x04J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05J\x04\x08\x08\x10\tJ\x04\x08\t\x10\n\"\xea\x01\n\nCasinoChip\x12\x0f\n\x07UseType\x18\x02 \x01(\t\x12\x38\n\x0e\x41geRestriction\x18\x03 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x1b\n\x13\x45xpirationTimestamp\x18\x05 \x01(\x04\x12\x1a\n\x12TransfersPermitted\x18\x07 \x01(\x08\x12\x12\n\nCasinoName\x18\x08 \x01(\t\x12\x32\n\tFaceValue\x18\t \x01(\x0b\x32\x1f.instruments.CurrencyValueFieldJ\x04\x08\x01\x10\x02J\x04\x08\x04\x10\x05J\x04\x08\x06\x10\x07\"\xb0\x01\n\x19InformationServiceLicense\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x1b\n\x13\x45xpirationTimestamp\x18\x02 \x01(\x04\x12\x13\n\x0bServiceName\x18\x03 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x04 \x01(\x08\x12\x0b\n\x03URL\x18\x05 \x01(\t\"3\n\x13\x41geRestrictionField\x12\r\n\x05Lower\x18\x01 \x01(\r\x12\r\n\x05Upper\x18\x02 \x01(\r\"L\n\x12\x43urrencyValueField\x12\r\n\x05Value\x18\x01 \x01(\x04\x12\x14\n\x0c\x43urrencyCode\x18\x02 \x01(\t\x12\x11\n\tPrecision\x18\x03 \x01(\r\"-\n\tRateField\x12\x11\n\tPrecision\x18\x01 \x01(\r\x12\r\n\x05Value\x18\x02 \x01(\x04\x42<Z:github.com/tokenized/specification/dist/golang/instrumentsb\x06proto3'
+  serialized_pb=b'\n\x11instruments.proto\x12\x0binstruments\"\xf6\x01\n\nMembership\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x11\n\tValidFrom\x18\x02 \x01(\x04\x12\x1b\n\x13\x45xpirationTimestamp\x18\x03 \x01(\x04\x12\n\n\x02ID\x18\x04 \x01(\t\x12\x17\n\x0fMembershipClass\x18\x05 \x01(\t\x12\x10\n\x08RoleType\x18\x06 \x01(\t\x12\x16\n\x0eMembershipType\x18\x07 \x01(\t\x12\x13\n\x0b\x44\x65scription\x18\x08 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\t \x01(\x08\"T\n\x08\x43urrency\x12\x14\n\x0c\x43urrencyCode\x18\x01 \x01(\t\x12\x19\n\x11MonetaryAuthority\x18\x02 \x01(\t\x12\x11\n\tPrecision\x18\x04 \x01(\x04J\x04\x08\x03\x10\x04\"\\\n\x0bShareCommon\x12\x0e\n\x06Ticker\x18\x01 \x01(\t\x12\x0c\n\x04ISIN\x18\x02 \x01(\t\x12\x13\n\x0b\x44\x65scription\x18\x03 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x04 \x01(\x08\"\xda\x03\n\rBondFixedRate\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x10\n\x08\x42ondType\x18\x02 \x01(\t\x12\x0c\n\x04ISIN\x18\x03 \x01(\t\x12\x12\n\nCollateral\x18\x04 \x01(\t\x12\x31\n\x08ParValue\x18\x05 \x01(\x0b\x32\x1f.instruments.CurrencyValueField\x12,\n\x0cInterestRate\x18\x06 \x01(\x0b\x32\x16.instruments.RateField\x12\"\n\x1aInterestPaymentInitialDate\x18\x07 \x01(\x04\x12!\n\x19InterestPaymentDateDeltas\x18\x08 \x03(\x04\x12\x36\n\x16LatePaymentPenaltyRate\x18\t \x01(\x0b\x32\x16.instruments.RateField\x12\x19\n\x11LatePaymentWindow\x18\n \x01(\x04\x12 \n\x18LatePaymentPenaltyPeriod\x18\x0b \x01(\x04\x12\x14\n\x0cMaturityDate\x18\x0c \x01(\x04\x12\x38\n\x0e\x41geRestriction\x18\r \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x1a\n\x12TransfersPermitted\x18\x0e \x01(\x08\"\xfa\x01\n\x06\x43oupon\x12\x17\n\x0fRedeemingEntity\x18\x01 \x01(\t\x12\x1a\n\x12ValidFromTimestamp\x18\x02 \x01(\x04\x12\x1b\n\x13\x45xpirationTimestamp\x18\x03 \x01(\x04\x12\x12\n\nCouponName\x18\x06 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x08 \x01(\x08\x12\x32\n\tFaceValue\x18\t \x01(\x0b\x32\x1f.instruments.CurrencyValueField\x12\x17\n\x0fRedemptionVenue\x18\n \x01(\t\x12\x0f\n\x07\x44\x65tails\x18\x0b \x01(\tJ\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06J\x04\x08\x07\x10\x08\"\xae\x01\n\rLoyaltyPoints\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x13\n\x0bProgramName\x18\x02 \x01(\t\x12\x1b\n\x13\x45xpirationTimestamp\x18\x04 \x01(\x04\x12\x0f\n\x07\x44\x65tails\x18\x05 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x06 \x01(\x08J\x04\x08\x03\x10\x04\"\xa4\x02\n\x0fTicketAdmission\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\r\n\x05Venue\x18\x03 \x01(\t\x12\x0c\n\x04\x41rea\x18\x05 \x01(\t\x12\x0c\n\x04Seat\x18\x06 \x01(\t\x12\x1b\n\x13\x45ventStartTimestamp\x18\x07 \x01(\x04\x12\x11\n\tEventName\x18\n \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x0b \x01(\x08\x12\x0f\n\x07\x44\x65tails\x18\x0c \x01(\t\x12\x0f\n\x07Section\x18\r \x01(\t\x12\x0b\n\x03Row\x18\x0e \x01(\t\x12\x19\n\x11\x45ventEndTimestamp\x18\x0f \x01(\x04J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05J\x04\x08\x08\x10\tJ\x04\x08\t\x10\n\"\xea\x01\n\nCasinoChip\x12\x0f\n\x07UseType\x18\x02 \x01(\t\x12\x38\n\x0e\x41geRestriction\x18\x03 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x1b\n\x13\x45xpirationTimestamp\x18\x05 \x01(\x04\x12\x1a\n\x12TransfersPermitted\x18\x07 \x01(\x08\x12\x12\n\nCasinoName\x18\x08 \x01(\t\x12\x32\n\tFaceValue\x18\t \x01(\x0b\x32\x1f.instruments.CurrencyValueFieldJ\x04\x08\x01\x10\x02J\x04\x08\x04\x10\x05J\x04\x08\x06\x10\x07\"\xb0\x01\n\x19InformationServiceLicense\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x1b\n\x13\x45xpirationTimestamp\x18\x02 \x01(\x04\x12\x13\n\x0bServiceName\x18\x03 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x04 \x01(\x08\x12\x0b\n\x03URL\x18\x05 \x01(\t\"h\n\x14\x41ssetReferencedToken\x12;\n\x10ReferencedAssets\x18\x01 \x03(\x0b\x32!.instruments.ReferencedAssetField\x12\x13\n\x0b\x44\x65scription\x18\x02 \x01(\t\"3\n\x13\x41geRestrictionField\x12\r\n\x05Lower\x18\x01 \x01(\r\x12\r\n\x05Upper\x18\x02 \x01(\r\"L\n\x12\x43urrencyValueField\x12\r\n\x05Value\x18\x01 \x01(\x04\x12\x14\n\x0c\x43urrencyCode\x18\x02 \x01(\t\x12\x11\n\tPrecision\x18\x03 \x01(\r\"-\n\tRateField\x12\x11\n\tPrecision\x18\x01 \x01(\r\x12\r\n\x05Value\x18\x02 \x01(\x04\"z\n\x14ReferencedAssetField\x12\x0c\n\x04Type\x18\x01 \x01(\x04\x12\x0c\n\x04Name\x18\x02 \x01(\t\x12\x13\n\x0b\x44\x65scription\x18\x03 \x01(\t\x12\x0c\n\x04Unit\x18\x04 \x01(\t\x12\x10\n\x08Quantity\x18\x05 \x01(\x04\x12\x11\n\tPrecision\x18\x06 \x01(\rB<Z:github.com/tokenized/specification/dist/golang/instrumentsb\x06proto3'
 )
 
 
@@ -705,6 +705,45 @@ _INFORMATIONSERVICELICENSE = _descriptor.Descriptor(
 )
 
 
+_ASSETREFERENCEDTOKEN = _descriptor.Descriptor(
+  name='AssetReferencedToken',
+  full_name='instruments.AssetReferencedToken',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='ReferencedAssets', full_name='instruments.AssetReferencedToken.ReferencedAssets', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='Description', full_name='instruments.AssetReferencedToken.Description', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2081,
+  serialized_end=2185,
+)
+
+
 _AGERESTRICTIONFIELD = _descriptor.Descriptor(
   name='AgeRestrictionField',
   full_name='instruments.AgeRestrictionField',
@@ -739,8 +778,8 @@ _AGERESTRICTIONFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2081,
-  serialized_end=2132,
+  serialized_start=2187,
+  serialized_end=2238,
 )
 
 
@@ -785,8 +824,8 @@ _CURRENCYVALUEFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2134,
-  serialized_end=2210,
+  serialized_start=2240,
+  serialized_end=2316,
 )
 
 
@@ -824,8 +863,75 @@ _RATEFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2212,
-  serialized_end=2257,
+  serialized_start=2318,
+  serialized_end=2363,
+)
+
+
+_REFERENCEDASSETFIELD = _descriptor.Descriptor(
+  name='ReferencedAssetField',
+  full_name='instruments.ReferencedAssetField',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='Type', full_name='instruments.ReferencedAssetField.Type', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='Name', full_name='instruments.ReferencedAssetField.Name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='Description', full_name='instruments.ReferencedAssetField.Description', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='Unit', full_name='instruments.ReferencedAssetField.Unit', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='Quantity', full_name='instruments.ReferencedAssetField.Quantity', index=4,
+      number=5, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='Precision', full_name='instruments.ReferencedAssetField.Precision', index=5,
+      number=6, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2365,
+  serialized_end=2487,
 )
 
 _MEMBERSHIP.fields_by_name['AgeRestriction'].message_type = _AGERESTRICTIONFIELD
@@ -839,6 +945,7 @@ _TICKETADMISSION.fields_by_name['AgeRestriction'].message_type = _AGERESTRICTION
 _CASINOCHIP.fields_by_name['AgeRestriction'].message_type = _AGERESTRICTIONFIELD
 _CASINOCHIP.fields_by_name['FaceValue'].message_type = _CURRENCYVALUEFIELD
 _INFORMATIONSERVICELICENSE.fields_by_name['AgeRestriction'].message_type = _AGERESTRICTIONFIELD
+_ASSETREFERENCEDTOKEN.fields_by_name['ReferencedAssets'].message_type = _REFERENCEDASSETFIELD
 DESCRIPTOR.message_types_by_name['Membership'] = _MEMBERSHIP
 DESCRIPTOR.message_types_by_name['Currency'] = _CURRENCY
 DESCRIPTOR.message_types_by_name['ShareCommon'] = _SHARECOMMON
@@ -848,9 +955,11 @@ DESCRIPTOR.message_types_by_name['LoyaltyPoints'] = _LOYALTYPOINTS
 DESCRIPTOR.message_types_by_name['TicketAdmission'] = _TICKETADMISSION
 DESCRIPTOR.message_types_by_name['CasinoChip'] = _CASINOCHIP
 DESCRIPTOR.message_types_by_name['InformationServiceLicense'] = _INFORMATIONSERVICELICENSE
+DESCRIPTOR.message_types_by_name['AssetReferencedToken'] = _ASSETREFERENCEDTOKEN
 DESCRIPTOR.message_types_by_name['AgeRestrictionField'] = _AGERESTRICTIONFIELD
 DESCRIPTOR.message_types_by_name['CurrencyValueField'] = _CURRENCYVALUEFIELD
 DESCRIPTOR.message_types_by_name['RateField'] = _RATEFIELD
+DESCRIPTOR.message_types_by_name['ReferencedAssetField'] = _REFERENCEDASSETFIELD
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Membership = _reflection.GeneratedProtocolMessageType('Membership', (_message.Message,), {
@@ -916,6 +1025,13 @@ InformationServiceLicense = _reflection.GeneratedProtocolMessageType('Informatio
   })
 _sym_db.RegisterMessage(InformationServiceLicense)
 
+AssetReferencedToken = _reflection.GeneratedProtocolMessageType('AssetReferencedToken', (_message.Message,), {
+  'DESCRIPTOR' : _ASSETREFERENCEDTOKEN,
+  '__module__' : 'instruments_pb2'
+  # @@protoc_insertion_point(class_scope:instruments.AssetReferencedToken)
+  })
+_sym_db.RegisterMessage(AssetReferencedToken)
+
 AgeRestrictionField = _reflection.GeneratedProtocolMessageType('AgeRestrictionField', (_message.Message,), {
   'DESCRIPTOR' : _AGERESTRICTIONFIELD,
   '__module__' : 'instruments_pb2'
@@ -936,6 +1052,13 @@ RateField = _reflection.GeneratedProtocolMessageType('RateField', (_message.Mess
   # @@protoc_insertion_point(class_scope:instruments.RateField)
   })
 _sym_db.RegisterMessage(RateField)
+
+ReferencedAssetField = _reflection.GeneratedProtocolMessageType('ReferencedAssetField', (_message.Message,), {
+  'DESCRIPTOR' : _REFERENCEDASSETFIELD,
+  '__module__' : 'instruments_pb2'
+  # @@protoc_insertion_point(class_scope:instruments.ReferencedAssetField)
+  })
+_sym_db.RegisterMessage(ReferencedAssetField)
 
 
 DESCRIPTOR._options = None

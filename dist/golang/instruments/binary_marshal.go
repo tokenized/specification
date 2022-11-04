@@ -187,6 +187,26 @@ func (a *InformationServiceLicense) UnmarshalBinary(data []byte) error {
 	return nil
 }
 
+func (a *AssetReferencedToken) MarshalBinary() (data []byte, err error) {
+	return proto.Marshal(a)
+}
+
+func (a *AssetReferencedToken) UnmarshalBinary(data []byte) error {
+	if len(data) == 0 {
+		return nil // empty result
+	}
+
+	if len(data) == 1 && data[0] == bitcoin.OP_FALSE {
+		return nil // empty result
+	}
+
+	if err := proto.Unmarshal(data, a); err != nil {
+		return errors.Wrap(err, "protobuf unmarshal")
+	}
+
+	return nil
+}
+
 func (a *AgeRestrictionField) MarshalBinary() (data []byte, err error) {
 	return proto.Marshal(a)
 }
@@ -232,6 +252,26 @@ func (a *RateField) MarshalBinary() (data []byte, err error) {
 }
 
 func (a *RateField) UnmarshalBinary(data []byte) error {
+	if len(data) == 0 {
+		return nil // empty result
+	}
+
+	if len(data) == 1 && data[0] == bitcoin.OP_FALSE {
+		return nil // empty result
+	}
+
+	if err := proto.Unmarshal(data, a); err != nil {
+		return errors.Wrap(err, "protobuf unmarshal")
+	}
+
+	return nil
+}
+
+func (a *ReferencedAssetField) MarshalBinary() (data []byte, err error) {
+	return proto.Marshal(a)
+}
+
+func (a *ReferencedAssetField) UnmarshalBinary(data []byte) error {
 	if len(data) == 0 {
 		return nil // empty result
 	}

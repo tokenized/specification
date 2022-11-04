@@ -18,9 +18,13 @@ components:
       $ref: ./_components/schemas/tokenized/instruments/CasinoChip.yaml
     InformationServiceLicense:
       $ref: ./_components/schemas/tokenized/instruments/InformationServiceLicense.yaml
+    AssetReferencedToken:
+      $ref: ./_components/schemas/tokenized/instruments/AssetReferencedToken.yaml
     AgeRestrictionField:
       $ref: ./_components/schemas/tokenized/instruments/AgeRestrictionField.yaml
     CurrencyValueField:
       $ref: ./_components/schemas/tokenized/instruments/CurrencyValueField.yaml
     RateField:
       $ref: ./_components/schemas/tokenized/instruments/RateField.yaml
+    ReferencedAssetField:
+      $ref: ./_components/schemas/tokenized/instruments/ReferencedAssetField.yaml

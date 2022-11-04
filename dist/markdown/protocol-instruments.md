@@ -23,6 +23,7 @@ Instrument Types are used with reference to the `InstrumentPayload` field found 
 - [Ticket (Admission)](#ticket-admission)
 - [Casino Chip](#casino-chip)
 - [Information Service License](#information-service-license)
+- [Asset Referenced Token](#asset-referenced-token)
 </div>
 
 <a name="membership"></a>
@@ -1003,6 +1004,44 @@ Information Service License
 
 
 
+<a name="asset-referenced-token"></a>
+#### Asset Referenced Token
+
+A token with the purpose of maintaining a stable value by referring to the value of several fiat currencies that are legal tender, one or several commodities or one or several crypto-assets, or a combination of such assets.
+
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>ReferencedAssets</td>
+        <td>
+            <a href="#type-referenced-asset">ReferencedAsset[0]</a>
+        </td>
+        <td>
+            The assets referenced by this token. Basically the assets that &#34;back&#34; this token.
+             This field is always required. 
+        </td>
+    </tr>
+
+    <tr>
+        <td>Description</td>
+        <td>
+            varchar(small)
+        </td>
+        <td>
+            The description of the token.
+             Example: Australian dollar
+        </td>
+    </tr>
+
+</table>
+
+
+
 <a name="field-types"></a>
 ## Field Types
 
@@ -1010,6 +1049,7 @@ Information Service License
 - [Age Restriction](#type-age-restriction)
 - [Currency Value](#type-currency-value)
 - [Rate](#type-rate)
+- [Referenced Asset](#type-referenced-asset)
 </div>
 
 
@@ -1139,6 +1179,94 @@ A rate value specified in terms of a precision.
 
 
 
+<a name="type-referenced-asset"></a>
+### Referenced Asset
+
+A value specified in terms of a currency.
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Type</td>
+        <td>
+            <a href="#alias-uint">ReferencedAssetType</a>
+        </td>
+        <td>
+            The type of asset that is referenced.
+             This field is always required.  Example: 1
+        </td>
+    </tr>
+
+    <tr>
+        <td>Name</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            The name the asset that is referenced.
+             Example: United States Dollar, Gold, Bitcoin, Ethereum
+        </td>
+    </tr>
+
+    <tr>
+        <td>Description</td>
+        <td>
+            varchar(small)
+        </td>
+        <td>
+            A description of the asset that is referenced.
+             Example: 1/100th of a USD cent, 1 gram of gold, 1 satoshi of Bitcoin, 1 wei of Ethereum
+        </td>
+    </tr>
+
+    <tr>
+        <td>Unit</td>
+        <td>
+            varchar(small)
+        </td>
+        <td>
+            The name of the unit of the asset that is used to determine the quantity per token.
+             Example: dollar, gram, satoshi, wei
+        </td>
+    </tr>
+
+    <tr>
+        <td>Quantity</td>
+        <td>
+            uint(8)
+        </td>
+        <td>
+            The quantity of tokens that equal one unit of the asset. Denominated in precision specified in Precision field.
+
+             This field is always required.  Example: 100
+        </td>
+    </tr>
+
+    <tr>
+        <td>Precision</td>
+        <td>
+            uint(1)
+        </td>
+        <td>
+            Required field to specify the decimal precision of the quantity. It is the number of decimal places between the number of tokens and the common unit of measure. So the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;.
+If the asset is the US Dollar, unit is dollar, quantity is 1, and precision is 2, then 100 tokens represent a dollar.
+If the asset is the US Dollar, unit is cent, quantity is 1, and precision is 3, then 1000 tokens represent a cent.
+If the asset is gold, unit is a gram, quantity is 1, and precision is 1, then 10 tokens represent a gram of gold.
+If the asset is Ethereum, unit is wei, quantity is 5, and precision is 3, then 5000 tokens represent a wei of Ethereum.
+If the asset is Bitcoin, unit is satoshi, quantity is 1, and precision is 0, then 1 token represents a satoshi.
+
+             This field is always required.  Example: 2
+        </td>
+    </tr>
+
+</table>
+
+
+
 <a name="field-aliases"></a>
 ## Field Aliases
 
@@ -1157,6 +1285,16 @@ A rate value specified in terms of a precision.
                 International Organization for Standardization code for Currency. 3 character code.
 
                  Example: AUD
+            </td>
+        </tr>
+        <tr id="alias-referenced-asset-type">
+            <td>ReferencedAssetType</td>
+            <td>
+                uint(8)
+            </td>
+            <td>
+                Type of asset referenced by an Asset Referenced Token.
+                 Example: 1
             </td>
         </tr>
         <tr id="alias-timestamp">

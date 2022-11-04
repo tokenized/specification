@@ -26,6 +26,9 @@ func MakeTemplateFuncs() template.FuncMap {
 		"padding": func(str string, size int) string {
 			return strings.Repeat(" ", int(math.Max(float64(size-len(str)), 0)))
 		},
+		"text": func(str string) string {
+			return StrText(html.UnescapeString(str))
+		},
 		"comment": func(str, chr string) string {
 			return StrComment(html.UnescapeString(str), chr)
 		},
@@ -61,6 +64,9 @@ func MakeHtmlTemplateFuncs() htmlTemplate.FuncMap {
 		"padding": func(str string, size int) string {
 			return strings.Repeat(" ", int(math.Max(float64(size-len(str)), 0)))
 		},
+		"text": func(str string) string {
+			return StrText(html.UnescapeString(str))
+		},
 		"comment": func(str, chr string) string {
 			return StrComment(html.UnescapeString(str), chr)
 		},
@@ -77,6 +83,36 @@ func MakeHtmlTemplateFuncs() htmlTemplate.FuncMap {
 			return StrStripWhiteSpace(str)
 		},
 	}
+}
+
+func StrText(s string) string {
+	parts := strings.Split(strings.ReplaceAll(s, "\n", ""), " ")
+
+	lines := []string{}
+	line := ""
+	for _, p := range parts {
+		if len(p) == 0 {
+			continue
+		}
+
+		if len(line)+len(p) > 74 {
+			// line length exceeded. Add the line to our lines
+			lines = append(lines, line)
+
+			// start a new line
+			line = ""
+		}
+
+		// append the word to the line
+		line = fmt.Sprintf("%v %v", line, p)
+	}
+
+	// make sure to append any remaining non-empty line
+	if line != "" {
+		lines = append(lines, line)
+	}
+
+	return strings.TrimSpace(strings.Join(lines, "\n"))
 }
 
 func StrComment(s string, prefix string) string {

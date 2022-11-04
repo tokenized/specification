@@ -514,6 +514,41 @@ func (l *InformationServiceLicense) Equal(right proto.Message) bool {
 	return true
 }
 
+func (l *AssetReferencedToken) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &AssetReferencedToken{}
+	}
+	cr := right
+	if cr == nil {
+		cr = &AssetReferencedToken{}
+	}
+	r, ok := cr.(*AssetReferencedToken)
+	if !ok {
+		return false
+	}
+
+	// Field ReferencedAssets - ReferencedAsset
+	if len(c.ReferencedAssets) != len(r.ReferencedAssets) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.ReferencedAssets {
+		if !v.Equal(r.ReferencedAssets[i]) {
+			return false // fmt.Errorf("ReferencedAssets[%d] : %s", i, err)
+		}
+	}
+
+	// Field Description - varchar
+	if c.Description != r.Description {
+		return false // fmt.Errorf("Description string mismatched")
+	}
+
+	return true
+}
+
 func (l *AgeRestrictionField) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
@@ -604,6 +639,56 @@ func (l *RateField) Equal(right proto.Message) bool {
 	// Field Value - uint
 	if c.Value != r.Value {
 		return false // fmt.Errorf("Value integer mismatched")
+	}
+
+	return true
+}
+
+func (l *ReferencedAssetField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &ReferencedAssetField{}
+	}
+	r, ok := right.(*ReferencedAssetField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &ReferencedAssetField{}
+	}
+
+	// Field Type - uint
+	if c.Type != r.Type {
+		return false // fmt.Errorf("Type integer mismatched")
+	}
+
+	// Field Name - varchar
+	if c.Name != r.Name {
+		return false // fmt.Errorf("Name string mismatched")
+	}
+
+	// Field Description - varchar
+	if c.Description != r.Description {
+		return false // fmt.Errorf("Description string mismatched")
+	}
+
+	// Field Unit - varchar
+	if c.Unit != r.Unit {
+		return false // fmt.Errorf("Unit string mismatched")
+	}
+
+	// Field Quantity - uint
+	if c.Quantity != r.Quantity {
+		return false // fmt.Errorf("Quantity integer mismatched")
+	}
+
+	// Field Precision - uint
+	if c.Precision != r.Precision {
+		return false // fmt.Errorf("Precision integer mismatched")
 	}
 
 	return true

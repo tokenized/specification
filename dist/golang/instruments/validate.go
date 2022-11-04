@@ -439,6 +439,32 @@ func (a *InformationServiceLicense) Validate() error {
 	return nil
 }
 
+func (a *AssetReferencedToken) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+
+	// Field ReferencedAssets - ReferencedAsset
+	if len(a.ReferencedAssets) > max1ByteInteger {
+		return fmt.Errorf("ReferencedAssets list over max length : %d > %d", len(a.ReferencedAssets), max1ByteInteger)
+	}
+	for i, v := range a.ReferencedAssets {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("ReferencedAssets[%d]", i))
+		}
+	}
+	if len(a.ReferencedAssets) == 0 {
+		return fmt.Errorf("ReferencedAssets required")
+	}
+
+	// Field Description - varchar
+	if len(a.Description) > max2ByteInteger {
+		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
+	}
+
+	return nil
+}
+
 func (a *AgeRestrictionField) Validate() error {
 	if a == nil {
 		return nil
@@ -501,6 +527,50 @@ func (a *RateField) Validate() error {
 	}
 
 	// Field Value - uint
+
+	return nil
+}
+
+func (a *ReferencedAssetField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Type - uint  (ReferencedAssetType Resource)
+	if ReferencedAssetTypeData(a.Type) == nil {
+		return fmt.Errorf("Type resource ReferencedAssetType value not defined : %v", a.Type)
+	}
+	if a.Type == 0 {
+		return fmt.Errorf("Type required")
+	}
+
+	// Field Name - varchar
+	if len(a.Name) > max1ByteInteger {
+		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
+	}
+
+	// Field Description - varchar
+	if len(a.Description) > max2ByteInteger {
+		return fmt.Errorf("Description over max size : %d > %d", len(a.Description), max2ByteInteger)
+	}
+
+	// Field Unit - varchar
+	if len(a.Unit) > max2ByteInteger {
+		return fmt.Errorf("Unit over max size : %d > %d", len(a.Unit), max2ByteInteger)
+	}
+
+	// Field Quantity - uint
+	if a.Quantity == 0 {
+		return fmt.Errorf("Quantity required")
+	}
+
+	// Field Precision - uint
+	if a.Precision > uint32(max1ByteInteger) {
+		return fmt.Errorf("Precision over max value : %d > %d", a.Precision, max1ByteInteger)
+	}
+	if a.Precision == 0 {
+		return fmt.Errorf("Precision required")
+	}
 
 	return nil
 }
