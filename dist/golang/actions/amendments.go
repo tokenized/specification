@@ -105,7 +105,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 
 	// deprecated ContractType deprecated
 
-	// SupportingDocs []DocumentField
+	// SupportingDocs []*DocumentField
 	fip = []uint32{ContractFieldSupportingDocs}
 	SupportingDocsMin := len(a.SupportingDocs)
 	if SupportingDocsMin > len(newValue.SupportingDocs) {
@@ -208,7 +208,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		})
 	}
 
-	// VotingSystems []VotingSystemField
+	// VotingSystems []*VotingSystemField
 	fip = []uint32{ContractFieldVotingSystems}
 	VotingSystemsMin := len(a.VotingSystems)
 	if VotingSystemsMin > len(newValue.VotingSystems) {
@@ -302,7 +302,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		})
 	}
 
-	// Oracles []OracleField
+	// Oracles []*OracleField
 	fip = []uint32{ContractFieldOracles}
 	OraclesMin := len(a.Oracles)
 	if OraclesMin > len(newValue.Oracles) {
@@ -377,7 +377,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		})
 	}
 
-	// Services []ServiceField
+	// Services []*ServiceField
 	fip = []uint32{ContractFieldServices}
 	ServicesMin := len(a.Services)
 	if ServicesMin > len(newValue.Services) {
@@ -420,7 +420,7 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 		result = append(result, amendment)
 	}
 
-	// AdminIdentityCertificates []AdminIdentityCertificateField
+	// AdminIdentityCertificates []*AdminIdentityCertificateField
 	fip = []uint32{ContractFieldAdminIdentityCertificates}
 	AdminIdentityCertificatesMin := len(a.AdminIdentityCertificates)
 	if AdminIdentityCertificatesMin > len(newValue.AdminIdentityCertificates) {
@@ -522,7 +522,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 	case DeprecatedContractFieldContractType: // deprecated
 
-	case ContractFieldSupportingDocs: // []DocumentField
+	case ContractFieldSupportingDocs: // []*DocumentField
 		if len(fip) == 1 && len(data) == 0 {
 			a.SupportingDocs = nil
 			return permissions.SubPermissions(fip[1:], operation, true)
@@ -656,7 +656,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case ContractFieldVotingSystems: // []VotingSystemField
+	case ContractFieldVotingSystems: // []*VotingSystemField
 		if len(fip) == 1 && len(data) == 0 {
 			a.VotingSystems = nil
 			return permissions.SubPermissions(fip[1:], operation, true)
@@ -777,7 +777,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case ContractFieldOracles: // []OracleField
+	case ContractFieldOracles: // []*OracleField
 		if len(fip) == 1 && len(data) == 0 {
 			a.Oracles = nil
 			return permissions.SubPermissions(fip[1:], operation, true)
@@ -879,7 +879,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case ContractFieldServices: // []ServiceField
+	case ContractFieldServices: // []*ServiceField
 		if len(fip) == 1 && len(data) == 0 {
 			a.Services = nil
 			return permissions.SubPermissions(fip[1:], operation, true)
@@ -958,7 +958,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			return permissions.SubPermissions(fip, operation, true)
 		}
 
-	case ContractFieldAdminIdentityCertificates: // []AdminIdentityCertificateField
+	case ContractFieldAdminIdentityCertificates: // []*AdminIdentityCertificateField
 		if len(fip) == 1 && len(data) == 0 {
 			a.AdminIdentityCertificates = nil
 			return permissions.SubPermissions(fip[1:], operation, true)
@@ -1067,7 +1067,7 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *BodyOfAgreementOff
 	var result []*internal.Amendment
 	var fip permissions.FieldIndexPath
 
-	// Chapters []ChapterField
+	// Chapters []*ChapterField
 	fip = []uint32{BodyOfAgreementFieldChapters}
 	ChaptersMin := len(a.Chapters)
 	if ChaptersMin > len(newValue.Chapters) {
@@ -1110,7 +1110,7 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *BodyOfAgreementOff
 		result = append(result, amendment)
 	}
 
-	// Definitions []DefinedTermField
+	// Definitions []*DefinedTermField
 	fip = []uint32{BodyOfAgreementFieldDefinitions}
 	DefinitionsMin := len(a.Definitions)
 	if DefinitionsMin > len(newValue.Definitions) {
@@ -1172,7 +1172,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 	}
 
 	switch fip[0] {
-	case BodyOfAgreementFieldChapters: // []ChapterField
+	case BodyOfAgreementFieldChapters: // []*ChapterField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -1247,7 +1247,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 			return permissions.SubPermissions(fip, operation, true)
 		}
 
-	case BodyOfAgreementFieldDefinitions: // []DefinedTermField
+	case BodyOfAgreementFieldDefinitions: // []*DefinedTermField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -2273,7 +2273,7 @@ func (a *InstrumentSettlementField) ApplyAmendment(fip permissions.FieldIndexPat
 		copy(a.InstrumentCode, data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case InstrumentSettlementFieldSettlements: // []QuantityIndexField
+	case InstrumentSettlementFieldSettlements: // []*QuantityIndexField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -2402,7 +2402,7 @@ func (a *InstrumentSettlementField) CreateAmendments(fip permissions.FieldIndexP
 		})
 	}
 
-	// Settlements []QuantityIndexField
+	// Settlements []*QuantityIndexField
 	fip = append(ofip, InstrumentSettlementFieldSettlements)
 	SettlementsMin := len(a.Settlements)
 	if SettlementsMin > len(newValue.Settlements) {
@@ -2491,7 +2491,7 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 		copy(a.InstrumentCode, data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case InstrumentTransferFieldInstrumentSenders: // []QuantityIndexField
+	case InstrumentTransferFieldInstrumentSenders: // []*QuantityIndexField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -2566,7 +2566,7 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 			return permissions.SubPermissions(fip, operation, true)
 		}
 
-	case InstrumentTransferFieldInstrumentReceivers: // []InstrumentReceiverField
+	case InstrumentTransferFieldInstrumentReceivers: // []*InstrumentReceiverField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -2695,7 +2695,7 @@ func (a *InstrumentTransferField) CreateAmendments(fip permissions.FieldIndexPat
 		})
 	}
 
-	// InstrumentSenders []QuantityIndexField
+	// InstrumentSenders []*QuantityIndexField
 	fip = append(ofip, InstrumentTransferFieldInstrumentSenders)
 	InstrumentSendersMin := len(a.InstrumentSenders)
 	if InstrumentSendersMin > len(newValue.InstrumentSenders) {
@@ -2738,7 +2738,7 @@ func (a *InstrumentTransferField) CreateAmendments(fip permissions.FieldIndexPat
 		result = append(result, amendment)
 	}
 
-	// InstrumentReceivers []InstrumentReceiverField
+	// InstrumentReceivers []*InstrumentReceiverField
 	fip = append(ofip, InstrumentTransferFieldInstrumentReceivers)
 	InstrumentReceiversMin := len(a.InstrumentReceivers)
 	if InstrumentReceiversMin > len(newValue.InstrumentReceivers) {
@@ -2810,7 +2810,7 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 		a.Preamble = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case ChapterFieldArticles: // []ClauseField
+	case ChapterFieldArticles: // []*ClauseField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -2930,7 +2930,7 @@ func (a *ChapterField) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Articles []ClauseField
+	// Articles []*ClauseField
 	fip = append(ofip, ChapterFieldArticles)
 	ArticlesMin := len(a.Articles)
 	if ArticlesMin > len(newValue.Articles) {
@@ -3002,7 +3002,7 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 		a.Body = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case ClauseFieldChildren: // []ClauseField
+	case ClauseFieldChildren: // []*ClauseField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -3122,7 +3122,7 @@ func (a *ClauseField) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Children []ClauseField
+	// Children []*ClauseField
 	fip = append(ofip, ClauseFieldChildren)
 	ChildrenMin := len(a.Children)
 	if ChildrenMin > len(newValue.Children) {
@@ -3411,7 +3411,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 		a.PhoneNumber = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case EntityFieldAdministration: // []AdministratorField
+	case EntityFieldAdministration: // []*AdministratorField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -3486,7 +3486,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return permissions.SubPermissions(fip, operation, true)
 		}
 
-	case EntityFieldManagement: // []ManagerField
+	case EntityFieldManagement: // []*ManagerField
 		switch operation {
 		case 0: // Modify
 			if len(fip) < 3 { // includes list index and subfield index
@@ -3706,7 +3706,7 @@ func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// Administration []AdministratorField
+	// Administration []*AdministratorField
 	fip = append(ofip, EntityFieldAdministration)
 	AdministrationMin := len(a.Administration)
 	if AdministrationMin > len(newValue.Administration) {
@@ -3749,7 +3749,7 @@ func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 		result = append(result, amendment)
 	}
 
-	// Management []ManagerField
+	// Management []*ManagerField
 	fip = append(ofip, EntityFieldManagement)
 	ManagementMin := len(a.Management)
 	if ManagementMin > len(newValue.Management) {

@@ -225,12 +225,11 @@ func (f *Field) GoSingularTypeWithPointer() string {
 }
 
 func (f *Field) GoType() string {
-	gt := f.GoSingularType()
-
 	if f.IsList() {
-		gt = "[]" + gt
+		return "[]" + f.GoSingularTypeWithPointer()
 	}
-	return gt
+
+	return f.GoSingularType()
 }
 
 func (f *Field) ProtobufType() string {

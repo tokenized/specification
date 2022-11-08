@@ -22,6 +22,8 @@ func Compile(
 		distPath+"/golang/"+"actions/validate.go")
 	parser.TemplateToFile(actions, "internal/golang/templates/equal.tpl",
 		distPath+"/golang/"+"actions/equal.go")
+	parser.TemplateToFile(actions, "internal/golang/templates/copy.tpl",
+		distPath+"/golang/"+"actions/copy.go")
 	parser.TemplateToFile(actions, "internal/golang/templates/binary_marshal.tpl",
 		distPath+"/golang/"+"actions/binary_marshal.go")
 	parser.TemplateToFile(actions, "internal/golang/templates/resources.tpl",
@@ -43,6 +45,8 @@ func Compile(
 		distPath+"/golang/"+"instruments/validate.go")
 	parser.TemplateToFile(instruments, "internal/golang/templates/equal.tpl",
 		distPath+"/golang/"+"instruments/equal.go")
+	parser.TemplateToFile(instruments, "internal/golang/templates/copy.tpl",
+		distPath+"/golang/"+"instruments/copy.go")
 	parser.TemplateToFile(instruments, "internal/golang/templates/binary_marshal.tpl",
 		distPath+"/golang/"+"instruments/binary_marshal.go")
 	parser.TemplateToFile(instruments, "internal/golang/templates/resources.tpl",
@@ -57,6 +61,8 @@ func Compile(
 		distPath+"/golang/"+"messages/validate.go")
 	parser.TemplateToFile(messages, "internal/golang/templates/equal.tpl",
 		distPath+"/golang/"+"messages/equal.go")
+	parser.TemplateToFile(messages, "internal/golang/templates/copy.tpl",
+		distPath+"/golang/"+"messages/copy.go")
 	parser.TemplateToFile(messages, "internal/golang/templates/binary_marshal.tpl",
 		distPath+"/golang/"+"messages/binary_marshal.go")
 	parser.TemplateToFile(messages, "internal/golang/templates/resources.tpl",
