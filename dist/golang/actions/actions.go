@@ -13,6 +13,7 @@ type Action interface {
 	proto.Message
 
 	Code() string
+	TypeName() string
 
 	Validate() error
 	Equal(proto.Message) bool
@@ -259,116 +260,232 @@ func (a *ContractOffer) Code() string {
 	return CodeContractOffer
 }
 
+func (a *ContractOffer) TypeName() string {
+	return "ContractOffer"
+}
+
 func (a *ContractFormation) Code() string {
 	return CodeContractFormation
+}
+
+func (a *ContractFormation) TypeName() string {
+	return "ContractFormation"
 }
 
 func (a *ContractAmendment) Code() string {
 	return CodeContractAmendment
 }
 
+func (a *ContractAmendment) TypeName() string {
+	return "ContractAmendment"
+}
+
 func (a *StaticContractFormation) Code() string {
 	return CodeStaticContractFormation
+}
+
+func (a *StaticContractFormation) TypeName() string {
+	return "StaticContractFormation"
 }
 
 func (a *ContractAddressChange) Code() string {
 	return CodeContractAddressChange
 }
 
+func (a *ContractAddressChange) TypeName() string {
+	return "ContractAddressChange"
+}
+
 func (a *BodyOfAgreementOffer) Code() string {
 	return CodeBodyOfAgreementOffer
+}
+
+func (a *BodyOfAgreementOffer) TypeName() string {
+	return "BodyOfAgreementOffer"
 }
 
 func (a *BodyOfAgreementFormation) Code() string {
 	return CodeBodyOfAgreementFormation
 }
 
+func (a *BodyOfAgreementFormation) TypeName() string {
+	return "BodyOfAgreementFormation"
+}
+
 func (a *BodyOfAgreementAmendment) Code() string {
 	return CodeBodyOfAgreementAmendment
+}
+
+func (a *BodyOfAgreementAmendment) TypeName() string {
+	return "BodyOfAgreementAmendment"
 }
 
 func (a *InstrumentDefinition) Code() string {
 	return CodeInstrumentDefinition
 }
 
+func (a *InstrumentDefinition) TypeName() string {
+	return "InstrumentDefinition"
+}
+
 func (a *InstrumentCreation) Code() string {
 	return CodeInstrumentCreation
+}
+
+func (a *InstrumentCreation) TypeName() string {
+	return "InstrumentCreation"
 }
 
 func (a *InstrumentModification) Code() string {
 	return CodeInstrumentModification
 }
 
+func (a *InstrumentModification) TypeName() string {
+	return "InstrumentModification"
+}
+
 func (a *Transfer) Code() string {
 	return CodeTransfer
+}
+
+func (a *Transfer) TypeName() string {
+	return "Transfer"
 }
 
 func (a *Settlement) Code() string {
 	return CodeSettlement
 }
 
+func (a *Settlement) TypeName() string {
+	return "Settlement"
+}
+
 func (a *Proposal) Code() string {
 	return CodeProposal
+}
+
+func (a *Proposal) TypeName() string {
+	return "Proposal"
 }
 
 func (a *Vote) Code() string {
 	return CodeVote
 }
 
+func (a *Vote) TypeName() string {
+	return "Vote"
+}
+
 func (a *BallotCast) Code() string {
 	return CodeBallotCast
+}
+
+func (a *BallotCast) TypeName() string {
+	return "BallotCast"
 }
 
 func (a *BallotCounted) Code() string {
 	return CodeBallotCounted
 }
 
+func (a *BallotCounted) TypeName() string {
+	return "BallotCounted"
+}
+
 func (a *Result) Code() string {
 	return CodeResult
+}
+
+func (a *Result) TypeName() string {
+	return "Result"
 }
 
 func (a *Order) Code() string {
 	return CodeOrder
 }
 
+func (a *Order) TypeName() string {
+	return "Order"
+}
+
 func (a *Freeze) Code() string {
 	return CodeFreeze
+}
+
+func (a *Freeze) TypeName() string {
+	return "Freeze"
 }
 
 func (a *Thaw) Code() string {
 	return CodeThaw
 }
 
+func (a *Thaw) TypeName() string {
+	return "Thaw"
+}
+
 func (a *Confiscation) Code() string {
 	return CodeConfiscation
+}
+
+func (a *Confiscation) TypeName() string {
+	return "Confiscation"
 }
 
 func (a *Reconciliation) Code() string {
 	return CodeReconciliation
 }
 
+func (a *Reconciliation) TypeName() string {
+	return "Reconciliation"
+}
+
 func (a *Establishment) Code() string {
 	return CodeEstablishment
+}
+
+func (a *Establishment) TypeName() string {
+	return "Establishment"
 }
 
 func (a *Addition) Code() string {
 	return CodeAddition
 }
 
+func (a *Addition) TypeName() string {
+	return "Addition"
+}
+
 func (a *Alteration) Code() string {
 	return CodeAlteration
+}
+
+func (a *Alteration) TypeName() string {
+	return "Alteration"
 }
 
 func (a *Removal) Code() string {
 	return CodeRemoval
 }
 
+func (a *Removal) TypeName() string {
+	return "Removal"
+}
+
 func (a *Message) Code() string {
 	return CodeMessage
 }
 
+func (a *Message) TypeName() string {
+	return "Message"
+}
+
 func (a *Rejection) Code() string {
 	return CodeRejection
+}
+
+func (a *Rejection) TypeName() string {
+	return "Rejection"
 }
 
 // Formation creates a contract formation with all the values from the contract offer.

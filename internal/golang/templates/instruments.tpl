@@ -15,6 +15,7 @@ type Instrument interface {
 	proto.Message
 
 	Code() string
+	TypeName() string
 
 	Validate() error
 	Equal(proto.Message) bool
@@ -88,6 +89,10 @@ func Deserialize(code []byte, payload []byte) (Instrument, error) {
 {{ range $i, $message := .Messages }}
 func (a *{{ .Name }}) Code() string {
 	return Code{{ .Name }}
+}
+
+func (a *{{.Name}}) TypeName() string {
+	return "{{.Name}}"
 }
 
 func (a *{{ .Name }}) Bytes() ([]byte, error) {

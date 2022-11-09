@@ -15,6 +15,7 @@ type Message interface {
 	proto.Message
 
 	Code() uint32
+	TypeName() string
 
 	Validate() error
 	Equal(proto.Message) bool
@@ -67,6 +68,10 @@ func Deserialize(code uint32, payload []byte) (Message, error) {
 {{ range .Messages }}
 func (a *{{.Name}}) Code() uint32 {
 	return Code{{.Name}}
+}
+
+func (a *{{.Name}}) TypeName() string {
+	return "{{.Name}}"
 }
 
 func (a *{{.Name}}) Bytes() ([]byte, error) {

@@ -14,6 +14,7 @@ type Message interface {
 	proto.Message
 
 	Code() uint32
+	TypeName() string
 
 	Validate() error
 	Equal(proto.Message) bool
@@ -123,6 +124,10 @@ func (a *PublicMessage) Code() uint32 {
 	return CodePublicMessage
 }
 
+func (a *PublicMessage) TypeName() string {
+	return "PublicMessage"
+}
+
 func (a *PublicMessage) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
@@ -140,6 +145,10 @@ func (a *PublicMessage) Serialize(buf *bytes.Buffer) error {
 
 func (a *PrivateMessage) Code() uint32 {
 	return CodePrivateMessage
+}
+
+func (a *PrivateMessage) TypeName() string {
+	return "PrivateMessage"
 }
 
 func (a *PrivateMessage) Bytes() ([]byte, error) {
@@ -161,6 +170,10 @@ func (a *RevertedTx) Code() uint32 {
 	return CodeRevertedTx
 }
 
+func (a *RevertedTx) TypeName() string {
+	return "RevertedTx"
+}
+
 func (a *RevertedTx) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
@@ -178,6 +191,10 @@ func (a *RevertedTx) Serialize(buf *bytes.Buffer) error {
 
 func (a *Offer) Code() uint32 {
 	return CodeOffer
+}
+
+func (a *Offer) TypeName() string {
+	return "Offer"
 }
 
 func (a *Offer) Bytes() ([]byte, error) {
@@ -199,6 +216,10 @@ func (a *SignatureRequest) Code() uint32 {
 	return CodeSignatureRequest
 }
 
+func (a *SignatureRequest) TypeName() string {
+	return "SignatureRequest"
+}
+
 func (a *SignatureRequest) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
@@ -216,6 +237,10 @@ func (a *SignatureRequest) Serialize(buf *bytes.Buffer) error {
 
 func (a *SettlementRequest) Code() uint32 {
 	return CodeSettlementRequest
+}
+
+func (a *SettlementRequest) TypeName() string {
+	return "SettlementRequest"
 }
 
 func (a *SettlementRequest) Bytes() ([]byte, error) {
@@ -237,6 +262,10 @@ func (a *OutputMetadata) Code() uint32 {
 	return CodeOutputMetadata
 }
 
+func (a *OutputMetadata) TypeName() string {
+	return "OutputMetadata"
+}
+
 func (a *OutputMetadata) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
@@ -254,6 +283,10 @@ func (a *OutputMetadata) Serialize(buf *bytes.Buffer) error {
 
 func (a *Distribution) Code() uint32 {
 	return CodeDistribution
+}
+
+func (a *Distribution) TypeName() string {
+	return "Distribution"
 }
 
 func (a *Distribution) Bytes() ([]byte, error) {
@@ -275,6 +308,10 @@ func (a *InitiateRelationship) Code() uint32 {
 	return CodeInitiateRelationship
 }
 
+func (a *InitiateRelationship) TypeName() string {
+	return "InitiateRelationship"
+}
+
 func (a *InitiateRelationship) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
@@ -292,6 +329,10 @@ func (a *InitiateRelationship) Serialize(buf *bytes.Buffer) error {
 
 func (a *PendingAcceptRelationship) Code() uint32 {
 	return CodePendingAcceptRelationship
+}
+
+func (a *PendingAcceptRelationship) TypeName() string {
+	return "PendingAcceptRelationship"
 }
 
 func (a *PendingAcceptRelationship) Bytes() ([]byte, error) {
@@ -313,6 +354,10 @@ func (a *AcceptRelationship) Code() uint32 {
 	return CodeAcceptRelationship
 }
 
+func (a *AcceptRelationship) TypeName() string {
+	return "AcceptRelationship"
+}
+
 func (a *AcceptRelationship) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
@@ -332,6 +377,10 @@ func (a *RelationshipAmendment) Code() uint32 {
 	return CodeRelationshipAmendment
 }
 
+func (a *RelationshipAmendment) TypeName() string {
+	return "RelationshipAmendment"
+}
+
 func (a *RelationshipAmendment) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
@@ -349,6 +398,10 @@ func (a *RelationshipAmendment) Serialize(buf *bytes.Buffer) error {
 
 func (a *InitiateThread) Code() uint32 {
 	return CodeInitiateThread
+}
+
+func (a *InitiateThread) TypeName() string {
+	return "InitiateThread"
 }
 
 func (a *InitiateThread) Bytes() ([]byte, error) {

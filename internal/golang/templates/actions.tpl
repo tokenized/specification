@@ -13,6 +13,7 @@ type Action interface {
 	proto.Message
 
 	Code() string
+	TypeName() string
 
 	Validate() error
 	Equal(proto.Message) bool
@@ -122,6 +123,10 @@ func Deserialize(code []byte, payload []byte) (Action, error) {
 {{ range .Messages }}
 func (a *{{.Name}}) Code() string {
 	return Code{{.Name}}
+}
+
+func (a *{{.Name}}) TypeName() string {
+	return "{{.Name}}"
 }
 {{ end }}
 

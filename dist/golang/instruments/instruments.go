@@ -15,6 +15,7 @@ type Instrument interface {
 	proto.Message
 
 	Code() string
+	TypeName() string
 
 	Validate() error
 	Equal(proto.Message) bool
@@ -125,6 +126,10 @@ func (a *Membership) Code() string {
 	return CodeMembership
 }
 
+func (a *Membership) TypeName() string {
+	return "Membership"
+}
+
 func (a *Membership) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
@@ -142,6 +147,10 @@ func (a *Membership) Serialize(buf *bytes.Buffer) error {
 
 func (a *Currency) Code() string {
 	return CodeCurrency
+}
+
+func (a *Currency) TypeName() string {
+	return "Currency"
 }
 
 func (a *Currency) Bytes() ([]byte, error) {
@@ -163,6 +172,10 @@ func (a *ShareCommon) Code() string {
 	return CodeShareCommon
 }
 
+func (a *ShareCommon) TypeName() string {
+	return "ShareCommon"
+}
+
 func (a *ShareCommon) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
@@ -180,6 +193,10 @@ func (a *ShareCommon) Serialize(buf *bytes.Buffer) error {
 
 func (a *BondFixedRate) Code() string {
 	return CodeBondFixedRate
+}
+
+func (a *BondFixedRate) TypeName() string {
+	return "BondFixedRate"
 }
 
 func (a *BondFixedRate) Bytes() ([]byte, error) {
@@ -201,6 +218,10 @@ func (a *Coupon) Code() string {
 	return CodeCoupon
 }
 
+func (a *Coupon) TypeName() string {
+	return "Coupon"
+}
+
 func (a *Coupon) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
@@ -218,6 +239,10 @@ func (a *Coupon) Serialize(buf *bytes.Buffer) error {
 
 func (a *LoyaltyPoints) Code() string {
 	return CodeLoyaltyPoints
+}
+
+func (a *LoyaltyPoints) TypeName() string {
+	return "LoyaltyPoints"
 }
 
 func (a *LoyaltyPoints) Bytes() ([]byte, error) {
@@ -239,6 +264,10 @@ func (a *TicketAdmission) Code() string {
 	return CodeTicketAdmission
 }
 
+func (a *TicketAdmission) TypeName() string {
+	return "TicketAdmission"
+}
+
 func (a *TicketAdmission) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
@@ -258,6 +287,10 @@ func (a *CasinoChip) Code() string {
 	return CodeCasinoChip
 }
 
+func (a *CasinoChip) TypeName() string {
+	return "CasinoChip"
+}
+
 func (a *CasinoChip) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
@@ -275,6 +308,10 @@ func (a *CasinoChip) Serialize(buf *bytes.Buffer) error {
 
 func (a *InformationServiceLicense) Code() string {
 	return CodeInformationServiceLicense
+}
+
+func (a *InformationServiceLicense) TypeName() string {
+	return "InformationServiceLicense"
 }
 
 func (a *InformationServiceLicense) Bytes() ([]byte, error) {
