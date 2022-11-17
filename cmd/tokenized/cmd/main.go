@@ -6,7 +6,6 @@ import (
 
 const (
 	FlagDebugMode = "debug"
-	FlagTestMode  = "test"
 )
 
 var scCmd = &cobra.Command{
@@ -16,6 +15,8 @@ var scCmd = &cobra.Command{
 
 func Execute() {
 	scCmd.AddCommand(cmdDecode)
-	scCmd.AddCommand(cmdGenerate)
+	scCmd.AddCommand(cmdGenerateKey)
+	scCmd.AddCommand(cmdGenerateExtendedKey)
+	scCmd.AddCommand(cmdCreateContract)
 	scCmd.Execute()
 }

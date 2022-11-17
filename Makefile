@@ -1,3 +1,7 @@
+BUILD_DATE = `date +%FT%T%z`
+BUILD_USER = $(USER)@`hostname`
+VERSION = `git describe --tags`
+
 # command to build and run on the local OS.
 GO_BUILD = go build
 
@@ -5,6 +9,8 @@ GO_BUILD = go build
 BINARY_CONTRACT_CLI=tokenized
 
 GO_DIST_DIR=dist/golang
+
+GO_DIST = CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GO_BUILD) -a -tags netgo -ldflags "-w -X main.buildVersion=$(VERSION) -X main.buildDate=$(BUILD_DATE) -X main.buildUser=$(BUILD_USER)"
 
 all: prepare tools run-generate format test
 
@@ -16,7 +22,7 @@ protobuf:
 	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/messages --js_out=library=messages,binary:dist/typescript/protobuf/messages --python_out=dist/python/ dist/protobuf/messages.proto
 
 generate-code:
-	go run cmd/$(BINARY_CONTRACT_CLI)/main.go generate
+	go run internal/cmd/generate/main.go
 	goimports -w $(GO_DIST_DIR)
 
 run-generate: generate-code protobuf

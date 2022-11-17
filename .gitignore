@@ -7,3 +7,4 @@ Thumbs.db
 .Trashes
 tmp
 __pycache__
+dist/tokenized
