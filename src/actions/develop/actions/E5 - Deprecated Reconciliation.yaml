@@ -3,16 +3,14 @@
 #
 
 code: E5
-name: Reconciliation
-label: Reconciliation
+name: DeprecatedReconciliation
+label: Deprecated Reconciliation
 description: >
+  This action has been deprecated for Rectified Settlement.
   The contract responding to an Order action to reconcile instruments.
   To be used at the direction of the administration to fix record keeping errors with bitcoin and token balances.
 
 metadata:
-  validation: InstrumentCreation
-  rejection: Rejection
-
   inputs:
     - name: Contract
       label: Contract Public Address

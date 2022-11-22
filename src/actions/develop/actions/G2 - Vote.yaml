@@ -8,9 +8,6 @@ label: Vote
 description: "A vote is created by the Contract in response to a valid Proposal Action."
 
 metadata:
-  validation: None
-  rejection: Rejection
-
   inputs:
     - name: Contract
       label: Contract Public Address

@@ -8,9 +8,6 @@ label: Instrument Creation
 description: "This action creates an instrument in response to the administration's instructions in the Definition Action."
 
 metadata:
-  validation: InstrumentCreation
-  rejection: Rejection
-
   inputs:
     - name: Contract
       label: "Contract Public Address"

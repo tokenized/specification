@@ -13,9 +13,6 @@ description: >
   The contract will not respond to any actions requested by the frozen address.
 
 metadata:
-  validation: InstrumentCreation
-  rejection: Rejection
-
   inputs:
     - name: Contract
       label: Contract Public Address

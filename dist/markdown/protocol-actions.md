@@ -29,6 +29,7 @@ See the [Transactions article](../concepts/transactions) for details on how to c
 - [Instrument Modification](#action-instrument-modification)
 - [Transfer](#action-transfer)
 - [Settlement](#action-settlement)
+- [Rectification Settlement](#action-rectification-settlement)
 - [Proposal](#action-proposal)
 - [Vote](#action-vote)
 - [Ballot Cast](#action-ballot-cast)
@@ -38,7 +39,7 @@ See the [Transactions article](../concepts/transactions) for details on how to c
 - [Freeze](#action-freeze)
 - [Thaw](#action-thaw)
 - [Confiscation](#action-confiscation)
-- [Reconciliation](#action-reconciliation)
+- [Deprecated Reconciliation](#action-deprecated-reconciliation)
 - [Establishment](#action-establishment)
 - [Addition](#action-addition)
 - [Alteration](#action-alteration)
@@ -2330,6 +2331,98 @@ Settles the transfer request of bitcoins and tokens from transfer (T1) actions.
 
 
 
+<a name="action-rectification-settlement"></a>
+#### Rectification Settlement
+
+Settles the transfer request of tokens from transfer (T1) actions in the case when a transaction conflicting with the T1 transaction prevents the T1 and T2 from being confirmed in a block.
+
+
+<table>
+    <tr>
+        <th style="width:15%">Action Code</th>
+        <td>T3</td>
+    </tr>
+</table>
+
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Transfer</td>
+        <td>
+            <a href="#type-reference-transaction">ReferenceTransaction</a>
+        </td>
+        <td>
+            The transfer (T1) transaction that had a conflict that kept it from confirming in a block.
+
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Instruments</td>
+        <td>
+            <a href="#type-instrument-settlement">InstrumentSettlement[tiny]</a>
+        </td>
+        <td>
+            The Instruments settled by the transfer action.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Timestamp</td>
+        <td>
+            <a href="#alias-timestamp">Timestamp</a>
+        </td>
+        <td>
+            Timestamp in nanoseconds of when the smart contract created the action.
+            Cannot be changed by the administration, operator. Smart contract controls.
+        </td>
+    </tr>
+
+</table>
+
+##### Transaction Summary
+
+
+<table>
+   <tr>
+        <th style="width:5%" class="text-center">Index</th>
+        <th style="width:30%">Input</th>
+        <th>Description</th>
+   </tr>
+   <tr>
+        <td class="text-center">0</td>
+        <td>Contract&#39;s Public Address</td>
+        <td></td>
+    </tr>
+</table>
+
+
+
+<table>
+   <tr>
+        <th style="width:5%" class="text-center">Index</th>
+        <th style="width:30%">Output</th>
+        <th>Description</th>
+   </tr>
+   <tr>
+        <td class="text-center">0</td>
+        <td>Settlement Addresses</td>
+        <td>Outputs for each address that is involved in the transfer.</td>
+    </tr>
+</table>
+
+
+<hr />
+
+
+
 <a name="action-proposal"></a>
 #### Proposal
 
@@ -2913,7 +3006,7 @@ Used by the administration to signal to the smart contract that the tokens that 
             fixedchar(1)
         </td>
         <td>
-            Freeze (F), Thaw (T), Confiscate (C), Reconcile (R)
+            Freeze (F), Thaw (T), Confiscate (C), Deprecated Reconcile (R)
              Example: F
         </td>
     </tr>
@@ -3466,10 +3559,10 @@ The contract responding to an Order action to confiscate instruments. To be used
 
 
 
-<a name="action-reconciliation"></a>
-#### Reconciliation
+<a name="action-deprecated-reconciliation"></a>
+#### Deprecated Reconciliation
 
-The contract responding to an Order action to reconcile instruments. To be used at the direction of the administration to fix record keeping errors with bitcoin and token balances.
+This action has been deprecated for Rectified Settlement. The contract responding to an Order action to reconcile instruments. To be used at the direction of the administration to fix record keeping errors with bitcoin and token balances.
 
 
 <table>
@@ -5022,7 +5115,8 @@ A bitcoin transaction and the outputs that it spends.
             varbin(large)[medium]
         </td>
         <td>
-            The bitcoin outputs corresponding to the inputs for the transaction. Serialized in bitcoin P2P format. There must be the same count as there are inputs in the contained transaction and they must be in the same order.
+            The bitcoin outputs corresponding to the inputs for the transaction. Serialized in bitcoin P2P format. There must be the same count as there are inputs in the contained transaction and they must be in the same order.&#34;
+
             
         </td>
     </tr>

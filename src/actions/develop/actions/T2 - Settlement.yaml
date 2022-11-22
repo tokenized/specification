@@ -8,9 +8,6 @@ label: Settlement
 description: "Settles the transfer request of bitcoins and tokens from transfer (T1) actions."
 
 metadata:
-  validation: InstrumentCreation
-  rejection: Rejection
-
   inputs:
     - name: InstrumentXContract
       label: Contract Public Address (Instrument X)

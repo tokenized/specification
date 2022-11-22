@@ -136,6 +136,16 @@ func TestEmptyDeserialize(t *testing.T) {
 		t.Fatalf("Failed deserialize type check for Settlement")
 	}
 
+	// RectificationSettlement identifies a payload as a RectificationSettlement message.
+	actionRectificationSettlement, err := Deserialize([]byte(CodeRectificationSettlement), nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for RectificationSettlement : %s", err)
+	}
+	_, ok = actionRectificationSettlement.(*RectificationSettlement)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for RectificationSettlement")
+	}
+
 	// Proposal identifies a payload as a Proposal message.
 	actionProposal, err := Deserialize([]byte(CodeProposal), nil)
 	if err != nil {
@@ -226,14 +236,14 @@ func TestEmptyDeserialize(t *testing.T) {
 		t.Fatalf("Failed deserialize type check for Confiscation")
 	}
 
-	// Reconciliation identifies a payload as a Reconciliation message.
-	actionReconciliation, err := Deserialize([]byte(CodeReconciliation), nil)
+	// DeprecatedReconciliation identifies a payload as a DeprecatedReconciliation message.
+	actionDeprecatedReconciliation, err := Deserialize([]byte(CodeDeprecatedReconciliation), nil)
 	if err != nil {
-		t.Fatalf("Failed deserialize for Reconciliation : %s", err)
+		t.Fatalf("Failed deserialize for DeprecatedReconciliation : %s", err)
 	}
-	_, ok = actionReconciliation.(*Reconciliation)
+	_, ok = actionDeprecatedReconciliation.(*DeprecatedReconciliation)
 	if !ok {
-		t.Fatalf("Failed deserialize type check for Reconciliation")
+		t.Fatalf("Failed deserialize type check for DeprecatedReconciliation")
 	}
 
 	// Establishment identifies a payload as a Establishment message.

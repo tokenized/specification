@@ -63,6 +63,9 @@ const (
 	// CodeSettlement identifies a payload as a Settlement action message.
 	CodeSettlement = "T2"
 
+	// CodeRectificationSettlement identifies a payload as a RectificationSettlement action message.
+	CodeRectificationSettlement = "T3"
+
 	// CodeProposal identifies a payload as a Proposal action message.
 	CodeProposal = "G1"
 
@@ -90,8 +93,8 @@ const (
 	// CodeConfiscation identifies a payload as a Confiscation action message.
 	CodeConfiscation = "E4"
 
-	// CodeReconciliation identifies a payload as a Reconciliation action message.
-	CodeReconciliation = "E5"
+	// CodeDeprecatedReconciliation identifies a payload as a DeprecatedReconciliation action message.
+	CodeDeprecatedReconciliation = "E5"
 
 	// CodeEstablishment identifies a payload as a Establishment action message.
 	CodeEstablishment = "R1"
@@ -141,8 +144,8 @@ const (
 	// ComplianceActionConfiscation identifies a confiscation type
 	ComplianceActionConfiscation = "C"
 
-	// ComplianceActionReconciliation identifies a reconcilation type
-	ComplianceActionReconciliation = "R"
+	// ComplianceActionDeprecatedReconciliation identifies a reconcilation type
+	ComplianceActionDeprecatedReconciliation = "R"
 
 	// ContractTypeEntity identifies an entity contract
 	ContractTypeEntity = uint32(0)
@@ -191,6 +194,8 @@ func NewActionFromCode(code string) Action {
 		return &Transfer{}
 	case CodeSettlement:
 		return &Settlement{}
+	case CodeRectificationSettlement:
+		return &RectificationSettlement{}
 	case CodeProposal:
 		return &Proposal{}
 	case CodeVote:
@@ -209,8 +214,8 @@ func NewActionFromCode(code string) Action {
 		return &Thaw{}
 	case CodeConfiscation:
 		return &Confiscation{}
-	case CodeReconciliation:
-		return &Reconciliation{}
+	case CodeDeprecatedReconciliation:
+		return &DeprecatedReconciliation{}
 	case CodeEstablishment:
 		return &Establishment{}
 	case CodeAddition:
@@ -360,6 +365,14 @@ func (a *Settlement) TypeName() string {
 	return "Settlement"
 }
 
+func (a *RectificationSettlement) Code() string {
+	return CodeRectificationSettlement
+}
+
+func (a *RectificationSettlement) TypeName() string {
+	return "RectificationSettlement"
+}
+
 func (a *Proposal) Code() string {
 	return CodeProposal
 }
@@ -432,12 +445,12 @@ func (a *Confiscation) TypeName() string {
 	return "Confiscation"
 }
 
-func (a *Reconciliation) Code() string {
-	return CodeReconciliation
+func (a *DeprecatedReconciliation) Code() string {
+	return CodeDeprecatedReconciliation
 }
 
-func (a *Reconciliation) TypeName() string {
-	return "Reconciliation"
+func (a *DeprecatedReconciliation) TypeName() string {
+	return "DeprecatedReconciliation"
 }
 
 func (a *Establishment) Code() string {

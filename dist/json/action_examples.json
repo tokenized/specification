@@ -511,6 +511,33 @@
     }
   },
   {
+    "code": "T3",
+    "label": "Rectification Settlement",
+    "name": "RectificationSettlement",
+    "fields": {
+      "Instruments": [
+        {
+          "ContractIndex": null,
+          "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+          "InstrumentType": "SHC",
+          "Settlements": [
+            {
+              "Index": "0",
+              "Quantity": "100"
+            }
+          ]
+        }
+      ],
+      "Timestamp": "1594668650000000000",
+      "Transfer": {
+        "Outputs": [
+          null
+        ],
+        "Transaction": "0"
+      }
+    }
+  },
+  {
     "code": "G1",
     "label": "Proposal",
     "name": "Proposal",
@@ -670,8 +697,8 @@
   },
   {
     "code": "E5",
-    "label": "Reconciliation",
-    "name": "Reconciliation",
+    "label": "Deprecated Reconciliation",
+    "name": "DeprecatedReconciliation",
     "fields": {
       "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
       "InstrumentType": "SHC",

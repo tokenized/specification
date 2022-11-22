@@ -442,6 +442,39 @@ func (a *Settlement) UnmarshalBinary(data []byte) error {
 	return nil
 }
 
+func (a *RectificationSettlement) MarshalBinary() (data []byte, err error) {
+	b, err := proto.Marshal(a)
+	if err != nil {
+		return nil, errors.Wrap(err, "marshal")
+	}
+
+	return append([]byte{binaryVersion}, b...), nil
+}
+
+func (a *RectificationSettlement) UnmarshalBinary(data []byte) error {
+	if len(data) == 0 {
+		return nil // empty result
+	}
+
+	if len(data) == 1 && data[0] == bitcoin.OP_FALSE {
+		return nil // empty result
+	}
+
+	if len(data) < 2 {
+		return errors.New("Data too small, missing version or data")
+	}
+
+	if data[0] != binaryVersion {
+		return fmt.Errorf("Wrong data version: got %d, want %d", data[0], binaryVersion)
+	}
+
+	if err := proto.Unmarshal(data[1:], a); err != nil {
+		return errors.Wrap(err, "protobuf unmarshal")
+	}
+
+	return nil
+}
+
 func (a *Proposal) MarshalBinary() (data []byte, err error) {
 	b, err := proto.Marshal(a)
 	if err != nil {
@@ -739,7 +772,7 @@ func (a *Confiscation) UnmarshalBinary(data []byte) error {
 	return nil
 }
 
-func (a *Reconciliation) MarshalBinary() (data []byte, err error) {
+func (a *DeprecatedReconciliation) MarshalBinary() (data []byte, err error) {
 	b, err := proto.Marshal(a)
 	if err != nil {
 		return nil, errors.Wrap(err, "marshal")
@@ -748,7 +781,7 @@ func (a *Reconciliation) MarshalBinary() (data []byte, err error) {
 	return append([]byte{binaryVersion}, b...), nil
 }
 
-func (a *Reconciliation) UnmarshalBinary(data []byte) error {
+func (a *DeprecatedReconciliation) UnmarshalBinary(data []byte) error {
 	if len(data) == 0 {
 		return nil // empty result
 	}

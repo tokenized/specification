@@ -531,6 +531,24 @@ func (a *Settlement) Copy() *Settlement {
 	return result
 }
 
+func (a *RectificationSettlement) Copy() *RectificationSettlement {
+	result := &RectificationSettlement{}
+
+	// Field Transfer - ReferenceTransaction
+	result.Transfer = a.Transfer.Copy()
+
+	// Field Instruments - InstrumentSettlement
+	result.Instruments = make([]*InstrumentSettlementField, len(a.Instruments))
+	for i, v := range a.Instruments {
+		result.Instruments[i] = v.Copy()
+	}
+
+	// Field Timestamp - uint
+	result.Timestamp = a.Timestamp
+
+	return result
+}
+
 func (a *Proposal) Copy() *Proposal {
 	result := &Proposal{}
 
@@ -780,8 +798,8 @@ func (a *Confiscation) Copy() *Confiscation {
 	return result
 }
 
-func (a *Reconciliation) Copy() *Reconciliation {
-	result := &Reconciliation{}
+func (a *DeprecatedReconciliation) Copy() *DeprecatedReconciliation {
+	result := &DeprecatedReconciliation{}
 
 	// Field InstrumentType - fixedchar
 	result.InstrumentType = a.InstrumentType

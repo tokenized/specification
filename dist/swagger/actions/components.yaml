@@ -26,6 +26,8 @@ components:
       $ref: ./_components/schemas/tokenized/actions/Transfer.yaml
     Settlement:
       $ref: ./_components/schemas/tokenized/actions/Settlement.yaml
+    RectificationSettlement:
+      $ref: ./_components/schemas/tokenized/actions/RectificationSettlement.yaml
     Proposal:
       $ref: ./_components/schemas/tokenized/actions/Proposal.yaml
     Vote:
@@ -44,8 +46,8 @@ components:
       $ref: ./_components/schemas/tokenized/actions/Thaw.yaml
     Confiscation:
       $ref: ./_components/schemas/tokenized/actions/Confiscation.yaml
-    Reconciliation:
-      $ref: ./_components/schemas/tokenized/actions/Reconciliation.yaml
+    DeprecatedReconciliation:
+      $ref: ./_components/schemas/tokenized/actions/DeprecatedReconciliation.yaml
     Establishment:
       $ref: ./_components/schemas/tokenized/actions/Establishment.yaml
     Addition:

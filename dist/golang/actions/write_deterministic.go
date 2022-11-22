@@ -608,6 +608,26 @@ func (a *Settlement) WriteDeterministic(w io.Writer) error {
 	return nil
 }
 
+// WriteDeterministic writes data from a RectificationSettlement in a deterministic way so the data can
+// be used to sign an object. The data output can not be parsed back into an object.
+func (a *RectificationSettlement) WriteDeterministic(w io.Writer) error {
+	if err := a.Transfer.WriteDeterministic(w); err != nil {
+		return errors.Wrap(err, "Transfer")
+	}
+
+	for i, item := range a.Instruments {
+		if err := item.WriteDeterministic(w); err != nil {
+			return errors.Wrapf(err, "Instruments %d", i)
+		}
+	}
+
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Timestamp)); err != nil {
+		return errors.Wrap(err, "Timestamp")
+	}
+
+	return nil
+}
+
 // WriteDeterministic writes data from a Proposal in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
 func (a *Proposal) WriteDeterministic(w io.Writer) error {
@@ -886,9 +906,9 @@ func (a *Confiscation) WriteDeterministic(w io.Writer) error {
 	return nil
 }
 
-// WriteDeterministic writes data from a Reconciliation in a deterministic way so the data can
+// WriteDeterministic writes data from a DeprecatedReconciliation in a deterministic way so the data can
 // be used to sign an object. The data output can not be parsed back into an object.
-func (a *Reconciliation) WriteDeterministic(w io.Writer) error {
+func (a *DeprecatedReconciliation) WriteDeterministic(w io.Writer) error {
 	if _, err := w.Write([]byte(a.InstrumentType)); err != nil {
 		return errors.Wrap(err, "InstrumentType")
 	}

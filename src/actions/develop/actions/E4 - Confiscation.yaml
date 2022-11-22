@@ -10,9 +10,6 @@ description: >
   To be used to comply with contractual obligations, legal and/or issuer requirements.
 
 metadata:
-  validation: InstrumentCreation
-  rejection: Rejection
-
   inputs:
     - name: Contract
       label: Contract Public Address

@@ -59,8 +59,8 @@ const (
 	// ComplianceActionConfiscation identifies a confiscation type
 	ComplianceActionConfiscation = "C"
 
-	// ComplianceActionReconciliation identifies a reconcilation type
-	ComplianceActionReconciliation = "R"
+	// ComplianceActionDeprecatedReconciliation identifies a reconcilation type
+	ComplianceActionDeprecatedReconciliation = "R"
 
 	// ContractTypeEntity identifies an entity contract
 	ContractTypeEntity = uint32(0)

@@ -41,6 +41,9 @@ CodeTransfer = b'T1'
 # CodeSettlement identifies a payload as a Settlement action message.
 CodeSettlement = b'T2'
 
+# CodeRectificationSettlement identifies a payload as a RectificationSettlement action message.
+CodeRectificationSettlement = b'T3'
+
 # CodeProposal identifies a payload as a Proposal action message.
 CodeProposal = b'G1'
 
@@ -68,8 +71,8 @@ CodeThaw = b'E3'
 # CodeConfiscation identifies a payload as a Confiscation action message.
 CodeConfiscation = b'E4'
 
-# CodeReconciliation identifies a payload as a Reconciliation action message.
-CodeReconciliation = b'E5'
+# CodeDeprecatedReconciliation identifies a payload as a DeprecatedReconciliation action message.
+CodeDeprecatedReconciliation = b'E5'
 
 # CodeEstablishment identifies a payload as a Establishment action message.
 CodeEstablishment = b'R1'
@@ -117,6 +120,8 @@ def getActionObject(actionCode):
 		return actions_pb2.Transfer()
 	if actionCode == CodeSettlement:
 		return actions_pb2.Settlement()
+	if actionCode == CodeRectificationSettlement:
+		return actions_pb2.RectificationSettlement()
 	if actionCode == CodeProposal:
 		return actions_pb2.Proposal()
 	if actionCode == CodeVote:
@@ -135,8 +140,8 @@ def getActionObject(actionCode):
 		return actions_pb2.Thaw()
 	if actionCode == CodeConfiscation:
 		return actions_pb2.Confiscation()
-	if actionCode == CodeReconciliation:
-		return actions_pb2.Reconciliation()
+	if actionCode == CodeDeprecatedReconciliation:
+		return actions_pb2.DeprecatedReconciliation()
 	if actionCode == CodeEstablishment:
 		return actions_pb2.Establishment()
 	if actionCode == CodeAddition:

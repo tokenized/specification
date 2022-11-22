@@ -976,6 +976,46 @@ func (l *Settlement) Equal(right proto.Message) bool {
 	return true
 }
 
+func (l *RectificationSettlement) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &RectificationSettlement{}
+	}
+	cr := right
+	if cr == nil {
+		cr = &RectificationSettlement{}
+	}
+	r, ok := cr.(*RectificationSettlement)
+	if !ok {
+		return false
+	}
+
+	// Field Transfer - ReferenceTransaction
+	if !c.Transfer.Equal(r.Transfer) {
+		return false // fmt.Errorf("Transfer : %s", err)
+	}
+
+	// Field Instruments - InstrumentSettlement
+	if len(c.Instruments) != len(r.Instruments) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.Instruments {
+		if !v.Equal(r.Instruments[i]) {
+			return false // fmt.Errorf("Instruments[%d] : %s", i, err)
+		}
+	}
+
+	// Field Timestamp - uint
+	if c.Timestamp != r.Timestamp {
+		return false // fmt.Errorf("Timestamp integer mismatched")
+	}
+
+	return true
+}
+
 func (l *Proposal) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
@@ -1456,19 +1496,19 @@ func (l *Confiscation) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Reconciliation) Equal(right proto.Message) bool {
+func (l *DeprecatedReconciliation) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
 		if right == nil {
 			return true
 		}
-		c = &Reconciliation{}
+		c = &DeprecatedReconciliation{}
 	}
 	cr := right
 	if cr == nil {
-		cr = &Reconciliation{}
+		cr = &DeprecatedReconciliation{}
 	}
-	r, ok := cr.(*Reconciliation)
+	r, ok := cr.(*DeprecatedReconciliation)
 	if !ok {
 		return false
 	}

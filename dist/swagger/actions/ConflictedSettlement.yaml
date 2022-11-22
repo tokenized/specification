@@ -1,0 +1,23 @@
+
+description:  >
+  Settles the transfer request of bitcoins and tokens from transfer (T1) actions in the case when a
+  transaction conflicting with the T1 transaction prevents the T1 and T2 from being confirmed in a
+  block.
+type: object
+properties:
+  Transfer:
+    description:  >
+      The transfer (T1) transaction that had a conflict that kept it from confirming in a block.
+    type: object
+    $ref: "#/components/schemas/ReferenceTransactionField"
+  Instruments:
+    description: The Instruments settled by the transfer action.
+    type: array
+    items:
+      type: object
+      $ref: "#/components/schemas/InstrumentSettlementField"
+  Timestamp:
+    description: Timestamp in nanoseconds of when the smart contract created the action.
+    type: number
+    example: 1594668650000000000
+

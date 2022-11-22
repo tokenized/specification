@@ -675,7 +675,7 @@
           "type": "varbin"
         },
         {
-          "description": "The bitcoin outputs corresponding to the inputs for the transaction. Serialized in bitcoin P2P format. There must be the same count as there are inputs in the contained transaction and they must be in the same order.",
+          "description": "The bitcoin outputs corresponding to the inputs for the transaction. Serialized in bitcoin P2P format. There must be the same count as there are inputs in the contained transaction and they must be in the same order.\"\n",
           "label": "Outputs",
           "listSize": "medium",
           "name": "Outputs",
@@ -1373,9 +1373,7 @@
             "label": "Contract Public Address",
             "name": "Contract"
           }
-        ],
-        "rejection": "Rejection",
-        "validation": "InstrumentCreation"
+        ]
       },
       "name": "ContractFormation"
     },
@@ -2034,9 +2032,7 @@
             "label": "Contract Public Address",
             "name": "Contract"
           }
-        ],
-        "rejection": "Rejection",
-        "validation": "InstrumentCreation"
+        ]
       },
       "name": "InstrumentCreation"
     },
@@ -2187,11 +2183,51 @@
             "label": "Instrument 1 Settlement Address X",
             "name": "InstrumentXSettlementAddressX"
           }
-        ],
-        "rejection": "Rejection",
-        "validation": "InstrumentCreation"
+        ]
       },
       "name": "Settlement"
+    },
+    {
+      "code": "T3",
+      "description": "Settles the transfer request of tokens from transfer (T1) actions in the case when a transaction conflicting with the T1 transaction prevents the T1 and T2 from being confirmed in a block.\n",
+      "fields": [
+        {
+          "description": "The transfer (T1) transaction that had a conflict that kept it from confirming in a block.\n",
+          "label": "Transfer",
+          "name": "Transfer",
+          "type": "ReferenceTransaction"
+        },
+        {
+          "description": "The Instruments settled by the transfer action.",
+          "label": "Instruments",
+          "name": "Instruments",
+          "type": "InstrumentSettlement[]"
+        },
+        {
+          "description": "Timestamp in nanoseconds of when the smart contract created the action.",
+          "label": "Timestamp",
+          "name": "Timestamp",
+          "notes": "Cannot be changed by the administration, operator. Smart contract controls.",
+          "type": "Timestamp"
+        }
+      ],
+      "label": "Rectification Settlement",
+      "metadata": {
+        "inputs": [
+          {
+            "label": "Contract's Public Address",
+            "name": "Contract"
+          }
+        ],
+        "outputs": [
+          {
+            "comments": "Outputs for each address that is involved in the transfer.",
+            "label": "Settlement Addresses",
+            "name": "SettlementAddresses"
+          }
+        ]
+      },
+      "name": "RectificationSettlement"
     },
     {
       "code": "G1",
@@ -2298,7 +2334,7 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "Contract/Instrument Amendment or nothing"
+        "validation": "Vote"
       },
       "name": "Proposal"
     },
@@ -2329,9 +2365,7 @@
             "label": "Contract Public Address",
             "name": "Contract"
           }
-        ],
-        "rejection": "Rejection",
-        "validation": "None"
+        ]
       },
       "name": "Vote"
     },
@@ -2362,7 +2396,6 @@
             "name": "User"
           }
         ],
-        "nvalidation": "BallotCounted",
         "outputs": [
           {
             "comments": "Funds ballot cast response.",
@@ -2370,7 +2403,8 @@
             "name": "Contract"
           }
         ],
-        "rejection": "Rejection"
+        "rejection": "Rejection",
+        "validation": "BallotCounted"
       },
       "name": "BallotCast"
     },
@@ -2421,9 +2455,7 @@
             "label": "Contract Public Address",
             "name": "Contract"
           }
-        ],
-        "rejection": "Rejection",
-        "validation": "None"
+        ]
       },
       "name": "BallotCounted"
     },
@@ -2494,9 +2526,7 @@
             "label": "Contract Public Address",
             "name": "Contract"
           }
-        ],
-        "rejection": "Rejection",
-        "validation": "None"
+        ]
       },
       "name": "Result"
     },
@@ -2505,7 +2535,7 @@
       "description": "Used by the administration to signal to the smart contract that the tokens that a particular public address(es) owns are to be confiscated, frozen, thawed or reconciled.",
       "fields": [
         {
-          "description": "Freeze (F), Thaw (T), Confiscate (C), Reconcile (R)",
+          "description": "Freeze (F), Thaw (T), Confiscate (C), Deprecated Reconcile (R)",
           "example": "F",
           "label": "Compliance Action",
           "name": "ComplianceAction",
@@ -2763,7 +2793,7 @@
           }
         ],
         "rejection": "Rejection",
-        "validation": "InstrumentCreation"
+        "validation": "Freeze,Thaw,Confiscation,Reconciliation"
       },
       "name": "Order"
     },
@@ -2822,9 +2852,7 @@
             "label": "Target Public Address X",
             "name": "TargetX"
           }
-        ],
-        "rejection": "Rejection",
-        "validation": "InstrumentCreation"
+        ]
       },
       "name": "Freeze"
     },
@@ -2861,9 +2889,7 @@
             "label": "Target Public Address X",
             "name": "TargetX"
           }
-        ],
-        "rejection": "Rejection",
-        "validation": "InstrumentCreation"
+        ]
       },
       "name": "Thaw"
     },
@@ -2929,15 +2955,13 @@
             "label": "Deposit Public Address",
             "name": null
           }
-        ],
-        "rejection": "Rejection",
-        "validation": "InstrumentCreation"
+        ]
       },
       "name": "Confiscation"
     },
     {
       "code": "E5",
-      "description": "The contract responding to an Order action to reconcile instruments. To be used at the direction of the administration to fix record keeping errors with bitcoin and token balances.\n",
+      "description": "This action has been deprecated for Rectified Settlement. The contract responding to an Order action to reconcile instruments. To be used at the direction of the administration to fix record keeping errors with bitcoin and token balances.\n",
       "fields": [
         {
           "description": "Three letter character that specifies the instrument type.",
@@ -2969,7 +2993,7 @@
           "type": "Timestamp"
         }
       ],
-      "label": "Reconciliation",
+      "label": "Deprecated Reconciliation",
       "metadata": {
         "inputs": [
           {
@@ -2984,11 +3008,9 @@
             "label": "Target Public Address X",
             "name": "TargetX"
           }
-        ],
-        "rejection": "Rejection",
-        "validation": "InstrumentCreation"
+        ]
       },
-      "name": "Reconciliation"
+      "name": "DeprecatedReconciliation"
     },
     {
       "code": "R1",
@@ -3238,9 +3260,7 @@
             "label": "User / Contract public addresses",
             "name": "Recipients"
           }
-        ],
-        "rejection": "Rejection",
-        "validation": "InstrumentCreation"
+        ]
       },
       "name": "Rejection"
     }

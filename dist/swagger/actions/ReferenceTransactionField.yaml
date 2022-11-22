@@ -10,7 +10,7 @@ properties:
     description:  >
       The bitcoin outputs corresponding to the inputs for the transaction. Serialized in bitcoin P2P
       format. There must be the same count as there are inputs in the contained transaction and they
-      must be in the same order.
+      must be in the same order."
     type: array
     items:
       type: string

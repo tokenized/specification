@@ -197,6 +197,13 @@ message Settlement {
     uint64 Timestamp                               = 2;   // Timestamp
 }
 
+// Message - Rectification Settlement (T3)
+message RectificationSettlement {
+    ReferenceTransactionField Transfer             = 1;   // ReferenceTransaction
+    repeated InstrumentSettlementField Instruments = 2;   // InstrumentSettlement[]
+    uint64 Timestamp                               = 3;   // Timestamp
+}
+
 // Message - Proposal (G1)
 message Proposal {
     uint32 Type                                    = 1;   // uint
@@ -287,8 +294,8 @@ message Confiscation {
     uint64 Timestamp                               = 5;   // Timestamp
 }
 
-// Message - Reconciliation (E5)
-message Reconciliation {
+// Message - Deprecated Reconciliation (E5)
+message DeprecatedReconciliation {
     string InstrumentType                          = 1;   // fixedchar
     bytes InstrumentCode                           = 2;   // InstrumentCode
     repeated QuantityIndexField Quantities         = 3;   // QuantityIndex[]

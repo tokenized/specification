@@ -5,7 +5,7 @@ description:  >
 type: object
 properties:
   ComplianceAction:
-    description: Freeze (F), Thaw (T), Confiscate (C), Reconcile (R)
+    description: Freeze (F), Thaw (T), Confiscate (C), Deprecated Reconcile (R)
     type: string
     example: "F"
   InstrumentType:

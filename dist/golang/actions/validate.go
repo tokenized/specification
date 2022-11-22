@@ -941,6 +941,31 @@ func (a *Settlement) Validate() error {
 	return nil
 }
 
+func (a *RectificationSettlement) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+
+	// Field Transfer - ReferenceTransaction
+	if err := a.Transfer.Validate(); err != nil {
+		return errors.Wrap(err, "Transfer")
+	}
+
+	// Field Instruments - InstrumentSettlement
+	if len(a.Instruments) > max1ByteInteger {
+		return fmt.Errorf("Instruments list over max length : %d > %d", len(a.Instruments), max1ByteInteger)
+	}
+	for i, v := range a.Instruments {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("Instruments[%d]", i))
+		}
+	}
+
+	// Field Timestamp - uint
+
+	return nil
+}
+
 func (a *Proposal) Validate() error {
 	if a == nil {
 		return errors.New("Empty")
@@ -1496,7 +1521,7 @@ func (a *Confiscation) Validate() error {
 	return nil
 }
 
-func (a *Reconciliation) Validate() error {
+func (a *DeprecatedReconciliation) Validate() error {
 	if a == nil {
 		return errors.New("Empty")
 	}
