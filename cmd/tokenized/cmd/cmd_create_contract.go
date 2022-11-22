@@ -11,6 +11,7 @@ import (
 	"github.com/tokenized/pkg/txbuilder"
 	"github.com/tokenized/pkg/wire"
 	"github.com/tokenized/specification/dist/golang/actions"
+	"github.com/tokenized/specification/dist/golang/print"
 	"github.com/tokenized/specification/dist/golang/protocol"
 
 	"github.com/pkg/errors"
@@ -168,7 +169,7 @@ change_address: The bitcoin address to return any remaining bitcoin to.`,
 			finalRate)
 
 		fmt.Printf("Request ")
-		displayTx(tx.MsgTx)
+		print.PrintTx(tx.MsgTx)
 
 		txBuf := &bytes.Buffer{}
 		if err := tx.MsgTx.Serialize(txBuf); err != nil {
