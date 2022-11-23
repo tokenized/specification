@@ -37,6 +37,11 @@ values:
     label: Double Spend
     description: A double spend attempt has been detected.
 
+  - code: 6
+    name: Deprecated
+    label: Deprecated
+    description: Request or part of request has been deprecated and is no longer supported.
+
 #################################### Contract ####################################
 
   - code: 10
@@ -219,7 +224,7 @@ values:
     label: Invalid Signature
     description: The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.
 
-#################################### Contract ####################################
+#################################### Body Of Agreement ####################################
 
   - code: 90
     name: AgreementExists

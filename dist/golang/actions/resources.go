@@ -11155,6 +11155,9 @@ const (
 	// DoubleSpend - A double spend attempt has been detected.
 	RejectionsDoubleSpend = 5
 
+	// Deprecated - Request or part of request has been deprecated and is no longer supported.
+	RejectionsDeprecated = 6
+
 	// ContractExists - The contract already exists and can't be recreated.
 	RejectionsContractExists = 10
 
@@ -11320,6 +11323,14 @@ func RejectionsData(code uint32) *RejectionsCode {
 			Name:        "DoubleSpend",
 			Label:       "Double Spend",
 			Description: "A double spend attempt has been detected.",
+			MetaData:    `{}`,
+		}
+
+	case RejectionsDeprecated:
+		return &RejectionsCode{
+			Name:        "Deprecated",
+			Label:       "Deprecated",
+			Description: "Request or part of request has been deprecated and is no longer supported.",
 			MetaData:    `{}`,
 		}
 
@@ -11658,6 +11669,13 @@ func RejectionsMap() map[uint32]*RejectionsCode {
 			Name:        "DoubleSpend",
 			Label:       "Double Spend",
 			Description: "A double spend attempt has been detected.",
+			MetaData:    `{}`,
+		},
+
+		RejectionsDeprecated: &RejectionsCode{
+			Name:        "Deprecated",
+			Label:       "Deprecated",
+			Description: "Request or part of request has been deprecated and is no longer supported.",
 			MetaData:    `{}`,
 		},
 

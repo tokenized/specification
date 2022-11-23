@@ -9131,6 +9131,12 @@
           "name": "DoubleSpend"
         },
         {
+          "code": 6,
+          "description": "Request or part of request has been deprecated and is no longer supported.",
+          "label": "Deprecated",
+          "name": "Deprecated"
+        },
+        {
           "code": 10,
           "description": "The contract already exists and can't be recreated.",
           "label": "Contract Already Exists",
