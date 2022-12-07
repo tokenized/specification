@@ -1,0 +1,13 @@
+{
+  "ContractType": 0,
+  "GoverningLaw": "GBR",
+  "Jurisdiction": "GBR",
+  "ContractName": "Sample Business (Development - Test purposes only)",
+  "Issuer": {
+    "Name": "Sample Business Incorporated",
+    "Type": "C",
+    "CountryCode": "GBR",
+    "DomainName": "sample_business.com"
+  },
+  "ContractFee": 2000
+}

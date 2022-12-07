@@ -2,9 +2,7 @@ package cmd
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
-	"os"
 	"strconv"
 
 	"github.com/tokenized/pkg/bitcoin"
@@ -18,17 +16,20 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var cmdCreateContract = &cobra.Command{
-	Use:   "create_contract admin_key outpoint outpoint_value json_filename contract_address change_address",
-	Short: "Creates a transaction that contains a ContractOffer.",
+var cmdCreateTransfer = &cobra.Command{
+	Use:   "create_transfer sender_key outpoint outpoint_value instrument_id recipient_address recipient_token_quantity contract_address contract_fee change_address",
+	Short: "Creates a transaction that contains an InstrumentDefinition.",
 	Long: `admin_key: WIF format key for contract administrator.
 outpoint: UTXO to spend. P2PKH output to admin key.
   Example: "4ff6ef3dba153837bf1f0bc789e953be37255d5d515695b40a7d47bfd8ecd7e9:1"
 outpoint_value: Satoshi value of outpoint being spent.
-json_filename: File name containing JSON format ContractOffer action.
+instrument_id: Identifier for instrument to send.
+recipient_address: Address of token recipient.
+recipient_token_quantity: Quantity of tokens to send.
 contract_address: The bitcoin address of the smart contract agent.
+contract_fee: the fee from the contract formation.
 change_address: The bitcoin address to return any remaining bitcoin to.`,
-	Args: cobra.ExactArgs(6),
+	Args: cobra.ExactArgs(9),
 	RunE: func(c *cobra.Command, args []string) error {
 		adminKey, err := bitcoin.KeyFromStr(args[0])
 		if err != nil {
@@ -50,35 +51,47 @@ change_address: The bitcoin address to return any remaining bitcoin to.`,
 			return errors.Wrap(err, "outpoint value")
 		}
 
-		jsFile, err := os.Open(args[3])
+		instrumentType, instrumentCode, err := protocol.DecodeInstrumentID(args[3])
 		if err != nil {
-			return errors.Wrap(err, "open file")
+			return errors.Wrap(err, "instrument id")
 		}
-		defer jsFile.Close()
 
-		jsFileSize, err := jsFile.Seek(0, 2)
+		recipientAddress, err := bitcoin.DecodeAddress(args[4])
 		if err != nil {
-			return errors.Wrap(err, "seek file end")
+			return errors.Wrap(err, "recipient address")
 		}
 
-		if _, err := jsFile.Seek(0, 0); err != nil {
-			return errors.Wrap(err, "seek file begin")
+		recipientRA := bitcoin.NewRawAddressFromAddress(recipientAddress)
+
+		recipientQuantity, err := strconv.ParseUint(args[5], 10, 64)
+		if err != nil {
+			return errors.Wrap(err, "recipient quantity")
 		}
 
-		js := make([]byte, jsFileSize)
-		if readSize, err := jsFile.Read(js); err != nil {
-			return errors.Wrap(err, "read file")
-		} else if readSize != int(jsFileSize) {
-			return fmt.Errorf("Failed to read full file: read %d, size %d", readSize, jsFileSize)
+		transfer := &actions.Transfer{
+			Instruments: []*actions.InstrumentTransferField{
+				{
+					ContractIndex:  0,
+					InstrumentType: instrumentType,
+					InstrumentCode: instrumentCode.Bytes(),
+					InstrumentSenders: []*actions.QuantityIndexField{
+						{
+							Quantity: recipientQuantity,
+							Index:    0, // first input
+						},
+					},
+					InstrumentReceivers: []*actions.InstrumentReceiverField{
+						{
+							Address:  recipientRA.Bytes(),
+							Quantity: recipientQuantity,
+						},
+					},
+				},
+			},
 		}
 
-		contractOffer := &actions.ContractOffer{}
-		if err := json.Unmarshal(js, contractOffer); err != nil {
-			return errors.Wrap(err, "unmarshal contract offer")
-		}
-
-		if err := contractOffer.Validate(); err != nil {
-			return errors.Wrap(err, "validate contract offer")
+		if err := transfer.Validate(); err != nil {
+			return errors.Wrap(err, "validate transfer")
 		}
 
 		isTest, err := IsTest()
@@ -86,12 +99,12 @@ change_address: The bitcoin address to return any remaining bitcoin to.`,
 			return errors.Wrap(err, "is test")
 		}
 
-		contractOfferScript, err := protocol.Serialize(contractOffer, isTest)
+		transferScript, err := protocol.Serialize(transfer, isTest)
 		if err != nil {
-			return errors.Wrap(err, "serialize contract offer")
+			return errors.Wrap(err, "serialize transfer")
 		}
 
-		contractAddress, err := bitcoin.DecodeAddress(args[4])
+		contractAddress, err := bitcoin.DecodeAddress(args[6])
 		if err != nil {
 			return errors.Wrap(err, "contract address")
 		}
@@ -102,7 +115,12 @@ change_address: The bitcoin address to return any remaining bitcoin to.`,
 			return errors.Wrap(err, "contract locking script")
 		}
 
-		changeAddress, err := bitcoin.DecodeAddress(args[5])
+		contractFee, err := strconv.ParseUint(args[7], 10, 64)
+		if err != nil {
+			return errors.Wrap(err, "contract fee")
+		}
+
+		changeAddress, err := bitcoin.DecodeAddress(args[8])
 		if err != nil {
 			return errors.Wrap(err, "change address")
 		}
@@ -133,8 +151,8 @@ change_address: The bitcoin address to return any remaining bitcoin to.`,
 			return errors.Wrap(err, "add contract output")
 		}
 
-		if err := tx.AddOutput(contractOfferScript, 0, false, false); err != nil {
-			return errors.Wrap(err, "add contract offer output")
+		if err := tx.AddOutput(transferScript, 0, false, false); err != nil {
+			return errors.Wrap(err, "add transfer output")
 		}
 
 		if err := tx.SetChangeLockingScript(changeLockingScript, ""); err != nil {
@@ -142,23 +160,17 @@ change_address: The bitcoin address to return any remaining bitcoin to.`,
 		}
 
 		// Estimate contract request funding
-		dustLimit := txbuilder.DustLimitForLockingScript(contractLockingScript,
-			float32(dustFeeRate))
-		size, funding, err := protocol.EstimatedResponse(tx.MsgTx, 0, dustLimit,
-			contractOffer.ContractFee, isTest)
+		fundings, _, err := protocol.EstimatedTransferResponse(tx.MsgTx,
+			[]bitcoin.Script{adminLockingScript}, float32(feeRate), float32(dustFeeRate),
+			[]uint64{contractFee}, isTest)
 		if err != nil {
 			return errors.Wrap(err, "estimate funding")
 		}
 
-		responseFee := txbuilder.EstimatedFeeValue(uint64(size), feeRate)
-		fmt.Printf("Estimated contract fee + response dust outputs: %d\n", funding)
-		fmt.Printf("Estimated response tx size: %d\n", size)
-		fmt.Printf("Estimated response tx fee: %d\n", responseFee)
+		fmt.Printf("Estimated response funding: %d\n", fundings[0])
 
 		// Add response tx fee
-		funding += responseFee
-
-		if err := tx.AddValueToOutput(0, funding); err != nil {
+		if err := tx.AddValueToOutput(0, fundings[0]); err != nil {
 			return errors.Wrap(err, "add funding value")
 		}
 

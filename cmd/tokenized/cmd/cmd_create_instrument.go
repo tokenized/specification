@@ -11,6 +11,7 @@ import (
 	"github.com/tokenized/pkg/txbuilder"
 	"github.com/tokenized/pkg/wire"
 	"github.com/tokenized/specification/dist/golang/actions"
+	"github.com/tokenized/specification/dist/golang/instruments"
 	"github.com/tokenized/specification/dist/golang/print"
 	"github.com/tokenized/specification/dist/golang/protocol"
 
@@ -18,17 +19,19 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var cmdCreateContract = &cobra.Command{
-	Use:   "create_contract admin_key outpoint outpoint_value json_filename contract_address change_address",
-	Short: "Creates a transaction that contains a ContractOffer.",
+var cmdCreateInstrument = &cobra.Command{
+	Use:   "create_instrument admin_key outpoint outpoint_value definition_json_filename payload_json_filename contract_address contract_fee change_address",
+	Short: "Creates a transaction that contains an InstrumentDefinition.",
 	Long: `admin_key: WIF format key for contract administrator.
 outpoint: UTXO to spend. P2PKH output to admin key.
   Example: "4ff6ef3dba153837bf1f0bc789e953be37255d5d515695b40a7d47bfd8ecd7e9:1"
 outpoint_value: Satoshi value of outpoint being spent.
-json_filename: File name containing JSON format ContractOffer action.
+definition_json_filename: File name containing JSON format InstrumentDefinition action. Leave the payload empty.
+payload_json_filename: File name containing JSON format instrument payload depending on instrument type.
 contract_address: The bitcoin address of the smart contract agent.
+contract_fee: the fee from the contract formation.
 change_address: The bitcoin address to return any remaining bitcoin to.`,
-	Args: cobra.ExactArgs(6),
+	Args: cobra.ExactArgs(8),
 	RunE: func(c *cobra.Command, args []string) error {
 		adminKey, err := bitcoin.KeyFromStr(args[0])
 		if err != nil {
@@ -52,33 +55,69 @@ change_address: The bitcoin address to return any remaining bitcoin to.`,
 
 		jsFile, err := os.Open(args[3])
 		if err != nil {
-			return errors.Wrap(err, "open file")
+			return errors.Wrap(err, "open definition file")
 		}
 		defer jsFile.Close()
 
 		jsFileSize, err := jsFile.Seek(0, 2)
 		if err != nil {
-			return errors.Wrap(err, "seek file end")
+			return errors.Wrap(err, "seek definition file end")
 		}
 
 		if _, err := jsFile.Seek(0, 0); err != nil {
-			return errors.Wrap(err, "seek file begin")
+			return errors.Wrap(err, "seek definition file begin")
 		}
 
 		js := make([]byte, jsFileSize)
 		if readSize, err := jsFile.Read(js); err != nil {
 			return errors.Wrap(err, "read file")
 		} else if readSize != int(jsFileSize) {
-			return fmt.Errorf("Failed to read full file: read %d, size %d", readSize, jsFileSize)
+			return fmt.Errorf("Failed to read full definition file: read %d, size %d", readSize,
+				jsFileSize)
 		}
 
-		contractOffer := &actions.ContractOffer{}
-		if err := json.Unmarshal(js, contractOffer); err != nil {
-			return errors.Wrap(err, "unmarshal contract offer")
+		instrumentDefinition := &actions.InstrumentDefinition{}
+		if err := json.Unmarshal(js, instrumentDefinition); err != nil {
+			return errors.Wrap(err, "unmarshal instrument definition")
 		}
 
-		if err := contractOffer.Validate(); err != nil {
-			return errors.Wrap(err, "validate contract offer")
+		jsFile, err = os.Open(args[4])
+		if err != nil {
+			return errors.Wrap(err, "open payload file")
+		}
+		defer jsFile.Close()
+
+		jsFileSize, err = jsFile.Seek(0, 2)
+		if err != nil {
+			return errors.Wrap(err, "seek payload file end")
+		}
+
+		if _, err = jsFile.Seek(0, 0); err != nil {
+			return errors.Wrap(err, "seek payload file begin")
+		}
+
+		js = make([]byte, jsFileSize)
+		if readSize, err := jsFile.Read(js); err != nil {
+			return errors.Wrap(err, "read payload file")
+		} else if readSize != int(jsFileSize) {
+			return fmt.Errorf("Failed to read full payload file: read %d, size %d", readSize, jsFileSize)
+		}
+
+		payload := instruments.NewInstrumentFromCode(instrumentDefinition.InstrumentType)
+
+		if err := json.Unmarshal(js, payload); err != nil {
+			return errors.Wrap(err, "unmarshal instrument payload")
+		}
+
+		payloadBytes, err := payload.Bytes()
+		if err != nil {
+			return errors.Wrap(err, "serialize payload")
+		}
+
+		instrumentDefinition.InstrumentPayload = payloadBytes
+
+		if err := instrumentDefinition.Validate(); err != nil {
+			return errors.Wrap(err, "validate instrument definition")
 		}
 
 		isTest, err := IsTest()
@@ -86,12 +125,12 @@ change_address: The bitcoin address to return any remaining bitcoin to.`,
 			return errors.Wrap(err, "is test")
 		}
 
-		contractOfferScript, err := protocol.Serialize(contractOffer, isTest)
+		instrumentDefinitionScript, err := protocol.Serialize(instrumentDefinition, isTest)
 		if err != nil {
-			return errors.Wrap(err, "serialize contract offer")
+			return errors.Wrap(err, "serialize instrument definition")
 		}
 
-		contractAddress, err := bitcoin.DecodeAddress(args[4])
+		contractAddress, err := bitcoin.DecodeAddress(args[5])
 		if err != nil {
 			return errors.Wrap(err, "contract address")
 		}
@@ -102,7 +141,12 @@ change_address: The bitcoin address to return any remaining bitcoin to.`,
 			return errors.Wrap(err, "contract locking script")
 		}
 
-		changeAddress, err := bitcoin.DecodeAddress(args[5])
+		contractFee, err := strconv.ParseUint(args[6], 10, 64)
+		if err != nil {
+			return errors.Wrap(err, "contract fee")
+		}
+
+		changeAddress, err := bitcoin.DecodeAddress(args[7])
 		if err != nil {
 			return errors.Wrap(err, "change address")
 		}
@@ -133,8 +177,8 @@ change_address: The bitcoin address to return any remaining bitcoin to.`,
 			return errors.Wrap(err, "add contract output")
 		}
 
-		if err := tx.AddOutput(contractOfferScript, 0, false, false); err != nil {
-			return errors.Wrap(err, "add contract offer output")
+		if err := tx.AddOutput(instrumentDefinitionScript, 0, false, false); err != nil {
+			return errors.Wrap(err, "add instrument definition output")
 		}
 
 		if err := tx.SetChangeLockingScript(changeLockingScript, ""); err != nil {
@@ -145,7 +189,7 @@ change_address: The bitcoin address to return any remaining bitcoin to.`,
 		dustLimit := txbuilder.DustLimitForLockingScript(contractLockingScript,
 			float32(dustFeeRate))
 		size, funding, err := protocol.EstimatedResponse(tx.MsgTx, 0, dustLimit,
-			contractOffer.ContractFee, isTest)
+			contractFee, isTest)
 		if err != nil {
 			return errors.Wrap(err, "estimate funding")
 		}
