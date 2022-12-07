@@ -17,7 +17,7 @@ import (
 
 func PrintBytes(b []byte) error {
 	tx := &wire.MsgTx{}
-	if err := tx.Deserialize(bytes.NewReader(b)); err == nil {
+	if err := tx.Deserialize(bytes.NewReader(b)); err == nil && tx.Version == 1 || tx.Version == 2 {
 		if err := PrintTx(tx); err != nil {
 			return errors.Wrap(err, "tx")
 		}

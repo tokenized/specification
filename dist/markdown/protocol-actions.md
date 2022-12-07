@@ -752,7 +752,6 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
         <td>
             The address of the contract&#39;s parent entity. This is optional for entity contracts, but required for instrument and service contracts to identify the entity parent contract.
             
-            This field is required when the field ContractType equals 1.
             This field is only valid when the field ContractType equals 1.
         </td>
     </tr>

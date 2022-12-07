@@ -198,10 +198,6 @@ fields:
       field_name: ContractType
       values:
         - 1
-    required_when:
-      field_name: ContractType
-      values:
-        - 1
 
   - name: OperatorEntityContract
     label: Operator Entity Contract

@@ -361,16 +361,6 @@ func (a *ContractFormation) Validate() error {
 	if !validValueFoundEntityContract && len(a.EntityContract) != 0 {
 		return fmt.Errorf("EntityContract is only allowed when ContractType value is within values [1] : %v", a.ContractType)
 	}
-	requiredValueFoundEntityContract := false
-	for _, v := range []uint32{1} {
-		if a.ContractType == v {
-			requiredValueFoundEntityContract = true
-			break
-		}
-	}
-	if requiredValueFoundEntityContract && len(a.EntityContract) == 0 {
-		return fmt.Errorf("EntityContract is required when ContractType value is within values [1] : %v", a.ContractType)
-	}
 
 	// Field OperatorEntityContract - varbin
 	if len(a.OperatorEntityContract) > 0 {
