@@ -795,6 +795,38 @@
         "kind": "Utility"
       },
       "name": "InformationServiceLicense"
+    },
+    {
+      "code": "CRD",
+      "description": "A credit for a specified value in currency.",
+      "fields": [
+        {
+          "label": "Name",
+          "name": "Name",
+          "type": "varchar",
+          "varSize": "tiny"
+        },
+        {
+          "description": "Face value of each coupon specified in a currency.",
+          "label": "Face Value",
+          "name": "FaceValue",
+          "type": "CurrencyValue"
+        },
+        {
+          "label": "Expiration Timestamp",
+          "name": "ExpirationTimestamp",
+          "type": "Timestamp"
+        }
+      ],
+      "label": "Credit Note",
+      "metadata": {
+        "examples": [
+          "Australian dollar",
+          "Canadian dollar"
+        ],
+        "kind": "Utility"
+      },
+      "name": "CreditNote"
     }
   ],
   "name": "Tokenized Instrument Types",

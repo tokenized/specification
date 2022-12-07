@@ -96,4 +96,14 @@ func TestEmptyDeserialize(t *testing.T) {
 		t.Fatalf("Failed deserialize type check for InformationServiceLicense")
 	}
 
+	// CreditNote identifies a payload as a CreditNote message.
+	instrumentCreditNote, err := Deserialize([]byte(CodeCreditNote), nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for CreditNote : %s", err)
+	}
+	_, ok = instrumentCreditNote.(*CreditNote)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for CreditNote")
+	}
+
 }

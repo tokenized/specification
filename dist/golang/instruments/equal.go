@@ -514,6 +514,41 @@ func (l *InformationServiceLicense) Equal(right proto.Message) bool {
 	return true
 }
 
+func (l *CreditNote) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &CreditNote{}
+	}
+	cr := right
+	if cr == nil {
+		cr = &CreditNote{}
+	}
+	r, ok := cr.(*CreditNote)
+	if !ok {
+		return false
+	}
+
+	// Field Name - varchar
+	if c.Name != r.Name {
+		return false // fmt.Errorf("Name string mismatched")
+	}
+
+	// Field FaceValue - CurrencyValue
+	if !c.FaceValue.Equal(r.FaceValue) {
+		return false // fmt.Errorf("FaceValue : %s", err)
+	}
+
+	// Field ExpirationTimestamp - uint
+	if c.ExpirationTimestamp != r.ExpirationTimestamp {
+		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
+	}
+
+	return true
+}
+
 func (l *AgeRestrictionField) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {

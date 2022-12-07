@@ -23,6 +23,7 @@ Instrument Types are used with reference to the `InstrumentPayload` field found 
 - [Ticket (Admission)](#ticket-admission)
 - [Casino Chip](#casino-chip)
 - [Information Service License](#information-service-license)
+- [Credit Note](#credit-note)
 </div>
 
 <a name="membership"></a>
@@ -995,6 +996,54 @@ Information Service License
         </td>
         <td>
             URL linking to any related documents or media
+            
+        </td>
+    </tr>
+
+</table>
+
+
+
+<a name="credit-note"></a>
+#### Credit Note
+
+A credit for a specified value in currency.
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>FaceValue</td>
+        <td>
+            <a href="#type-currency-value">CurrencyValue</a>
+        </td>
+        <td>
+            Face value of each coupon specified in a currency.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>ExpirationTimestamp</td>
+        <td>
+            <a href="#alias-uint">Timestamp</a>
+        </td>
+        <td>
+            
             
         </td>
     </tr>

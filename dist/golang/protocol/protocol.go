@@ -420,32 +420,32 @@ func CurrentTimestamp() Timestamp {
 }
 
 // Validate returns an error if the value is invalid
-func (time *Timestamp) Validate() error {
+func (time Timestamp) Validate() error {
 	return nil
 }
 
 // Equal returns true if the specified values are the same.
-func (time *Timestamp) Equal(other Timestamp) bool {
+func (time Timestamp) Equal(other Timestamp) bool {
 	return time.nanoseconds == other.nanoseconds
 }
 
 // Nano returns the nanoseconds since the Unix epoch for the Timestamp.
-func (time *Timestamp) Nano() uint64 {
+func (time Timestamp) Nano() uint64 {
 	return time.nanoseconds
 }
 
 // Nano returns the seconds since the Unix epoch for the Timestamp.
-func (time *Timestamp) Seconds() uint32 {
+func (time Timestamp) Seconds() uint32 {
 	return uint32(time.nanoseconds / 1000000000)
 }
 
 // String converts to a string
-func (t *Timestamp) String() string {
+func (t Timestamp) String() string {
 	return time.Unix(int64(t.nanoseconds)/1000000000, 0).String()
 }
 
 // Serialize serializes a timestamp into a buffer.
-func (time *Timestamp) Serialize(w io.Writer) error {
+func (time Timestamp) Serialize(w io.Writer) error {
 	if err := binary.Write(w, DefaultEndian, &time.nanoseconds); err != nil {
 		return err
 	}

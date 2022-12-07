@@ -55,6 +55,9 @@ const (
 	// CodeInformationServiceLicense identifies a payload as a InformationServiceLicense instrument message.
 	CodeInformationServiceLicense = "ISL"
 
+	// CodeCreditNote identifies a payload as a CreditNote instrument message.
+	CodeCreditNote = "CRD"
+
 	// BondTypeCorporate specifies a corporate bond.
 	BondTypeCorporate = "C"
 
@@ -95,6 +98,8 @@ func NewInstrumentFromCode(code string) Instrument {
 		return &CasinoChip{}
 	case CodeInformationServiceLicense:
 		return &InformationServiceLicense{}
+	case CodeCreditNote:
+		return &CreditNote{}
 	default:
 		return nil
 	}
@@ -323,6 +328,29 @@ func (a *InformationServiceLicense) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize InformationServiceLicense")
+	}
+
+	_, err = buf.Write(data)
+	return err
+}
+
+func (a *CreditNote) Code() string {
+	return CodeCreditNote
+}
+
+func (a *CreditNote) TypeName() string {
+	return "CreditNote"
+}
+
+func (a *CreditNote) Bytes() ([]byte, error) {
+	return proto.Marshal(a)
+}
+
+// Serialize writes an instrument to a byte slice.
+func (a *CreditNote) Serialize(buf *bytes.Buffer) error {
+	data, err := proto.Marshal(a)
+	if err != nil {
+		return errors.Wrap(err, "Failed to serialize CreditNote")
 	}
 
 	_, err = buf.Write(data)

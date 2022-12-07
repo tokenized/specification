@@ -439,6 +439,26 @@ func (a *InformationServiceLicense) Validate() error {
 	return nil
 }
 
+func (a *CreditNote) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+
+	// Field Name - varchar
+	if len(a.Name) > max1ByteInteger {
+		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
+	}
+
+	// Field FaceValue - CurrencyValue
+	if err := a.FaceValue.Validate(); err != nil {
+		return errors.Wrap(err, "FaceValue")
+	}
+
+	// Field ExpirationTimestamp - uint
+
+	return nil
+}
+
 func (a *AgeRestrictionField) Validate() error {
 	if a == nil {
 		return nil

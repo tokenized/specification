@@ -1802,6 +1802,105 @@ func (a *InformationServiceLicense) CreateAmendments(fip permissions.FieldIndexP
 	return result, nil
 }
 
+// CreditNote Permission / Amendment Field Indices
+const (
+	CreditNoteFieldName                = uint32(1)
+	CreditNoteFieldFaceValue           = uint32(2)
+	CreditNoteFieldExpirationTimestamp = uint32(3)
+)
+
+// ApplyAmendment updates a CreditNote based on amendment data.
+// Note: This does not check permissions or data validity. This does check data format.
+// fip must have at least one value.
+func (a *CreditNote) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
+
+	if len(fip) == 0 {
+		return nil, errors.New("Empty instrument amendment field index path")
+	}
+
+	switch fip[0] {
+	case CreditNoteFieldName: // string
+		a.Name = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+
+	case CreditNoteFieldFaceValue: // CurrencyValueField
+		if len(fip) == 1 && len(data) == 0 {
+			a.FaceValue = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
+
+		subPermissions, err := permissions.SubPermissions(fip, operation, false)
+		if err != nil {
+			return nil, errors.Wrap(err, "sub permissions")
+		}
+
+		return a.FaceValue.ApplyAmendment(fip[1:], operation, data, subPermissions)
+
+	case CreditNoteFieldExpirationTimestamp: // uint64
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for ExpirationTimestamp : %v", fip)
+		}
+		buf := bytes.NewBuffer(data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("ExpirationTimestamp amendment value failed to deserialize : %s", err)
+		} else {
+			a.ExpirationTimestamp = uint64(value)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+
+	}
+
+	return nil, fmt.Errorf("Unknown CreditNote amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two CreditNotes and returns
+// amendment data.
+func (a *CreditNote) CreateAmendments(fip permissions.FieldIndexPath,
+	newValue *CreditNote) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	// Name string
+	fip = append(ofip, CreditNoteFieldName)
+	if a.Name != newValue.Name {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Name),
+		})
+	}
+
+	// FaceValue CurrencyValueField
+	fip = append(ofip, CreditNoteFieldFaceValue)
+
+	FaceValueAmendments, err := a.FaceValue.CreateAmendments(fip, newValue.FaceValue)
+	if err != nil {
+		return nil, errors.Wrap(err, "FaceValue")
+	}
+	result = append(result, FaceValueAmendments...)
+
+	// ExpirationTimestamp uint64
+	fip = append(ofip, CreditNoteFieldExpirationTimestamp)
+	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
+		var buf bytes.Buffer
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpirationTimestamp)); err != nil {
+			return nil, errors.Wrap(err, "ExpirationTimestamp")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	return result, nil
+}
+
 // AgeRestrictionField Permission / Amendment Field Indices
 const (
 	AgeRestrictionFieldLower = uint32(1)
@@ -2128,6 +2227,9 @@ func CreatePayloadAmendments(fip permissions.FieldIndexPath,
 
 	case *InformationServiceLicense:
 		result, err = c.CreateAmendments(fip, new.(*InformationServiceLicense))
+
+	case *CreditNote:
+		result, err = c.CreateAmendments(fip, new.(*CreditNote))
 
 	}
 

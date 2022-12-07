@@ -18,6 +18,8 @@ components:
       $ref: ./_components/schemas/tokenized/instruments/CasinoChip.yaml
     InformationServiceLicense:
       $ref: ./_components/schemas/tokenized/instruments/InformationServiceLicense.yaml
+    CreditNote:
+      $ref: ./_components/schemas/tokenized/instruments/CreditNote.yaml
     AgeRestrictionField:
       $ref: ./_components/schemas/tokenized/instruments/AgeRestrictionField.yaml
     CurrencyValueField:

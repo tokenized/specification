@@ -1,0 +1,14 @@
+
+description: A credit for a specified value in currency.
+type: object
+properties:
+  Name:
+    type: string
+  FaceValue:
+    description: Face value of each coupon specified in a currency.
+    type: object
+    $ref: "#/components/schemas/CurrencyValueField"
+  ExpirationTimestamp:
+    type: number
+    example: 1594668650000000000
+

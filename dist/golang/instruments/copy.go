@@ -252,6 +252,21 @@ func (a *InformationServiceLicense) Copy() *InformationServiceLicense {
 	return result
 }
 
+func (a *CreditNote) Copy() *CreditNote {
+	result := &CreditNote{}
+
+	// Field Name - varchar
+	result.Name = a.Name
+
+	// Field FaceValue - CurrencyValue
+	result.FaceValue = a.FaceValue.Copy()
+
+	// Field ExpirationTimestamp - uint
+	result.ExpirationTimestamp = a.ExpirationTimestamp
+
+	return result
+}
+
 func (a *AgeRestrictionField) Copy() *AgeRestrictionField {
 	result := &AgeRestrictionField{}
 

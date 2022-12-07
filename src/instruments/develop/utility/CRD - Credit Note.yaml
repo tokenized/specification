@@ -1,0 +1,29 @@
+#
+# CRD - Credit Note
+#
+
+code: CRD
+name: CreditNote
+label: Credit Note
+description: A credit for a specified value in currency.
+
+metadata:
+  kind: Utility
+  examples:
+    - Australian dollar
+    - Canadian dollar
+
+fields:
+  - name: Name
+    label: Name
+    type: varchar
+    varSize: tiny
+
+  - name: FaceValue
+    label: Face Value
+    description: Face value of each coupon specified in a currency.
+    type: CurrencyValue
+
+  - name: ExpirationTimestamp
+    label: Expiration Timestamp
+    type: Timestamp

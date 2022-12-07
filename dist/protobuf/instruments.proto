@@ -117,6 +117,13 @@ message InformationServiceLicense {
     string URL                                     = 5;   // varchar
 }
 
+// Message - Credit Note (CRD)
+message CreditNote {
+    string Name                                    = 1;   // varchar
+    CurrencyValueField FaceValue                   = 2;   // CurrencyValue
+    uint64 ExpirationTimestamp                     = 3;   // Timestamp
+}
+
 
 // Field - Age Restriction
 message AgeRestrictionField {
