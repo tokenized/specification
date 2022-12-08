@@ -56,7 +56,7 @@ const (
 	CodeInformationServiceLicense = "ISL"
 
 	// CodeCreditNote identifies a payload as a CreditNote instrument message.
-	CodeCreditNote = "CRD"
+	CodeCreditNote = "CRN"
 
 	// BondTypeCorporate specifies a corporate bond.
 	BondTypeCorporate = "C"

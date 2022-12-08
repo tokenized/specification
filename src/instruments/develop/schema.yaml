@@ -22,7 +22,7 @@ messages:
   - "utility/TIC - Admission Ticket"
   - "utility/CHP - Casino Chip"
   - "utility/ISL - Information Service License"
-  - "utility/CRD - Credit Note"
+  - "utility/CRN - Credit Note"
 
 # Register Resources
 resources:

@@ -797,7 +797,7 @@
       "name": "InformationServiceLicense"
     },
     {
-      "code": "CRD",
+      "code": "CRN",
       "description": "A credit for a specified value in currency.",
       "fields": [
         {

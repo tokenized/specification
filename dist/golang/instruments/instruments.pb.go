@@ -829,7 +829,7 @@ func (m *InformationServiceLicense) GetURL() string {
 	return ""
 }
 
-// Message - Credit Note (CRD)
+// Message - Credit Note (CRN)
 type CreditNote struct {
 	Name                 string              `protobuf:"bytes,1,opt,name=Name,proto3" json:"Name,omitempty"`
 	FaceValue            *CurrencyValueField `protobuf:"bytes,2,opt,name=FaceValue,proto3" json:"FaceValue,omitempty"`

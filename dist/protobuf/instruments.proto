@@ -117,7 +117,7 @@ message InformationServiceLicense {
     string URL                                     = 5;   // varchar
 }
 
-// Message - Credit Note (CRD)
+// Message - Credit Note (CRN)
 message CreditNote {
     string Name                                    = 1;   // varchar
     CurrencyValueField FaceValue                   = 2;   // CurrencyValue

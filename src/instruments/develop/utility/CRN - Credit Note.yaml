@@ -1,8 +1,8 @@
 #
-# CRD - Credit Note
+# CRN - Credit Note
 #
 
-code: CRD
+code: CRN
 name: CreditNote
 label: Credit Note
 description: A credit for a specified value in currency.
