@@ -9329,6 +9329,12 @@
           "name": "InvalidSignature"
         },
         {
+          "code": 81,
+          "description": "The transaction authorization signature doesn't sign the entire transaction so doesn't necessarily sign the action requested.",
+          "label": "Signature Not Sig Hash All",
+          "name": "SignatureNotSigHashAll"
+        },
+        {
           "code": 90,
           "description": "The agreement already exists and can't be recreated.",
           "label": "Agreement Already Exists",

@@ -11257,6 +11257,9 @@ const (
 	// InvalidSignature - The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.
 	RejectionsInvalidSignature = 80
 
+	// SignatureNotSigHashAll - The transaction authorization signature doesn't sign the entire transaction so doesn't necessarily sign the action requested.
+	RejectionsSignatureNotSigHashAll = 81
+
 	// AgreementExists - The agreement already exists and can't be recreated.
 	RejectionsAgreementExists = 90
 
@@ -11598,6 +11601,14 @@ func RejectionsData(code uint32) *RejectionsCode {
 			MetaData:    `{}`,
 		}
 
+	case RejectionsSignatureNotSigHashAll:
+		return &RejectionsCode{
+			Name:        "SignatureNotSigHashAll",
+			Label:       "Signature Not Sig Hash All",
+			Description: "The transaction authorization signature doesn't sign the entire transaction so doesn't necessarily sign the action requested.",
+			MetaData:    `{}`,
+		}
+
 	case RejectionsAgreementExists:
 		return &RejectionsCode{
 			Name:        "AgreementExists",
@@ -11907,6 +11918,13 @@ func RejectionsMap() map[uint32]*RejectionsCode {
 			Name:        "InvalidSignature",
 			Label:       "Invalid Signature",
 			Description: "The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.",
+			MetaData:    `{}`,
+		},
+
+		RejectionsSignatureNotSigHashAll: &RejectionsCode{
+			Name:        "SignatureNotSigHashAll",
+			Label:       "Signature Not Sig Hash All",
+			Description: "The transaction authorization signature doesn't sign the entire transaction so doesn't necessarily sign the action requested.",
 			MetaData:    `{}`,
 		},
 

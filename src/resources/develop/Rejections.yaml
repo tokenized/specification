@@ -224,6 +224,11 @@ values:
     label: Invalid Signature
     description: The signature provided is not valid. This is for signatures included within OP_RETURN data. Not bitcoin transaction signature scripts.
 
+  - code: 81
+    name: SignatureNotSigHashAll
+    label: Signature Not Sig Hash All
+    description: The transaction authorization signature doesn't sign the entire transaction so doesn't necessarily sign the action requested.
+
 #################################### Body Of Agreement ####################################
 
   - code: 90
