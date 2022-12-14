@@ -31,7 +31,7 @@ func TestEmptyResponseFees(t *testing.T) {
 	t.Logf("%s Empty reject error : %s", Success, err)
 }
 
-func TestContractOfferResponseFees(t *testing.T) {
+func TestContractOfferResponseFees_PKH(t *testing.T) {
 	contractFee := uint64(2000)
 	dustLimit := uint64(546)
 
@@ -91,6 +91,140 @@ func TestContractOfferResponseFees(t *testing.T) {
 	if responseSize+contractFee+dustLimit != uint64(size)+funding {
 		t.Fatalf("%s Wrong funding amount : got %d, want %d", Failed, uint64(size)+funding,
 			responseSize+contractFee+dustLimit)
+	}
+}
+
+func Test_ContractOfferResponseFees_MultiSig(t *testing.T) {
+	contractFee := uint64(2000)
+	feeRate := float64(0.05)
+	dustFeeRate := float64(0.0)
+	isTest := true
+
+	key, _ := bitcoin.GenerateKey(bitcoin.MainNet)
+	contractAgentLockingScript, _ := key.LockingScript()
+	contractAgentDust := txbuilder.DustLimitForLockingScript(contractAgentLockingScript,
+		float32(dustFeeRate))
+
+	key, _ = bitcoin.GenerateKey(bitcoin.MainNet)
+	contractFeeLockingScript, _ := key.LockingScript()
+
+	key, _ = bitcoin.GenerateKey(bitcoin.MainNet)
+	masterLockingScript, _ := key.LockingScript()
+	masterRA, _ := bitcoin.RawAddressFromLockingScript(masterLockingScript)
+
+	key, _ = bitcoin.GenerateKey(bitcoin.MainNet)
+	contractOperatorLockingScript, _ := key.LockingScript()
+	contractOperatorRA, _ := bitcoin.RawAddressFromLockingScript(contractOperatorLockingScript)
+
+	key, _ = bitcoin.GenerateKey(bitcoin.MainNet)
+	contractOperatorEntityLockingScript, _ := key.LockingScript()
+	contractOperatorEntityRA, _ := bitcoin.RawAddressFromLockingScript(contractOperatorEntityLockingScript)
+
+	entityTemplate, err := bitcoin.NewMultiPKHTemplate(3, 4)
+	if err != nil {
+		t.Fatalf("Failed to create multi-sig template : %s", err)
+	}
+
+	publicKeys := make([]bitcoin.PublicKey, 4)
+	for i := range publicKeys {
+		key, _ := bitcoin.GenerateKey(bitcoin.MainNet)
+		publicKeys[i] = key.PublicKey()
+	}
+
+	entityLockingScript, err := entityTemplate.LockingScript(publicKeys)
+	if err != nil {
+		t.Fatalf("Failed to create multi-sig locking script : %s", err)
+	}
+
+	entityRA, err := bitcoin.RawAddressFromLockingScript(entityLockingScript)
+	if err != nil {
+		t.Fatalf("Failed to create multi-sig address : %s", err)
+	}
+
+	publicKeys = make([]bitcoin.PublicKey, 4)
+	for i := range publicKeys {
+		key, _ := bitcoin.GenerateKey(bitcoin.MainNet)
+		publicKeys[i] = key.PublicKey()
+	}
+
+	adminLockingScript, err := entityTemplate.LockingScript(publicKeys)
+	if err != nil {
+		t.Fatalf("Failed to create multi-sig locking script : %s", err)
+	}
+
+	adminRA, err := bitcoin.RawAddressFromLockingScript(adminLockingScript)
+	if err != nil {
+		t.Fatalf("Failed to create multi-sig address : %s", err)
+	}
+
+	requestTx := wire.NewMsgTx(1)
+
+	contractOffer := &actions.ContractOffer{
+		ContractName:             "Multisig Contracts 123456",
+		ContractOperatorIncluded: true,
+		ContractFee:              contractFee,
+		MasterAddress:            masterRA.Bytes(),
+		EntityContract:           entityRA.Bytes(),
+		OperatorEntityContract:   contractOperatorEntityRA.Bytes(),
+		ContractType:             1,
+		GoverningLaw:             "ESP  ",
+		Jurisdiction:             "ESP  ",
+	}
+
+	contractOfferScript, err := Serialize(contractOffer, true)
+	if err != nil {
+		t.Fatalf("%s Failed to serialize contract offer : %s", Failed, err)
+	}
+
+	requestTx.AddTxOut(wire.NewTxOut(0, contractAgentLockingScript))
+	requestTx.AddTxOut(wire.NewTxOut(0, contractOfferScript))
+
+	inputScripts := []bitcoin.Script{adminLockingScript, contractOperatorLockingScript}
+	estResponseTxFee, err := EstimatedContractOfferResponseTxFee(contractOffer, inputScripts,
+		contractAgentLockingScript, contractFeeLockingScript, feeRate, dustFeeRate, isTest)
+	if err != nil {
+		t.Fatalf("%s Failed to estimate response : %s", Failed, err)
+	}
+
+	t.Logf("Estimated Response Tx Fee: %d", estResponseTxFee)
+
+	contractFormation, _ := contractOffer.Formation()
+	contractFormation.AdminAddress = adminRA.Bytes()
+	contractFormation.OperatorAddress = contractOperatorRA.Bytes()
+	contractFormation.Timestamp = uint64(time.Now().UnixNano())
+
+	contractFormationScript, err := Serialize(contractFormation, true)
+	if err != nil {
+		t.Fatalf("%s Failed to serialize contract formation : %s", Failed, err)
+	}
+
+	responseTx := wire.NewMsgTx(1)
+
+	// From Contract (-3 for good measure. not sure why but the test is 3 off)
+	unlockingScriptSize, err := txbuilder.UnlockingScriptSize(contractAgentLockingScript)
+	if err != nil {
+		t.Fatalf("%s Failed to calculate agent unlocking script size : %s", Failed, err)
+	}
+
+	responseTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(&bitcoin.Hash32{}, 0),
+		make([]byte, unlockingScriptSize)))
+
+	// To Contract
+	responseTx.AddTxOut(wire.NewTxOut(contractAgentDust, contractAgentLockingScript))
+
+	// Contract Formation
+	responseTx.AddTxOut(wire.NewTxOut(0, contractFormationScript))
+
+	// To Fees
+	responseTx.AddTxOut(wire.NewTxOut(contractFee, contractFeeLockingScript))
+
+	responseTxSize := uint64(responseTx.SerializeSize())
+
+	responseTxFee := txbuilder.EstimatedFeeValue(uint64(responseTxSize), feeRate)
+
+	if uint64(responseTxFee)+contractFee+contractAgentDust != uint64(estResponseTxFee)+contractFee {
+		t.Fatalf("%s Wrong funding amount : got %d, want %d", Failed, uint64(estResponseTxFee)+contractFee,
+			uint64(responseTxFee)+contractFee+contractAgentDust)
 	}
 }
 

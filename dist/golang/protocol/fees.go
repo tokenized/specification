@@ -18,6 +18,436 @@ import (
 	"github.com/pkg/errors"
 )
 
+var (
+	ErrMissingInputScripts = errors.New("Missing Input Scripts")
+)
+
+// EstimatedContractOfferResponseTxFee estimates the satoshi amount to add to the contract fee in
+// the contract output of a contract offer transaction.
+// inputLockingScripts are needed to calculate the admin and operator admin fields of the contract
+// formation. There must be at least one when ContractOperatorIncluded is false and at least two
+// when it is true.
+func EstimatedContractOfferResponseTxFee(offer *actions.ContractOffer,
+	inputLockingScripts []bitcoin.Script,
+	contractAgentLockingScript, contractFeeLockingScript bitcoin.Script,
+	feeRate, dustFeeRate float64, isTest bool) (uint64, error) {
+
+	formation, err := offer.Formation()
+	if err != nil {
+		return 0, errors.Wrap(err, "formation")
+	}
+
+	formation.Timestamp = uint64(time.Now().UnixNano())
+	formation.ContractRevision = 0
+
+	responseTxSize := txbuilder.BaseTxSize
+
+	// Input count serialization. 1 input from contract
+	responseTxSize += wire.VarIntSerializeSize(uint64(1))
+
+	agentInputSize, err := txbuilder.InputSize(contractAgentLockingScript)
+	if err != nil {
+		return 0, errors.Wrap(err, "contract input size")
+	}
+	responseTxSize += agentInputSize
+
+	// output count serialization. Dust output to contract, contract fee, and op return output
+	if len(contractFeeLockingScript) > 0 {
+		responseTxSize += wire.VarIntSerializeSize(uint64(3))
+
+		responseTxSize += txbuilder.OutputSize(contractAgentLockingScript)
+		responseTxSize += txbuilder.OutputSize(contractFeeLockingScript)
+	} else {
+		responseTxSize += wire.VarIntSerializeSize(uint64(2))
+		responseTxSize += txbuilder.OutputSize(contractAgentLockingScript)
+	}
+
+	if len(inputLockingScripts) == 0 {
+		return 0, errors.Wrap(ErrMissingInputScripts, "admin required")
+	}
+	adminAddress, err := bitcoin.RawAddressFromLockingScript(inputLockingScripts[0])
+	if err != nil {
+		return 0, errors.Wrap(err, "admin address")
+	}
+	formation.AdminAddress = adminAddress.Bytes()
+
+	if offer.ContractOperatorIncluded {
+		if len(inputLockingScripts) < 2 {
+			return 0, errors.Wrap(ErrMissingInputScripts, "operator required")
+		}
+		operatorAddress, err := bitcoin.RawAddressFromLockingScript(inputLockingScripts[1])
+		if err != nil {
+			return 0, errors.Wrap(err, "operator address")
+		}
+		formation.OperatorAddress = operatorAddress.Bytes()
+	}
+
+	formationScript, err := Serialize(formation, isTest)
+	if err != nil {
+		return 0, errors.Wrap(err, "serialize formation")
+	}
+
+	// Contract formation output
+	responseTxSize += txbuilder.OutputSize(formationScript)
+
+	responseTxFee := txbuilder.EstimatedFeeValue(uint64(responseTxSize), feeRate)
+
+	// Dust for contract output
+	responseTxFee += txbuilder.DustLimitForLockingScript(contractAgentLockingScript,
+		float32(dustFeeRate))
+
+	return responseTxFee, nil
+}
+
+func EstimatedContractAmendmentResponseTxFee(amendment *actions.ContractAmendment,
+	currentFormation *actions.ContractFormation, inputLockingScripts []bitcoin.Script,
+	contractAgentLockingScript, contractFeeLockingScript bitcoin.Script,
+	feeRate, dustFeeRate float64, isTest bool) (uint64, error) {
+
+	newFormation := currentFormation.Copy()
+	newFormation.ContractRevision++
+	newFormation.Timestamp = uint64(time.Now().UnixNano())
+
+	for i, amendment := range amendment.Amendments {
+		fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
+		if err != nil {
+			return 0, errors.Wrapf(err, "parse field index path %d", i)
+		}
+		if len(fip) == 0 {
+			return 0, fmt.Errorf("Amendment %d has no field specified", i)
+		}
+
+		if _, err := newFormation.ApplyAmendment(fip, amendment.Operation, amendment.Data,
+			nil); err != nil {
+			return 0, errors.Wrapf(err, "apply amendment %d", i)
+		}
+	}
+
+	responseTxSize := txbuilder.BaseTxSize
+
+	// Input count serialization. 1 input from contract
+	responseTxSize += wire.VarIntSerializeSize(uint64(1))
+
+	agentInputSize, err := txbuilder.InputSize(contractAgentLockingScript)
+	if err != nil {
+		return 0, errors.Wrap(err, "contract input size")
+	}
+	responseTxSize += agentInputSize
+
+	if len(contractFeeLockingScript) > 0 {
+		responseTxSize += wire.VarIntSerializeSize(uint64(3))
+
+		responseTxSize += txbuilder.OutputSize(contractAgentLockingScript)
+		responseTxSize += txbuilder.OutputSize(contractFeeLockingScript)
+	} else {
+		responseTxSize += wire.VarIntSerializeSize(uint64(2))
+		responseTxSize += txbuilder.OutputSize(contractAgentLockingScript)
+	}
+
+	inputIndex := 1 // first input is the administrator
+	if len(currentFormation.OperatorAddress) > 0 {
+		inputIndex++ // second input is the contract operator
+	}
+
+	if amendment.ChangeAdministrationAddress {
+		// Figure out new admin address to populate formation properly.
+		if len(inputLockingScripts) <= inputIndex {
+			return 0, errors.Wrapf(ErrMissingInputScripts, "new admin required: %d", inputIndex)
+		}
+
+		adminAddress, err := bitcoin.RawAddressFromLockingScript(inputLockingScripts[inputIndex])
+		if err != nil {
+			return 0, errors.Wrap(err, "new admin address")
+		}
+		newFormation.AdminAddress = adminAddress.Bytes()
+		inputIndex++
+	}
+
+	if amendment.ChangeOperatorAddress {
+		// Figure out new operator address to populate formation properly.
+		if len(inputLockingScripts) <= inputIndex {
+			return 0, errors.Wrapf(ErrMissingInputScripts, "new operator required: %d", inputIndex)
+		}
+
+		operatorAddress, err := bitcoin.RawAddressFromLockingScript(inputLockingScripts[inputIndex])
+		if err != nil {
+			return 0, errors.Wrap(err, "new operator address")
+		}
+		newFormation.OperatorAddress = operatorAddress.Bytes()
+	}
+
+	formationScript, err := Serialize(newFormation, isTest)
+	if err != nil {
+		return 0, errors.Wrap(err, "serialize formation")
+	}
+
+	responseTxSize += txbuilder.OutputSize(formationScript)
+
+	responseTxFee := txbuilder.EstimatedFeeValue(uint64(responseTxSize), feeRate)
+
+	// Dust for contract output
+	responseTxFee += txbuilder.DustLimitForLockingScript(contractAgentLockingScript,
+		float32(dustFeeRate))
+
+	return responseTxFee, nil
+}
+
+// EstimatedBodyOfAgreementOfferResponseTxFee estimates the satoshi amount to add to the contract
+// fee in the contract output of a body of agreement offer transaction.
+func EstimatedBodyOfAgreementOfferResponseTxFee(offer *actions.BodyOfAgreementOffer,
+	contractAgentLockingScript, contractFeeLockingScript bitcoin.Script,
+	feeRate, dustFeeRate float64, isTest bool) (uint64, error) {
+
+	formation, err := offer.Formation()
+	if err != nil {
+		return 0, errors.Wrap(err, "formation")
+	}
+
+	formation.Timestamp = uint64(time.Now().UnixNano())
+	formation.Revision = 0
+
+	responseTxSize := txbuilder.BaseTxSize
+
+	// input count serialization. 1 input from contract
+	responseTxSize += wire.VarIntSerializeSize(uint64(1))
+
+	agentInputSize, err := txbuilder.InputSize(contractAgentLockingScript)
+	if err != nil {
+		return 0, errors.Wrap(err, "contract input size")
+	}
+	responseTxSize += agentInputSize
+
+	// output count serialization. Dust output to contract, contract fee, and op return output
+	if len(contractFeeLockingScript) > 0 {
+		responseTxSize += wire.VarIntSerializeSize(uint64(3))
+
+		responseTxSize += txbuilder.OutputSize(contractAgentLockingScript)
+		responseTxSize += txbuilder.OutputSize(contractFeeLockingScript)
+	} else {
+		responseTxSize += wire.VarIntSerializeSize(uint64(2))
+		responseTxSize += txbuilder.OutputSize(contractAgentLockingScript)
+	}
+
+	formationScript, err := Serialize(formation, isTest)
+	if err != nil {
+		return 0, errors.Wrap(err, "serialize formation")
+	}
+
+	// Body of agreement formation output
+	responseTxSize += txbuilder.OutputSize(formationScript)
+
+	responseTxFee := txbuilder.EstimatedFeeValue(uint64(responseTxSize), feeRate)
+
+	// Dust for contract output
+	responseTxFee += txbuilder.DustLimitForLockingScript(contractAgentLockingScript,
+		float32(dustFeeRate))
+
+	return responseTxFee, nil
+}
+
+func EstimatedBodyOfAgreementAmendmentResponseTxFee(amendment *actions.BodyOfAgreementAmendment,
+	currentFormation *actions.BodyOfAgreementFormation,
+	contractAgentLockingScript, contractFeeLockingScript bitcoin.Script,
+	feeRate, dustFeeRate float64, isTest bool) (uint64, error) {
+
+	newFormation := currentFormation.Copy()
+	newFormation.Revision++
+	newFormation.Timestamp = uint64(time.Now().UnixNano())
+
+	for i, amendment := range amendment.Amendments {
+		fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
+		if err != nil {
+			return 0, errors.Wrapf(err, "parse field index path %d", i)
+		}
+		if len(fip) == 0 {
+			return 0, fmt.Errorf("Amendment %d has no field specified", i)
+		}
+
+		if _, err := newFormation.ApplyAmendment(fip, amendment.Operation, amendment.Data,
+			nil); err != nil {
+			return 0, errors.Wrapf(err, "apply amendment %d", i)
+		}
+	}
+
+	responseTxSize := txbuilder.BaseTxSize
+
+	// Input count serialization. 1 input from contract
+	responseTxSize += wire.VarIntSerializeSize(uint64(1))
+
+	agentInputSize, err := txbuilder.InputSize(contractAgentLockingScript)
+	if err != nil {
+		return 0, errors.Wrap(err, "contract input size")
+	}
+	responseTxSize += agentInputSize
+
+	if len(contractFeeLockingScript) > 0 {
+		responseTxSize += wire.VarIntSerializeSize(uint64(3))
+
+		responseTxSize += txbuilder.OutputSize(contractAgentLockingScript)
+		responseTxSize += txbuilder.OutputSize(contractFeeLockingScript)
+	} else {
+		responseTxSize += wire.VarIntSerializeSize(uint64(2))
+		responseTxSize += txbuilder.OutputSize(contractAgentLockingScript)
+	}
+
+	formationScript, err := Serialize(newFormation, isTest)
+	if err != nil {
+		return 0, errors.Wrap(err, "serialize formation")
+	}
+
+	responseTxSize += txbuilder.OutputSize(formationScript)
+
+	responseTxFee := txbuilder.EstimatedFeeValue(uint64(responseTxSize), feeRate)
+
+	// Dust for contract output
+	responseTxFee += txbuilder.DustLimitForLockingScript(contractAgentLockingScript,
+		float32(dustFeeRate))
+
+	return responseTxFee, nil
+}
+
+// EstimatedInstrumentDefinitionResponseTxFee estimates the satoshi amount to add to the contract
+// fee in the contract output of a instrument definition transaction.
+func EstimatedInstrumentDefinitionResponseTxFee(definition *actions.InstrumentDefinition,
+	contractAgentLockingScript, contractFeeLockingScript bitcoin.Script,
+	feeRate, dustFeeRate float64, isTest bool) (uint64, error) {
+
+	creation, err := definition.Creation()
+	if err != nil {
+		return 0, errors.Wrap(err, "creation")
+	}
+
+	creation.Timestamp = uint64(time.Now().UnixNano())
+	creation.InstrumentRevision = 0
+
+	responseTxSize := txbuilder.BaseTxSize
+
+	// input count serialization. 1 input from contract
+	responseTxSize += wire.VarIntSerializeSize(uint64(1))
+
+	agentInputSize, err := txbuilder.InputSize(contractAgentLockingScript)
+	if err != nil {
+		return 0, errors.Wrap(err, "contract input size")
+	}
+	responseTxSize += agentInputSize
+
+	// output count serialization. Dust output to contract, contract fee, and op return output
+	if len(contractFeeLockingScript) > 0 {
+		responseTxSize += wire.VarIntSerializeSize(uint64(3))
+
+		responseTxSize += txbuilder.OutputSize(contractAgentLockingScript)
+		responseTxSize += txbuilder.OutputSize(contractFeeLockingScript)
+	} else {
+		responseTxSize += wire.VarIntSerializeSize(uint64(2))
+		responseTxSize += txbuilder.OutputSize(contractAgentLockingScript)
+	}
+
+	creationScript, err := Serialize(creation, isTest)
+	if err != nil {
+		return 0, errors.Wrap(err, "serialize creation")
+	}
+
+	// Instrument creation output
+	responseTxSize += txbuilder.OutputSize(creationScript)
+
+	responseTxFee := txbuilder.EstimatedFeeValue(uint64(responseTxSize), feeRate)
+
+	// Dust for contract output
+	responseTxFee += txbuilder.DustLimitForLockingScript(contractAgentLockingScript,
+		float32(dustFeeRate))
+
+	return responseTxFee, nil
+}
+
+func EstimatedInstrumentModificationResponseTxFee(modification *actions.InstrumentModification,
+	currentCreation *actions.InstrumentCreation,
+	contractAgentLockingScript, contractFeeLockingScript bitcoin.Script,
+	feeRate, dustFeeRate float64, isTest bool) (uint64, error) {
+
+	newCreation := currentCreation.Copy()
+	newCreation.InstrumentRevision++
+	newCreation.Timestamp = uint64(time.Now().UnixNano())
+
+	var payload instruments.Instrument
+	for i, amendment := range modification.Amendments {
+		fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
+		if err != nil {
+			return 0, errors.Wrapf(err, "parse field index path %d", i)
+		}
+		if len(fip) == 0 {
+			return 0, fmt.Errorf("Amendment %d has no field specified", i)
+		}
+
+		if fip[0] == actions.InstrumentFieldInstrumentPayload {
+			if payload == nil {
+				// Get payload object
+				payload, err = instruments.Deserialize([]byte(newCreation.InstrumentType),
+					newCreation.InstrumentPayload)
+				if err != nil {
+					return 0, errors.Wrapf(err, "payload deserialize : %s",
+						newCreation.InstrumentType)
+				}
+			}
+
+			_, err = payload.ApplyAmendment(fip[1:], amendment.Operation, amendment.Data, nil)
+			if err != nil {
+				return 0, errors.Wrapf(err, "apply payload amendment %d", i)
+			}
+
+		} else {
+			if _, err := newCreation.ApplyAmendment(fip, amendment.Operation, amendment.Data,
+				nil); err != nil {
+				return 0, errors.Wrapf(err, "apply amendment %d", i)
+			}
+		}
+	}
+
+	if payload != nil {
+		// Serialize updated payload
+		var buf bytes.Buffer
+		if err := payload.Serialize(&buf); err != nil {
+			return 0, errors.Wrap(err, "serialize payload")
+		}
+		newCreation.InstrumentPayload = buf.Bytes()
+	}
+
+	responseTxSize := txbuilder.BaseTxSize
+
+	// Input count serialization. 1 input from contract
+	responseTxSize += wire.VarIntSerializeSize(uint64(1))
+
+	agentInputSize, err := txbuilder.InputSize(contractAgentLockingScript)
+	if err != nil {
+		return 0, errors.Wrap(err, "contract input size")
+	}
+	responseTxSize += agentInputSize
+
+	if len(contractFeeLockingScript) > 0 {
+		responseTxSize += wire.VarIntSerializeSize(uint64(3))
+
+		responseTxSize += txbuilder.OutputSize(contractAgentLockingScript)
+		responseTxSize += txbuilder.OutputSize(contractFeeLockingScript)
+	} else {
+		responseTxSize += wire.VarIntSerializeSize(uint64(2))
+		responseTxSize += txbuilder.OutputSize(contractAgentLockingScript)
+	}
+
+	creationScript, err := Serialize(newCreation, isTest)
+	if err != nil {
+		return 0, errors.Wrap(err, "serialize creation")
+	}
+
+	responseTxSize += txbuilder.OutputSize(creationScript)
+
+	responseTxFee := txbuilder.EstimatedFeeValue(uint64(responseTxSize), feeRate)
+
+	// Dust for contract output
+	responseTxFee += txbuilder.DustLimitForLockingScript(contractAgentLockingScript,
+		float32(dustFeeRate))
+
+	return responseTxFee, nil
+}
+
 // EstimatedResponse calculates information about the contract's response to a request.
 //   fees is the sum of all contract related fees including base contract fee, proposal fee, and
 ///  others. dustLimit is based on the expected P2PKH notification outputs.
@@ -578,7 +1008,7 @@ func EstimatedInstrumentModificationResponse(amendTx *wire.MsgTx, ac *actions.In
 // All other contract outputs can be dust.
 // Attempts to use the maximum possible size of each element so the returned values are an
 // overestimation, ensuring that a transfer funded in this manner can complete successfully.
-func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Script,
+func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitcoin.Script,
 	feeRate, dustFeeRate float32, fees []uint64, isTest bool) ([]uint64, uint64, error) {
 
 	// Find Tokenized Transfer
@@ -663,9 +1093,9 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 						Quantity: math.MaxUint64,
 					})
 
-				txSizeOutputs += txbuilder.OutputSize(inputScripts[sender.Index])
+				txSizeOutputs += txbuilder.OutputSize(inputLockingScripts[sender.Index])
 				outputCount++
-				dustLimit := txbuilder.DustLimitForLockingScript(inputScripts[sender.Index],
+				dustLimit := txbuilder.DustLimitForLockingScript(inputLockingScripts[sender.Index],
 					dustFeeRate)
 				fundingForTokens[masterContractIndex] += dustLimit // Dust will be put in each notification output.
 			}
@@ -688,6 +1118,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 				return nil, 0, errors.Wrap(err, "hashing address")
 			}
 			addressIndex, exists := addressIndexes[*hash]
+			var addressDustLimit uint64
 			if !exists {
 				addressIndex = uint32(outputCount)
 				addressIndexes[*hash] = addressIndex
@@ -697,11 +1128,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputScripts []bitcoin.Scr
 				}
 				txSizeOutputs += txbuilder.OutputSize(lockingScript)
 				outputCount++
-			}
-
-			addressDustLimit, err := txbuilder.DustLimitForAddress(raddress, dustFeeRate)
-			if err != nil {
-				return nil, 0, errors.Wrap(err, "address dust limit")
+				addressDustLimit = txbuilder.DustLimitForLockingScript(lockingScript, dustFeeRate)
 			}
 
 			if instrument.InstrumentType != BSVInstrumentID {
