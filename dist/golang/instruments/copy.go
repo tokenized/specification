@@ -1,6 +1,10 @@
 package instruments
 
 func (a *Membership) Copy() *Membership {
+	if a == nil {
+		return nil
+	}
+
 	result := &Membership{}
 
 	// Field AgeRestriction - AgeRestriction
@@ -34,6 +38,10 @@ func (a *Membership) Copy() *Membership {
 }
 
 func (a *Currency) Copy() *Currency {
+	if a == nil {
+		return nil
+	}
+
 	result := &Currency{}
 
 	// Field CurrencyCode - fixedchar
@@ -49,6 +57,10 @@ func (a *Currency) Copy() *Currency {
 }
 
 func (a *ShareCommon) Copy() *ShareCommon {
+	if a == nil {
+		return nil
+	}
+
 	result := &ShareCommon{}
 
 	// Field Ticker - fixedchar
@@ -67,6 +79,10 @@ func (a *ShareCommon) Copy() *ShareCommon {
 }
 
 func (a *BondFixedRate) Copy() *BondFixedRate {
+	if a == nil {
+		return nil
+	}
+
 	result := &BondFixedRate{}
 
 	// Field Name - varchar
@@ -118,6 +134,10 @@ func (a *BondFixedRate) Copy() *BondFixedRate {
 }
 
 func (a *Coupon) Copy() *Coupon {
+	if a == nil {
+		return nil
+	}
+
 	result := &Coupon{}
 
 	// Field RedeemingEntity - varchar
@@ -148,6 +168,10 @@ func (a *Coupon) Copy() *Coupon {
 }
 
 func (a *LoyaltyPoints) Copy() *LoyaltyPoints {
+	if a == nil {
+		return nil
+	}
+
 	result := &LoyaltyPoints{}
 
 	// Field AgeRestriction - AgeRestriction
@@ -169,6 +193,10 @@ func (a *LoyaltyPoints) Copy() *LoyaltyPoints {
 }
 
 func (a *TicketAdmission) Copy() *TicketAdmission {
+	if a == nil {
+		return nil
+	}
+
 	result := &TicketAdmission{}
 
 	// Field AgeRestriction - AgeRestriction
@@ -208,6 +236,10 @@ func (a *TicketAdmission) Copy() *TicketAdmission {
 }
 
 func (a *CasinoChip) Copy() *CasinoChip {
+	if a == nil {
+		return nil
+	}
+
 	result := &CasinoChip{}
 
 	// Field UseType - fixedchar
@@ -232,6 +264,10 @@ func (a *CasinoChip) Copy() *CasinoChip {
 }
 
 func (a *InformationServiceLicense) Copy() *InformationServiceLicense {
+	if a == nil {
+		return nil
+	}
+
 	result := &InformationServiceLicense{}
 
 	// Field AgeRestriction - AgeRestriction
@@ -253,6 +289,10 @@ func (a *InformationServiceLicense) Copy() *InformationServiceLicense {
 }
 
 func (a *CreditNote) Copy() *CreditNote {
+	if a == nil {
+		return nil
+	}
+
 	result := &CreditNote{}
 
 	// Field Name - varchar
@@ -268,6 +308,10 @@ func (a *CreditNote) Copy() *CreditNote {
 }
 
 func (a *AgeRestrictionField) Copy() *AgeRestrictionField {
+	if a == nil {
+		return nil
+	}
+
 	result := &AgeRestrictionField{}
 
 	// Field Lower - uint
@@ -280,6 +324,10 @@ func (a *AgeRestrictionField) Copy() *AgeRestrictionField {
 }
 
 func (a *CurrencyValueField) Copy() *CurrencyValueField {
+	if a == nil {
+		return nil
+	}
+
 	result := &CurrencyValueField{}
 
 	// Field Value - uint
@@ -295,6 +343,10 @@ func (a *CurrencyValueField) Copy() *CurrencyValueField {
 }
 
 func (a *RateField) Copy() *RateField {
+	if a == nil {
+		return nil
+	}
+
 	result := &RateField{}
 
 	// Field Precision - uint

@@ -32,6 +32,10 @@ import (
 
 {{ range .Messages }}
 func (a *{{.Name}}) Copy() *{{.Name}} {
+	if a == nil {
+		return nil
+	}
+
 	result := &{{.Name}}{}
 
 	{{ range .Fields }}
@@ -46,6 +50,10 @@ func (a *{{.Name}}) Copy() *{{.Name}} {
 
 {{ range .FieldTypes }}
 func (a *{{.Name}}Field) Copy() *{{.Name}}Field {
+	if a == nil {
+		return nil
+	}
+
 	result := &{{.Name}}Field{}
 
 	{{ range .Fields }}

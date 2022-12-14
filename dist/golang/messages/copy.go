@@ -1,6 +1,10 @@
 package messages
 
 func (a *PublicMessage) Copy() *PublicMessage {
+	if a == nil {
+		return nil
+	}
+
 	result := &PublicMessage{}
 
 	// Field Timestamp - uint
@@ -25,6 +29,10 @@ func (a *PublicMessage) Copy() *PublicMessage {
 }
 
 func (a *PrivateMessage) Copy() *PrivateMessage {
+	if a == nil {
+		return nil
+	}
+
 	result := &PrivateMessage{}
 
 	// Field Timestamp - uint
@@ -49,6 +57,10 @@ func (a *PrivateMessage) Copy() *PrivateMessage {
 }
 
 func (a *RevertedTx) Copy() *RevertedTx {
+	if a == nil {
+		return nil
+	}
+
 	result := &RevertedTx{}
 
 	// Field Timestamp - uint
@@ -62,6 +74,10 @@ func (a *RevertedTx) Copy() *RevertedTx {
 }
 
 func (a *Offer) Copy() *Offer {
+	if a == nil {
+		return nil
+	}
+
 	result := &Offer{}
 
 	// Field Timestamp - uint
@@ -75,6 +91,10 @@ func (a *Offer) Copy() *Offer {
 }
 
 func (a *SignatureRequest) Copy() *SignatureRequest {
+	if a == nil {
+		return nil
+	}
+
 	result := &SignatureRequest{}
 
 	// Field Timestamp - uint
@@ -88,6 +108,10 @@ func (a *SignatureRequest) Copy() *SignatureRequest {
 }
 
 func (a *SettlementRequest) Copy() *SettlementRequest {
+	if a == nil {
+		return nil
+	}
+
 	result := &SettlementRequest{}
 
 	// Field Timestamp - uint
@@ -111,6 +135,10 @@ func (a *SettlementRequest) Copy() *SettlementRequest {
 }
 
 func (a *OutputMetadata) Copy() *OutputMetadata {
+	if a == nil {
+		return nil
+	}
+
 	result := &OutputMetadata{}
 
 	// Field OutputDescription - varchar
@@ -132,6 +160,10 @@ func (a *OutputMetadata) Copy() *OutputMetadata {
 }
 
 func (a *Distribution) Copy() *Distribution {
+	if a == nil {
+		return nil
+	}
+
 	result := &Distribution{}
 
 	// Field InstrumentCode - bin
@@ -145,6 +177,10 @@ func (a *Distribution) Copy() *Distribution {
 }
 
 func (a *InitiateRelationship) Copy() *InitiateRelationship {
+	if a == nil {
+		return nil
+	}
+
 	result := &InitiateRelationship{}
 
 	// Field Type - uint
@@ -178,6 +214,10 @@ func (a *InitiateRelationship) Copy() *InitiateRelationship {
 }
 
 func (a *PendingAcceptRelationship) Copy() *PendingAcceptRelationship {
+	if a == nil {
+		return nil
+	}
+
 	result := &PendingAcceptRelationship{}
 
 	// Field ProofOfIdentityType - uint
@@ -191,6 +231,10 @@ func (a *PendingAcceptRelationship) Copy() *PendingAcceptRelationship {
 }
 
 func (a *AcceptRelationship) Copy() *AcceptRelationship {
+	if a == nil {
+		return nil
+	}
+
 	result := &AcceptRelationship{}
 
 	// Field ProofOfIdentityType - uint
@@ -204,6 +248,10 @@ func (a *AcceptRelationship) Copy() *AcceptRelationship {
 }
 
 func (a *RelationshipAmendment) Copy() *RelationshipAmendment {
+	if a == nil {
+		return nil
+	}
+
 	result := &RelationshipAmendment{}
 
 	// Field Seed - varbin
@@ -224,6 +272,10 @@ func (a *RelationshipAmendment) Copy() *RelationshipAmendment {
 }
 
 func (a *InitiateThread) Copy() *InitiateThread {
+	if a == nil {
+		return nil
+	}
+
 	result := &InitiateThread{}
 
 	// Field Flag - varbin
@@ -238,6 +290,10 @@ func (a *InitiateThread) Copy() *InitiateThread {
 }
 
 func (a *AdministratorField) Copy() *AdministratorField {
+	if a == nil {
+		return nil
+	}
+
 	result := &AdministratorField{}
 
 	// Field Type - uint
@@ -250,6 +306,10 @@ func (a *AdministratorField) Copy() *AdministratorField {
 }
 
 func (a *ChannelPartyField) Copy() *ChannelPartyField {
+	if a == nil {
+		return nil
+	}
+
 	result := &ChannelPartyField{}
 
 	// Field AdministrativeAddress - varbin
@@ -263,6 +323,10 @@ func (a *ChannelPartyField) Copy() *ChannelPartyField {
 }
 
 func (a *DocumentField) Copy() *DocumentField {
+	if a == nil {
+		return nil
+	}
+
 	result := &DocumentField{}
 
 	// Field Name - varchar
@@ -279,6 +343,10 @@ func (a *DocumentField) Copy() *DocumentField {
 }
 
 func (a *EntityField) Copy() *EntityField {
+	if a == nil {
+		return nil
+	}
+
 	result := &EntityField{}
 
 	// Field Name - varchar
@@ -339,6 +407,10 @@ func (a *EntityField) Copy() *EntityField {
 }
 
 func (a *IdentityOracleProofField) Copy() *IdentityOracleProofField {
+	if a == nil {
+		return nil
+	}
+
 	result := &IdentityOracleProofField{}
 
 	// Field UserID - varbin
@@ -355,6 +427,10 @@ func (a *IdentityOracleProofField) Copy() *IdentityOracleProofField {
 }
 
 func (a *ManagerField) Copy() *ManagerField {
+	if a == nil {
+		return nil
+	}
+
 	result := &ManagerField{}
 
 	// Field Type - uint
@@ -367,6 +443,10 @@ func (a *ManagerField) Copy() *ManagerField {
 }
 
 func (a *OracleSignatureField) Copy() *OracleSignatureField {
+	if a == nil {
+		return nil
+	}
+
 	result := &OracleSignatureField{}
 
 	// Field OracleURL - varchar
@@ -389,6 +469,10 @@ func (a *OracleSignatureField) Copy() *OracleSignatureField {
 }
 
 func (a *OutpointField) Copy() *OutpointField {
+	if a == nil {
+		return nil
+	}
+
 	result := &OutpointField{}
 
 	// Field TxId - bin
@@ -402,6 +486,10 @@ func (a *OutpointField) Copy() *OutpointField {
 }
 
 func (a *OutputTagField) Copy() *OutputTagField {
+	if a == nil {
+		return nil
+	}
+
 	result := &OutputTagField{}
 
 	// Field Tag - varchar
@@ -411,6 +499,10 @@ func (a *OutputTagField) Copy() *OutputTagField {
 }
 
 func (a *PaymailProofField) Copy() *PaymailProofField {
+	if a == nil {
+		return nil
+	}
+
 	result := &PaymailProofField{}
 
 	// Field UserID - varbin
@@ -427,6 +519,10 @@ func (a *PaymailProofField) Copy() *PaymailProofField {
 }
 
 func (a *PeriodField) Copy() *PeriodField {
+	if a == nil {
+		return nil
+	}
+
 	result := &PeriodField{}
 
 	// Field Begin - uint
@@ -439,6 +535,10 @@ func (a *PeriodField) Copy() *PeriodField {
 }
 
 func (a *TargetAddressField) Copy() *TargetAddressField {
+	if a == nil {
+		return nil
+	}
+
 	result := &TargetAddressField{}
 
 	// Field Address - varbin

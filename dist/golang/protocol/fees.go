@@ -28,9 +28,9 @@ var (
 // formation. There must be at least one when ContractOperatorIncluded is false and at least two
 // when it is true.
 func EstimatedContractOfferResponseTxFee(offer *actions.ContractOffer,
-	inputLockingScripts []bitcoin.Script,
 	contractAgentLockingScript, contractFeeLockingScript bitcoin.Script,
-	feeRate, dustFeeRate float64, isTest bool) (uint64, error) {
+	inputLockingScripts []bitcoin.Script, feeRate, dustFeeRate float64,
+	isTest bool) (uint64, error) {
 
 	formation, err := offer.Formation()
 	if err != nil {
@@ -100,9 +100,10 @@ func EstimatedContractOfferResponseTxFee(offer *actions.ContractOffer,
 }
 
 func EstimatedContractAmendmentResponseTxFee(amendment *actions.ContractAmendment,
-	currentFormation *actions.ContractFormation, inputLockingScripts []bitcoin.Script,
+	currentFormation *actions.ContractFormation,
 	contractAgentLockingScript, contractFeeLockingScript bitcoin.Script,
-	feeRate, dustFeeRate float64, isTest bool) (uint64, error) {
+	inputLockingScripts []bitcoin.Script, feeRate, dustFeeRate float64,
+	isTest bool) (uint64, error) {
 
 	newFormation := currentFormation.Copy()
 	newFormation.ContractRevision++

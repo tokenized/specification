@@ -1,6 +1,10 @@
 package actions
 
 func (a *ContractOffer) Copy() *ContractOffer {
+	if a == nil {
+		return nil
+	}
+
 	result := &ContractOffer{}
 
 	// Field ContractName - varchar
@@ -96,6 +100,10 @@ func (a *ContractOffer) Copy() *ContractOffer {
 }
 
 func (a *ContractFormation) Copy() *ContractFormation {
+	if a == nil {
+		return nil
+	}
+
 	result := &ContractFormation{}
 
 	// Field ContractName - varchar
@@ -202,6 +210,10 @@ func (a *ContractFormation) Copy() *ContractFormation {
 }
 
 func (a *ContractAmendment) Copy() *ContractAmendment {
+	if a == nil {
+		return nil
+	}
+
 	result := &ContractAmendment{}
 
 	// Field ChangeAdministrationAddress - bool
@@ -227,6 +239,10 @@ func (a *ContractAmendment) Copy() *ContractAmendment {
 }
 
 func (a *StaticContractFormation) Copy() *StaticContractFormation {
+	if a == nil {
+		return nil
+	}
+
 	result := &StaticContractFormation{}
 
 	// Field ContractName - varchar
@@ -294,6 +310,10 @@ func (a *StaticContractFormation) Copy() *StaticContractFormation {
 }
 
 func (a *ContractAddressChange) Copy() *ContractAddressChange {
+	if a == nil {
+		return nil
+	}
+
 	result := &ContractAddressChange{}
 
 	// Field NewContractAddress - varbin
@@ -307,6 +327,10 @@ func (a *ContractAddressChange) Copy() *ContractAddressChange {
 }
 
 func (a *BodyOfAgreementOffer) Copy() *BodyOfAgreementOffer {
+	if a == nil {
+		return nil
+	}
+
 	result := &BodyOfAgreementOffer{}
 
 	// Field Chapters - Chapter
@@ -325,6 +349,10 @@ func (a *BodyOfAgreementOffer) Copy() *BodyOfAgreementOffer {
 }
 
 func (a *BodyOfAgreementFormation) Copy() *BodyOfAgreementFormation {
+	if a == nil {
+		return nil
+	}
+
 	result := &BodyOfAgreementFormation{}
 
 	// Field Chapters - Chapter
@@ -349,6 +377,10 @@ func (a *BodyOfAgreementFormation) Copy() *BodyOfAgreementFormation {
 }
 
 func (a *BodyOfAgreementAmendment) Copy() *BodyOfAgreementAmendment {
+	if a == nil {
+		return nil
+	}
+
 	result := &BodyOfAgreementAmendment{}
 
 	// Field Revision - uint
@@ -368,6 +400,10 @@ func (a *BodyOfAgreementAmendment) Copy() *BodyOfAgreementAmendment {
 }
 
 func (a *InstrumentDefinition) Copy() *InstrumentDefinition {
+	if a == nil {
+		return nil
+	}
+
 	result := &InstrumentDefinition{}
 
 	// Field InstrumentPermissions - varbin
@@ -412,6 +448,10 @@ func (a *InstrumentDefinition) Copy() *InstrumentDefinition {
 }
 
 func (a *InstrumentCreation) Copy() *InstrumentCreation {
+	if a == nil {
+		return nil
+	}
+
 	result := &InstrumentCreation{}
 
 	// Field InstrumentCode - bin
@@ -469,6 +509,10 @@ func (a *InstrumentCreation) Copy() *InstrumentCreation {
 }
 
 func (a *InstrumentModification) Copy() *InstrumentModification {
+	if a == nil {
+		return nil
+	}
+
 	result := &InstrumentModification{}
 
 	// Field InstrumentType - fixedchar
@@ -495,6 +539,10 @@ func (a *InstrumentModification) Copy() *InstrumentModification {
 }
 
 func (a *Transfer) Copy() *Transfer {
+	if a == nil {
+		return nil
+	}
+
 	result := &Transfer{}
 
 	// Field Instruments - InstrumentTransfer
@@ -517,6 +565,10 @@ func (a *Transfer) Copy() *Transfer {
 }
 
 func (a *Settlement) Copy() *Settlement {
+	if a == nil {
+		return nil
+	}
+
 	result := &Settlement{}
 
 	// Field Instruments - InstrumentSettlement
@@ -532,6 +584,10 @@ func (a *Settlement) Copy() *Settlement {
 }
 
 func (a *RectificationSettlement) Copy() *RectificationSettlement {
+	if a == nil {
+		return nil
+	}
+
 	result := &RectificationSettlement{}
 
 	// Field Transfer - ReferenceTransaction
@@ -550,6 +606,10 @@ func (a *RectificationSettlement) Copy() *RectificationSettlement {
 }
 
 func (a *Proposal) Copy() *Proposal {
+	if a == nil {
+		return nil
+	}
+
 	result := &Proposal{}
 
 	// Field Type - uint
@@ -591,6 +651,10 @@ func (a *Proposal) Copy() *Proposal {
 }
 
 func (a *Vote) Copy() *Vote {
+	if a == nil {
+		return nil
+	}
+
 	result := &Vote{}
 
 	// Field Timestamp - uint
@@ -600,6 +664,10 @@ func (a *Vote) Copy() *Vote {
 }
 
 func (a *BallotCast) Copy() *BallotCast {
+	if a == nil {
+		return nil
+	}
+
 	result := &BallotCast{}
 
 	// Field VoteTxId - bin
@@ -613,6 +681,10 @@ func (a *BallotCast) Copy() *BallotCast {
 }
 
 func (a *BallotCounted) Copy() *BallotCounted {
+	if a == nil {
+		return nil
+	}
+
 	result := &BallotCounted{}
 
 	// Field VoteTxId - bin
@@ -632,6 +704,10 @@ func (a *BallotCounted) Copy() *BallotCounted {
 }
 
 func (a *Result) Copy() *Result {
+	if a == nil {
+		return nil
+	}
+
 	result := &Result{}
 
 	// Field InstrumentType - fixedchar
@@ -667,6 +743,10 @@ func (a *Result) Copy() *Result {
 }
 
 func (a *Order) Copy() *Order {
+	if a == nil {
+		return nil
+	}
+
 	result := &Order{}
 
 	// Field ComplianceAction - fixedchar
@@ -736,6 +816,10 @@ func (a *Order) Copy() *Order {
 }
 
 func (a *Freeze) Copy() *Freeze {
+	if a == nil {
+		return nil
+	}
+
 	result := &Freeze{}
 
 	// Field InstrumentType - fixedchar
@@ -761,6 +845,10 @@ func (a *Freeze) Copy() *Freeze {
 }
 
 func (a *Thaw) Copy() *Thaw {
+	if a == nil {
+		return nil
+	}
+
 	result := &Thaw{}
 
 	// Field FreezeTxId - bin
@@ -774,6 +862,10 @@ func (a *Thaw) Copy() *Thaw {
 }
 
 func (a *Confiscation) Copy() *Confiscation {
+	if a == nil {
+		return nil
+	}
+
 	result := &Confiscation{}
 
 	// Field InstrumentType - fixedchar
@@ -799,6 +891,10 @@ func (a *Confiscation) Copy() *Confiscation {
 }
 
 func (a *DeprecatedReconciliation) Copy() *DeprecatedReconciliation {
+	if a == nil {
+		return nil
+	}
+
 	result := &DeprecatedReconciliation{}
 
 	// Field InstrumentType - fixedchar
@@ -821,6 +917,10 @@ func (a *DeprecatedReconciliation) Copy() *DeprecatedReconciliation {
 }
 
 func (a *Establishment) Copy() *Establishment {
+	if a == nil {
+		return nil
+	}
+
 	result := &Establishment{}
 
 	// Field Message - varchar
@@ -830,6 +930,10 @@ func (a *Establishment) Copy() *Establishment {
 }
 
 func (a *Addition) Copy() *Addition {
+	if a == nil {
+		return nil
+	}
+
 	result := &Addition{}
 
 	// Field Message - varchar
@@ -839,6 +943,10 @@ func (a *Addition) Copy() *Addition {
 }
 
 func (a *Alteration) Copy() *Alteration {
+	if a == nil {
+		return nil
+	}
+
 	result := &Alteration{}
 
 	// Field EntryTxID - bin
@@ -852,6 +960,10 @@ func (a *Alteration) Copy() *Alteration {
 }
 
 func (a *Removal) Copy() *Removal {
+	if a == nil {
+		return nil
+	}
+
 	result := &Removal{}
 
 	// Field EntryTxID - bin
@@ -865,6 +977,10 @@ func (a *Removal) Copy() *Removal {
 }
 
 func (a *Message) Copy() *Message {
+	if a == nil {
+		return nil
+	}
+
 	result := &Message{}
 
 	// Field SenderIndexes - uint
@@ -890,6 +1006,10 @@ func (a *Message) Copy() *Message {
 }
 
 func (a *Rejection) Copy() *Rejection {
+	if a == nil {
+		return nil
+	}
+
 	result := &Rejection{}
 
 	// Field AddressIndexes - uint
@@ -914,6 +1034,10 @@ func (a *Rejection) Copy() *Rejection {
 }
 
 func (a *AdministratorField) Copy() *AdministratorField {
+	if a == nil {
+		return nil
+	}
+
 	result := &AdministratorField{}
 
 	// Field Type - uint
@@ -926,6 +1050,10 @@ func (a *AdministratorField) Copy() *AdministratorField {
 }
 
 func (a *AdminIdentityCertificateField) Copy() *AdminIdentityCertificateField {
+	if a == nil {
+		return nil
+	}
+
 	result := &AdminIdentityCertificateField{}
 
 	// Field EntityContract - varbin
@@ -946,6 +1074,10 @@ func (a *AdminIdentityCertificateField) Copy() *AdminIdentityCertificateField {
 }
 
 func (a *AmendmentField) Copy() *AmendmentField {
+	if a == nil {
+		return nil
+	}
+
 	result := &AmendmentField{}
 
 	// Field FieldIndexPath - varbin
@@ -963,6 +1095,10 @@ func (a *AmendmentField) Copy() *AmendmentField {
 }
 
 func (a *InstrumentReceiverField) Copy() *InstrumentReceiverField {
+	if a == nil {
+		return nil
+	}
+
 	result := &InstrumentReceiverField{}
 
 	// Field Address - varbin
@@ -992,6 +1128,10 @@ func (a *InstrumentReceiverField) Copy() *InstrumentReceiverField {
 }
 
 func (a *InstrumentSettlementField) Copy() *InstrumentSettlementField {
+	if a == nil {
+		return nil
+	}
+
 	result := &InstrumentSettlementField{}
 
 	// Field ContractIndex - uint
@@ -1014,6 +1154,10 @@ func (a *InstrumentSettlementField) Copy() *InstrumentSettlementField {
 }
 
 func (a *InstrumentTransferField) Copy() *InstrumentTransferField {
+	if a == nil {
+		return nil
+	}
+
 	result := &InstrumentTransferField{}
 
 	// Field ContractIndex - uint
@@ -1042,6 +1186,10 @@ func (a *InstrumentTransferField) Copy() *InstrumentTransferField {
 }
 
 func (a *ChapterField) Copy() *ChapterField {
+	if a == nil {
+		return nil
+	}
+
 	result := &ChapterField{}
 
 	// Field Title - varchar
@@ -1060,6 +1208,10 @@ func (a *ChapterField) Copy() *ChapterField {
 }
 
 func (a *ClauseField) Copy() *ClauseField {
+	if a == nil {
+		return nil
+	}
+
 	result := &ClauseField{}
 
 	// Field Title - varchar
@@ -1078,6 +1230,10 @@ func (a *ClauseField) Copy() *ClauseField {
 }
 
 func (a *DefinedTermField) Copy() *DefinedTermField {
+	if a == nil {
+		return nil
+	}
+
 	result := &DefinedTermField{}
 
 	// Field Term - varchar
@@ -1090,6 +1246,10 @@ func (a *DefinedTermField) Copy() *DefinedTermField {
 }
 
 func (a *DocumentField) Copy() *DocumentField {
+	if a == nil {
+		return nil
+	}
+
 	result := &DocumentField{}
 
 	// Field Name - varchar
@@ -1106,6 +1266,10 @@ func (a *DocumentField) Copy() *DocumentField {
 }
 
 func (a *EntityField) Copy() *EntityField {
+	if a == nil {
+		return nil
+	}
+
 	result := &EntityField{}
 
 	// Field Name - varchar
@@ -1166,6 +1330,10 @@ func (a *EntityField) Copy() *EntityField {
 }
 
 func (a *ManagerField) Copy() *ManagerField {
+	if a == nil {
+		return nil
+	}
+
 	result := &ManagerField{}
 
 	// Field Type - uint
@@ -1178,6 +1346,10 @@ func (a *ManagerField) Copy() *ManagerField {
 }
 
 func (a *OracleField) Copy() *OracleField {
+	if a == nil {
+		return nil
+	}
+
 	result := &OracleField{}
 
 	// Field OracleTypes - uint
@@ -1194,6 +1366,10 @@ func (a *OracleField) Copy() *OracleField {
 }
 
 func (a *QuantityIndexField) Copy() *QuantityIndexField {
+	if a == nil {
+		return nil
+	}
+
 	result := &QuantityIndexField{}
 
 	// Field Index - uint
@@ -1206,6 +1382,10 @@ func (a *QuantityIndexField) Copy() *QuantityIndexField {
 }
 
 func (a *ReferenceTransactionField) Copy() *ReferenceTransactionField {
+	if a == nil {
+		return nil
+	}
+
 	result := &ReferenceTransactionField{}
 
 	// Field Transaction - varbin
@@ -1223,6 +1403,10 @@ func (a *ReferenceTransactionField) Copy() *ReferenceTransactionField {
 }
 
 func (a *ServiceField) Copy() *ServiceField {
+	if a == nil {
+		return nil
+	}
+
 	result := &ServiceField{}
 
 	// Field Type - uint
@@ -1239,6 +1423,10 @@ func (a *ServiceField) Copy() *ServiceField {
 }
 
 func (a *TargetAddressField) Copy() *TargetAddressField {
+	if a == nil {
+		return nil
+	}
+
 	result := &TargetAddressField{}
 
 	// Field Address - varbin
@@ -1252,6 +1440,10 @@ func (a *TargetAddressField) Copy() *TargetAddressField {
 }
 
 func (a *VotingSystemField) Copy() *VotingSystemField {
+	if a == nil {
+		return nil
+	}
+
 	result := &VotingSystemField{}
 
 	// Field Name - varchar
