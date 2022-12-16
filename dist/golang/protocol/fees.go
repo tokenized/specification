@@ -318,6 +318,7 @@ func EstimatedInstrumentDefinitionResponseTxFee(definition *actions.InstrumentDe
 		return 0, errors.Wrap(err, "creation")
 	}
 
+	creation.InstrumentCode = make([]byte, InstrumentCodeSize)
 	creation.Timestamp = uint64(time.Now().UnixNano())
 	creation.InstrumentRevision = 0
 

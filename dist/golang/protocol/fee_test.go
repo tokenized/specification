@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/tokenized/pkg/bitcoin"
+	"github.com/tokenized/pkg/json"
 	"github.com/tokenized/pkg/txbuilder"
 	"github.com/tokenized/pkg/wire"
 	"github.com/tokenized/specification/dist/golang/actions"
@@ -180,8 +181,9 @@ func Test_ContractOfferResponseFees_MultiSig(t *testing.T) {
 	requestTx.AddTxOut(wire.NewTxOut(0, contractOfferScript))
 
 	inputScripts := []bitcoin.Script{adminLockingScript, contractOperatorLockingScript}
-	estResponseTxFee, err := EstimatedContractOfferResponseTxFee(contractOffer, inputScripts,
-		contractAgentLockingScript, contractFeeLockingScript, feeRate, dustFeeRate, isTest)
+	estResponseTxFee, err := EstimatedContractOfferResponseTxFee(contractOffer,
+		contractAgentLockingScript, contractFeeLockingScript, inputScripts, feeRate, dustFeeRate,
+		isTest)
 	if err != nil {
 		t.Fatalf("%s Failed to estimate response : %s", Failed, err)
 	}
@@ -228,7 +230,7 @@ func Test_ContractOfferResponseFees_MultiSig(t *testing.T) {
 	}
 }
 
-func TestInstrumentDefinitionResponseFees(t *testing.T) {
+func TestInstrumentDefinitionResponseFees_Old(t *testing.T) {
 	contractFee := uint64(2000)
 	dustLimit := uint64(546)
 
@@ -299,6 +301,52 @@ func TestInstrumentDefinitionResponseFees(t *testing.T) {
 	if responseSize+contractFee+dustLimit != uint64(size)+funding {
 		t.Fatalf("%s Wrong funding amount : got %d, want %d", Failed, uint64(size)+funding,
 			responseSize+contractFee+dustLimit)
+	}
+}
+
+func TestInstrumentDefinitionResponseFees_New(t *testing.T) {
+	h := "006a02bd015108746573742e544b4e5301000249311e50195a03434f55621532064b6e75636b7340014a09080112035553441802"
+	b, err := hex.DecodeString(h)
+	if err != nil {
+		t.Fatalf("Invalid hex : %s", err)
+	}
+
+	action, err := Deserialize(b, true)
+	if err != nil {
+		t.Fatalf("Failed to deserialize action : %s", err)
+	}
+
+	definition, ok := action.(*actions.InstrumentDefinition)
+	if !ok {
+		t.Fatalf("Not an instrument definition")
+	}
+
+	payload, err := instruments.Deserialize([]byte(definition.InstrumentType),
+		definition.InstrumentPayload)
+	if err != nil {
+		t.Fatalf("Failed to deserialize payload : %s", err)
+	}
+
+	js, _ := json.MarshalIndent(definition, "", "  ")
+	t.Logf("Instrument Definition : %s", js)
+
+	js, _ = json.MarshalIndent(payload, "", "  ")
+	t.Logf("Instrument Payload : %s", js)
+
+	key, _ := bitcoin.GenerateKey(bitcoin.MainNet)
+	contractAgentLockingScript, _ := key.LockingScript()
+
+	key, _ = bitcoin.GenerateKey(bitcoin.MainNet)
+	contractFeeLockingScript, _ := key.LockingScript()
+
+	responseTxFee, err := EstimatedInstrumentDefinitionResponseTxFee(definition,
+		contractAgentLockingScript, contractFeeLockingScript, 0.05, 0.0, true)
+	if err != nil {
+		t.Fatalf("Failed to estimate response fee : %s", err)
+	}
+
+	if responseTxFee != 18 {
+		t.Errorf("Wrong response tx fee : got %d, want %d", responseTxFee, 18)
 	}
 }
 
