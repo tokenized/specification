@@ -75,6 +75,7 @@ message ContractFormation {
     bytes OperatorAddress                          = 32;  // Address
     string GoverningLaw                            = 33;  // LegalSystem
     string Jurisdiction                            = 34;  // Polity
+    string RequestPeerChannel                      = 35;  // varchar
 }
 
 // Message - Contract Amendment (C3)

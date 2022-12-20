@@ -161,4 +161,8 @@ properties:
       location.
     type: string
     example: "GBR"
+  RequestPeerChannel:
+    description: A peer channel to which requests can be posted.
+    type: string
+    example: "https://peer.test.com/api/v1/channel/<channel_id>?token=<write_token>"
 

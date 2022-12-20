@@ -2192,7 +2192,8 @@ proto.actions.ContractFormation.toObject = function(includeInstance, msg) {
     adminaddress: msg.getAdminaddress_asB64(),
     operatoraddress: msg.getOperatoraddress_asB64(),
     governinglaw: jspb.Message.getFieldWithDefault(msg, 33, ""),
-    jurisdiction: jspb.Message.getFieldWithDefault(msg, 34, "")
+    jurisdiction: jspb.Message.getFieldWithDefault(msg, 34, ""),
+    requestpeerchannel: jspb.Message.getFieldWithDefault(msg, 35, "")
   };
 
   if (includeInstance) {
@@ -2338,6 +2339,10 @@ proto.actions.ContractFormation.deserializeBinaryFromReader = function(msg, read
     case 34:
       var value = /** @type {string} */ (reader.readString());
       msg.setJurisdiction(value);
+      break;
+    case 35:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRequestpeerchannel(value);
       break;
     default:
       reader.skipField();
@@ -2553,6 +2558,13 @@ proto.actions.ContractFormation.serializeBinaryToWriter = function(message, writ
   if (f.length > 0) {
     writer.writeString(
       34,
+      f
+    );
+  }
+  f = message.getRequestpeerchannel();
+  if (f.length > 0) {
+    writer.writeString(
+      35,
       f
     );
   }
@@ -3311,6 +3323,24 @@ proto.actions.ContractFormation.prototype.getJurisdiction = function() {
  */
 proto.actions.ContractFormation.prototype.setJurisdiction = function(value) {
   return jspb.Message.setProto3StringField(this, 34, value);
+};
+
+
+/**
+ * optional string RequestPeerChannel = 35;
+ * @return {string}
+ */
+proto.actions.ContractFormation.prototype.getRequestpeerchannel = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 35, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.actions.ContractFormation} returns this
+ */
+proto.actions.ContractFormation.prototype.setRequestpeerchannel = function(value) {
+  return jspb.Message.setProto3StringField(this, 35, value);
 };
 
 

@@ -847,6 +847,17 @@ This txn is created by the contract (smart contract/off-chain agent/token contra
         </td>
     </tr>
 
+    <tr>
+        <td>RequestPeerChannel</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            A peer channel to which requests can be posted.
+             Example: https://peer.test.com/api/v1/channel/&lt;channel_id&gt;?token=&lt;write_token&gt;
+        </td>
+    </tr>
+
 </table>
 
 ##### Transaction Summary

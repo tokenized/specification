@@ -257,3 +257,9 @@ fields:
     type: Polity
     example: "US-CA"
     notes: "Jurisdiction - Amendments can be restricted to a vote."
+
+  - name: RequestPeerChannel
+    label: Request Peer Channel
+    description: "A peer channel to which requests can be posted."
+    type: varchar
+    example: "https://peer.test.com/api/v1/channel/<channel_id>?token=<write_token>"

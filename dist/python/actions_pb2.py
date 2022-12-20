@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z6github.com/tokenized/specification/dist/golang/actions',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\ractions.proto\x12\x07\x61\x63tions\"\x9f\x06\n\rContractOffer\x12\x14\n\x0c\x43ontractName\x18\x01 \x01(\t\x12\x1b\n\x13\x42odyOfAgreementType\x18\x02 \x01(\r\x12\x17\n\x0f\x42odyOfAgreement\x18\x03 \x01(\x0c\x12.\n\x0eSupportingDocs\x18\x05 \x03(\x0b\x32\x16.actions.DocumentField\x12\x1a\n\x12\x43ontractExpiration\x18\x08 \x01(\x04\x12\x13\n\x0b\x43ontractURI\x18\t \x01(\t\x12$\n\x06Issuer\x18\n \x01(\x0b\x32\x14.actions.EntityField\x12 \n\x18\x43ontractOperatorIncluded\x18\x0c \x01(\x08\x12\x13\n\x0b\x43ontractFee\x18\x11 \x01(\x04\x12\x31\n\rVotingSystems\x18\x12 \x03(\x0b\x32\x1a.actions.VotingSystemField\x12\x1b\n\x13\x43ontractPermissions\x18\x13 \x01(\x0c\x12 \n\x18RestrictedQtyInstruments\x18\x14 \x01(\x04\x12\x1e\n\x16\x41\x64ministrationProposal\x18\x15 \x01(\x08\x12\x16\n\x0eHolderProposal\x18\x16 \x01(\x08\x12%\n\x07Oracles\x18\x17 \x03(\x0b\x32\x14.actions.OracleField\x12\x15\n\rMasterAddress\x18\x18 \x01(\x0c\x12\x16\n\x0e\x45ntityContract\x18\x19 \x01(\x0c\x12\x1e\n\x16OperatorEntityContract\x18\x1a \x01(\x0c\x12\x14\n\x0c\x43ontractType\x18\x1b \x01(\r\x12\'\n\x08Services\x18\x1c \x03(\x0b\x32\x15.actions.ServiceField\x12I\n\x19\x41\x64minIdentityCertificates\x18\x1d \x03(\x0b\x32&.actions.AdminIdentityCertificateField\x12\x14\n\x0cGoverningLaw\x18\x1e \x01(\t\x12\x14\n\x0cJurisdiction\x18\x1f \x01(\tJ\x04\x08\x04\x10\x05J\x04\x08\x06\x10\x07J\x04\x08\x07\x10\x08J\x04\x08\x0b\x10\x0cJ\x04\x08\r\x10\x0eJ\x04\x08\x0e\x10\x0fJ\x04\x08\x0f\x10\x10J\x04\x08\x10\x10\x11\"\xdd\x06\n\x11\x43ontractFormation\x12\x14\n\x0c\x43ontractName\x18\x01 \x01(\t\x12\x1b\n\x13\x42odyOfAgreementType\x18\x02 \x01(\r\x12\x17\n\x0f\x42odyOfAgreement\x18\x03 \x01(\x0c\x12.\n\x0eSupportingDocs\x18\x05 \x03(\x0b\x32\x16.actions.DocumentField\x12\x1a\n\x12\x43ontractExpiration\x18\x08 \x01(\x04\x12\x13\n\x0b\x43ontractURI\x18\t \x01(\t\x12$\n\x06Issuer\x18\n \x01(\x0b\x32\x14.actions.EntityField\x12\x13\n\x0b\x43ontractFee\x18\x10 \x01(\x04\x12\x31\n\rVotingSystems\x18\x11 \x03(\x0b\x32\x1a.actions.VotingSystemField\x12\x1b\n\x13\x43ontractPermissions\x18\x12 \x01(\x0c\x12 \n\x18RestrictedQtyInstruments\x18\x13 \x01(\x04\x12\x1e\n\x16\x41\x64ministrationProposal\x18\x14 \x01(\x08\x12\x16\n\x0eHolderProposal\x18\x15 \x01(\x08\x12%\n\x07Oracles\x18\x16 \x03(\x0b\x32\x14.actions.OracleField\x12\x15\n\rMasterAddress\x18\x17 \x01(\x0c\x12\x18\n\x10\x43ontractRevision\x18\x18 \x01(\r\x12\x11\n\tTimestamp\x18\x19 \x01(\x04\x12\x16\n\x0e\x45ntityContract\x18\x1a \x01(\x0c\x12\x1e\n\x16OperatorEntityContract\x18\x1b \x01(\x0c\x12\x14\n\x0c\x43ontractType\x18\x1c \x01(\r\x12\'\n\x08Services\x18\x1d \x03(\x0b\x32\x15.actions.ServiceField\x12I\n\x19\x41\x64minIdentityCertificates\x18\x1e \x03(\x0b\x32&.actions.AdminIdentityCertificateField\x12\x14\n\x0c\x41\x64minAddress\x18\x1f \x01(\x0c\x12\x17\n\x0fOperatorAddress\x18  \x01(\x0c\x12\x14\n\x0cGoverningLaw\x18! \x01(\t\x12\x14\n\x0cJurisdiction\x18\" \x01(\tJ\x04\x08\x04\x10\x05J\x04\x08\x06\x10\x07J\x04\x08\x07\x10\x08J\x04\x08\x0b\x10\x0cJ\x04\x08\x0c\x10\rJ\x04\x08\r\x10\x0eJ\x04\x08\x0e\x10\x0fJ\x04\x08\x0f\x10\x10\"\xaf\x01\n\x11\x43ontractAmendment\x12#\n\x1b\x43hangeAdministrationAddress\x18\x01 \x01(\x08\x12\x1d\n\x15\x43hangeOperatorAddress\x18\x02 \x01(\x08\x12\x18\n\x10\x43ontractRevision\x18\x03 \x01(\r\x12+\n\nAmendments\x18\x04 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x0f\n\x07RefTxID\x18\x05 \x01(\x0c\"\x87\x04\n\x17StaticContractFormation\x12\x14\n\x0c\x43ontractName\x18\x01 \x01(\t\x12\x14\n\x0c\x43ontractCode\x18\x02 \x01(\x0c\x12\x1b\n\x13\x42odyOfAgreementType\x18\x03 \x01(\r\x12\x17\n\x0f\x42odyOfAgreement\x18\x04 \x01(\x0c\x12\x14\n\x0c\x43ontractType\x18\x05 \x01(\t\x12.\n\x0eSupportingDocs\x18\x06 \x03(\x0b\x32\x16.actions.DocumentField\x12\x18\n\x10\x43ontractRevision\x18\x07 \x01(\r\x12\x15\n\rEffectiveDate\x18\n \x01(\x04\x12\x1a\n\x12\x43ontractExpiration\x18\x0b \x01(\x04\x12\x13\n\x0b\x43ontractURI\x18\x0c \x01(\t\x12\x13\n\x0bPrevRevTxID\x18\r \x01(\x0c\x12&\n\x08\x45ntities\x18\x0e \x03(\x0b\x32\x14.actions.EntityField\x12*\n\x0c\x45ntityOracle\x18\x0f \x01(\x0b\x32\x14.actions.OracleField\x12\x1d\n\x15\x45ntityOracleSignature\x18\x10 \x01(\x0c\x12\"\n\x1a\x45ntityOracleSigBlockHeight\x18\x11 \x01(\r\x12\x14\n\x0cGoverningLaw\x18\x12 \x01(\t\x12\x14\n\x0cJurisdiction\x18\x13 \x01(\tJ\x04\x08\x08\x10\tJ\x04\x08\t\x10\n\"F\n\x15\x43ontractAddressChange\x12\x1a\n\x12NewContractAddress\x18\x01 \x01(\x0c\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"o\n\x14\x42odyOfAgreementOffer\x12\'\n\x08\x43hapters\x18\x01 \x03(\x0b\x32\x15.actions.ChapterField\x12.\n\x0b\x44\x65\x66initions\x18\x02 \x03(\x0b\x32\x19.actions.DefinedTermField\"\x98\x01\n\x18\x42odyOfAgreementFormation\x12\'\n\x08\x43hapters\x18\x01 \x03(\x0b\x32\x15.actions.ChapterField\x12.\n\x0b\x44\x65\x66initions\x18\x02 \x03(\x0b\x32\x19.actions.DefinedTermField\x12\x10\n\x08Revision\x18\x03 \x01(\r\x12\x11\n\tTimestamp\x18\x04 \x01(\x04\"j\n\x18\x42odyOfAgreementAmendment\x12\x10\n\x08Revision\x18\x01 \x01(\r\x12+\n\nAmendments\x18\x02 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x0f\n\x07RefTxID\x18\x03 \x01(\x0c\"\xdf\x02\n\x14InstrumentDefinition\x12\x1d\n\x15InstrumentPermissions\x18\x01 \x01(\x0c\x12\"\n\x1a\x45nforcementOrdersPermitted\x18\x04 \x01(\x08\x12\x14\n\x0cVotingRights\x18\x05 \x01(\x08\x12\x16\n\x0eVoteMultiplier\x18\x06 \x01(\r\x12\x1e\n\x16\x41\x64ministrationProposal\x18\x07 \x01(\x08\x12\x16\n\x0eHolderProposal\x18\x08 \x01(\x08\x12(\n InstrumentModificationGovernance\x18\t \x01(\r\x12\x1a\n\x12\x41uthorizedTokenQty\x18\n \x01(\x04\x12\x16\n\x0eInstrumentType\x18\x0b \x01(\t\x12\x19\n\x11InstrumentPayload\x18\x0c \x01(\x0c\x12\x19\n\x11TradeRestrictions\x18\r \x03(\tJ\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04\"\xbd\x03\n\x12InstrumentCreation\x12\x16\n\x0eInstrumentCode\x18\x01 \x01(\x0c\x12\x17\n\x0fInstrumentIndex\x18\x02 \x01(\x04\x12\x1d\n\x15InstrumentPermissions\x18\x03 \x01(\x0c\x12\"\n\x1a\x45nforcementOrdersPermitted\x18\x06 \x01(\x08\x12\x14\n\x0cVotingRights\x18\x07 \x01(\x08\x12\x16\n\x0eVoteMultiplier\x18\x08 \x01(\r\x12\x1e\n\x16\x41\x64ministrationProposal\x18\t \x01(\x08\x12\x16\n\x0eHolderProposal\x18\n \x01(\x08\x12(\n InstrumentModificationGovernance\x18\x0b \x01(\r\x12\x1a\n\x12\x41uthorizedTokenQty\x18\x0c \x01(\x04\x12\x16\n\x0eInstrumentType\x18\r \x01(\t\x12\x19\n\x11InstrumentPayload\x18\x0e \x01(\x0c\x12\x1a\n\x12InstrumentRevision\x18\x0f \x01(\r\x12\x11\n\tTimestamp\x18\x10 \x01(\x04\x12\x19\n\x11TradeRestrictions\x18\x11 \x03(\tJ\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06\"\xa2\x01\n\x16InstrumentModification\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12\x1a\n\x12InstrumentRevision\x18\x03 \x01(\r\x12+\n\nAmendments\x18\x04 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x0f\n\x07RefTxID\x18\x05 \x01(\x0c\"\x87\x01\n\x08Transfer\x12\x35\n\x0bInstruments\x18\x01 \x03(\x0b\x32 .actions.InstrumentTransferField\x12\x13\n\x0bOfferExpiry\x18\x02 \x01(\x04\x12\x13\n\x0b\x45xchangeFee\x18\x03 \x01(\x04\x12\x1a\n\x12\x45xchangeFeeAddress\x18\x04 \x01(\x0c\"X\n\nSettlement\x12\x37\n\x0bInstruments\x18\x01 \x03(\x0b\x32\".actions.InstrumentSettlementField\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"\x9b\x01\n\x17RectificationSettlement\x12\x34\n\x08Transfer\x18\x01 \x01(\x0b\x32\".actions.ReferenceTransactionField\x12\x37\n\x0bInstruments\x18\x02 \x03(\x0b\x32\".actions.InstrumentSettlementField\x12\x11\n\tTimestamp\x18\x03 \x01(\x04\"\x8f\x02\n\x08Proposal\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x16\n\x0eInstrumentType\x18\x02 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x03 \x01(\x0c\x12\x12\n\nVoteSystem\x18\x04 \x01(\r\x12\x33\n\x12ProposedAmendments\x18\x05 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x13\n\x0bVoteOptions\x18\x06 \x01(\t\x12\x0f\n\x07VoteMax\x18\x07 \x01(\r\x12\x1b\n\x13ProposalDescription\x18\x08 \x01(\t\x12\x1c\n\x14ProposalDocumentHash\x18\t \x01(\x0c\x12\x1b\n\x13VoteCutOffTimestamp\x18\n \x01(\x04\"\x19\n\x04Vote\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\",\n\nBallotCast\x12\x10\n\x08VoteTxId\x18\x01 \x01(\x0c\x12\x0c\n\x04Vote\x18\x02 \x01(\t\"T\n\rBallotCounted\x12\x10\n\x08VoteTxId\x18\x01 \x01(\x0c\x12\x0c\n\x04Vote\x18\x02 \x01(\t\x12\x10\n\x08Quantity\x18\x03 \x01(\x04\x12\x11\n\tTimestamp\x18\x04 \x01(\x04\"\xb7\x01\n\x06Result\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12\x33\n\x12ProposedAmendments\x18\x03 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x10\n\x08VoteTxId\x18\x04 \x01(\x0c\x12\x13\n\x0bOptionTally\x18\x05 \x03(\x04\x12\x0e\n\x06Result\x18\x06 \x01(\t\x12\x11\n\tTimestamp\x18\x07 \x01(\x04\"\x87\x04\n\x05Order\x12\x18\n\x10\x43omplianceAction\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentType\x18\x02 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x03 \x01(\x0c\x12\x34\n\x0fTargetAddresses\x18\x04 \x03(\x0b\x32\x1b.actions.TargetAddressField\x12\x12\n\nFreezeTxId\x18\x05 \x01(\x0c\x12\x14\n\x0c\x46reezePeriod\x18\x06 \x01(\x04\x12\x16\n\x0e\x44\x65positAddress\x18\x07 \x01(\x0c\x12\x15\n\rAuthorityName\x18\x08 \x01(\t\x12\x1a\n\x12\x41uthorityPublicKey\x18\t \x01(\x0c\x12\x1a\n\x12SignatureAlgorithm\x18\n \x01(\r\x12\x16\n\x0eOrderSignature\x18\x0b \x01(\x0c\x12\x37\n\x12\x42itcoinDispersions\x18\x0e \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x0f\n\x07Message\x18\x0f \x01(\t\x12 \n\x18SupportingEvidenceFormat\x18\x10 \x01(\r\x12\x1a\n\x12SupportingEvidence\x18\x11 \x01(\x0c\x12\x41\n\x15ReferenceTransactions\x18\x12 \x03(\x0b\x32\".actions.ReferenceTransactionFieldJ\x04\x08\x0c\x10\rJ\x04\x08\r\x10\x0e\"\x92\x01\n\x06\x46reeze\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12/\n\nQuantities\x18\x03 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x14\n\x0c\x46reezePeriod\x18\x04 \x01(\x04\x12\x11\n\tTimestamp\x18\x05 \x01(\x04\"-\n\x04Thaw\x12\x12\n\nFreezeTxId\x18\x01 \x01(\x0c\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"\x96\x01\n\x0c\x43onfiscation\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12/\n\nQuantities\x18\x03 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x12\n\nDepositQty\x18\x04 \x01(\x04\x12\x11\n\tTimestamp\x18\x05 \x01(\x04\"\x8e\x01\n\x18\x44\x65precatedReconciliation\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12/\n\nQuantities\x18\x03 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x11\n\tTimestamp\x18\x04 \x01(\x04\" \n\rEstablishment\x12\x0f\n\x07Message\x18\x01 \x01(\t\"\x1b\n\x08\x41\x64\x64ition\x12\x0f\n\x07Message\x18\x01 \x01(\t\"0\n\nAlteration\x12\x11\n\tEntryTxID\x18\x01 \x01(\x0c\x12\x0f\n\x07Message\x18\x02 \x01(\t\"-\n\x07Removal\x12\x11\n\tEntryTxID\x18\x01 \x01(\x0c\x12\x0f\n\x07Message\x18\x02 \x01(\t\"f\n\x07Message\x12\x15\n\rSenderIndexes\x18\x01 \x03(\r\x12\x17\n\x0fReceiverIndexes\x18\x02 \x03(\r\x12\x13\n\x0bMessageCode\x18\x03 \x01(\r\x12\x16\n\x0eMessagePayload\x18\x04 \x01(\x0c\"z\n\tRejection\x12\x16\n\x0e\x41\x64\x64ressIndexes\x18\x01 \x03(\r\x12\x1a\n\x12RejectAddressIndex\x18\x02 \x01(\r\x12\x15\n\rRejectionCode\x18\x03 \x01(\r\x12\x0f\n\x07Message\x18\x04 \x01(\t\x12\x11\n\tTimestamp\x18\x05 \x01(\x04\"0\n\x12\x41\x64ministratorField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Name\x18\x02 \x01(\t\"s\n\x1d\x41\x64minIdentityCertificateField\x12\x16\n\x0e\x45ntityContract\x18\x01 \x01(\x0c\x12\x11\n\tSignature\x18\x02 \x01(\x0c\x12\x13\n\x0b\x42lockHeight\x18\x03 \x01(\r\x12\x12\n\nExpiration\x18\x04 \x01(\x04\"I\n\x0e\x41mendmentField\x12\x16\n\x0e\x46ieldIndexPath\x18\x01 \x01(\x0c\x12\x11\n\tOperation\x18\x02 \x01(\r\x12\x0c\n\x04\x44\x61ta\x18\x03 \x01(\x0c\"\xc3\x01\n\x17InstrumentReceiverField\x12\x0f\n\x07\x41\x64\x64ress\x18\x01 \x01(\x0c\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\x12\x1a\n\x12OracleSigAlgorithm\x18\x03 \x01(\r\x12\x13\n\x0bOracleIndex\x18\x04 \x01(\r\x12\x1d\n\x15OracleConfirmationSig\x18\x05 \x01(\x0c\x12\x1c\n\x14OracleSigBlockHeight\x18\x06 \x01(\r\x12\x17\n\x0fOracleSigExpiry\x18\x07 \x01(\x04\"\x94\x01\n\x19InstrumentSettlementField\x12\x15\n\rContractIndex\x18\x01 \x01(\r\x12\x16\n\x0eInstrumentType\x18\x02 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x03 \x01(\x0c\x12\x30\n\x0bSettlements\x18\x04 \x03(\x0b\x32\x1b.actions.QuantityIndexField\"\xd7\x01\n\x17InstrumentTransferField\x12\x15\n\rContractIndex\x18\x01 \x01(\r\x12\x16\n\x0eInstrumentType\x18\x02 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x03 \x01(\x0c\x12\x36\n\x11InstrumentSenders\x18\x04 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12=\n\x13InstrumentReceivers\x18\x05 \x03(\x0b\x32 .actions.InstrumentReceiverField\"W\n\x0c\x43hapterField\x12\r\n\x05Title\x18\x01 \x01(\t\x12\x10\n\x08Preamble\x18\x02 \x01(\t\x12&\n\x08\x41rticles\x18\x03 \x03(\x0b\x32\x14.actions.ClauseField\"R\n\x0b\x43lauseField\x12\r\n\x05Title\x18\x01 \x01(\t\x12\x0c\n\x04\x42ody\x18\x02 \x01(\t\x12&\n\x08\x43hildren\x18\x03 \x03(\x0b\x32\x14.actions.ClauseField\"4\n\x10\x44\x65\x66inedTermField\x12\x0c\n\x04Term\x18\x01 \x01(\t\x12\x12\n\nDefinition\x18\x02 \x01(\t\"=\n\rDocumentField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x0c\n\x04Type\x18\x02 \x01(\t\x12\x10\n\x08\x43ontents\x18\x03 \x01(\x0c\"\x92\x03\n\x0b\x45ntityField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x0c\n\x04Type\x18\x02 \x01(\t\x12\x0b\n\x03LEI\x18\x03 \x01(\t\x12\x12\n\nUnitNumber\x18\x04 \x01(\t\x12\x16\n\x0e\x42uildingNumber\x18\x05 \x01(\t\x12\x0e\n\x06Street\x18\x06 \x01(\t\x12\x12\n\nSuburbCity\x18\x07 \x01(\t\x12\"\n\x1aTerritoryStateProvinceCode\x18\x08 \x01(\t\x12\x13\n\x0b\x43ountryCode\x18\t \x01(\t\x12\x15\n\rPostalZIPCode\x18\n \x01(\t\x12\x14\n\x0c\x45mailAddress\x18\x0b \x01(\t\x12\x13\n\x0bPhoneNumber\x18\x0c \x01(\t\x12\x33\n\x0e\x41\x64ministration\x18\r \x03(\x0b\x32\x1b.actions.AdministratorField\x12)\n\nManagement\x18\x0e \x03(\x0b\x32\x15.actions.ManagerField\x12\x12\n\nDomainName\x18\x0f \x01(\t\x12\x15\n\rPaymailHandle\x18\x11 \x01(\tJ\x04\x08\x10\x10\x11\"*\n\x0cManagerField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Name\x18\x02 \x01(\t\"L\n\x0bOracleField\x12\x13\n\x0bOracleTypes\x18\x04 \x03(\r\x12\x16\n\x0e\x45ntityContract\x18\x05 \x01(\x0cJ\x04\x08\x01\x10\x02J\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04\"5\n\x12QuantityIndexField\x12\r\n\x05Index\x18\x01 \x01(\r\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\"A\n\x19ReferenceTransactionField\x12\x13\n\x0bTransaction\x18\x01 \x01(\x0c\x12\x0f\n\x07Outputs\x18\x02 \x03(\x0c\"<\n\x0cServiceField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0b\n\x03URL\x18\x02 \x01(\t\x12\x11\n\tPublicKey\x18\x03 \x01(\x0c\"7\n\x12TargetAddressField\x12\x0f\n\x07\x41\x64\x64ress\x18\x01 \x01(\x0c\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\"\xa0\x01\n\x11VotingSystemField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x10\n\x08VoteType\x18\x02 \x01(\t\x12\x12\n\nTallyLogic\x18\x03 \x01(\r\x12\x1b\n\x13ThresholdPercentage\x18\x04 \x01(\r\x12\x1f\n\x17VoteMultiplierPermitted\x18\x05 \x01(\x08\x12\x19\n\x11HolderProposalFee\x18\x06 \x01(\x04\x42\x38Z6github.com/tokenized/specification/dist/golang/actionsb\x06proto3'
+  serialized_pb=b'\n\ractions.proto\x12\x07\x61\x63tions\"\x9f\x06\n\rContractOffer\x12\x14\n\x0c\x43ontractName\x18\x01 \x01(\t\x12\x1b\n\x13\x42odyOfAgreementType\x18\x02 \x01(\r\x12\x17\n\x0f\x42odyOfAgreement\x18\x03 \x01(\x0c\x12.\n\x0eSupportingDocs\x18\x05 \x03(\x0b\x32\x16.actions.DocumentField\x12\x1a\n\x12\x43ontractExpiration\x18\x08 \x01(\x04\x12\x13\n\x0b\x43ontractURI\x18\t \x01(\t\x12$\n\x06Issuer\x18\n \x01(\x0b\x32\x14.actions.EntityField\x12 \n\x18\x43ontractOperatorIncluded\x18\x0c \x01(\x08\x12\x13\n\x0b\x43ontractFee\x18\x11 \x01(\x04\x12\x31\n\rVotingSystems\x18\x12 \x03(\x0b\x32\x1a.actions.VotingSystemField\x12\x1b\n\x13\x43ontractPermissions\x18\x13 \x01(\x0c\x12 \n\x18RestrictedQtyInstruments\x18\x14 \x01(\x04\x12\x1e\n\x16\x41\x64ministrationProposal\x18\x15 \x01(\x08\x12\x16\n\x0eHolderProposal\x18\x16 \x01(\x08\x12%\n\x07Oracles\x18\x17 \x03(\x0b\x32\x14.actions.OracleField\x12\x15\n\rMasterAddress\x18\x18 \x01(\x0c\x12\x16\n\x0e\x45ntityContract\x18\x19 \x01(\x0c\x12\x1e\n\x16OperatorEntityContract\x18\x1a \x01(\x0c\x12\x14\n\x0c\x43ontractType\x18\x1b \x01(\r\x12\'\n\x08Services\x18\x1c \x03(\x0b\x32\x15.actions.ServiceField\x12I\n\x19\x41\x64minIdentityCertificates\x18\x1d \x03(\x0b\x32&.actions.AdminIdentityCertificateField\x12\x14\n\x0cGoverningLaw\x18\x1e \x01(\t\x12\x14\n\x0cJurisdiction\x18\x1f \x01(\tJ\x04\x08\x04\x10\x05J\x04\x08\x06\x10\x07J\x04\x08\x07\x10\x08J\x04\x08\x0b\x10\x0cJ\x04\x08\r\x10\x0eJ\x04\x08\x0e\x10\x0fJ\x04\x08\x0f\x10\x10J\x04\x08\x10\x10\x11\"\xf9\x06\n\x11\x43ontractFormation\x12\x14\n\x0c\x43ontractName\x18\x01 \x01(\t\x12\x1b\n\x13\x42odyOfAgreementType\x18\x02 \x01(\r\x12\x17\n\x0f\x42odyOfAgreement\x18\x03 \x01(\x0c\x12.\n\x0eSupportingDocs\x18\x05 \x03(\x0b\x32\x16.actions.DocumentField\x12\x1a\n\x12\x43ontractExpiration\x18\x08 \x01(\x04\x12\x13\n\x0b\x43ontractURI\x18\t \x01(\t\x12$\n\x06Issuer\x18\n \x01(\x0b\x32\x14.actions.EntityField\x12\x13\n\x0b\x43ontractFee\x18\x10 \x01(\x04\x12\x31\n\rVotingSystems\x18\x11 \x03(\x0b\x32\x1a.actions.VotingSystemField\x12\x1b\n\x13\x43ontractPermissions\x18\x12 \x01(\x0c\x12 \n\x18RestrictedQtyInstruments\x18\x13 \x01(\x04\x12\x1e\n\x16\x41\x64ministrationProposal\x18\x14 \x01(\x08\x12\x16\n\x0eHolderProposal\x18\x15 \x01(\x08\x12%\n\x07Oracles\x18\x16 \x03(\x0b\x32\x14.actions.OracleField\x12\x15\n\rMasterAddress\x18\x17 \x01(\x0c\x12\x18\n\x10\x43ontractRevision\x18\x18 \x01(\r\x12\x11\n\tTimestamp\x18\x19 \x01(\x04\x12\x16\n\x0e\x45ntityContract\x18\x1a \x01(\x0c\x12\x1e\n\x16OperatorEntityContract\x18\x1b \x01(\x0c\x12\x14\n\x0c\x43ontractType\x18\x1c \x01(\r\x12\'\n\x08Services\x18\x1d \x03(\x0b\x32\x15.actions.ServiceField\x12I\n\x19\x41\x64minIdentityCertificates\x18\x1e \x03(\x0b\x32&.actions.AdminIdentityCertificateField\x12\x14\n\x0c\x41\x64minAddress\x18\x1f \x01(\x0c\x12\x17\n\x0fOperatorAddress\x18  \x01(\x0c\x12\x14\n\x0cGoverningLaw\x18! \x01(\t\x12\x14\n\x0cJurisdiction\x18\" \x01(\t\x12\x1a\n\x12RequestPeerChannel\x18# \x01(\tJ\x04\x08\x04\x10\x05J\x04\x08\x06\x10\x07J\x04\x08\x07\x10\x08J\x04\x08\x0b\x10\x0cJ\x04\x08\x0c\x10\rJ\x04\x08\r\x10\x0eJ\x04\x08\x0e\x10\x0fJ\x04\x08\x0f\x10\x10\"\xaf\x01\n\x11\x43ontractAmendment\x12#\n\x1b\x43hangeAdministrationAddress\x18\x01 \x01(\x08\x12\x1d\n\x15\x43hangeOperatorAddress\x18\x02 \x01(\x08\x12\x18\n\x10\x43ontractRevision\x18\x03 \x01(\r\x12+\n\nAmendments\x18\x04 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x0f\n\x07RefTxID\x18\x05 \x01(\x0c\"\x87\x04\n\x17StaticContractFormation\x12\x14\n\x0c\x43ontractName\x18\x01 \x01(\t\x12\x14\n\x0c\x43ontractCode\x18\x02 \x01(\x0c\x12\x1b\n\x13\x42odyOfAgreementType\x18\x03 \x01(\r\x12\x17\n\x0f\x42odyOfAgreement\x18\x04 \x01(\x0c\x12\x14\n\x0c\x43ontractType\x18\x05 \x01(\t\x12.\n\x0eSupportingDocs\x18\x06 \x03(\x0b\x32\x16.actions.DocumentField\x12\x18\n\x10\x43ontractRevision\x18\x07 \x01(\r\x12\x15\n\rEffectiveDate\x18\n \x01(\x04\x12\x1a\n\x12\x43ontractExpiration\x18\x0b \x01(\x04\x12\x13\n\x0b\x43ontractURI\x18\x0c \x01(\t\x12\x13\n\x0bPrevRevTxID\x18\r \x01(\x0c\x12&\n\x08\x45ntities\x18\x0e \x03(\x0b\x32\x14.actions.EntityField\x12*\n\x0c\x45ntityOracle\x18\x0f \x01(\x0b\x32\x14.actions.OracleField\x12\x1d\n\x15\x45ntityOracleSignature\x18\x10 \x01(\x0c\x12\"\n\x1a\x45ntityOracleSigBlockHeight\x18\x11 \x01(\r\x12\x14\n\x0cGoverningLaw\x18\x12 \x01(\t\x12\x14\n\x0cJurisdiction\x18\x13 \x01(\tJ\x04\x08\x08\x10\tJ\x04\x08\t\x10\n\"F\n\x15\x43ontractAddressChange\x12\x1a\n\x12NewContractAddress\x18\x01 \x01(\x0c\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"o\n\x14\x42odyOfAgreementOffer\x12\'\n\x08\x43hapters\x18\x01 \x03(\x0b\x32\x15.actions.ChapterField\x12.\n\x0b\x44\x65\x66initions\x18\x02 \x03(\x0b\x32\x19.actions.DefinedTermField\"\x98\x01\n\x18\x42odyOfAgreementFormation\x12\'\n\x08\x43hapters\x18\x01 \x03(\x0b\x32\x15.actions.ChapterField\x12.\n\x0b\x44\x65\x66initions\x18\x02 \x03(\x0b\x32\x19.actions.DefinedTermField\x12\x10\n\x08Revision\x18\x03 \x01(\r\x12\x11\n\tTimestamp\x18\x04 \x01(\x04\"j\n\x18\x42odyOfAgreementAmendment\x12\x10\n\x08Revision\x18\x01 \x01(\r\x12+\n\nAmendments\x18\x02 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x0f\n\x07RefTxID\x18\x03 \x01(\x0c\"\xdf\x02\n\x14InstrumentDefinition\x12\x1d\n\x15InstrumentPermissions\x18\x01 \x01(\x0c\x12\"\n\x1a\x45nforcementOrdersPermitted\x18\x04 \x01(\x08\x12\x14\n\x0cVotingRights\x18\x05 \x01(\x08\x12\x16\n\x0eVoteMultiplier\x18\x06 \x01(\r\x12\x1e\n\x16\x41\x64ministrationProposal\x18\x07 \x01(\x08\x12\x16\n\x0eHolderProposal\x18\x08 \x01(\x08\x12(\n InstrumentModificationGovernance\x18\t \x01(\r\x12\x1a\n\x12\x41uthorizedTokenQty\x18\n \x01(\x04\x12\x16\n\x0eInstrumentType\x18\x0b \x01(\t\x12\x19\n\x11InstrumentPayload\x18\x0c \x01(\x0c\x12\x19\n\x11TradeRestrictions\x18\r \x03(\tJ\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04\"\xbd\x03\n\x12InstrumentCreation\x12\x16\n\x0eInstrumentCode\x18\x01 \x01(\x0c\x12\x17\n\x0fInstrumentIndex\x18\x02 \x01(\x04\x12\x1d\n\x15InstrumentPermissions\x18\x03 \x01(\x0c\x12\"\n\x1a\x45nforcementOrdersPermitted\x18\x06 \x01(\x08\x12\x14\n\x0cVotingRights\x18\x07 \x01(\x08\x12\x16\n\x0eVoteMultiplier\x18\x08 \x01(\r\x12\x1e\n\x16\x41\x64ministrationProposal\x18\t \x01(\x08\x12\x16\n\x0eHolderProposal\x18\n \x01(\x08\x12(\n InstrumentModificationGovernance\x18\x0b \x01(\r\x12\x1a\n\x12\x41uthorizedTokenQty\x18\x0c \x01(\x04\x12\x16\n\x0eInstrumentType\x18\r \x01(\t\x12\x19\n\x11InstrumentPayload\x18\x0e \x01(\x0c\x12\x1a\n\x12InstrumentRevision\x18\x0f \x01(\r\x12\x11\n\tTimestamp\x18\x10 \x01(\x04\x12\x19\n\x11TradeRestrictions\x18\x11 \x03(\tJ\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06\"\xa2\x01\n\x16InstrumentModification\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12\x1a\n\x12InstrumentRevision\x18\x03 \x01(\r\x12+\n\nAmendments\x18\x04 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x0f\n\x07RefTxID\x18\x05 \x01(\x0c\"\x87\x01\n\x08Transfer\x12\x35\n\x0bInstruments\x18\x01 \x03(\x0b\x32 .actions.InstrumentTransferField\x12\x13\n\x0bOfferExpiry\x18\x02 \x01(\x04\x12\x13\n\x0b\x45xchangeFee\x18\x03 \x01(\x04\x12\x1a\n\x12\x45xchangeFeeAddress\x18\x04 \x01(\x0c\"X\n\nSettlement\x12\x37\n\x0bInstruments\x18\x01 \x03(\x0b\x32\".actions.InstrumentSettlementField\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"\x9b\x01\n\x17RectificationSettlement\x12\x34\n\x08Transfer\x18\x01 \x01(\x0b\x32\".actions.ReferenceTransactionField\x12\x37\n\x0bInstruments\x18\x02 \x03(\x0b\x32\".actions.InstrumentSettlementField\x12\x11\n\tTimestamp\x18\x03 \x01(\x04\"\x8f\x02\n\x08Proposal\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x16\n\x0eInstrumentType\x18\x02 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x03 \x01(\x0c\x12\x12\n\nVoteSystem\x18\x04 \x01(\r\x12\x33\n\x12ProposedAmendments\x18\x05 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x13\n\x0bVoteOptions\x18\x06 \x01(\t\x12\x0f\n\x07VoteMax\x18\x07 \x01(\r\x12\x1b\n\x13ProposalDescription\x18\x08 \x01(\t\x12\x1c\n\x14ProposalDocumentHash\x18\t \x01(\x0c\x12\x1b\n\x13VoteCutOffTimestamp\x18\n \x01(\x04\"\x19\n\x04Vote\x12\x11\n\tTimestamp\x18\x01 \x01(\x04\",\n\nBallotCast\x12\x10\n\x08VoteTxId\x18\x01 \x01(\x0c\x12\x0c\n\x04Vote\x18\x02 \x01(\t\"T\n\rBallotCounted\x12\x10\n\x08VoteTxId\x18\x01 \x01(\x0c\x12\x0c\n\x04Vote\x18\x02 \x01(\t\x12\x10\n\x08Quantity\x18\x03 \x01(\x04\x12\x11\n\tTimestamp\x18\x04 \x01(\x04\"\xb7\x01\n\x06Result\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12\x33\n\x12ProposedAmendments\x18\x03 \x03(\x0b\x32\x17.actions.AmendmentField\x12\x10\n\x08VoteTxId\x18\x04 \x01(\x0c\x12\x13\n\x0bOptionTally\x18\x05 \x03(\x04\x12\x0e\n\x06Result\x18\x06 \x01(\t\x12\x11\n\tTimestamp\x18\x07 \x01(\x04\"\x87\x04\n\x05Order\x12\x18\n\x10\x43omplianceAction\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentType\x18\x02 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x03 \x01(\x0c\x12\x34\n\x0fTargetAddresses\x18\x04 \x03(\x0b\x32\x1b.actions.TargetAddressField\x12\x12\n\nFreezeTxId\x18\x05 \x01(\x0c\x12\x14\n\x0c\x46reezePeriod\x18\x06 \x01(\x04\x12\x16\n\x0e\x44\x65positAddress\x18\x07 \x01(\x0c\x12\x15\n\rAuthorityName\x18\x08 \x01(\t\x12\x1a\n\x12\x41uthorityPublicKey\x18\t \x01(\x0c\x12\x1a\n\x12SignatureAlgorithm\x18\n \x01(\r\x12\x16\n\x0eOrderSignature\x18\x0b \x01(\x0c\x12\x37\n\x12\x42itcoinDispersions\x18\x0e \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x0f\n\x07Message\x18\x0f \x01(\t\x12 \n\x18SupportingEvidenceFormat\x18\x10 \x01(\r\x12\x1a\n\x12SupportingEvidence\x18\x11 \x01(\x0c\x12\x41\n\x15ReferenceTransactions\x18\x12 \x03(\x0b\x32\".actions.ReferenceTransactionFieldJ\x04\x08\x0c\x10\rJ\x04\x08\r\x10\x0e\"\x92\x01\n\x06\x46reeze\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12/\n\nQuantities\x18\x03 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x14\n\x0c\x46reezePeriod\x18\x04 \x01(\x04\x12\x11\n\tTimestamp\x18\x05 \x01(\x04\"-\n\x04Thaw\x12\x12\n\nFreezeTxId\x18\x01 \x01(\x0c\x12\x11\n\tTimestamp\x18\x02 \x01(\x04\"\x96\x01\n\x0c\x43onfiscation\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12/\n\nQuantities\x18\x03 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x12\n\nDepositQty\x18\x04 \x01(\x04\x12\x11\n\tTimestamp\x18\x05 \x01(\x04\"\x8e\x01\n\x18\x44\x65precatedReconciliation\x12\x16\n\x0eInstrumentType\x18\x01 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x02 \x01(\x0c\x12/\n\nQuantities\x18\x03 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12\x11\n\tTimestamp\x18\x04 \x01(\x04\" \n\rEstablishment\x12\x0f\n\x07Message\x18\x01 \x01(\t\"\x1b\n\x08\x41\x64\x64ition\x12\x0f\n\x07Message\x18\x01 \x01(\t\"0\n\nAlteration\x12\x11\n\tEntryTxID\x18\x01 \x01(\x0c\x12\x0f\n\x07Message\x18\x02 \x01(\t\"-\n\x07Removal\x12\x11\n\tEntryTxID\x18\x01 \x01(\x0c\x12\x0f\n\x07Message\x18\x02 \x01(\t\"f\n\x07Message\x12\x15\n\rSenderIndexes\x18\x01 \x03(\r\x12\x17\n\x0fReceiverIndexes\x18\x02 \x03(\r\x12\x13\n\x0bMessageCode\x18\x03 \x01(\r\x12\x16\n\x0eMessagePayload\x18\x04 \x01(\x0c\"z\n\tRejection\x12\x16\n\x0e\x41\x64\x64ressIndexes\x18\x01 \x03(\r\x12\x1a\n\x12RejectAddressIndex\x18\x02 \x01(\r\x12\x15\n\rRejectionCode\x18\x03 \x01(\r\x12\x0f\n\x07Message\x18\x04 \x01(\t\x12\x11\n\tTimestamp\x18\x05 \x01(\x04\"0\n\x12\x41\x64ministratorField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Name\x18\x02 \x01(\t\"s\n\x1d\x41\x64minIdentityCertificateField\x12\x16\n\x0e\x45ntityContract\x18\x01 \x01(\x0c\x12\x11\n\tSignature\x18\x02 \x01(\x0c\x12\x13\n\x0b\x42lockHeight\x18\x03 \x01(\r\x12\x12\n\nExpiration\x18\x04 \x01(\x04\"I\n\x0e\x41mendmentField\x12\x16\n\x0e\x46ieldIndexPath\x18\x01 \x01(\x0c\x12\x11\n\tOperation\x18\x02 \x01(\r\x12\x0c\n\x04\x44\x61ta\x18\x03 \x01(\x0c\"\xc3\x01\n\x17InstrumentReceiverField\x12\x0f\n\x07\x41\x64\x64ress\x18\x01 \x01(\x0c\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\x12\x1a\n\x12OracleSigAlgorithm\x18\x03 \x01(\r\x12\x13\n\x0bOracleIndex\x18\x04 \x01(\r\x12\x1d\n\x15OracleConfirmationSig\x18\x05 \x01(\x0c\x12\x1c\n\x14OracleSigBlockHeight\x18\x06 \x01(\r\x12\x17\n\x0fOracleSigExpiry\x18\x07 \x01(\x04\"\x94\x01\n\x19InstrumentSettlementField\x12\x15\n\rContractIndex\x18\x01 \x01(\r\x12\x16\n\x0eInstrumentType\x18\x02 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x03 \x01(\x0c\x12\x30\n\x0bSettlements\x18\x04 \x03(\x0b\x32\x1b.actions.QuantityIndexField\"\xd7\x01\n\x17InstrumentTransferField\x12\x15\n\rContractIndex\x18\x01 \x01(\r\x12\x16\n\x0eInstrumentType\x18\x02 \x01(\t\x12\x16\n\x0eInstrumentCode\x18\x03 \x01(\x0c\x12\x36\n\x11InstrumentSenders\x18\x04 \x03(\x0b\x32\x1b.actions.QuantityIndexField\x12=\n\x13InstrumentReceivers\x18\x05 \x03(\x0b\x32 .actions.InstrumentReceiverField\"W\n\x0c\x43hapterField\x12\r\n\x05Title\x18\x01 \x01(\t\x12\x10\n\x08Preamble\x18\x02 \x01(\t\x12&\n\x08\x41rticles\x18\x03 \x03(\x0b\x32\x14.actions.ClauseField\"R\n\x0b\x43lauseField\x12\r\n\x05Title\x18\x01 \x01(\t\x12\x0c\n\x04\x42ody\x18\x02 \x01(\t\x12&\n\x08\x43hildren\x18\x03 \x03(\x0b\x32\x14.actions.ClauseField\"4\n\x10\x44\x65\x66inedTermField\x12\x0c\n\x04Term\x18\x01 \x01(\t\x12\x12\n\nDefinition\x18\x02 \x01(\t\"=\n\rDocumentField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x0c\n\x04Type\x18\x02 \x01(\t\x12\x10\n\x08\x43ontents\x18\x03 \x01(\x0c\"\x92\x03\n\x0b\x45ntityField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x0c\n\x04Type\x18\x02 \x01(\t\x12\x0b\n\x03LEI\x18\x03 \x01(\t\x12\x12\n\nUnitNumber\x18\x04 \x01(\t\x12\x16\n\x0e\x42uildingNumber\x18\x05 \x01(\t\x12\x0e\n\x06Street\x18\x06 \x01(\t\x12\x12\n\nSuburbCity\x18\x07 \x01(\t\x12\"\n\x1aTerritoryStateProvinceCode\x18\x08 \x01(\t\x12\x13\n\x0b\x43ountryCode\x18\t \x01(\t\x12\x15\n\rPostalZIPCode\x18\n \x01(\t\x12\x14\n\x0c\x45mailAddress\x18\x0b \x01(\t\x12\x13\n\x0bPhoneNumber\x18\x0c \x01(\t\x12\x33\n\x0e\x41\x64ministration\x18\r \x03(\x0b\x32\x1b.actions.AdministratorField\x12)\n\nManagement\x18\x0e \x03(\x0b\x32\x15.actions.ManagerField\x12\x12\n\nDomainName\x18\x0f \x01(\t\x12\x15\n\rPaymailHandle\x18\x11 \x01(\tJ\x04\x08\x10\x10\x11\"*\n\x0cManagerField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0c\n\x04Name\x18\x02 \x01(\t\"L\n\x0bOracleField\x12\x13\n\x0bOracleTypes\x18\x04 \x03(\r\x12\x16\n\x0e\x45ntityContract\x18\x05 \x01(\x0cJ\x04\x08\x01\x10\x02J\x04\x08\x02\x10\x03J\x04\x08\x03\x10\x04\"5\n\x12QuantityIndexField\x12\r\n\x05Index\x18\x01 \x01(\r\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\"A\n\x19ReferenceTransactionField\x12\x13\n\x0bTransaction\x18\x01 \x01(\x0c\x12\x0f\n\x07Outputs\x18\x02 \x03(\x0c\"<\n\x0cServiceField\x12\x0c\n\x04Type\x18\x01 \x01(\r\x12\x0b\n\x03URL\x18\x02 \x01(\t\x12\x11\n\tPublicKey\x18\x03 \x01(\x0c\"7\n\x12TargetAddressField\x12\x0f\n\x07\x41\x64\x64ress\x18\x01 \x01(\x0c\x12\x10\n\x08Quantity\x18\x02 \x01(\x04\"\xa0\x01\n\x11VotingSystemField\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x10\n\x08VoteType\x18\x02 \x01(\t\x12\x12\n\nTallyLogic\x18\x03 \x01(\r\x12\x1b\n\x13ThresholdPercentage\x18\x04 \x01(\r\x12\x1f\n\x17VoteMultiplierPermitted\x18\x05 \x01(\x08\x12\x19\n\x11HolderProposalFee\x18\x06 \x01(\x04\x42\x38Z6github.com/tokenized/specification/dist/golang/actionsb\x06proto3'
 )
 
 
@@ -401,6 +401,13 @@ _CONTRACTFORMATION = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='RequestPeerChannel', full_name='actions.ContractFormation.RequestPeerChannel', index=26,
+      number=35, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -414,7 +421,7 @@ _CONTRACTFORMATION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=829,
-  serialized_end=1690,
+  serialized_end=1718,
 )
 
 
@@ -473,8 +480,8 @@ _CONTRACTAMENDMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1693,
-  serialized_end=1868,
+  serialized_start=1721,
+  serialized_end=1896,
 )
 
 
@@ -617,8 +624,8 @@ _STATICCONTRACTFORMATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1871,
-  serialized_end=2390,
+  serialized_start=1899,
+  serialized_end=2418,
 )
 
 
@@ -656,8 +663,8 @@ _CONTRACTADDRESSCHANGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2392,
-  serialized_end=2462,
+  serialized_start=2420,
+  serialized_end=2490,
 )
 
 
@@ -695,8 +702,8 @@ _BODYOFAGREEMENTOFFER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2464,
-  serialized_end=2575,
+  serialized_start=2492,
+  serialized_end=2603,
 )
 
 
@@ -748,8 +755,8 @@ _BODYOFAGREEMENTFORMATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2578,
-  serialized_end=2730,
+  serialized_start=2606,
+  serialized_end=2758,
 )
 
 
@@ -794,8 +801,8 @@ _BODYOFAGREEMENTAMENDMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2732,
-  serialized_end=2838,
+  serialized_start=2760,
+  serialized_end=2866,
 )
 
 
@@ -896,8 +903,8 @@ _INSTRUMENTDEFINITION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2841,
-  serialized_end=3192,
+  serialized_start=2869,
+  serialized_end=3220,
 )
 
 
@@ -1026,8 +1033,8 @@ _INSTRUMENTCREATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3195,
-  serialized_end=3640,
+  serialized_start=3223,
+  serialized_end=3668,
 )
 
 
@@ -1086,8 +1093,8 @@ _INSTRUMENTMODIFICATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3643,
-  serialized_end=3805,
+  serialized_start=3671,
+  serialized_end=3833,
 )
 
 
@@ -1139,8 +1146,8 @@ _TRANSFER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3808,
-  serialized_end=3943,
+  serialized_start=3836,
+  serialized_end=3971,
 )
 
 
@@ -1178,8 +1185,8 @@ _SETTLEMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3945,
-  serialized_end=4033,
+  serialized_start=3973,
+  serialized_end=4061,
 )
 
 
@@ -1224,8 +1231,8 @@ _RECTIFICATIONSETTLEMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4036,
-  serialized_end=4191,
+  serialized_start=4064,
+  serialized_end=4219,
 )
 
 
@@ -1319,8 +1326,8 @@ _PROPOSAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4194,
-  serialized_end=4465,
+  serialized_start=4222,
+  serialized_end=4493,
 )
 
 
@@ -1351,8 +1358,8 @@ _VOTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4467,
-  serialized_end=4492,
+  serialized_start=4495,
+  serialized_end=4520,
 )
 
 
@@ -1390,8 +1397,8 @@ _BALLOTCAST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4494,
-  serialized_end=4538,
+  serialized_start=4522,
+  serialized_end=4566,
 )
 
 
@@ -1443,8 +1450,8 @@ _BALLOTCOUNTED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4540,
-  serialized_end=4624,
+  serialized_start=4568,
+  serialized_end=4652,
 )
 
 
@@ -1517,8 +1524,8 @@ _RESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4627,
-  serialized_end=4810,
+  serialized_start=4655,
+  serialized_end=4838,
 )
 
 
@@ -1654,8 +1661,8 @@ _ORDER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4813,
-  serialized_end=5332,
+  serialized_start=4841,
+  serialized_end=5360,
 )
 
 
@@ -1714,8 +1721,8 @@ _FREEZE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5335,
-  serialized_end=5481,
+  serialized_start=5363,
+  serialized_end=5509,
 )
 
 
@@ -1753,8 +1760,8 @@ _THAW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5483,
-  serialized_end=5528,
+  serialized_start=5511,
+  serialized_end=5556,
 )
 
 
@@ -1813,8 +1820,8 @@ _CONFISCATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5531,
-  serialized_end=5681,
+  serialized_start=5559,
+  serialized_end=5709,
 )
 
 
@@ -1866,8 +1873,8 @@ _DEPRECATEDRECONCILIATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5684,
-  serialized_end=5826,
+  serialized_start=5712,
+  serialized_end=5854,
 )
 
 
@@ -1898,8 +1905,8 @@ _ESTABLISHMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5828,
-  serialized_end=5860,
+  serialized_start=5856,
+  serialized_end=5888,
 )
 
 
@@ -1930,8 +1937,8 @@ _ADDITION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5862,
-  serialized_end=5889,
+  serialized_start=5890,
+  serialized_end=5917,
 )
 
 
@@ -1969,8 +1976,8 @@ _ALTERATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5891,
-  serialized_end=5939,
+  serialized_start=5919,
+  serialized_end=5967,
 )
 
 
@@ -2008,8 +2015,8 @@ _REMOVAL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5941,
-  serialized_end=5986,
+  serialized_start=5969,
+  serialized_end=6014,
 )
 
 
@@ -2061,8 +2068,8 @@ _MESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5988,
-  serialized_end=6090,
+  serialized_start=6016,
+  serialized_end=6118,
 )
 
 
@@ -2121,8 +2128,8 @@ _REJECTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6092,
-  serialized_end=6214,
+  serialized_start=6120,
+  serialized_end=6242,
 )
 
 
@@ -2160,8 +2167,8 @@ _ADMINISTRATORFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6216,
-  serialized_end=6264,
+  serialized_start=6244,
+  serialized_end=6292,
 )
 
 
@@ -2213,8 +2220,8 @@ _ADMINIDENTITYCERTIFICATEFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6266,
-  serialized_end=6381,
+  serialized_start=6294,
+  serialized_end=6409,
 )
 
 
@@ -2259,8 +2266,8 @@ _AMENDMENTFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6383,
-  serialized_end=6456,
+  serialized_start=6411,
+  serialized_end=6484,
 )
 
 
@@ -2333,8 +2340,8 @@ _INSTRUMENTRECEIVERFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6459,
-  serialized_end=6654,
+  serialized_start=6487,
+  serialized_end=6682,
 )
 
 
@@ -2386,8 +2393,8 @@ _INSTRUMENTSETTLEMENTFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6657,
-  serialized_end=6805,
+  serialized_start=6685,
+  serialized_end=6833,
 )
 
 
@@ -2446,8 +2453,8 @@ _INSTRUMENTTRANSFERFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6808,
-  serialized_end=7023,
+  serialized_start=6836,
+  serialized_end=7051,
 )
 
 
@@ -2492,8 +2499,8 @@ _CHAPTERFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7025,
-  serialized_end=7112,
+  serialized_start=7053,
+  serialized_end=7140,
 )
 
 
@@ -2538,8 +2545,8 @@ _CLAUSEFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7114,
-  serialized_end=7196,
+  serialized_start=7142,
+  serialized_end=7224,
 )
 
 
@@ -2577,8 +2584,8 @@ _DEFINEDTERMFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7198,
-  serialized_end=7250,
+  serialized_start=7226,
+  serialized_end=7278,
 )
 
 
@@ -2623,8 +2630,8 @@ _DOCUMENTFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7252,
-  serialized_end=7313,
+  serialized_start=7280,
+  serialized_end=7341,
 )
 
 
@@ -2760,8 +2767,8 @@ _ENTITYFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7316,
-  serialized_end=7718,
+  serialized_start=7344,
+  serialized_end=7746,
 )
 
 
@@ -2799,8 +2806,8 @@ _MANAGERFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7720,
-  serialized_end=7762,
+  serialized_start=7748,
+  serialized_end=7790,
 )
 
 
@@ -2838,8 +2845,8 @@ _ORACLEFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7764,
-  serialized_end=7840,
+  serialized_start=7792,
+  serialized_end=7868,
 )
 
 
@@ -2877,8 +2884,8 @@ _QUANTITYINDEXFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7842,
-  serialized_end=7895,
+  serialized_start=7870,
+  serialized_end=7923,
 )
 
 
@@ -2916,8 +2923,8 @@ _REFERENCETRANSACTIONFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7897,
-  serialized_end=7962,
+  serialized_start=7925,
+  serialized_end=7990,
 )
 
 
@@ -2962,8 +2969,8 @@ _SERVICEFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7964,
-  serialized_end=8024,
+  serialized_start=7992,
+  serialized_end=8052,
 )
 
 
@@ -3001,8 +3008,8 @@ _TARGETADDRESSFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8026,
-  serialized_end=8081,
+  serialized_start=8054,
+  serialized_end=8109,
 )
 
 
@@ -3068,8 +3075,8 @@ _VOTINGSYSTEMFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8084,
-  serialized_end=8244,
+  serialized_start=8112,
+  serialized_end=8272,
 )
 
 _CONTRACTOFFER.fields_by_name['SupportingDocs'].message_type = _DOCUMENTFIELD

@@ -20,6 +20,8 @@ import (
 
 var (
 	ErrMissingInputScripts = errors.New("Missing Input Scripts")
+
+	SamplePeerChannelSize = 125
 )
 
 // EstimatedContractOfferResponseTxFee estimates the satoshi amount to add to the contract fee in
@@ -29,7 +31,7 @@ var (
 // when it is true.
 func EstimatedContractOfferResponseTxFee(offer *actions.ContractOffer,
 	contractAgentLockingScript, contractFeeLockingScript bitcoin.Script,
-	inputLockingScripts []bitcoin.Script, feeRate, dustFeeRate float64,
+	inputLockingScripts []bitcoin.Script, feeRate, dustFeeRate float64, peerChannelSize int,
 	isTest bool) (uint64, error) {
 
 	formation, err := offer.Formation()
@@ -39,6 +41,7 @@ func EstimatedContractOfferResponseTxFee(offer *actions.ContractOffer,
 
 	formation.Timestamp = uint64(time.Now().UnixNano())
 	formation.ContractRevision = 0
+	formation.RequestPeerChannel = string(make([]byte, peerChannelSize))
 
 	responseTxSize := txbuilder.BaseTxSize
 
@@ -350,7 +353,7 @@ func EstimatedInstrumentDefinitionResponseTxFee(definition *actions.InstrumentDe
 	}
 
 	// Instrument creation output
-	responseTxSize += txbuilder.OutputSize(creationScript)
+	responseTxSize += txbuilder.OutputSize(creationScript) + 4 // add 4 for large instrument indexes
 
 	responseTxFee := txbuilder.EstimatedFeeValue(uint64(responseTxSize), feeRate)
 

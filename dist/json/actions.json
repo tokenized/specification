@@ -1350,6 +1350,13 @@
           "name": "Jurisdiction",
           "notes": "Jurisdiction - Amendments can be restricted to a vote.",
           "type": "Polity"
+        },
+        {
+          "description": "A peer channel to which requests can be posted.",
+          "example": "https://peer.test.com/api/v1/channel/\u003cchannel_id\u003e?token=\u003cwrite_token\u003e",
+          "label": "Request Peer Channel",
+          "name": "RequestPeerChannel",
+          "type": "varchar"
         }
       ],
       "label": "Contract Formation",

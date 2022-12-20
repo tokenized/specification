@@ -233,6 +233,10 @@ func (a *ContractFormation) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Jurisdiction")
 	}
 
+	if _, err := w.Write([]byte(a.RequestPeerChannel)); err != nil {
+		return errors.Wrap(err, "RequestPeerChannel")
+	}
+
 	return nil
 }
 

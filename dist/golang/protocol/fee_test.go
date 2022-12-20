@@ -182,7 +182,7 @@ func Test_ContractOfferResponseFees_MultiSig(t *testing.T) {
 
 	inputScripts := []bitcoin.Script{adminLockingScript, contractOperatorLockingScript}
 	estResponseTxFee, err := EstimatedContractOfferResponseTxFee(contractOffer,
-		contractAgentLockingScript, contractFeeLockingScript, inputScripts, feeRate, dustFeeRate,
+		contractAgentLockingScript, contractFeeLockingScript, inputScripts, feeRate, dustFeeRate, 0,
 		isTest)
 	if err != nil {
 		t.Fatalf("%s Failed to estimate response : %s", Failed, err)
@@ -543,6 +543,80 @@ func TestExampleTransferResponseFees(t *testing.T) {
 	// From response 03c1e7ec7dc47debcd277d11c2abb321b9687d240a85f0e20c61e3f34e339171
 	if funding[0] < 5794 {
 		t.Errorf("Not enough contract funding : got %d, want %d", funding[0], 5794)
+	}
+
+	if boomerang > 0 {
+		t.Errorf("Not enough boomerang : got %d, want %d", boomerang, 0)
+	}
+}
+
+func Test_ExampleTransferResponseFees_Zero(t *testing.T) {
+	contractFees := []uint64{0}
+	feeRate := float32(0.05)
+	dustFeeRate := float32(0.0)
+
+	key, _ := bitcoin.GenerateKey(bitcoin.MainNet)
+	contractAgentLockingScript, _ := key.LockingScript()
+
+	key, _ = bitcoin.GenerateKey(bitcoin.MainNet)
+	senderLockingScript, _ := key.LockingScript()
+
+	key, _ = bitcoin.GenerateKey(bitcoin.MainNet)
+	receiverAddress, _ := key.RawAddress()
+
+	requestTx := wire.NewMsgTx(1)
+
+	requestTx.AddTxOut(wire.NewTxOut(0, contractAgentLockingScript))
+
+	transfer := &actions.Transfer{
+		Instruments: []*actions.InstrumentTransferField{
+			{
+				ContractIndex:  0,
+				InstrumentType: instruments.CodeCreditNote,
+				InstrumentCode: make([]byte, InstrumentCodeSize),
+				InstrumentSenders: []*actions.QuantityIndexField{
+					{
+						Quantity: 100,
+						Index:    0,
+					},
+				},
+				InstrumentReceivers: []*actions.InstrumentReceiverField{
+					{
+						Address:  receiverAddress.Bytes(),
+						Quantity: 100,
+					},
+				},
+			},
+		},
+	}
+
+	transferScript, err := Serialize(transfer, true)
+	if err != nil {
+		t.Fatalf("Failed to create transfer script : %s", err)
+	}
+
+	requestTx.AddTxOut(wire.NewTxOut(0, transferScript))
+
+	lockingScripts := []bitcoin.Script{senderLockingScript}
+
+	// Estimate funding
+	funding, boomerang, err := EstimatedTransferResponse(requestTx, lockingScripts, feeRate,
+		dustFeeRate, contractFees, true)
+
+	if err != nil {
+		t.Fatalf("Failed to estimate response : %s", err)
+	}
+
+	t.Logf("Funding : %v", funding)
+	t.Logf("Boomerang : %d", boomerang)
+
+	if len(funding) < 1 {
+		t.Fatalf("No contract funding returned")
+	}
+
+	// From response 03c1e7ec7dc47debcd277d11c2abb321b9687d240a85f0e20c61e3f34e339171
+	if funding[0] != 19 {
+		t.Errorf("Not enough contract funding : got %d, want %d", funding[0], 19)
 	}
 
 	if boomerang > 0 {

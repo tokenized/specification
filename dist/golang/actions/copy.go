@@ -206,6 +206,9 @@ func (a *ContractFormation) Copy() *ContractFormation {
 	// Field Jurisdiction - varchar
 	result.Jurisdiction = a.Jurisdiction
 
+	// Field RequestPeerChannel - varchar
+	result.RequestPeerChannel = a.RequestPeerChannel
+
 	return result
 }
 

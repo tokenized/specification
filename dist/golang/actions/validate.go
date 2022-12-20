@@ -444,6 +444,11 @@ func (a *ContractFormation) Validate() error {
 		return fmt.Errorf("Jurisdiction over max size : %d > %d", len(a.Jurisdiction), max1ByteInteger)
 	}
 
+	// Field RequestPeerChannel - varchar
+	if len(a.RequestPeerChannel) > max1ByteInteger {
+		return fmt.Errorf("RequestPeerChannel over max size : %d > %d", len(a.RequestPeerChannel), max1ByteInteger)
+	}
+
 	return nil
 }
 

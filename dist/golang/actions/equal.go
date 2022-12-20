@@ -338,6 +338,11 @@ func (l *ContractFormation) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Jurisdiction string mismatched")
 	}
 
+	// Field RequestPeerChannel - varchar
+	if c.RequestPeerChannel != r.RequestPeerChannel {
+		return false // fmt.Errorf("RequestPeerChannel string mismatched")
+	}
+
 	return true
 }
 

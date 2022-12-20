@@ -88,7 +88,7 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, ope
 			{{- else if eq $field.Name "ContractOperatorIncluded" "MasterAddress" }}
 	case NotAmendableContractField{{ $field.Name }}: // {{ $field.GoType }}
 		return nil, fmt.Errorf("{{ $field.Name }} field not amendable")
-			{{- else if not (eq $field.Name "ContractRevision" "Timestamp" "AdminAddress" "OperatorAddress") }}
+			{{- else if not (eq $field.Name "ContractRevision" "Timestamp" "AdminAddress" "OperatorAddress" "RequestPeerChannel") }}
 	case ContractField{{ $field.Name }}: // {{ $field.GoType }}
 				{{- if .IsCompoundType }}
 		if len(fip) == 1 && len(data) == 0 {
