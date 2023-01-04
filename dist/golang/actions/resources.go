@@ -11158,6 +11158,9 @@ const (
 	// Deprecated - Request or part of request has been deprecated and is no longer supported.
 	RejectionsDeprecated = 6
 
+	// Inactive - The smart contract agent is inactive due to non payment or other reason.
+	RejectionsInactive = 7
+
 	// ContractExists - The contract already exists and can't be recreated.
 	RejectionsContractExists = 10
 
@@ -11334,6 +11337,14 @@ func RejectionsData(code uint32) *RejectionsCode {
 			Name:        "Deprecated",
 			Label:       "Deprecated",
 			Description: "Request or part of request has been deprecated and is no longer supported.",
+			MetaData:    `{}`,
+		}
+
+	case RejectionsInactive:
+		return &RejectionsCode{
+			Name:        "Inactive",
+			Label:       "Inactive",
+			Description: "The smart contract agent is inactive due to non payment or other reason.",
 			MetaData:    `{}`,
 		}
 
@@ -11687,6 +11698,13 @@ func RejectionsMap() map[uint32]*RejectionsCode {
 			Name:        "Deprecated",
 			Label:       "Deprecated",
 			Description: "Request or part of request has been deprecated and is no longer supported.",
+			MetaData:    `{}`,
+		},
+
+		RejectionsInactive: &RejectionsCode{
+			Name:        "Inactive",
+			Label:       "Inactive",
+			Description: "The smart contract agent is inactive due to non payment or other reason.",
 			MetaData:    `{}`,
 		},
 

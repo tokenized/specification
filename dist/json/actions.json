@@ -9138,6 +9138,12 @@
           "name": "Deprecated"
         },
         {
+          "code": 7,
+          "description": "The smart contract agent is inactive due to non payment or other reason.",
+          "label": "Inactive",
+          "name": "Inactive"
+        },
+        {
           "code": 10,
           "description": "The contract already exists and can't be recreated.",
           "label": "Contract Already Exists",

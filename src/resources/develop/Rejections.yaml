@@ -42,6 +42,11 @@ values:
     label: Deprecated
     description: Request or part of request has been deprecated and is no longer supported.
 
+  - code: 7
+    name: Inactive
+    label: Inactive
+    description: The smart contract agent is inactive due to non payment or other reason.
+
 #################################### Contract ####################################
 
   - code: 10
