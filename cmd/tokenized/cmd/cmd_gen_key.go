@@ -48,6 +48,7 @@ var cmdGenerateKey = &cobra.Command{
 		}
 
 		fmt.Printf("  Locking Script: %s\n", lockingScript)
+		fmt.Printf("  Locking Script (hex): %x\n", []byte(lockingScript))
 
 		fmt.Printf("  Raw Address: %s\n", hex.EncodeToString(ra.Bytes()))
 		fmt.Printf("  Raw Address (Base64): %s\n", base64.StdEncoding.EncodeToString(ra.Bytes()))

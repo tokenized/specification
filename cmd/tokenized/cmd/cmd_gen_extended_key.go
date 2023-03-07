@@ -20,6 +20,7 @@ var cmdGenerateExtendedKey = &cobra.Command{
 		}
 
 		fmt.Printf("Extended Key (BIP32): %s\n", key.String58())
+		fmt.Printf("Extended Public Key (BIP32): %s\n", key.ExtendedPublicKey().String58())
 		return nil
 	},
 }

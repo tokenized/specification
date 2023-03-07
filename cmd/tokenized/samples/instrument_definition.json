@@ -1,5 +1,5 @@
 {
 	"EnforcementOrdersPermitted": false,
-	"AuthorizedTokenQty": 10000,
+	"AuthorizedTokenQty": 100000,
 	"InstrumentType": "CCY"
 }
