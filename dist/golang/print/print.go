@@ -217,6 +217,19 @@ func PrintMessage(code uint32, payload []byte) error {
 		if err := PrintTx(tx); err != nil {
 			return errors.Wrap(err, "tx")
 		}
+
+	case *messages.SettlementRequest:
+		settlement, err := protocol.Deserialize(m.Settlement, true)
+		if err != nil {
+			settlement, err = protocol.Deserialize(m.Settlement, false)
+			if err != nil {
+				return errors.Wrap(err, "deserialize settlement")
+			}
+		}
+
+		if err := PrintAction(settlement); err != nil {
+			return errors.Wrap(err, "tx")
+		}
 	}
 
 	return nil
