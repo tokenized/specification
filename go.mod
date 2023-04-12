@@ -11,6 +11,6 @@ require (
 	github.com/tokenized/envelope v1.1.0
 	github.com/tokenized/pkg v0.6.0
 	github.com/tokenized/txbuilder v1.0.0
-	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
+	golang.org/x/crypto v0.1.0
 	gopkg.in/yaml.v2 v2.2.8
 )
