@@ -4916,14 +4916,14 @@
         },
         {
           "code": "ISR",
-          "fiscal_year": "0101-1231",
-          "gov_fiscal_year": "0101-1231",
           "metadata": {
+            "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg",
+            "gov_fiscal_year": "0101-1231",
+            "phone_code": "+972",
             "states": null
           },
-          "name": "Israel",
-          "phone_code": "+972"
+          "name": "Israel"
         },
         {
           "code": "ITA",
@@ -4954,14 +4954,14 @@
         },
         {
           "code": "JPN",
-          "fiscal_year": "0101-1231",
-          "gov_fiscal_year": "0401-0331",
           "metadata": {
+            "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg",
+            "gov_fiscal_year": "0401-0331",
+            "phone_code": "+81",
             "states": null
           },
-          "name": "Japan",
-          "phone_code": "+81"
+          "name": "Japan"
         },
         {
           "code": "JEY",
@@ -5578,14 +5578,14 @@
         },
         {
           "code": "PRT",
-          "fiscal_year": "0101-1231",
-          "gov_fiscal_year": "0101-1231",
           "metadata": {
+            "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg",
+            "gov_fiscal_year": "0101-1231",
+            "phone_code": "+351",
             "states": null
           },
-          "name": "Portugal",
-          "phone_code": "+351"
+          "name": "Portugal"
         },
         {
           "code": "PRI",
@@ -5598,14 +5598,14 @@
         },
         {
           "code": "QAT",
-          "fiscal_year": "0101-1231",
-          "gov_fiscal_year": "0101-1231",
           "metadata": {
+            "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg",
+            "gov_fiscal_year": "0101-1231",
+            "phone_code": "+974",
             "states": null
           },
-          "name": "Qatar",
-          "phone_code": "+974"
+          "name": "Qatar"
         },
         {
           "code": "REU",
@@ -5618,14 +5618,14 @@
         },
         {
           "code": "ROU",
-          "fiscal_year": "0101-1231",
-          "gov_fiscal_year": "0101-1231",
           "metadata": {
+            "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg",
+            "gov_fiscal_year": "0101-1231",
+            "phone_code": "+40",
             "states": null
           },
-          "name": "Romania",
-          "phone_code": "+40"
+          "name": "Romania"
         },
         {
           "code": "RUS",
@@ -6184,14 +6184,14 @@
         },
         {
           "code": "ARE",
-          "fiscal_year": "0101-1231",
-          "gov_fiscal_year": "0101-1231",
           "metadata": {
+            "fiscal_year": "0101-1231",
             "flag": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg",
+            "gov_fiscal_year": "0101-1231",
+            "phone_code": "+971",
             "states": null
           },
-          "name": "United Arab Emirates",
-          "phone_code": "+971"
+          "name": "United Arab Emirates"
         },
         {
           "code": "GBR",

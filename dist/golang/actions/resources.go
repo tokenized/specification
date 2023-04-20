@@ -1912,7 +1912,7 @@ func PolitiesData(code string) *PolitiesCode {
 			Name:        "Israel",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"flag":"https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg","states":null}`,
+			MetaData:    `{"fiscal_year":"0101-1231","flag":"https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg","gov_fiscal_year":"0101-1231","phone_code":"+972","states":null}`,
 		}
 
 	case PolitiesItaly:
@@ -1944,7 +1944,7 @@ func PolitiesData(code string) *PolitiesCode {
 			Name:        "Japan",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"flag":"https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg","states":null}`,
+			MetaData:    `{"fiscal_year":"0101-1231","flag":"https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg","gov_fiscal_year":"0401-0331","phone_code":"+81","states":null}`,
 		}
 
 	case PolitiesJersey:
@@ -2464,7 +2464,7 @@ func PolitiesData(code string) *PolitiesCode {
 			Name:        "Portugal",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"flag":"https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg","states":null}`,
+			MetaData:    `{"fiscal_year":"0101-1231","flag":"https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg","gov_fiscal_year":"0101-1231","phone_code":"+351","states":null}`,
 		}
 
 	case PolitiesPuertoRico:
@@ -2480,7 +2480,7 @@ func PolitiesData(code string) *PolitiesCode {
 			Name:        "Qatar",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"flag":"https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg","states":null}`,
+			MetaData:    `{"fiscal_year":"0101-1231","flag":"https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg","gov_fiscal_year":"0101-1231","phone_code":"+974","states":null}`,
 		}
 
 	case PolitiesRéunion:
@@ -2496,7 +2496,7 @@ func PolitiesData(code string) *PolitiesCode {
 			Name:        "Romania",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"flag":"https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg","states":null}`,
+			MetaData:    `{"fiscal_year":"0101-1231","flag":"https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg","gov_fiscal_year":"0101-1231","phone_code":"+40","states":null}`,
 		}
 
 	case PolitiesRussia:
@@ -2912,7 +2912,7 @@ func PolitiesData(code string) *PolitiesCode {
 			Name:        "United Arab Emirates",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"flag":"https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg","states":null}`,
+			MetaData:    `{"fiscal_year":"0101-1231","flag":"https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg","gov_fiscal_year":"0101-1231","phone_code":"+971","states":null}`,
 		}
 
 	case PolitiesUnitedKingdom:
@@ -3817,7 +3817,7 @@ func PolitiesMap() map[string]*PolitiesCode {
 			Name:        "Israel",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"flag":"https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg","states":null}`,
+			MetaData:    `{"fiscal_year":"0101-1231","flag":"https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg","gov_fiscal_year":"0101-1231","phone_code":"+972","states":null}`,
 		},
 
 		PolitiesItaly: &PolitiesCode{
@@ -3845,7 +3845,7 @@ func PolitiesMap() map[string]*PolitiesCode {
 			Name:        "Japan",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"flag":"https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg","states":null}`,
+			MetaData:    `{"fiscal_year":"0101-1231","flag":"https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg","gov_fiscal_year":"0401-0331","phone_code":"+81","states":null}`,
 		},
 
 		PolitiesJersey: &PolitiesCode{
@@ -4300,7 +4300,7 @@ func PolitiesMap() map[string]*PolitiesCode {
 			Name:        "Portugal",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"flag":"https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg","states":null}`,
+			MetaData:    `{"fiscal_year":"0101-1231","flag":"https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg","gov_fiscal_year":"0101-1231","phone_code":"+351","states":null}`,
 		},
 
 		PolitiesPuertoRico: &PolitiesCode{
@@ -4314,7 +4314,7 @@ func PolitiesMap() map[string]*PolitiesCode {
 			Name:        "Qatar",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"flag":"https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg","states":null}`,
+			MetaData:    `{"fiscal_year":"0101-1231","flag":"https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg","gov_fiscal_year":"0101-1231","phone_code":"+974","states":null}`,
 		},
 
 		PolitiesRéunion: &PolitiesCode{
@@ -4328,7 +4328,7 @@ func PolitiesMap() map[string]*PolitiesCode {
 			Name:        "Romania",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"flag":"https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg","states":null}`,
+			MetaData:    `{"fiscal_year":"0101-1231","flag":"https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg","gov_fiscal_year":"0101-1231","phone_code":"+40","states":null}`,
 		},
 
 		PolitiesRussia: &PolitiesCode{
@@ -4692,7 +4692,7 @@ func PolitiesMap() map[string]*PolitiesCode {
 			Name:        "United Arab Emirates",
 			Label:       "",
 			Description: "",
-			MetaData:    `{"flag":"https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg","states":null}`,
+			MetaData:    `{"fiscal_year":"0101-1231","flag":"https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg","gov_fiscal_year":"0101-1231","phone_code":"+971","states":null}`,
 		},
 
 		PolitiesUnitedKingdom: &PolitiesCode{

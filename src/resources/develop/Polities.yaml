@@ -989,9 +989,9 @@ values:
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Flag_of_Israel.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-    phone_code: "+972"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+      phone_code: "+972"
 
   - code: ITA
     name: Italy
@@ -1019,9 +1019,9 @@ values:
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0401-0331
-    phone_code: "+81"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0401-0331
+      phone_code: "+81"
 
   - code: JEY
     name: Jersey
@@ -1512,9 +1512,9 @@ values:
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-    phone_code: "+351"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+      phone_code: "+351"
 
   - code: PRI
     name: Puerto Rico
@@ -1528,9 +1528,9 @@ values:
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Qatar.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-    phone_code: "+974"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+      phone_code: "+974"
 
   - code: REU
     name: Réunion
@@ -1544,9 +1544,9 @@ values:
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-    phone_code: "+40"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+      phone_code: "+40"
 
   - code: RUS
     name: Russia
@@ -2005,9 +2005,9 @@ values:
     metadata:
       states: ~
       flag: "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg"
-    fiscal_year: 0101-1231
-    gov_fiscal_year: 0101-1231
-    phone_code: "+971"
+      fiscal_year: 0101-1231
+      gov_fiscal_year: 0101-1231
+      phone_code: "+971"
 
   - code: GBR
     name: United Kingdom
