@@ -10,6 +10,7 @@ import (
 	"github.com/tokenized/specification/dist/golang/actions"
 	"github.com/tokenized/specification/dist/golang/instruments"
 	"github.com/tokenized/specification/dist/golang/messages"
+	"github.com/tokenized/specification/dist/golang/permissions"
 	"github.com/tokenized/specification/dist/golang/protocol"
 
 	"github.com/pkg/errors"
@@ -107,6 +108,11 @@ func PrintAction(action actions.Action) error {
 	fmt.Printf("%s %s\n", action.TypeName(), js)
 
 	switch a := action.(type) {
+	case *actions.ContractAmendment:
+		if err := PrintAmendments(a.Amendments); err != nil {
+			return errors.Wrap(err, "amendments")
+		}
+
 	case *actions.InstrumentDefinition:
 		if err := PrintInstrument(a.InstrumentType, a.InstrumentPayload); err != nil {
 			return errors.Wrap(err, "instrument")
@@ -122,6 +128,18 @@ func PrintAction(action actions.Action) error {
 
 		if err := PrintInstrument(a.InstrumentType, a.InstrumentPayload); err != nil {
 			return errors.Wrap(err, "instrument")
+		}
+
+	case *actions.InstrumentModification:
+		instrumentID, err := protocol.InstrumentIDForRaw(a.InstrumentType, a.InstrumentCode)
+		if err != nil {
+			fmt.Printf("Instrument ID: Invalid: %s\n", err)
+		} else {
+			fmt.Printf("Instrument ID: %s\n", instrumentID)
+		}
+
+		if err := PrintAmendments(a.Amendments); err != nil {
+			return errors.Wrap(err, "amendments")
 		}
 
 	case *actions.Transfer:
@@ -157,6 +175,55 @@ func PrintAction(action actions.Action) error {
 	}
 
 	return nil
+}
+
+func PrintAmendments(amendments []*actions.AmendmentField) error {
+	for i, amendment := range amendments {
+		fmt.Printf("Amendment %d:\n", i)
+		switch amendment.Operation {
+		case actions.AmendmentOperationModify:
+			fmt.Printf("  Operation : modify\n")
+		case actions.AmendmentOperationAddElement:
+			fmt.Printf("  Operation : add\n")
+		case actions.AmendmentOperationRemoveElement:
+			fmt.Printf("  Operation : remove\n")
+		}
+
+		fip, err := permissions.FieldIndexPathFromBytes(amendment.FieldIndexPath)
+		if err != nil {
+			return errors.Wrap(err, "field index path")
+		}
+
+		js, _ := json.Marshal(fip)
+		fmt.Printf("  Field Index Path : %s\n", js)
+
+		fmt.Printf("  Data Hex : 0x%x\n", amendment.Data)
+
+		if isText(amendment.Data) {
+			fmt.Printf("  Data Text : %s\n", string(amendment.Data))
+		}
+
+		buf := bytes.NewBuffer(amendment.Data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err == nil {
+			fmt.Printf("  Data Number : %d\n", value)
+		}
+	}
+
+	return nil
+}
+
+func isText(bs []byte) bool {
+	for _, b := range bs {
+		if b < 0x20 { // ' ' space character
+			return false
+		}
+
+		if b > 0x7e { // '~' tilde character
+			return false
+		}
+	}
+
+	return true
 }
 
 func PrintInstrument(typ string, payload []byte) error {
