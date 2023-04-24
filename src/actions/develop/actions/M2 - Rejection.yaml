@@ -24,6 +24,7 @@ fields:
     description: "Associates the message to a particular output by the index. If none are specified then the first output is assumed."
     type: uint[]
     size: 4
+    listSize: medium
 
   - name: RejectAddressIndex
     label: Reject Address Index

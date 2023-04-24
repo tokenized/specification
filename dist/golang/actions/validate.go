@@ -1646,8 +1646,8 @@ func (a *Rejection) Validate() error {
 	}
 
 	// Field AddressIndexes - uint
-	if len(a.AddressIndexes) > max1ByteInteger {
-		return fmt.Errorf("AddressIndexes list over max length : %d > %d", len(a.AddressIndexes), max1ByteInteger)
+	if len(a.AddressIndexes) > max4ByteInteger {
+		return fmt.Errorf("AddressIndexes list over max length : %d > %d", len(a.AddressIndexes), max4ByteInteger)
 	}
 
 	// Field RejectAddressIndex - uint
