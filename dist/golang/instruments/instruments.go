@@ -40,11 +40,11 @@ const (
 	// CodeBondFixedRate identifies a payload as a BondFixedRate instrument message.
 	CodeBondFixedRate = "BFR"
 
-	// CodeCoupon identifies a payload as a Coupon instrument message.
-	CodeCoupon = "COU"
+	// CodeDiscountCoupon identifies a payload as a DiscountCoupon instrument message.
+	CodeDiscountCoupon = "COU"
 
-	// CodeLoyaltyPoints identifies a payload as a LoyaltyPoints instrument message.
-	CodeLoyaltyPoints = "LOY"
+	// CodeDeprecatedLoyaltyPoints identifies a payload as a DeprecatedLoyaltyPoints instrument message.
+	CodeDeprecatedLoyaltyPoints = "LOY"
 
 	// CodeTicketAdmission identifies a payload as a TicketAdmission instrument message.
 	CodeTicketAdmission = "TIC"
@@ -57,6 +57,9 @@ const (
 
 	// CodeCreditNote identifies a payload as a CreditNote instrument message.
 	CodeCreditNote = "CRN"
+
+	// CodeRewardPoint identifies a payload as a RewardPoint instrument message.
+	CodeRewardPoint = "RPT"
 
 	// BondTypeCorporate specifies a corporate bond.
 	BondTypeCorporate = "C"
@@ -88,10 +91,10 @@ func NewInstrumentFromCode(code string) Instrument {
 		return &ShareCommon{}
 	case CodeBondFixedRate:
 		return &BondFixedRate{}
-	case CodeCoupon:
-		return &Coupon{}
-	case CodeLoyaltyPoints:
-		return &LoyaltyPoints{}
+	case CodeDiscountCoupon:
+		return &DiscountCoupon{}
+	case CodeDeprecatedLoyaltyPoints:
+		return &DeprecatedLoyaltyPoints{}
 	case CodeTicketAdmission:
 		return &TicketAdmission{}
 	case CodeCasinoChip:
@@ -100,6 +103,8 @@ func NewInstrumentFromCode(code string) Instrument {
 		return &InformationServiceLicense{}
 	case CodeCreditNote:
 		return &CreditNote{}
+	case CodeRewardPoint:
+		return &RewardPoint{}
 	default:
 		return nil
 	}
@@ -219,46 +224,46 @@ func (a *BondFixedRate) Serialize(buf *bytes.Buffer) error {
 	return err
 }
 
-func (a *Coupon) Code() string {
-	return CodeCoupon
+func (a *DiscountCoupon) Code() string {
+	return CodeDiscountCoupon
 }
 
-func (a *Coupon) TypeName() string {
-	return "Coupon"
+func (a *DiscountCoupon) TypeName() string {
+	return "DiscountCoupon"
 }
 
-func (a *Coupon) Bytes() ([]byte, error) {
+func (a *DiscountCoupon) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
 // Serialize writes an instrument to a byte slice.
-func (a *Coupon) Serialize(buf *bytes.Buffer) error {
+func (a *DiscountCoupon) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
-		return errors.Wrap(err, "Failed to serialize Coupon")
+		return errors.Wrap(err, "Failed to serialize DiscountCoupon")
 	}
 
 	_, err = buf.Write(data)
 	return err
 }
 
-func (a *LoyaltyPoints) Code() string {
-	return CodeLoyaltyPoints
+func (a *DeprecatedLoyaltyPoints) Code() string {
+	return CodeDeprecatedLoyaltyPoints
 }
 
-func (a *LoyaltyPoints) TypeName() string {
-	return "LoyaltyPoints"
+func (a *DeprecatedLoyaltyPoints) TypeName() string {
+	return "DeprecatedLoyaltyPoints"
 }
 
-func (a *LoyaltyPoints) Bytes() ([]byte, error) {
+func (a *DeprecatedLoyaltyPoints) Bytes() ([]byte, error) {
 	return proto.Marshal(a)
 }
 
 // Serialize writes an instrument to a byte slice.
-func (a *LoyaltyPoints) Serialize(buf *bytes.Buffer) error {
+func (a *DeprecatedLoyaltyPoints) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
-		return errors.Wrap(err, "Failed to serialize LoyaltyPoints")
+		return errors.Wrap(err, "Failed to serialize DeprecatedLoyaltyPoints")
 	}
 
 	_, err = buf.Write(data)
@@ -351,6 +356,29 @@ func (a *CreditNote) Serialize(buf *bytes.Buffer) error {
 	data, err := proto.Marshal(a)
 	if err != nil {
 		return errors.Wrap(err, "Failed to serialize CreditNote")
+	}
+
+	_, err = buf.Write(data)
+	return err
+}
+
+func (a *RewardPoint) Code() string {
+	return CodeRewardPoint
+}
+
+func (a *RewardPoint) TypeName() string {
+	return "RewardPoint"
+}
+
+func (a *RewardPoint) Bytes() ([]byte, error) {
+	return proto.Marshal(a)
+}
+
+// Serialize writes an instrument to a byte slice.
+func (a *RewardPoint) Serialize(buf *bytes.Buffer) error {
+	data, err := proto.Marshal(a)
+	if err != nil {
+		return errors.Wrap(err, "Failed to serialize RewardPoint")
 	}
 
 	_, err = buf.Write(data)

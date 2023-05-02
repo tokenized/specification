@@ -228,7 +228,7 @@ func (a *BondFixedRate) Validate() error {
 	return nil
 }
 
-func (a *Coupon) Validate() error {
+func (a *DiscountCoupon) Validate() error {
 	if a == nil {
 		return errors.New("Empty")
 	}
@@ -270,7 +270,7 @@ func (a *Coupon) Validate() error {
 	return nil
 }
 
-func (a *LoyaltyPoints) Validate() error {
+func (a *DeprecatedLoyaltyPoints) Validate() error {
 	if a == nil {
 		return errors.New("Empty")
 	}
@@ -455,6 +455,36 @@ func (a *CreditNote) Validate() error {
 	}
 
 	// Field ExpirationTimestamp - uint
+
+	return nil
+}
+
+func (a *RewardPoint) Validate() error {
+	if a == nil {
+		return errors.New("Empty")
+	}
+
+	// Field AgeRestriction - AgeRestriction
+	if err := a.AgeRestriction.Validate(); err != nil {
+		return errors.Wrap(err, "AgeRestriction")
+	}
+
+	// Field ProgramName - varchar
+	if len(a.ProgramName) > max1ByteInteger {
+		return fmt.Errorf("ProgramName over max size : %d > %d", len(a.ProgramName), max1ByteInteger)
+	}
+	if len(a.ProgramName) == 0 {
+		return fmt.Errorf("ProgramName required")
+	}
+
+	// Field ExpirationTimestamp - uint
+
+	// Field Details - varchar
+	if len(a.Details) > max2ByteInteger {
+		return fmt.Errorf("Details over max size : %d > %d", len(a.Details), max2ByteInteger)
+	}
+
+	// Field TransfersPermitted - bool
 
 	return nil
 }

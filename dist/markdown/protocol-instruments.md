@@ -18,12 +18,13 @@ Instrument Types are used with reference to the `InstrumentPayload` field found 
 - [Currency](#currency)
 - [Share - Common](#share-common)
 - [Bond - Fixed Rate](#bond-fixed-rate)
-- [Coupon](#coupon)
-- [Loyalty Points](#loyalty-points)
+- [Discount Coupon](#discount-coupon)
+- [Deprecated Loyalty Points](#deprecated-loyalty-points)
 - [Ticket (Admission)](#ticket-admission)
 - [Casino Chip](#casino-chip)
 - [Information Service License](#information-service-license)
 - [Credit Note](#credit-note)
+- [Reward Point](#reward-point)
 </div>
 
 <a name="membership"></a>
@@ -440,8 +441,8 @@ A fixed rate bond is a bond that pays the same level of interest over its entire
 
 
 
-<a name="coupon"></a>
-#### Coupon
+<a name="discount-coupon"></a>
+#### Discount Coupon
 
 A voucher entitling the holder to a discount on a particular product or service.
 
@@ -571,10 +572,10 @@ A voucher entitling the holder to a discount on a particular product or service.
 
 
 
-<a name="loyalty-points"></a>
-#### Loyalty Points
+<a name="deprecated-loyalty-points"></a>
+#### Deprecated Loyalty Points
 
-A Loyalty Point
+Deprecated - This has been deprecated for RPT - Reward Points. A Loyalty Point
 
 <table>
     <tr>
@@ -1044,6 +1045,86 @@ A credit for a specified value in currency.
         </td>
         <td>
             
+            
+        </td>
+    </tr>
+
+</table>
+
+
+
+<a name="reward-point"></a>
+#### Reward Point
+
+A Reward Point
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>AgeRestriction</td>
+        <td>
+            <a href="#type-age-restriction">AgeRestriction</a>
+        </td>
+        <td>
+            Age restriction is used to specify required ages for instrument ownership.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>ProgramName</td>
+        <td>
+            varchar(tiny)
+        </td>
+        <td>
+            
+             This field is always required.  Example: Qantas Frequent Flyer Points
+        </td>
+    </tr>
+
+    <tr>
+        <td>(Deprecated)ValidFrom</td>
+        <td>deprecated</td>
+        <td>
+            
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>ExpirationTimestamp</td>
+        <td>
+            <a href="#alias-uint">Timestamp</a>
+        </td>
+        <td>
+            
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>Details</td>
+        <td>
+            varchar(small)
+        </td>
+        <td>
+            
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>TransfersPermitted</td>
+        <td>
+            bool
+        </td>
+        <td>
+            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+
             
         </td>
     </tr>

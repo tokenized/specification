@@ -46,24 +46,24 @@ func TestEmptyDeserialize(t *testing.T) {
 		t.Fatalf("Failed deserialize type check for BondFixedRate")
 	}
 
-	// Coupon identifies a payload as a Coupon message.
-	instrumentCoupon, err := Deserialize([]byte(CodeCoupon), nil)
+	// DiscountCoupon identifies a payload as a DiscountCoupon message.
+	instrumentDiscountCoupon, err := Deserialize([]byte(CodeDiscountCoupon), nil)
 	if err != nil {
-		t.Fatalf("Failed deserialize for Coupon : %s", err)
+		t.Fatalf("Failed deserialize for DiscountCoupon : %s", err)
 	}
-	_, ok = instrumentCoupon.(*Coupon)
+	_, ok = instrumentDiscountCoupon.(*DiscountCoupon)
 	if !ok {
-		t.Fatalf("Failed deserialize type check for Coupon")
+		t.Fatalf("Failed deserialize type check for DiscountCoupon")
 	}
 
-	// LoyaltyPoints identifies a payload as a LoyaltyPoints message.
-	instrumentLoyaltyPoints, err := Deserialize([]byte(CodeLoyaltyPoints), nil)
+	// DeprecatedLoyaltyPoints identifies a payload as a DeprecatedLoyaltyPoints message.
+	instrumentDeprecatedLoyaltyPoints, err := Deserialize([]byte(CodeDeprecatedLoyaltyPoints), nil)
 	if err != nil {
-		t.Fatalf("Failed deserialize for LoyaltyPoints : %s", err)
+		t.Fatalf("Failed deserialize for DeprecatedLoyaltyPoints : %s", err)
 	}
-	_, ok = instrumentLoyaltyPoints.(*LoyaltyPoints)
+	_, ok = instrumentDeprecatedLoyaltyPoints.(*DeprecatedLoyaltyPoints)
 	if !ok {
-		t.Fatalf("Failed deserialize type check for LoyaltyPoints")
+		t.Fatalf("Failed deserialize type check for DeprecatedLoyaltyPoints")
 	}
 
 	// TicketAdmission identifies a payload as a TicketAdmission message.
@@ -104,6 +104,16 @@ func TestEmptyDeserialize(t *testing.T) {
 	_, ok = instrumentCreditNote.(*CreditNote)
 	if !ok {
 		t.Fatalf("Failed deserialize type check for CreditNote")
+	}
+
+	// RewardPoint identifies a payload as a RewardPoint message.
+	instrumentRewardPoint, err := Deserialize([]byte(CodeRewardPoint), nil)
+	if err != nil {
+		t.Fatalf("Failed deserialize for RewardPoint : %s", err)
+	}
+	_, ok = instrumentRewardPoint.(*RewardPoint)
+	if !ok {
+		t.Fatalf("Failed deserialize type check for RewardPoint")
 	}
 
 }

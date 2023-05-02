@@ -1,12 +1,11 @@
 #
-# LOY - Loyalty Points
-# Deprecated - This has been deprecated for RPT - Reward Points.
+# RPT - Reward Point
 #
 
-code: LOY
-name: DeprecatedLoyaltyPoints
-label: Deprecated Loyalty Points
-description: Deprecated - This has been deprecated for RPT - Reward Points. A Loyalty Point
+code: RPT
+name: RewardPoint
+label: Reward Point
+description: A Reward Point
 
 metadata:
   kind: Utility

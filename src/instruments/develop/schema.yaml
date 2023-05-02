@@ -23,6 +23,7 @@ messages:
   - "utility/CHP - Casino Chip"
   - "utility/ISL - Information Service License"
   - "utility/CRN - Credit Note"
+  - "utility/RPT - Reward Point"
 
 # Register Resources
 resources:

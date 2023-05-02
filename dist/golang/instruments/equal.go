@@ -239,19 +239,19 @@ func (l *BondFixedRate) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *Coupon) Equal(right proto.Message) bool {
+func (l *DiscountCoupon) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
 		if right == nil {
 			return true
 		}
-		c = &Coupon{}
+		c = &DiscountCoupon{}
 	}
 	cr := right
 	if cr == nil {
-		cr = &Coupon{}
+		cr = &DiscountCoupon{}
 	}
-	r, ok := cr.(*Coupon)
+	r, ok := cr.(*DiscountCoupon)
 	if !ok {
 		return false
 	}
@@ -299,19 +299,19 @@ func (l *Coupon) Equal(right proto.Message) bool {
 	return true
 }
 
-func (l *LoyaltyPoints) Equal(right proto.Message) bool {
+func (l *DeprecatedLoyaltyPoints) Equal(right proto.Message) bool {
 	c := l
 	if c == nil {
 		if right == nil {
 			return true
 		}
-		c = &LoyaltyPoints{}
+		c = &DeprecatedLoyaltyPoints{}
 	}
 	cr := right
 	if cr == nil {
-		cr = &LoyaltyPoints{}
+		cr = &DeprecatedLoyaltyPoints{}
 	}
-	r, ok := cr.(*LoyaltyPoints)
+	r, ok := cr.(*DeprecatedLoyaltyPoints)
 	if !ok {
 		return false
 	}
@@ -544,6 +544,51 @@ func (l *CreditNote) Equal(right proto.Message) bool {
 	// Field ExpirationTimestamp - uint
 	if c.ExpirationTimestamp != r.ExpirationTimestamp {
 		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
+	}
+
+	return true
+}
+
+func (l *RewardPoint) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &RewardPoint{}
+	}
+	cr := right
+	if cr == nil {
+		cr = &RewardPoint{}
+	}
+	r, ok := cr.(*RewardPoint)
+	if !ok {
+		return false
+	}
+
+	// Field AgeRestriction - AgeRestriction
+	if !c.AgeRestriction.Equal(r.AgeRestriction) {
+		return false // fmt.Errorf("AgeRestriction : %s", err)
+	}
+
+	// Field ProgramName - varchar
+	if c.ProgramName != r.ProgramName {
+		return false // fmt.Errorf("ProgramName string mismatched")
+	}
+
+	// Field ExpirationTimestamp - uint
+	if c.ExpirationTimestamp != r.ExpirationTimestamp {
+		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
+	}
+
+	// Field Details - varchar
+	if c.Details != r.Details {
+		return false // fmt.Errorf("Details string mismatched")
+	}
+
+	// Field TransfersPermitted - bool
+	if c.TransfersPermitted != r.TransfersPermitted {
+		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
 	}
 
 	return true

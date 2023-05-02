@@ -504,7 +504,7 @@
           "varSize": "small"
         }
       ],
-      "label": "Coupon",
+      "label": "Discount Coupon",
       "metadata": {
         "category": "Coupons",
         "examples": [
@@ -514,11 +514,11 @@
         ],
         "kind": "Utility"
       },
-      "name": "Coupon"
+      "name": "DiscountCoupon"
     },
     {
       "code": "LOY",
-      "description": "A Loyalty Point",
+      "description": "Deprecated - This has been deprecated for RPT - Reward Points. A Loyalty Point",
       "fields": [
         {
           "description": "Age restriction is used to specify required ages for instrument ownership.",
@@ -556,7 +556,7 @@
           "type": "bool"
         }
       ],
-      "label": "Loyalty Points",
+      "label": "Deprecated Loyalty Points",
       "metadata": {
         "examples": [
           "Burger Prince Dollars",
@@ -565,7 +565,7 @@
         ],
         "kind": "Utility"
       },
-      "name": "LoyaltyPoints"
+      "name": "DeprecatedLoyaltyPoints"
     },
     {
       "code": "TIC",
@@ -827,6 +827,57 @@
         "kind": "Utility"
       },
       "name": "CreditNote"
+    },
+    {
+      "code": "RPT",
+      "description": "A Reward Point",
+      "fields": [
+        {
+          "description": "Age restriction is used to specify required ages for instrument ownership.",
+          "label": "Age Restriction",
+          "name": "AgeRestriction",
+          "type": "AgeRestriction"
+        },
+        {
+          "example": "Qantas Frequent Flyer Points",
+          "label": "Program Name",
+          "name": "ProgramName",
+          "required": true,
+          "type": "varchar"
+        },
+        {
+          "label": "Valid From",
+          "name": "ValidFrom",
+          "type": "deprecated"
+        },
+        {
+          "label": "Expiration Timestamp",
+          "name": "ExpirationTimestamp",
+          "type": "Timestamp"
+        },
+        {
+          "label": "Details",
+          "name": "Details",
+          "type": "varchar",
+          "varSize": "small"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
+        }
+      ],
+      "label": "Reward Point",
+      "metadata": {
+        "examples": [
+          "Burger Prince Dollars",
+          "Air Kilometers",
+          "Frequent Shopper Points"
+        ],
+        "kind": "Utility"
+      },
+      "name": "RewardPoint"
     }
   ],
   "name": "Tokenized Instrument Types",

@@ -133,12 +133,12 @@ func (a *BondFixedRate) Copy() *BondFixedRate {
 	return result
 }
 
-func (a *Coupon) Copy() *Coupon {
+func (a *DiscountCoupon) Copy() *DiscountCoupon {
 	if a == nil {
 		return nil
 	}
 
-	result := &Coupon{}
+	result := &DiscountCoupon{}
 
 	// Field RedeemingEntity - varchar
 	result.RedeemingEntity = a.RedeemingEntity
@@ -167,12 +167,12 @@ func (a *Coupon) Copy() *Coupon {
 	return result
 }
 
-func (a *LoyaltyPoints) Copy() *LoyaltyPoints {
+func (a *DeprecatedLoyaltyPoints) Copy() *DeprecatedLoyaltyPoints {
 	if a == nil {
 		return nil
 	}
 
-	result := &LoyaltyPoints{}
+	result := &DeprecatedLoyaltyPoints{}
 
 	// Field AgeRestriction - AgeRestriction
 	result.AgeRestriction = a.AgeRestriction.Copy()
@@ -303,6 +303,31 @@ func (a *CreditNote) Copy() *CreditNote {
 
 	// Field ExpirationTimestamp - uint
 	result.ExpirationTimestamp = a.ExpirationTimestamp
+
+	return result
+}
+
+func (a *RewardPoint) Copy() *RewardPoint {
+	if a == nil {
+		return nil
+	}
+
+	result := &RewardPoint{}
+
+	// Field AgeRestriction - AgeRestriction
+	result.AgeRestriction = a.AgeRestriction.Copy()
+
+	// Field ProgramName - varchar
+	result.ProgramName = a.ProgramName
+
+	// Field ExpirationTimestamp - uint
+	result.ExpirationTimestamp = a.ExpirationTimestamp
+
+	// Field Details - varchar
+	result.Details = a.Details
+
+	// Field TransfersPermitted - bool
+	result.TransfersPermitted = a.TransfersPermitted
 
 	return result
 }

@@ -867,25 +867,25 @@ func (a *BondFixedRate) CreateAmendments(fip permissions.FieldIndexPath,
 	return result, nil
 }
 
-// Coupon Permission / Amendment Field Indices
+// DiscountCoupon Permission / Amendment Field Indices
 const (
-	CouponFieldRedeemingEntity     = uint32(1)
-	CouponFieldValidFromTimestamp  = uint32(2)
-	CouponFieldExpirationTimestamp = uint32(3)
-	DeprecatedCouponFieldValue     = uint32(4)
-	DeprecatedCouponFieldCurrency  = uint32(5)
-	CouponFieldCouponName          = uint32(6)
-	DeprecatedCouponFieldPrecision = uint32(7)
-	CouponFieldTransfersPermitted  = uint32(8)
-	CouponFieldFaceValue           = uint32(9)
-	CouponFieldRedemptionVenue     = uint32(10)
-	CouponFieldDetails             = uint32(11)
+	DiscountCouponFieldRedeemingEntity     = uint32(1)
+	DiscountCouponFieldValidFromTimestamp  = uint32(2)
+	DiscountCouponFieldExpirationTimestamp = uint32(3)
+	DeprecatedDiscountCouponFieldValue     = uint32(4)
+	DeprecatedDiscountCouponFieldCurrency  = uint32(5)
+	DiscountCouponFieldCouponName          = uint32(6)
+	DeprecatedDiscountCouponFieldPrecision = uint32(7)
+	DiscountCouponFieldTransfersPermitted  = uint32(8)
+	DiscountCouponFieldFaceValue           = uint32(9)
+	DiscountCouponFieldRedemptionVenue     = uint32(10)
+	DiscountCouponFieldDetails             = uint32(11)
 )
 
-// ApplyAmendment updates a Coupon based on amendment data.
+// ApplyAmendment updates a DiscountCoupon based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *DiscountCoupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -893,11 +893,11 @@ func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32
 	}
 
 	switch fip[0] {
-	case CouponFieldRedeemingEntity: // string
+	case DiscountCouponFieldRedeemingEntity: // string
 		a.RedeemingEntity = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case CouponFieldValidFromTimestamp: // uint64
+	case DiscountCouponFieldValidFromTimestamp: // uint64
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ValidFromTimestamp : %v", fip)
 		}
@@ -909,7 +909,7 @@ func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case CouponFieldExpirationTimestamp: // uint64
+	case DiscountCouponFieldExpirationTimestamp: // uint64
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ExpirationTimestamp : %v", fip)
 		}
@@ -921,17 +921,17 @@ func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case DeprecatedCouponFieldValue: // deprecated
+	case DeprecatedDiscountCouponFieldValue: // deprecated
 
-	case DeprecatedCouponFieldCurrency: // deprecated
+	case DeprecatedDiscountCouponFieldCurrency: // deprecated
 
-	case CouponFieldCouponName: // string
+	case DiscountCouponFieldCouponName: // string
 		a.CouponName = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case DeprecatedCouponFieldPrecision: // deprecated
+	case DeprecatedDiscountCouponFieldPrecision: // deprecated
 
-	case CouponFieldTransfersPermitted: // bool
+	case DiscountCouponFieldTransfersPermitted: // bool
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for TransfersPermitted : %v", fip)
 		}
@@ -944,7 +944,7 @@ func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case CouponFieldFaceValue: // CurrencyValueField
+	case DiscountCouponFieldFaceValue: // CurrencyValueField
 		if len(fip) == 1 && len(data) == 0 {
 			a.FaceValue = nil
 			return permissions.SubPermissions(fip[1:], operation, false)
@@ -957,23 +957,23 @@ func (a *Coupon) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32
 
 		return a.FaceValue.ApplyAmendment(fip[1:], operation, data, subPermissions)
 
-	case CouponFieldRedemptionVenue: // string
+	case DiscountCouponFieldRedemptionVenue: // string
 		a.RedemptionVenue = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case CouponFieldDetails: // string
+	case DiscountCouponFieldDetails: // string
 		a.Details = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
 	}
 
-	return nil, fmt.Errorf("Unknown Coupon amendment field index : %v", fip)
+	return nil, fmt.Errorf("Unknown DiscountCoupon amendment field index : %v", fip)
 }
 
-// CreateAmendments determines the differences between two Coupons and returns
+// CreateAmendments determines the differences between two DiscountCoupons and returns
 // amendment data.
-func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
-	newValue *Coupon) ([]*internal.Amendment, error) {
+func (a *DiscountCoupon) CreateAmendments(fip permissions.FieldIndexPath,
+	newValue *DiscountCoupon) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
 		return nil, nil
@@ -983,7 +983,7 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 	ofip := fip.Copy() // save original to be appended for each field
 
 	// RedeemingEntity string
-	fip = append(ofip, CouponFieldRedeemingEntity)
+	fip = append(ofip, DiscountCouponFieldRedeemingEntity)
 	if a.RedeemingEntity != newValue.RedeemingEntity {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
@@ -992,7 +992,7 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// ValidFromTimestamp uint64
-	fip = append(ofip, CouponFieldValidFromTimestamp)
+	fip = append(ofip, DiscountCouponFieldValidFromTimestamp)
 	if a.ValidFromTimestamp != newValue.ValidFromTimestamp {
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ValidFromTimestamp)); err != nil {
@@ -1006,7 +1006,7 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// ExpirationTimestamp uint64
-	fip = append(ofip, CouponFieldExpirationTimestamp)
+	fip = append(ofip, DiscountCouponFieldExpirationTimestamp)
 	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpirationTimestamp)); err != nil {
@@ -1024,7 +1024,7 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 	// deprecated Currency deprecated
 
 	// CouponName string
-	fip = append(ofip, CouponFieldCouponName)
+	fip = append(ofip, DiscountCouponFieldCouponName)
 	if a.CouponName != newValue.CouponName {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
@@ -1035,7 +1035,7 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 	// deprecated Precision deprecated
 
 	// TransfersPermitted bool
-	fip = append(ofip, CouponFieldTransfersPermitted)
+	fip = append(ofip, DiscountCouponFieldTransfersPermitted)
 	if a.TransfersPermitted != newValue.TransfersPermitted {
 		var buf bytes.Buffer
 		if err := binary.Write(&buf, binary.LittleEndian, newValue.TransfersPermitted); err != nil {
@@ -1049,7 +1049,7 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// FaceValue CurrencyValueField
-	fip = append(ofip, CouponFieldFaceValue)
+	fip = append(ofip, DiscountCouponFieldFaceValue)
 
 	FaceValueAmendments, err := a.FaceValue.CreateAmendments(fip, newValue.FaceValue)
 	if err != nil {
@@ -1058,7 +1058,7 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 	result = append(result, FaceValueAmendments...)
 
 	// RedemptionVenue string
-	fip = append(ofip, CouponFieldRedemptionVenue)
+	fip = append(ofip, DiscountCouponFieldRedemptionVenue)
 	if a.RedemptionVenue != newValue.RedemptionVenue {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
@@ -1067,7 +1067,7 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// Details string
-	fip = append(ofip, CouponFieldDetails)
+	fip = append(ofip, DiscountCouponFieldDetails)
 	if a.Details != newValue.Details {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
@@ -1078,20 +1078,20 @@ func (a *Coupon) CreateAmendments(fip permissions.FieldIndexPath,
 	return result, nil
 }
 
-// LoyaltyPoints Permission / Amendment Field Indices
+// DeprecatedLoyaltyPoints Permission / Amendment Field Indices
 const (
-	LoyaltyPointsFieldAgeRestriction      = uint32(1)
-	LoyaltyPointsFieldProgramName         = uint32(2)
-	DeprecatedLoyaltyPointsFieldValidFrom = uint32(3)
-	LoyaltyPointsFieldExpirationTimestamp = uint32(4)
-	LoyaltyPointsFieldDetails             = uint32(5)
-	LoyaltyPointsFieldTransfersPermitted  = uint32(6)
+	DeprecatedLoyaltyPointsFieldAgeRestriction      = uint32(1)
+	DeprecatedLoyaltyPointsFieldProgramName         = uint32(2)
+	DeprecatedDeprecatedLoyaltyPointsFieldValidFrom = uint32(3)
+	DeprecatedLoyaltyPointsFieldExpirationTimestamp = uint32(4)
+	DeprecatedLoyaltyPointsFieldDetails             = uint32(5)
+	DeprecatedLoyaltyPointsFieldTransfersPermitted  = uint32(6)
 )
 
-// ApplyAmendment updates a LoyaltyPoints based on amendment data.
+// ApplyAmendment updates a DeprecatedLoyaltyPoints based on amendment data.
 // Note: This does not check permissions or data validity. This does check data format.
 // fip must have at least one value.
-func (a *LoyaltyPoints) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+func (a *DeprecatedLoyaltyPoints) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
@@ -1099,7 +1099,7 @@ func (a *LoyaltyPoints) ApplyAmendment(fip permissions.FieldIndexPath, operation
 	}
 
 	switch fip[0] {
-	case LoyaltyPointsFieldAgeRestriction: // AgeRestrictionField
+	case DeprecatedLoyaltyPointsFieldAgeRestriction: // AgeRestrictionField
 		if len(fip) == 1 && len(data) == 0 {
 			a.AgeRestriction = nil
 			return permissions.SubPermissions(fip[1:], operation, false)
@@ -1112,13 +1112,13 @@ func (a *LoyaltyPoints) ApplyAmendment(fip permissions.FieldIndexPath, operation
 
 		return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
 
-	case LoyaltyPointsFieldProgramName: // string
+	case DeprecatedLoyaltyPointsFieldProgramName: // string
 		a.ProgramName = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case DeprecatedLoyaltyPointsFieldValidFrom: // deprecated
+	case DeprecatedDeprecatedLoyaltyPointsFieldValidFrom: // deprecated
 
-	case LoyaltyPointsFieldExpirationTimestamp: // uint64
+	case DeprecatedLoyaltyPointsFieldExpirationTimestamp: // uint64
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for ExpirationTimestamp : %v", fip)
 		}
@@ -1130,11 +1130,11 @@ func (a *LoyaltyPoints) ApplyAmendment(fip permissions.FieldIndexPath, operation
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
-	case LoyaltyPointsFieldDetails: // string
+	case DeprecatedLoyaltyPointsFieldDetails: // string
 		a.Details = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case LoyaltyPointsFieldTransfersPermitted: // bool
+	case DeprecatedLoyaltyPointsFieldTransfersPermitted: // bool
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for TransfersPermitted : %v", fip)
 		}
@@ -1149,13 +1149,13 @@ func (a *LoyaltyPoints) ApplyAmendment(fip permissions.FieldIndexPath, operation
 
 	}
 
-	return nil, fmt.Errorf("Unknown LoyaltyPoints amendment field index : %v", fip)
+	return nil, fmt.Errorf("Unknown DeprecatedLoyaltyPoints amendment field index : %v", fip)
 }
 
-// CreateAmendments determines the differences between two LoyaltyPointss and returns
+// CreateAmendments determines the differences between two DeprecatedLoyaltyPointss and returns
 // amendment data.
-func (a *LoyaltyPoints) CreateAmendments(fip permissions.FieldIndexPath,
-	newValue *LoyaltyPoints) ([]*internal.Amendment, error) {
+func (a *DeprecatedLoyaltyPoints) CreateAmendments(fip permissions.FieldIndexPath,
+	newValue *DeprecatedLoyaltyPoints) ([]*internal.Amendment, error) {
 
 	if a.Equal(newValue) {
 		return nil, nil
@@ -1165,7 +1165,7 @@ func (a *LoyaltyPoints) CreateAmendments(fip permissions.FieldIndexPath,
 	ofip := fip.Copy() // save original to be appended for each field
 
 	// AgeRestriction AgeRestrictionField
-	fip = append(ofip, LoyaltyPointsFieldAgeRestriction)
+	fip = append(ofip, DeprecatedLoyaltyPointsFieldAgeRestriction)
 
 	AgeRestrictionAmendments, err := a.AgeRestriction.CreateAmendments(fip, newValue.AgeRestriction)
 	if err != nil {
@@ -1174,7 +1174,7 @@ func (a *LoyaltyPoints) CreateAmendments(fip permissions.FieldIndexPath,
 	result = append(result, AgeRestrictionAmendments...)
 
 	// ProgramName string
-	fip = append(ofip, LoyaltyPointsFieldProgramName)
+	fip = append(ofip, DeprecatedLoyaltyPointsFieldProgramName)
 	if a.ProgramName != newValue.ProgramName {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
@@ -1185,7 +1185,7 @@ func (a *LoyaltyPoints) CreateAmendments(fip permissions.FieldIndexPath,
 	// deprecated ValidFrom deprecated
 
 	// ExpirationTimestamp uint64
-	fip = append(ofip, LoyaltyPointsFieldExpirationTimestamp)
+	fip = append(ofip, DeprecatedLoyaltyPointsFieldExpirationTimestamp)
 	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpirationTimestamp)); err != nil {
@@ -1199,7 +1199,7 @@ func (a *LoyaltyPoints) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// Details string
-	fip = append(ofip, LoyaltyPointsFieldDetails)
+	fip = append(ofip, DeprecatedLoyaltyPointsFieldDetails)
 	if a.Details != newValue.Details {
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
@@ -1208,7 +1208,7 @@ func (a *LoyaltyPoints) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// TransfersPermitted bool
-	fip = append(ofip, LoyaltyPointsFieldTransfersPermitted)
+	fip = append(ofip, DeprecatedLoyaltyPointsFieldTransfersPermitted)
 	if a.TransfersPermitted != newValue.TransfersPermitted {
 		var buf bytes.Buffer
 		if err := binary.Write(&buf, binary.LittleEndian, newValue.TransfersPermitted); err != nil {
@@ -1901,6 +1901,152 @@ func (a *CreditNote) CreateAmendments(fip permissions.FieldIndexPath,
 	return result, nil
 }
 
+// RewardPoint Permission / Amendment Field Indices
+const (
+	RewardPointFieldAgeRestriction      = uint32(1)
+	RewardPointFieldProgramName         = uint32(2)
+	DeprecatedRewardPointFieldValidFrom = uint32(3)
+	RewardPointFieldExpirationTimestamp = uint32(4)
+	RewardPointFieldDetails             = uint32(5)
+	RewardPointFieldTransfersPermitted  = uint32(6)
+)
+
+// ApplyAmendment updates a RewardPoint based on amendment data.
+// Note: This does not check permissions or data validity. This does check data format.
+// fip must have at least one value.
+func (a *RewardPoint) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
+
+	if len(fip) == 0 {
+		return nil, errors.New("Empty instrument amendment field index path")
+	}
+
+	switch fip[0] {
+	case RewardPointFieldAgeRestriction: // AgeRestrictionField
+		if len(fip) == 1 && len(data) == 0 {
+			a.AgeRestriction = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
+
+		subPermissions, err := permissions.SubPermissions(fip, operation, false)
+		if err != nil {
+			return nil, errors.Wrap(err, "sub permissions")
+		}
+
+		return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
+
+	case RewardPointFieldProgramName: // string
+		a.ProgramName = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+
+	case DeprecatedRewardPointFieldValidFrom: // deprecated
+
+	case RewardPointFieldExpirationTimestamp: // uint64
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for ExpirationTimestamp : %v", fip)
+		}
+		buf := bytes.NewBuffer(data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("ExpirationTimestamp amendment value failed to deserialize : %s", err)
+		} else {
+			a.ExpirationTimestamp = uint64(value)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+
+	case RewardPointFieldDetails: // string
+		a.Details = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+
+	case RewardPointFieldTransfersPermitted: // bool
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for TransfersPermitted : %v", fip)
+		}
+		if len(data) != 1 {
+			return nil, fmt.Errorf("TransfersPermitted amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.TransfersPermitted); err != nil {
+			return nil, fmt.Errorf("TransfersPermitted amendment value failed to deserialize : %s", err)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+
+	}
+
+	return nil, fmt.Errorf("Unknown RewardPoint amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two RewardPoints and returns
+// amendment data.
+func (a *RewardPoint) CreateAmendments(fip permissions.FieldIndexPath,
+	newValue *RewardPoint) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	// AgeRestriction AgeRestrictionField
+	fip = append(ofip, RewardPointFieldAgeRestriction)
+
+	AgeRestrictionAmendments, err := a.AgeRestriction.CreateAmendments(fip, newValue.AgeRestriction)
+	if err != nil {
+		return nil, errors.Wrap(err, "AgeRestriction")
+	}
+	result = append(result, AgeRestrictionAmendments...)
+
+	// ProgramName string
+	fip = append(ofip, RewardPointFieldProgramName)
+	if a.ProgramName != newValue.ProgramName {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.ProgramName),
+		})
+	}
+
+	// deprecated ValidFrom deprecated
+
+	// ExpirationTimestamp uint64
+	fip = append(ofip, RewardPointFieldExpirationTimestamp)
+	if a.ExpirationTimestamp != newValue.ExpirationTimestamp {
+		var buf bytes.Buffer
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpirationTimestamp)); err != nil {
+			return nil, errors.Wrap(err, "ExpirationTimestamp")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Details string
+	fip = append(ofip, RewardPointFieldDetails)
+	if a.Details != newValue.Details {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.Details),
+		})
+	}
+
+	// TransfersPermitted bool
+	fip = append(ofip, RewardPointFieldTransfersPermitted)
+	if a.TransfersPermitted != newValue.TransfersPermitted {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.TransfersPermitted); err != nil {
+			return nil, errors.Wrap(err, "TransfersPermitted")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	return result, nil
+}
+
 // AgeRestrictionField Permission / Amendment Field Indices
 const (
 	AgeRestrictionFieldLower = uint32(1)
@@ -2213,11 +2359,11 @@ func CreatePayloadAmendments(fip permissions.FieldIndexPath,
 	case *BondFixedRate:
 		result, err = c.CreateAmendments(fip, new.(*BondFixedRate))
 
-	case *Coupon:
-		result, err = c.CreateAmendments(fip, new.(*Coupon))
+	case *DiscountCoupon:
+		result, err = c.CreateAmendments(fip, new.(*DiscountCoupon))
 
-	case *LoyaltyPoints:
-		result, err = c.CreateAmendments(fip, new.(*LoyaltyPoints))
+	case *DeprecatedLoyaltyPoints:
+		result, err = c.CreateAmendments(fip, new.(*DeprecatedLoyaltyPoints))
 
 	case *TicketAdmission:
 		result, err = c.CreateAmendments(fip, new.(*TicketAdmission))
@@ -2230,6 +2376,9 @@ func CreatePayloadAmendments(fip permissions.FieldIndexPath,
 
 	case *CreditNote:
 		result, err = c.CreateAmendments(fip, new.(*CreditNote))
+
+	case *RewardPoint:
+		result, err = c.CreateAmendments(fip, new.(*RewardPoint))
 
 	}
 

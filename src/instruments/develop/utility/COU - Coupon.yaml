@@ -3,8 +3,8 @@
 #
 
 code: COU
-name: Coupon
-label: Coupon
+name: DiscountCoupon
+label: Discount Coupon
 description: A voucher entitling the holder to a discount on a particular product or service.
 
 metadata:

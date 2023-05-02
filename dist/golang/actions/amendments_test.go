@@ -1310,7 +1310,7 @@ func TestInstrumentCreateAmendments(t *testing.T) {
 }
 
 func TestInstrumentCreateAmendmentsCouponName(t *testing.T) {
-	currentCoupon := &instruments.Coupon{
+	currentCoupon := &instruments.DiscountCoupon{
 		FaceValue: &instruments.CurrencyValueField{
 			Value:        100,
 			CurrencyCode: "USD",
@@ -1324,11 +1324,11 @@ func TestInstrumentCreateAmendmentsCouponName(t *testing.T) {
 	current := &InstrumentCreation{
 		TradeRestrictions:  []string{"AUS"},
 		AuthorizedTokenQty: 10000,
-		InstrumentType:     instruments.CodeCoupon,
+		InstrumentType:     instruments.CodeDiscountCoupon,
 		InstrumentPayload:  cb,
 	}
 
-	newCoupon := &instruments.Coupon{
+	newCoupon := &instruments.DiscountCoupon{
 		FaceValue: &instruments.CurrencyValueField{
 			Value:        100,
 			CurrencyCode: "USD",
@@ -1342,7 +1342,7 @@ func TestInstrumentCreateAmendmentsCouponName(t *testing.T) {
 	newValue := &InstrumentDefinition{
 		TradeRestrictions:  []string{"AUS"},
 		AuthorizedTokenQty: 10000,
-		InstrumentType:     instruments.CodeCoupon,
+		InstrumentType:     instruments.CodeDiscountCoupon,
 		InstrumentPayload:  nb,
 	}
 
@@ -1357,9 +1357,10 @@ func TestInstrumentCreateAmendmentsCouponName(t *testing.T) {
 
 	// Check amendment
 	expectedAmendment := &AmendmentField{
-		FieldIndexPath: []byte{2, byte(InstrumentFieldInstrumentPayload), byte(instruments.CouponFieldCouponName)},
-		Operation:      0,
-		Data:           []byte("New Test Coupon"),
+		FieldIndexPath: []byte{2, byte(InstrumentFieldInstrumentPayload),
+			byte(instruments.DiscountCouponFieldCouponName)},
+		Operation: 0,
+		Data:      []byte("New Test Coupon"),
 	}
 
 	if !amendments[0].Equal(expectedAmendment) {

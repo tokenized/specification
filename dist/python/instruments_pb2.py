@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z:github.com/tokenized/specification/dist/golang/instruments',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x11instruments.proto\x12\x0binstruments\"\xf6\x01\n\nMembership\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x11\n\tValidFrom\x18\x02 \x01(\x04\x12\x1b\n\x13\x45xpirationTimestamp\x18\x03 \x01(\x04\x12\n\n\x02ID\x18\x04 \x01(\t\x12\x17\n\x0fMembershipClass\x18\x05 \x01(\t\x12\x10\n\x08RoleType\x18\x06 \x01(\t\x12\x16\n\x0eMembershipType\x18\x07 \x01(\t\x12\x13\n\x0b\x44\x65scription\x18\x08 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\t \x01(\x08\"T\n\x08\x43urrency\x12\x14\n\x0c\x43urrencyCode\x18\x01 \x01(\t\x12\x19\n\x11MonetaryAuthority\x18\x02 \x01(\t\x12\x11\n\tPrecision\x18\x04 \x01(\x04J\x04\x08\x03\x10\x04\"\\\n\x0bShareCommon\x12\x0e\n\x06Ticker\x18\x01 \x01(\t\x12\x0c\n\x04ISIN\x18\x02 \x01(\t\x12\x13\n\x0b\x44\x65scription\x18\x03 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x04 \x01(\x08\"\xda\x03\n\rBondFixedRate\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x10\n\x08\x42ondType\x18\x02 \x01(\t\x12\x0c\n\x04ISIN\x18\x03 \x01(\t\x12\x12\n\nCollateral\x18\x04 \x01(\t\x12\x31\n\x08ParValue\x18\x05 \x01(\x0b\x32\x1f.instruments.CurrencyValueField\x12,\n\x0cInterestRate\x18\x06 \x01(\x0b\x32\x16.instruments.RateField\x12\"\n\x1aInterestPaymentInitialDate\x18\x07 \x01(\x04\x12!\n\x19InterestPaymentDateDeltas\x18\x08 \x03(\x04\x12\x36\n\x16LatePaymentPenaltyRate\x18\t \x01(\x0b\x32\x16.instruments.RateField\x12\x19\n\x11LatePaymentWindow\x18\n \x01(\x04\x12 \n\x18LatePaymentPenaltyPeriod\x18\x0b \x01(\x04\x12\x14\n\x0cMaturityDate\x18\x0c \x01(\x04\x12\x38\n\x0e\x41geRestriction\x18\r \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x1a\n\x12TransfersPermitted\x18\x0e \x01(\x08\"\xfa\x01\n\x06\x43oupon\x12\x17\n\x0fRedeemingEntity\x18\x01 \x01(\t\x12\x1a\n\x12ValidFromTimestamp\x18\x02 \x01(\x04\x12\x1b\n\x13\x45xpirationTimestamp\x18\x03 \x01(\x04\x12\x12\n\nCouponName\x18\x06 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x08 \x01(\x08\x12\x32\n\tFaceValue\x18\t \x01(\x0b\x32\x1f.instruments.CurrencyValueField\x12\x17\n\x0fRedemptionVenue\x18\n \x01(\t\x12\x0f\n\x07\x44\x65tails\x18\x0b \x01(\tJ\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06J\x04\x08\x07\x10\x08\"\xae\x01\n\rLoyaltyPoints\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x13\n\x0bProgramName\x18\x02 \x01(\t\x12\x1b\n\x13\x45xpirationTimestamp\x18\x04 \x01(\x04\x12\x0f\n\x07\x44\x65tails\x18\x05 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x06 \x01(\x08J\x04\x08\x03\x10\x04\"\xa4\x02\n\x0fTicketAdmission\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\r\n\x05Venue\x18\x03 \x01(\t\x12\x0c\n\x04\x41rea\x18\x05 \x01(\t\x12\x0c\n\x04Seat\x18\x06 \x01(\t\x12\x1b\n\x13\x45ventStartTimestamp\x18\x07 \x01(\x04\x12\x11\n\tEventName\x18\n \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x0b \x01(\x08\x12\x0f\n\x07\x44\x65tails\x18\x0c \x01(\t\x12\x0f\n\x07Section\x18\r \x01(\t\x12\x0b\n\x03Row\x18\x0e \x01(\t\x12\x19\n\x11\x45ventEndTimestamp\x18\x0f \x01(\x04J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05J\x04\x08\x08\x10\tJ\x04\x08\t\x10\n\"\xea\x01\n\nCasinoChip\x12\x0f\n\x07UseType\x18\x02 \x01(\t\x12\x38\n\x0e\x41geRestriction\x18\x03 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x1b\n\x13\x45xpirationTimestamp\x18\x05 \x01(\x04\x12\x1a\n\x12TransfersPermitted\x18\x07 \x01(\x08\x12\x12\n\nCasinoName\x18\x08 \x01(\t\x12\x32\n\tFaceValue\x18\t \x01(\x0b\x32\x1f.instruments.CurrencyValueFieldJ\x04\x08\x01\x10\x02J\x04\x08\x04\x10\x05J\x04\x08\x06\x10\x07\"\xb0\x01\n\x19InformationServiceLicense\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x1b\n\x13\x45xpirationTimestamp\x18\x02 \x01(\x04\x12\x13\n\x0bServiceName\x18\x03 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x04 \x01(\x08\x12\x0b\n\x03URL\x18\x05 \x01(\t\"k\n\nCreditNote\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x32\n\tFaceValue\x18\x02 \x01(\x0b\x32\x1f.instruments.CurrencyValueField\x12\x1b\n\x13\x45xpirationTimestamp\x18\x03 \x01(\x04\"3\n\x13\x41geRestrictionField\x12\r\n\x05Lower\x18\x01 \x01(\r\x12\r\n\x05Upper\x18\x02 \x01(\r\"L\n\x12\x43urrencyValueField\x12\r\n\x05Value\x18\x01 \x01(\x04\x12\x14\n\x0c\x43urrencyCode\x18\x02 \x01(\t\x12\x11\n\tPrecision\x18\x03 \x01(\r\"-\n\tRateField\x12\x11\n\tPrecision\x18\x01 \x01(\r\x12\r\n\x05Value\x18\x02 \x01(\x04\x42<Z:github.com/tokenized/specification/dist/golang/instrumentsb\x06proto3'
+  serialized_pb=b'\n\x11instruments.proto\x12\x0binstruments\"\xf6\x01\n\nMembership\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x11\n\tValidFrom\x18\x02 \x01(\x04\x12\x1b\n\x13\x45xpirationTimestamp\x18\x03 \x01(\x04\x12\n\n\x02ID\x18\x04 \x01(\t\x12\x17\n\x0fMembershipClass\x18\x05 \x01(\t\x12\x10\n\x08RoleType\x18\x06 \x01(\t\x12\x16\n\x0eMembershipType\x18\x07 \x01(\t\x12\x13\n\x0b\x44\x65scription\x18\x08 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\t \x01(\x08\"T\n\x08\x43urrency\x12\x14\n\x0c\x43urrencyCode\x18\x01 \x01(\t\x12\x19\n\x11MonetaryAuthority\x18\x02 \x01(\t\x12\x11\n\tPrecision\x18\x04 \x01(\x04J\x04\x08\x03\x10\x04\"\\\n\x0bShareCommon\x12\x0e\n\x06Ticker\x18\x01 \x01(\t\x12\x0c\n\x04ISIN\x18\x02 \x01(\t\x12\x13\n\x0b\x44\x65scription\x18\x03 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x04 \x01(\x08\"\xda\x03\n\rBondFixedRate\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x10\n\x08\x42ondType\x18\x02 \x01(\t\x12\x0c\n\x04ISIN\x18\x03 \x01(\t\x12\x12\n\nCollateral\x18\x04 \x01(\t\x12\x31\n\x08ParValue\x18\x05 \x01(\x0b\x32\x1f.instruments.CurrencyValueField\x12,\n\x0cInterestRate\x18\x06 \x01(\x0b\x32\x16.instruments.RateField\x12\"\n\x1aInterestPaymentInitialDate\x18\x07 \x01(\x04\x12!\n\x19InterestPaymentDateDeltas\x18\x08 \x03(\x04\x12\x36\n\x16LatePaymentPenaltyRate\x18\t \x01(\x0b\x32\x16.instruments.RateField\x12\x19\n\x11LatePaymentWindow\x18\n \x01(\x04\x12 \n\x18LatePaymentPenaltyPeriod\x18\x0b \x01(\x04\x12\x14\n\x0cMaturityDate\x18\x0c \x01(\x04\x12\x38\n\x0e\x41geRestriction\x18\r \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x1a\n\x12TransfersPermitted\x18\x0e \x01(\x08\"\x82\x02\n\x0e\x44iscountCoupon\x12\x17\n\x0fRedeemingEntity\x18\x01 \x01(\t\x12\x1a\n\x12ValidFromTimestamp\x18\x02 \x01(\x04\x12\x1b\n\x13\x45xpirationTimestamp\x18\x03 \x01(\x04\x12\x12\n\nCouponName\x18\x06 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x08 \x01(\x08\x12\x32\n\tFaceValue\x18\t \x01(\x0b\x32\x1f.instruments.CurrencyValueField\x12\x17\n\x0fRedemptionVenue\x18\n \x01(\t\x12\x0f\n\x07\x44\x65tails\x18\x0b \x01(\tJ\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06J\x04\x08\x07\x10\x08\"\xb8\x01\n\x17\x44\x65precatedLoyaltyPoints\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x13\n\x0bProgramName\x18\x02 \x01(\t\x12\x1b\n\x13\x45xpirationTimestamp\x18\x04 \x01(\x04\x12\x0f\n\x07\x44\x65tails\x18\x05 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x06 \x01(\x08J\x04\x08\x03\x10\x04\"\xa4\x02\n\x0fTicketAdmission\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\r\n\x05Venue\x18\x03 \x01(\t\x12\x0c\n\x04\x41rea\x18\x05 \x01(\t\x12\x0c\n\x04Seat\x18\x06 \x01(\t\x12\x1b\n\x13\x45ventStartTimestamp\x18\x07 \x01(\x04\x12\x11\n\tEventName\x18\n \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x0b \x01(\x08\x12\x0f\n\x07\x44\x65tails\x18\x0c \x01(\t\x12\x0f\n\x07Section\x18\r \x01(\t\x12\x0b\n\x03Row\x18\x0e \x01(\t\x12\x19\n\x11\x45ventEndTimestamp\x18\x0f \x01(\x04J\x04\x08\x02\x10\x03J\x04\x08\x04\x10\x05J\x04\x08\x08\x10\tJ\x04\x08\t\x10\n\"\xea\x01\n\nCasinoChip\x12\x0f\n\x07UseType\x18\x02 \x01(\t\x12\x38\n\x0e\x41geRestriction\x18\x03 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x1b\n\x13\x45xpirationTimestamp\x18\x05 \x01(\x04\x12\x1a\n\x12TransfersPermitted\x18\x07 \x01(\x08\x12\x12\n\nCasinoName\x18\x08 \x01(\t\x12\x32\n\tFaceValue\x18\t \x01(\x0b\x32\x1f.instruments.CurrencyValueFieldJ\x04\x08\x01\x10\x02J\x04\x08\x04\x10\x05J\x04\x08\x06\x10\x07\"\xb0\x01\n\x19InformationServiceLicense\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x1b\n\x13\x45xpirationTimestamp\x18\x02 \x01(\x04\x12\x13\n\x0bServiceName\x18\x03 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x04 \x01(\x08\x12\x0b\n\x03URL\x18\x05 \x01(\t\"k\n\nCreditNote\x12\x0c\n\x04Name\x18\x01 \x01(\t\x12\x32\n\tFaceValue\x18\x02 \x01(\x0b\x32\x1f.instruments.CurrencyValueField\x12\x1b\n\x13\x45xpirationTimestamp\x18\x03 \x01(\x04\"\xac\x01\n\x0bRewardPoint\x12\x38\n\x0e\x41geRestriction\x18\x01 \x01(\x0b\x32 .instruments.AgeRestrictionField\x12\x13\n\x0bProgramName\x18\x02 \x01(\t\x12\x1b\n\x13\x45xpirationTimestamp\x18\x04 \x01(\x04\x12\x0f\n\x07\x44\x65tails\x18\x05 \x01(\t\x12\x1a\n\x12TransfersPermitted\x18\x06 \x01(\x08J\x04\x08\x03\x10\x04\"3\n\x13\x41geRestrictionField\x12\r\n\x05Lower\x18\x01 \x01(\r\x12\r\n\x05Upper\x18\x02 \x01(\r\"L\n\x12\x43urrencyValueField\x12\r\n\x05Value\x18\x01 \x01(\x04\x12\x14\n\x0c\x43urrencyCode\x18\x02 \x01(\t\x12\x11\n\tPrecision\x18\x03 \x01(\r\"-\n\tRateField\x12\x11\n\tPrecision\x18\x01 \x01(\r\x12\r\n\x05Value\x18\x02 \x01(\x04\x42<Z:github.com/tokenized/specification/dist/golang/instrumentsb\x06proto3'
 )
 
 
@@ -335,65 +335,65 @@ _BONDFIXEDRATE = _descriptor.Descriptor(
 )
 
 
-_COUPON = _descriptor.Descriptor(
-  name='Coupon',
-  full_name='instruments.Coupon',
+_DISCOUNTCOUPON = _descriptor.Descriptor(
+  name='DiscountCoupon',
+  full_name='instruments.DiscountCoupon',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='RedeemingEntity', full_name='instruments.Coupon.RedeemingEntity', index=0,
+      name='RedeemingEntity', full_name='instruments.DiscountCoupon.RedeemingEntity', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='ValidFromTimestamp', full_name='instruments.Coupon.ValidFromTimestamp', index=1,
+      name='ValidFromTimestamp', full_name='instruments.DiscountCoupon.ValidFromTimestamp', index=1,
       number=2, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='ExpirationTimestamp', full_name='instruments.Coupon.ExpirationTimestamp', index=2,
+      name='ExpirationTimestamp', full_name='instruments.DiscountCoupon.ExpirationTimestamp', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='CouponName', full_name='instruments.Coupon.CouponName', index=3,
+      name='CouponName', full_name='instruments.DiscountCoupon.CouponName', index=3,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='TransfersPermitted', full_name='instruments.Coupon.TransfersPermitted', index=4,
+      name='TransfersPermitted', full_name='instruments.DiscountCoupon.TransfersPermitted', index=4,
       number=8, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='FaceValue', full_name='instruments.Coupon.FaceValue', index=5,
+      name='FaceValue', full_name='instruments.DiscountCoupon.FaceValue', index=5,
       number=9, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='RedemptionVenue', full_name='instruments.Coupon.RedemptionVenue', index=6,
+      name='RedemptionVenue', full_name='instruments.DiscountCoupon.RedemptionVenue', index=6,
       number=10, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='Details', full_name='instruments.Coupon.Details', index=7,
+      name='Details', full_name='instruments.DiscountCoupon.Details', index=7,
       number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -412,48 +412,48 @@ _COUPON = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=941,
-  serialized_end=1191,
+  serialized_end=1199,
 )
 
 
-_LOYALTYPOINTS = _descriptor.Descriptor(
-  name='LoyaltyPoints',
-  full_name='instruments.LoyaltyPoints',
+_DEPRECATEDLOYALTYPOINTS = _descriptor.Descriptor(
+  name='DeprecatedLoyaltyPoints',
+  full_name='instruments.DeprecatedLoyaltyPoints',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='AgeRestriction', full_name='instruments.LoyaltyPoints.AgeRestriction', index=0,
+      name='AgeRestriction', full_name='instruments.DeprecatedLoyaltyPoints.AgeRestriction', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='ProgramName', full_name='instruments.LoyaltyPoints.ProgramName', index=1,
+      name='ProgramName', full_name='instruments.DeprecatedLoyaltyPoints.ProgramName', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='ExpirationTimestamp', full_name='instruments.LoyaltyPoints.ExpirationTimestamp', index=2,
+      name='ExpirationTimestamp', full_name='instruments.DeprecatedLoyaltyPoints.ExpirationTimestamp', index=2,
       number=4, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='Details', full_name='instruments.LoyaltyPoints.Details', index=3,
+      name='Details', full_name='instruments.DeprecatedLoyaltyPoints.Details', index=3,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='TransfersPermitted', full_name='instruments.LoyaltyPoints.TransfersPermitted', index=4,
+      name='TransfersPermitted', full_name='instruments.DeprecatedLoyaltyPoints.TransfersPermitted', index=4,
       number=6, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -471,8 +471,8 @@ _LOYALTYPOINTS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1194,
-  serialized_end=1368,
+  serialized_start=1202,
+  serialized_end=1386,
 )
 
 
@@ -573,8 +573,8 @@ _TICKETADMISSION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1371,
-  serialized_end=1663,
+  serialized_start=1389,
+  serialized_end=1681,
 )
 
 
@@ -640,8 +640,8 @@ _CASINOCHIP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1666,
-  serialized_end=1900,
+  serialized_start=1684,
+  serialized_end=1918,
 )
 
 
@@ -700,8 +700,8 @@ _INFORMATIONSERVICELICENSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1903,
-  serialized_end=2079,
+  serialized_start=1921,
+  serialized_end=2097,
 )
 
 
@@ -746,8 +746,68 @@ _CREDITNOTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2081,
-  serialized_end=2188,
+  serialized_start=2099,
+  serialized_end=2206,
+)
+
+
+_REWARDPOINT = _descriptor.Descriptor(
+  name='RewardPoint',
+  full_name='instruments.RewardPoint',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='AgeRestriction', full_name='instruments.RewardPoint.AgeRestriction', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ProgramName', full_name='instruments.RewardPoint.ProgramName', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ExpirationTimestamp', full_name='instruments.RewardPoint.ExpirationTimestamp', index=2,
+      number=4, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='Details', full_name='instruments.RewardPoint.Details', index=3,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='TransfersPermitted', full_name='instruments.RewardPoint.TransfersPermitted', index=4,
+      number=6, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2209,
+  serialized_end=2381,
 )
 
 
@@ -785,8 +845,8 @@ _AGERESTRICTIONFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2190,
-  serialized_end=2241,
+  serialized_start=2383,
+  serialized_end=2434,
 )
 
 
@@ -831,8 +891,8 @@ _CURRENCYVALUEFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2243,
-  serialized_end=2319,
+  serialized_start=2436,
+  serialized_end=2512,
 )
 
 
@@ -870,8 +930,8 @@ _RATEFIELD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2321,
-  serialized_end=2366,
+  serialized_start=2514,
+  serialized_end=2559,
 )
 
 _MEMBERSHIP.fields_by_name['AgeRestriction'].message_type = _AGERESTRICTIONFIELD
@@ -879,23 +939,25 @@ _BONDFIXEDRATE.fields_by_name['ParValue'].message_type = _CURRENCYVALUEFIELD
 _BONDFIXEDRATE.fields_by_name['InterestRate'].message_type = _RATEFIELD
 _BONDFIXEDRATE.fields_by_name['LatePaymentPenaltyRate'].message_type = _RATEFIELD
 _BONDFIXEDRATE.fields_by_name['AgeRestriction'].message_type = _AGERESTRICTIONFIELD
-_COUPON.fields_by_name['FaceValue'].message_type = _CURRENCYVALUEFIELD
-_LOYALTYPOINTS.fields_by_name['AgeRestriction'].message_type = _AGERESTRICTIONFIELD
+_DISCOUNTCOUPON.fields_by_name['FaceValue'].message_type = _CURRENCYVALUEFIELD
+_DEPRECATEDLOYALTYPOINTS.fields_by_name['AgeRestriction'].message_type = _AGERESTRICTIONFIELD
 _TICKETADMISSION.fields_by_name['AgeRestriction'].message_type = _AGERESTRICTIONFIELD
 _CASINOCHIP.fields_by_name['AgeRestriction'].message_type = _AGERESTRICTIONFIELD
 _CASINOCHIP.fields_by_name['FaceValue'].message_type = _CURRENCYVALUEFIELD
 _INFORMATIONSERVICELICENSE.fields_by_name['AgeRestriction'].message_type = _AGERESTRICTIONFIELD
 _CREDITNOTE.fields_by_name['FaceValue'].message_type = _CURRENCYVALUEFIELD
+_REWARDPOINT.fields_by_name['AgeRestriction'].message_type = _AGERESTRICTIONFIELD
 DESCRIPTOR.message_types_by_name['Membership'] = _MEMBERSHIP
 DESCRIPTOR.message_types_by_name['Currency'] = _CURRENCY
 DESCRIPTOR.message_types_by_name['ShareCommon'] = _SHARECOMMON
 DESCRIPTOR.message_types_by_name['BondFixedRate'] = _BONDFIXEDRATE
-DESCRIPTOR.message_types_by_name['Coupon'] = _COUPON
-DESCRIPTOR.message_types_by_name['LoyaltyPoints'] = _LOYALTYPOINTS
+DESCRIPTOR.message_types_by_name['DiscountCoupon'] = _DISCOUNTCOUPON
+DESCRIPTOR.message_types_by_name['DeprecatedLoyaltyPoints'] = _DEPRECATEDLOYALTYPOINTS
 DESCRIPTOR.message_types_by_name['TicketAdmission'] = _TICKETADMISSION
 DESCRIPTOR.message_types_by_name['CasinoChip'] = _CASINOCHIP
 DESCRIPTOR.message_types_by_name['InformationServiceLicense'] = _INFORMATIONSERVICELICENSE
 DESCRIPTOR.message_types_by_name['CreditNote'] = _CREDITNOTE
+DESCRIPTOR.message_types_by_name['RewardPoint'] = _REWARDPOINT
 DESCRIPTOR.message_types_by_name['AgeRestrictionField'] = _AGERESTRICTIONFIELD
 DESCRIPTOR.message_types_by_name['CurrencyValueField'] = _CURRENCYVALUEFIELD
 DESCRIPTOR.message_types_by_name['RateField'] = _RATEFIELD
@@ -929,19 +991,19 @@ BondFixedRate = _reflection.GeneratedProtocolMessageType('BondFixedRate', (_mess
   })
 _sym_db.RegisterMessage(BondFixedRate)
 
-Coupon = _reflection.GeneratedProtocolMessageType('Coupon', (_message.Message,), {
-  'DESCRIPTOR' : _COUPON,
+DiscountCoupon = _reflection.GeneratedProtocolMessageType('DiscountCoupon', (_message.Message,), {
+  'DESCRIPTOR' : _DISCOUNTCOUPON,
   '__module__' : 'instruments_pb2'
-  # @@protoc_insertion_point(class_scope:instruments.Coupon)
+  # @@protoc_insertion_point(class_scope:instruments.DiscountCoupon)
   })
-_sym_db.RegisterMessage(Coupon)
+_sym_db.RegisterMessage(DiscountCoupon)
 
-LoyaltyPoints = _reflection.GeneratedProtocolMessageType('LoyaltyPoints', (_message.Message,), {
-  'DESCRIPTOR' : _LOYALTYPOINTS,
+DeprecatedLoyaltyPoints = _reflection.GeneratedProtocolMessageType('DeprecatedLoyaltyPoints', (_message.Message,), {
+  'DESCRIPTOR' : _DEPRECATEDLOYALTYPOINTS,
   '__module__' : 'instruments_pb2'
-  # @@protoc_insertion_point(class_scope:instruments.LoyaltyPoints)
+  # @@protoc_insertion_point(class_scope:instruments.DeprecatedLoyaltyPoints)
   })
-_sym_db.RegisterMessage(LoyaltyPoints)
+_sym_db.RegisterMessage(DeprecatedLoyaltyPoints)
 
 TicketAdmission = _reflection.GeneratedProtocolMessageType('TicketAdmission', (_message.Message,), {
   'DESCRIPTOR' : _TICKETADMISSION,
@@ -970,6 +1032,13 @@ CreditNote = _reflection.GeneratedProtocolMessageType('CreditNote', (_message.Me
   # @@protoc_insertion_point(class_scope:instruments.CreditNote)
   })
 _sym_db.RegisterMessage(CreditNote)
+
+RewardPoint = _reflection.GeneratedProtocolMessageType('RewardPoint', (_message.Message,), {
+  'DESCRIPTOR' : _REWARDPOINT,
+  '__module__' : 'instruments_pb2'
+  # @@protoc_insertion_point(class_scope:instruments.RewardPoint)
+  })
+_sym_db.RegisterMessage(RewardPoint)
 
 AgeRestrictionField = _reflection.GeneratedProtocolMessageType('AgeRestrictionField', (_message.Message,), {
   'DESCRIPTOR' : _AGERESTRICTIONFIELD,
