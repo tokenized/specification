@@ -14,9 +14,9 @@ import (
 var cmdDecode = &cobra.Command{
 	Use:   "decode hex_or_asm",
 	Short: "Decode a transaction or output script (hex or asm)",
-	Args:  cobra.ExactArgs(1),
+	Args:  cobra.MinimumNArgs(1),
 	RunE: func(c *cobra.Command, args []string) error {
-		if len(args) != 1 {
+		if len(args) < 1 {
 			return errors.New("Wrong argument count : requires 1")
 		}
 
@@ -29,7 +29,20 @@ var cmdDecode = &cobra.Command{
 			return nil
 		}
 
-		script, scriptErr := bitcoin.StringToScript(args[0])
+		// Concatenate all arguments
+		// TODO This still trims the quotes around strings out because of bash. --ce
+		s := ""
+		first := true
+		for _, arg := range args {
+			if first {
+				s = arg
+				first = false
+			} else {
+				s += " " + arg
+			}
+		}
+
+		script, scriptErr := bitcoin.StringToScript(s)
 		if scriptErr == nil {
 			if err := print.PrintScript(script, false); err != nil {
 				return errors.Wrap(err, "script")

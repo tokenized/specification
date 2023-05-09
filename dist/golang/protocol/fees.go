@@ -6,6 +6,7 @@ import (
 	"math"
 	"time"
 
+	"github.com/tokenized/bitcoin_interpreter/agent_bitcoin_transfer"
 	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/pkg/json"
 	"github.com/tokenized/pkg/wire"
@@ -14,6 +15,7 @@ import (
 	"github.com/tokenized/specification/dist/golang/messages"
 	"github.com/tokenized/specification/dist/golang/permissions"
 	"github.com/tokenized/txbuilder"
+	"github.com/tokenized/txbuilder/fees"
 
 	"github.com/pkg/errors"
 )
@@ -990,9 +992,9 @@ func EstimatedInstrumentModificationResponse(amendTx *wire.MsgTx, ac *actions.In
 }
 
 // EstimatedTransferResponse calculates information about the contract's response to a transfer
-//   request.
+// request.
 // fees is a list of the contract fee for the contract corresponding to each contract. The list
-//   lines up with the "Instruments" list in the transfer.
+// lines up with the "Instruments" list in the transfer.
 // dustLimit is the smallest amount of satoshis to make an output valid.
 // feeRate is in satoshis per byte.
 // WARNING: This function is inaccurate and incomplete!
@@ -1003,9 +1005,9 @@ func EstimatedInstrumentModificationResponse(amendTx *wire.MsgTx, ac *actions.In
 //   error if there were any
 //
 // First contract is master contract. If other contracts are involved it initializes and sends
-//   settlement request to next contract. Then after each contract has completed the settlement
-//   request, the last signs the tx and sends a signature request back to the previous. After the
-//   first contract completes the signature request it broadcasts the completed settlement.
+// settlement request to next contract. Then after each contract has completed the settlement
+// request, the last signs the tx and sends a signature request back to the previous. After the
+// first contract completes the signature request it broadcasts the completed settlement.
 // Each settlement request contains the settlement action and contract fee data.
 // Each signature request contains the full settlement tx minus some signatures.
 // The first contract output must fund settlement tx miner fee.
@@ -1014,7 +1016,7 @@ func EstimatedInstrumentModificationResponse(amendTx *wire.MsgTx, ac *actions.In
 // Attempts to use the maximum possible size of each element so the returned values are an
 // overestimation, ensuring that a transfer funded in this manner can complete successfully.
 func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitcoin.Script,
-	feeRate, dustFeeRate float32, fees []uint64, isTest bool) ([]uint64, uint64, error) {
+	feeRate, dustFeeRate float32, contractFees []uint64, isTest bool) ([]uint64, uint64, error) {
 
 	// Find Tokenized Transfer
 	var err error
@@ -1046,9 +1048,9 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 	boomerang := uint64(0) // used for funding inter-contract communication
 	now := time.Now()
 	// Auditable estimation construction
-	fundingForBSV := make([]uint64, len(request.Instruments))
 	fundingForTokens := make([]uint64, len(request.Instruments))
 	txSizeInputs := 0
+	inputCount := 0
 	txSizeOutputs := 0
 	outputCount := 0
 
@@ -1057,11 +1059,14 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 	// Calculate response tx and settlement payload size.
 	// Indexes to addreses that already have outputs so they can be reused.
 	addressIndexes := make(map[bitcoin.Hash20]uint32)
-	var previousContractScript bitcoin.Script
+	var previousContractScript, masterContractScript bitcoin.Script
 	multiContract := false
 	masterContractIndex := uint32(0) // First smart contract agent listed, indexed by instruments.
 	for _, instrument := range request.Instruments {
 		if instrument.InstrumentType != BSVInstrumentID {
+			if len(masterContractScript) == 0 {
+				masterContractScript = requestTx.TxOut[instrument.ContractIndex].LockingScript
+			}
 			break
 		}
 		masterContractIndex++
@@ -1084,6 +1089,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 					return nil, 0, errors.Wrapf(err, "input size")
 				}
 				txSizeInputs += inputSize
+				inputCount++
 			}
 			previousContractScript = requestTx.TxOut[instrument.ContractIndex].LockingScript
 
@@ -1107,10 +1113,6 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 
 		} else {
 			// Bitcoin senders don't need an output because they don't need a settlement entry.
-			for _, sender := range instrument.InstrumentSenders {
-				// For the amount that needs to be sent
-				fundingForBSV[masterContractIndex] += sender.Quantity
-			}
 		}
 
 		for _, receiver := range instrument.InstrumentReceivers {
@@ -1136,7 +1138,20 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 				addressDustLimit = txbuilder.DustLimitForLockingScript(lockingScript, dustFeeRate)
 			}
 
-			if instrument.InstrumentType != BSVInstrumentID {
+			if instrument.InstrumentType == BSVInstrumentID {
+				// Input that spends agent bitcoin transfer output where bitcoin is transfered.
+				masterUnlockingSize, err := fees.EstimateUnlockingSize(masterContractScript)
+				if err != nil {
+					return nil, 0, errors.Wrap(err, "master unlocking size")
+				}
+
+				bitcoinTransferUnlockingSize := agent_bitcoin_transfer.ApproveUnlockingSize(masterUnlockingSize)
+
+				txSizeInputs += fees.InputBaseSize + // outpoint + sequence
+					wire.VarIntSerializeSize(uint64(bitcoinTransferUnlockingSize)) +
+					bitcoinTransferUnlockingSize // unlocking script
+				inputCount++
+			} else {
 				if !exists {
 					// Dust will be put in each notification output.
 					fundingForTokens[masterContractIndex] += addressDustLimit
@@ -1167,7 +1182,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 		}
 
 		// An output for each contract's fee address, if they have a contract fee.
-		if fees[i] > 0 {
+		if contractFees[i] > 0 {
 			// TODO use contract's actual fee address --ce
 			txSizeOutputs += txbuilder.P2PKHOutputSize
 			outputCount++
@@ -1178,14 +1193,15 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 	txSizeSettlements := int(txbuilder.OutputBaseSize+
 		wire.VarIntSerializeSize(fullSettlementSize)) + int(fullSettlementSize)
 	txSizeOutputCount := wire.VarIntSerializeSize(uint64(outputCount))
-	settlementTxSize := txbuilder.BaseTxSize + txSizeInputs + txSizeOutputCount +
+	txSizeInputCount := wire.VarIntSerializeSize(uint64(inputCount))
+	settlementTxSize := txbuilder.BaseTxSize + txSizeInputCount + txSizeInputs + txSizeOutputCount +
 		txSizeOutputs + txSizeSettlements
 	settlementTxFee := txbuilder.EstimatedFeeValue(uint64(settlementTxSize), float64(feeRate))
 
 	// Sum funding for each contract's output.
 	funding := make([]uint64, len(request.Instruments))
 	for i := range funding {
-		funding[i] = fees[i] + fundingForBSV[i] + fundingForTokens[i]
+		funding[i] = contractFees[i] + fundingForTokens[i]
 	}
 	funding[masterContractIndex] += uint64(settlementTxFee)
 
@@ -1210,7 +1226,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 			requestContractFees = append(requestContractFees,
 				&messages.TargetAddressField{
 					Address:  make([]byte, 22),
-					Quantity: fees[i],
+					Quantity: contractFees[i],
 				})
 
 			previousSettlementData = accumulatedSettlementData[i]
@@ -1249,7 +1265,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 		settleRequestTx := wire.NewMsgTx(1)
 
 		// Input from previous contract
-		scriptSize, err := txbuilder.UnlockingScriptSize(previousLockingScript)
+		scriptSize, err := fees.EstimateUnlockingSize(previousLockingScript)
 		if err != nil {
 			return nil, 0, errors.Wrap(err, "unlocking script size")
 		}
@@ -1325,7 +1341,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 		requestContractFees = append(requestContractFees,
 			&messages.TargetAddressField{
 				Address:  make([]byte, 22),
-				Quantity: fees[i],
+				Quantity: contractFees[i],
 			})
 
 		previousLockingScript := requestTx.TxOut[instrument.ContractIndex].LockingScript

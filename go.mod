@@ -8,9 +8,10 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v0.0.5
+	github.com/tokenized/bitcoin_interpreter v0.0.0-20230509022939-1e288315f373
 	github.com/tokenized/envelope v1.1.0
-	github.com/tokenized/pkg v0.6.1-0.20230424204429-ab336b6e84a4
-	github.com/tokenized/txbuilder v1.0.0
+	github.com/tokenized/pkg v0.6.1-0.20230506233527-a5c9347222a3
+	github.com/tokenized/txbuilder v1.0.1-0.20230509023132-84d89e41841c
 	golang.org/x/crypto v0.8.0
 	gopkg.in/yaml.v2 v2.2.8
 )
