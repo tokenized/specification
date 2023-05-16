@@ -8,10 +8,10 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v0.0.5
-	github.com/tokenized/bitcoin_interpreter v0.0.0-20230511015953-08b0486de232
+	github.com/tokenized/bitcoin_interpreter v0.1.1
 	github.com/tokenized/envelope v1.1.0
-	github.com/tokenized/pkg v0.6.1-0.20230511015833-3d97e0520832
-	github.com/tokenized/txbuilder v1.0.1-0.20230509023132-84d89e41841c
+	github.com/tokenized/pkg v0.7.0
+	github.com/tokenized/txbuilder v1.1.0
 	golang.org/x/crypto v0.8.0
 	gopkg.in/yaml.v2 v2.2.8
 )
@@ -25,7 +25,7 @@ require (
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/spf13/pflag v1.0.3 // indirect
-	github.com/tokenized/channels v0.1.0 // indirect
+	github.com/tokenized/channels v0.1.1 // indirect
 	github.com/tokenized/logger v0.1.3 // indirect
 	github.com/tokenized/threads v0.1.2 // indirect
 	github.com/tyler-smith/go-bip32 v0.0.0-20170922074101-2c9cfd177564 // indirect
