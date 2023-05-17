@@ -10,7 +10,7 @@ require (
 	github.com/spf13/cobra v0.0.5
 	github.com/tokenized/bitcoin_interpreter v0.1.1
 	github.com/tokenized/envelope v1.1.0
-	github.com/tokenized/pkg v0.7.0
+	github.com/tokenized/pkg v0.7.1-0.20230517150909-d946f2749c68
 	github.com/tokenized/txbuilder v1.1.0
 	golang.org/x/crypto v0.8.0
 	gopkg.in/yaml.v2 v2.2.8
