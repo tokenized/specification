@@ -35,7 +35,8 @@ type RelatedFieldValues struct {
 }
 
 // IsPrimitive returns true if the field is "primitive". Not a complex type. i.e. fieldtype or
-//   message.
+//
+//	message.
 func (f *Field) IsPrimitive() bool {
 	switch f.BaseType() {
 	case "uint":

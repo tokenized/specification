@@ -14,12 +14,15 @@ var (
 
 // Permission represents the permissions assigned to a specific set of fields.
 // If no fields are associated with a permission object, Fields is empty, then the permission object
-//   is used as the default, and associated with all fields not specifically associated with another
-//   permission object.
+//
+//	is used as the default, and associated with all fields not specifically associated with another
+//	permission object.
+//
 // If no permission object is associated with a field via the Fields, and no default permission
-//   object is specified (with no fields), then the protocol default is applied, which is everything
-//   is disabled except "Permitted". Meaning the administrator can change the field at will without
-//   a vote.
+//
+//	object is specified (with no fields), then the protocol default is applied, which is everything
+//	is disabled except "Permitted". Meaning the administrator can change the field at will without
+//	a vote.
 type Permission struct {
 	Permitted              bool // No Vote / Administration Amends
 	AdministrationProposal bool // Administration Initiates / Members Vote / Administration Amend

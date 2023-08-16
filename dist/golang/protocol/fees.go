@@ -456,8 +456,10 @@ func EstimatedInstrumentModificationResponseTxFee(modification *actions.Instrume
 }
 
 // EstimatedResponse calculates information about the contract's response to a request.
-//   fees is the sum of all contract related fees including base contract fee, proposal fee, and
-///  others. dustLimit is based on the expected P2PKH notification outputs.
+//
+//	fees is the sum of all contract related fees including base contract fee, proposal fee, and
+//
+// /  others. dustLimit is based on the expected P2PKH notification outputs.
 // WARNING: This function is really only accurate for ContractOffer and InstrumentDefinition txs. Other
 // actions might be wrong.
 // WARNING: This still makes assumptions that some of the addresses are P2PKH.
@@ -999,10 +1001,11 @@ func EstimatedInstrumentModificationResponse(amendTx *wire.MsgTx, ac *actions.In
 // feeRate is in satoshis per byte.
 // WARNING: This function is inaccurate and incomplete!
 // Returns
-//   estimated funding per "Instrument" object in transfer, including contract fees.
-//   boomerang funding. needs to be added to a second output to the first contract address.
-//     if zero then only one contract is involved and no second output is needed.
-//   error if there were any
+//
+//	estimated funding per "Instrument" object in transfer, including contract fees.
+//	boomerang funding. needs to be added to a second output to the first contract address.
+//	  if zero then only one contract is involved and no second output is needed.
+//	error if there were any
 //
 // First contract is master contract. If other contracts are involved it initializes and sends
 // settlement request to next contract. Then after each contract has completed the settlement
@@ -1466,10 +1469,13 @@ func EstimatedConfiscationResponse(requestTx *wire.MsgTx, feeRate, dustFeeRate f
 }
 
 // Convert assigns all available compatible values with matching member names from one object to
-//   another.
+//
+//	another.
+//
 // The dst object needs to be a pointer so that it can be written to.
 // Members of these objects that are "specialized", like a struct containing only a string, need
-//   to have json.Marshaler and json.UnMarshaler interfaces implemented.
+//
+//	to have json.Marshaler and json.UnMarshaler interfaces implemented.
 func convert(src interface{}, dst interface{}) error {
 	// Marshal source object to json.
 	var data []byte

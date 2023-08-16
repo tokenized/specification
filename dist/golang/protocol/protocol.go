@@ -203,7 +203,8 @@ func WrapAction(action actions.Action, isTest bool) (envelope.BaseMessage, error
 }
 
 // SerializeFlagOutputScript creates a locking script containing the flag value for a relationship
-//   message.
+//
+//	message.
 func SerializeFlagOutputScript(flag []byte) (bitcoin.Script, error) {
 	message := envelopeV1.NewMessage(envelopeBase.ProtocolIDs{[]byte(FlagProtocolID)},
 		[][]byte{bitcoin.PushNumberScript(int64(FlagVersion)), flag})

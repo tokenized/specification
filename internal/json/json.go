@@ -70,16 +70,15 @@ func schemaToFile(distPath, schemaFile, jsonFile string) {
 // replaceFileRefs will replace an array-interface with YAML files from a base path.
 // For example, refs as:
 //
-//     [file1, file2, file3]
+//	[file1, file2, file3]
 //
 // Will return as:
 //
-//     [
-//         <basePath/file1.yaml contents>,
-//         <basePath/file2.yaml contents>,
-//         <basePath/file3.yaml contents>,
-//     ]
-//
+//	[
+//	    <basePath/file1.yaml contents>,
+//	    <basePath/file2.yaml contents>,
+//	    <basePath/file3.yaml contents>,
+//	]
 func replaceFileRefs(basePath string, refs interface{}) interface{} {
 
 	refsArr := refs.([]interface{})

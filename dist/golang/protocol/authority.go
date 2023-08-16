@@ -13,7 +13,9 @@ import (
 )
 
 // OrderAuthoritySigHash returns a Double SHA256 of the data in an order op return that needs to
-//   be signed by an authority for the OrderSignature field.
+//
+//	be signed by an authority for the OrderSignature field.
+//
 // The Order must be fully populated including the AuthorityName.
 func OrderAuthoritySigHash(ctx context.Context, contractAddress bitcoin.RawAddress,
 	order *actions.Order) (*bitcoin.Hash32, error) {

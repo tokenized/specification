@@ -21,11 +21,12 @@ import (
 // List indexes in amendments are normal zero based indexes to items.
 //
 // Examples:
-//   First field [ 0 ]
-//   Third field [ 2 ]
-//   Second field of the fifth top level field [ 4, 1 ]
-//   All elements of the list that is the 4th field [ 5, 0 ]
-//   The second item in the list that is the 5th field [ 6, 2 ]
+//
+//	First field [ 0 ]
+//	Third field [ 2 ]
+//	Second field of the fifth top level field [ 4, 1 ]
+//	All elements of the list that is the 4th field [ 5, 0 ]
+//	The second item in the list that is the 5th field [ 6, 2 ]
 type FieldIndexPath []uint32
 
 func (fip FieldIndexPath) MatchDepth(rfip FieldIndexPath) int {

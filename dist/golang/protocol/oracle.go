@@ -12,10 +12,13 @@ import (
 )
 
 // TransferOracleSigHash returns a Double SHA256 of the data required to identify a
-//   token receiver approval by an oracle.
+//
+//	token receiver approval by an oracle.
+//
 // approved = 1 - means approved. any other value is a signature for rejecting approval.
 // The block hash of the chain tip - 4 should be used. The signature will be considered valid
-//   until 1 hour past the timestamp of the block after the block hash specified (chain tip).
+//
+//	until 1 hour past the timestamp of the block after the block hash specified (chain tip).
 func TransferOracleSigHash(ctx context.Context, contractAddress bitcoin.RawAddress,
 	instrumentCode []byte, receiverAddress bitcoin.RawAddress, blockHash bitcoin.Hash32,
 	expiration uint64, approved uint8) (*bitcoin.Hash32, error) {
@@ -34,11 +37,14 @@ func TransferOracleSigHash(ctx context.Context, contractAddress bitcoin.RawAddre
 }
 
 // ContractAdminIdentityOracleSigHash returns a Double SHA256 of the data required to identify a
-//   contract issuer and related information by an oracle.
+//
+//	contract issuer and related information by an oracle.
+//
 // entities parameter must contain either *actions.EntityField or bitcoin.RawAddress
 // approved = 1 - means approved. any other value is a signature for rejecting approval.
 // The block hash of the chain tip - 4 should be used. The signature will be considered valid
-//   until 1 hour past the timestamp of the block after the block hash specified (chain tip).
+//
+//	until 1 hour past the timestamp of the block after the block hash specified (chain tip).
 //
 // The admin address is written into the hash, then the operator address if one exists.
 // When a contract provides the EntityContract address instead of an Issuer entity, then that
@@ -72,7 +78,9 @@ func ContractAdminIdentityOracleSigHash(ctx context.Context, adminAddress bitcoi
 }
 
 // EntityPubKeyOracleSigHash returns a Double SHA256 of the data required to verify an association
-//   between an entity and a public key by an oracle.
+//
+//	between an entity and a public key by an oracle.
+//
 // approved = 1 - means approved. any other value is a signature for rejecting approval.
 // The block hash of the chain tip - 4 should be used. This gives a timestamp to the signature.
 func EntityPubKeyOracleSigHash(ctx context.Context, entity *actions.EntityField,
@@ -92,7 +100,9 @@ func EntityPubKeyOracleSigHash(ctx context.Context, entity *actions.EntityField,
 }
 
 // EntityXPubOracleSigHash returns a Double SHA256 of the data required to verify an association
-//   between an entity and an extended public key by an oracle.
+//
+//	between an entity and an extended public key by an oracle.
+//
 // approved = 1 - means approved. any other value is a signature for rejecting approval.
 // The block hash of the chain tip - 4 should be used. This gives a timestamp to the signature.
 func EntityXPubOracleSigHash(ctx context.Context, entity *actions.EntityField,
