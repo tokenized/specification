@@ -16,7 +16,7 @@ metadata:
 fields:
   - name: Name
     label: Name
-    type: varchar
+    type: deprecated
     varSize: tiny
 
   - name: FaceValue

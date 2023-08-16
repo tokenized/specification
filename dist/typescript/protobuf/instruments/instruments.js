@@ -3483,7 +3483,6 @@ proto.instruments.CreditNote.prototype.toObject = function(opt_includeInstance) 
  */
 proto.instruments.CreditNote.toObject = function(includeInstance, msg) {
   var f, obj = {
-    name: jspb.Message.getFieldWithDefault(msg, 1, ""),
     facevalue: (f = msg.getFacevalue()) && proto.instruments.FixedCurrencyValueField.toObject(includeInstance, f),
     expirationtimestamp: jspb.Message.getFieldWithDefault(msg, 3, 0),
     transferspermitted: jspb.Message.getBooleanFieldWithDefault(msg, 4, false)
@@ -3523,10 +3522,6 @@ proto.instruments.CreditNote.deserializeBinaryFromReader = function(msg, reader)
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setName(value);
-      break;
     case 2:
       var value = new proto.instruments.FixedCurrencyValueField;
       reader.readMessage(value,proto.instruments.FixedCurrencyValueField.deserializeBinaryFromReader);
@@ -3569,13 +3564,6 @@ proto.instruments.CreditNote.prototype.serializeBinary = function() {
  */
 proto.instruments.CreditNote.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getName();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
   f = message.getFacevalue();
   if (f != null) {
     writer.writeMessage(
@@ -3598,24 +3586,6 @@ proto.instruments.CreditNote.serializeBinaryToWriter = function(message, writer)
       f
     );
   }
-};
-
-
-/**
- * optional string Name = 1;
- * @return {string}
- */
-proto.instruments.CreditNote.prototype.getName = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.instruments.CreditNote} returns this
- */
-proto.instruments.CreditNote.prototype.setName = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 

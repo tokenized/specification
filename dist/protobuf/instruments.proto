@@ -119,7 +119,7 @@ message InformationServiceLicense {
 
 // Message - Credit Note (CRN)
 message CreditNote {
-    string Name                                    = 1;   // varchar
+    reserved                                         1;   // Deprecated Name
     FixedCurrencyValueField FaceValue              = 2;   // FixedCurrencyValue
     uint64 ExpirationTimestamp                     = 3;   // Timestamp
     bool TransfersPermitted                        = 4;   // bool

@@ -1017,10 +1017,8 @@ A credit for a specified value in currency.
         <th>Description</th>
     </tr>
     <tr>
-        <td>Name</td>
-        <td>
-            varchar(tiny)
-        </td>
+        <td>(Deprecated)Name</td>
+        <td>deprecated</td>
         <td>
             
             

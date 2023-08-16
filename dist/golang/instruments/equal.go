@@ -531,11 +531,6 @@ func (l *CreditNote) Equal(right proto.Message) bool {
 		return false
 	}
 
-	// Field Name - varchar
-	if c.Name != r.Name {
-		return false // fmt.Errorf("Name string mismatched")
-	}
-
 	// Field FaceValue - FixedCurrencyValue
 	if !c.FaceValue.Equal(r.FaceValue) {
 		return false // fmt.Errorf("FaceValue : %s", err)

@@ -295,9 +295,6 @@ func (a *CreditNote) Copy() *CreditNote {
 
 	result := &CreditNote{}
 
-	// Field Name - varchar
-	result.Name = a.Name
-
 	// Field FaceValue - FixedCurrencyValue
 	result.FaceValue = a.FaceValue.Copy()
 

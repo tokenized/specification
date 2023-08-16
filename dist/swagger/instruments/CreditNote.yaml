@@ -2,8 +2,6 @@
 description: A credit for a specified value in currency.
 type: object
 properties:
-  Name:
-    type: string
   FaceValue:
     description:  >
       Face value of each token specified in a currency. The "Value" must be 1. Theis value is fixed

@@ -1804,7 +1804,7 @@ func (a *InformationServiceLicense) CreateAmendments(fip permissions.FieldIndexP
 
 // CreditNote Permission / Amendment Field Indices
 const (
-	CreditNoteFieldName                = uint32(1)
+	DeprecatedCreditNoteFieldName      = uint32(1)
 	CreditNoteFieldFaceValue           = uint32(2)
 	CreditNoteFieldExpirationTimestamp = uint32(3)
 	CreditNoteFieldTransfersPermitted  = uint32(4)
@@ -1821,9 +1821,7 @@ func (a *CreditNote) ApplyAmendment(fip permissions.FieldIndexPath, operation ui
 	}
 
 	switch fip[0] {
-	case CreditNoteFieldName: // string
-		a.Name = string(data)
-		return permissions.SubPermissions(fip, operation, false)
+	case DeprecatedCreditNoteFieldName: // deprecated
 
 	case CreditNoteFieldFaceValue: // FixedCurrencyValueField
 		if len(fip) == 1 && len(data) == 0 {
@@ -1880,14 +1878,7 @@ func (a *CreditNote) CreateAmendments(fip permissions.FieldIndexPath,
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
 
-	// Name string
-	fip = append(ofip, CreditNoteFieldName)
-	if a.Name != newValue.Name {
-		result = append(result, &internal.Amendment{
-			FIP:  fip,
-			Data: []byte(newValue.Name),
-		})
-	}
+	// deprecated Name deprecated
 
 	// FaceValue FixedCurrencyValueField
 	fip = append(ofip, CreditNoteFieldFaceValue)

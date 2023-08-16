@@ -839,7 +839,7 @@
         {
           "label": "Name",
           "name": "Name",
-          "type": "varchar",
+          "type": "deprecated",
           "varSize": "tiny"
         },
         {

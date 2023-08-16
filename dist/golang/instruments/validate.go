@@ -444,11 +444,6 @@ func (a *CreditNote) Validate() error {
 		return errors.New("Empty")
 	}
 
-	// Field Name - varchar
-	if len(a.Name) > max1ByteInteger {
-		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
-	}
-
 	// Field FaceValue - FixedCurrencyValue
 	if err := a.FaceValue.Validate(); err != nil {
 		return errors.Wrap(err, "FaceValue")
