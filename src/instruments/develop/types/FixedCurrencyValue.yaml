@@ -1,0 +1,42 @@
+
+name: FixedCurrencyValue
+label: Fixed Currency Value
+description: >
+  A fixed value specified in terms of a currency.
+  The "Value" must be 1.
+  Theis value is fixed after instrument creation and can't be modified with instrument modifications.
+
+fields:
+
+  - name: Value
+    label: Value
+    description: >
+      The value of each token denominated in precision specified in Precision field.
+    type: uint
+    size: 8
+    required: true
+    example: 1
+    options:
+      - 1
+
+  - name: CurrencyCode
+    label: Currency Code
+    description: >
+        International Organization for Standardization code for Currency. Currency for coupon. From
+        resources/currency.
+    type: CurrencyType
+    required: true
+    example: AUD
+
+  - name: Precision
+    label: Precision
+    description: >
+        Required field to specify the decimal precision of the value. It will normally be the
+        "precision" value associated with the Currency. It is the number of decimal places between
+        the number of tokens and the common unit of measure. For example, in AUD, the common unit is
+        the dollar, but a token would only be worth a penny. So the precision should be 2 for the
+        two decimal places in a dollar amount "$1.00". In this scenario 100 tokens are worth $1.
+    type: uint
+    required: true
+    size: 1
+    example: 2

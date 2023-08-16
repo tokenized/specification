@@ -449,12 +449,14 @@ func (a *CreditNote) Validate() error {
 		return fmt.Errorf("Name over max size : %d > %d", len(a.Name), max1ByteInteger)
 	}
 
-	// Field FaceValue - CurrencyValue
+	// Field FaceValue - FixedCurrencyValue
 	if err := a.FaceValue.Validate(); err != nil {
 		return errors.Wrap(err, "FaceValue")
 	}
 
 	// Field ExpirationTimestamp - uint
+
+	// Field TransfersPermitted - bool
 
 	return nil
 }
@@ -513,6 +515,49 @@ func (a *CurrencyValueField) Validate() error {
 	}
 
 	// Field Value - uint
+	if a.Value == 0 {
+		return fmt.Errorf("Value required")
+	}
+
+	// Field CurrencyCode - fixedchar  (Currencies Resource)
+	if CurrenciesData(a.CurrencyCode) == nil {
+		return fmt.Errorf("CurrencyCode resource Currencies value not defined : %v", a.CurrencyCode)
+	}
+	if len(a.CurrencyCode) != 0 && len(a.CurrencyCode) != 3 {
+		return fmt.Errorf("CurrencyCode fixed width field wrong size : %d should be %d",
+			len(a.CurrencyCode), 3)
+	}
+	if len(a.CurrencyCode) == 0 {
+		return fmt.Errorf("CurrencyCode required")
+	}
+
+	// Field Precision - uint
+	if a.Precision > uint32(max1ByteInteger) {
+		return fmt.Errorf("Precision over max value : %d > %d", a.Precision, max1ByteInteger)
+	}
+	if a.Precision == 0 {
+		return fmt.Errorf("Precision required")
+	}
+
+	return nil
+}
+
+func (a *FixedCurrencyValueField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Value - uint
+	foundValue := false
+	for _, v := range []uint64{1} {
+		if a.Value == v {
+			foundValue = true
+			break
+		}
+	}
+	if !foundValue {
+		return fmt.Errorf("Value value not within options [1] : %d", a.Value)
+	}
 	if a.Value == 0 {
 		return fmt.Errorf("Value required")
 	}

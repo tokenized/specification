@@ -26,5 +26,7 @@ components:
       $ref: ./_components/schemas/tokenized/instruments/AgeRestrictionField.yaml
     CurrencyValueField:
       $ref: ./_components/schemas/tokenized/instruments/CurrencyValueField.yaml
+    FixedCurrencyValueField:
+      $ref: ./_components/schemas/tokenized/instruments/FixedCurrencyValueField.yaml
     RateField:
       $ref: ./_components/schemas/tokenized/instruments/RateField.yaml

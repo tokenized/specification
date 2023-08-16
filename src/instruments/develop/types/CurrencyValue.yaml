@@ -7,7 +7,8 @@ fields:
 
   - name: Value
     label: Value
-    description: Denominated in precision specified in Precision field.
+    description: >
+      The value of each token denominated in precision specified in Precision field.
     type: uint
     size: 8
     required: true

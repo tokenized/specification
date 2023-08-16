@@ -21,9 +21,19 @@ fields:
 
   - name: FaceValue
     label: Face Value
-    description: Face value of each coupon specified in a currency.
-    type: CurrencyValue
+    description: >
+      Face value of each token specified in a currency.
+      The "Value" must be 1.
+      Theis value is fixed after instrument creation and can't be modified with instrument modifications.
+    type: FixedCurrencyValue
 
   - name: ExpirationTimestamp
     label: Expiration Timestamp
     type: Timestamp
+
+  - name: TransfersPermitted
+    label: Transfers Permitted
+    description: >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
+    type: bool

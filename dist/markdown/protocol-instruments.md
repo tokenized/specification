@@ -1030,10 +1030,11 @@ A credit for a specified value in currency.
     <tr>
         <td>FaceValue</td>
         <td>
-            <a href="#type-currency-value">CurrencyValue</a>
+            <a href="#type-fixed-currency-value">FixedCurrencyValue</a>
         </td>
         <td>
-            Face value of each coupon specified in a currency.
+            Face value of each token specified in a currency. The &#34;Value&#34; must be 1. Theis value is fixed after instrument creation and can&#39;t be modified with instrument modifications.
+
             
         </td>
     </tr>
@@ -1045,6 +1046,18 @@ A credit for a specified value in currency.
         </td>
         <td>
             
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>TransfersPermitted</td>
+        <td>
+            bool
+        </td>
+        <td>
+            Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.
+
             
         </td>
     </tr>
@@ -1139,6 +1152,7 @@ A Reward Point
 <div class="content-list collection-method-list" markdown="1">
 - [Age Restriction](#type-age-restriction)
 - [Currency Value](#type-currency-value)
+- [Fixed Currency Value](#type-fixed-currency-value)
 - [Rate](#type-rate)
 </div>
 
@@ -1198,7 +1212,8 @@ A value specified in terms of a currency.
             uint(8)
         </td>
         <td>
-            Denominated in precision specified in Precision field.
+            The value of each token denominated in precision specified in Precision field.
+
              This field is always required.  Example: 100
         </td>
     </tr>
@@ -1222,6 +1237,58 @@ A value specified in terms of a currency.
         </td>
         <td>
             Required field to specify the decimal precision of the value. It will normally be the  &#34;precision&#34; value associated with the Currency. It is the number of decimal places between  the number of tokens and the common unit of measure. For example, in AUD, the common unit is  the dollar, but a token would only be worth a penny. So the precision should be 2 for the  two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1.
+
+             This field is always required.  Example: 2
+        </td>
+    </tr>
+
+</table>
+
+
+
+<a name="type-fixed-currency-value"></a>
+### Fixed Currency Value
+
+A fixed value specified in terms of a currency. The &#34;Value&#34; must be 1. Theis value is fixed after instrument creation and can&#39;t be modified with instrument modifications.
+
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Value</td>
+        <td>
+            uint(8)
+        </td>
+        <td>
+            The value of each token denominated in precision specified in Precision field.
+
+             This field is always required.  Example: 1
+        </td>
+    </tr>
+
+    <tr>
+        <td>CurrencyCode</td>
+        <td>
+            <a href="#alias-fixedchar">CurrencyType</a>
+        </td>
+        <td>
+            International Organization for Standardization code for Currency. Currency for coupon. From resources/currency.
+
+             This field is always required.  Example: AUD
+        </td>
+    </tr>
+
+    <tr>
+        <td>Precision</td>
+        <td>
+            uint(1)
+        </td>
+        <td>
+            Required field to specify the decimal precision of the value. It will normally be the &#34;precision&#34; value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1.
 
              This field is always required.  Example: 2
         </td>

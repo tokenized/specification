@@ -298,11 +298,14 @@ func (a *CreditNote) Copy() *CreditNote {
 	// Field Name - varchar
 	result.Name = a.Name
 
-	// Field FaceValue - CurrencyValue
+	// Field FaceValue - FixedCurrencyValue
 	result.FaceValue = a.FaceValue.Copy()
 
 	// Field ExpirationTimestamp - uint
 	result.ExpirationTimestamp = a.ExpirationTimestamp
+
+	// Field TransfersPermitted - bool
+	result.TransfersPermitted = a.TransfersPermitted
 
 	return result
 }
@@ -354,6 +357,25 @@ func (a *CurrencyValueField) Copy() *CurrencyValueField {
 	}
 
 	result := &CurrencyValueField{}
+
+	// Field Value - uint
+	result.Value = a.Value
+
+	// Field CurrencyCode - fixedchar
+	result.CurrencyCode = a.CurrencyCode
+
+	// Field Precision - uint
+	result.Precision = a.Precision
+
+	return result
+}
+
+func (a *FixedCurrencyValueField) Copy() *FixedCurrencyValueField {
+	if a == nil {
+		return nil
+	}
+
+	result := &FixedCurrencyValueField{}
 
 	// Field Value - uint
 	result.Value = a.Value

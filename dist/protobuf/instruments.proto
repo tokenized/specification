@@ -120,8 +120,9 @@ message InformationServiceLicense {
 // Message - Credit Note (CRN)
 message CreditNote {
     string Name                                    = 1;   // varchar
-    CurrencyValueField FaceValue                   = 2;   // CurrencyValue
+    FixedCurrencyValueField FaceValue              = 2;   // FixedCurrencyValue
     uint64 ExpirationTimestamp                     = 3;   // Timestamp
+    bool TransfersPermitted                        = 4;   // bool
 }
 
 // Message - Reward Point (RPT)
@@ -143,6 +144,13 @@ message AgeRestrictionField {
 
 // Field - Currency Value
 message CurrencyValueField {
+    uint64 Value                                   = 1;   // uint
+    string CurrencyCode                            = 2;   // CurrencyType
+    uint32 Precision                               = 3;   // uint
+}
+
+// Field - Fixed Currency Value
+message FixedCurrencyValueField {
     uint64 Value                                   = 1;   // uint
     string CurrencyCode                            = 2;   // CurrencyType
     uint32 Precision                               = 3;   // uint

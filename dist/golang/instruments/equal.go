@@ -536,7 +536,7 @@ func (l *CreditNote) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Name string mismatched")
 	}
 
-	// Field FaceValue - CurrencyValue
+	// Field FaceValue - FixedCurrencyValue
 	if !c.FaceValue.Equal(r.FaceValue) {
 		return false // fmt.Errorf("FaceValue : %s", err)
 	}
@@ -544,6 +544,11 @@ func (l *CreditNote) Equal(right proto.Message) bool {
 	// Field ExpirationTimestamp - uint
 	if c.ExpirationTimestamp != r.ExpirationTimestamp {
 		return false // fmt.Errorf("ExpirationTimestamp integer mismatched")
+	}
+
+	// Field TransfersPermitted - bool
+	if c.TransfersPermitted != r.TransfersPermitted {
+		return false // fmt.Errorf("TransfersPermitted boolean mismatched")
 	}
 
 	return true
@@ -639,6 +644,41 @@ func (l *CurrencyValueField) Equal(right proto.Message) bool {
 
 	if r == nil {
 		r = &CurrencyValueField{}
+	}
+
+	// Field Value - uint
+	if c.Value != r.Value {
+		return false // fmt.Errorf("Value integer mismatched")
+	}
+
+	// Field CurrencyCode - fixedchar
+	if c.CurrencyCode != r.CurrencyCode {
+		return false // fmt.Errorf("CurrencyCode string mismatched")
+	}
+
+	// Field Precision - uint
+	if c.Precision != r.Precision {
+		return false // fmt.Errorf("Precision integer mismatched")
+	}
+
+	return true
+}
+
+func (l *FixedCurrencyValueField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &FixedCurrencyValueField{}
+	}
+	r, ok := right.(*FixedCurrencyValueField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &FixedCurrencyValueField{}
 	}
 
 	// Field Value - uint

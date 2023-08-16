@@ -33,6 +33,7 @@ resources:
 fieldTypes:
   - "types/AgeRestriction"
   - "types/CurrencyValue"
+  - "types/FixedCurrencyValue"
   - "types/Rate"
 
 # Define Field Aliases

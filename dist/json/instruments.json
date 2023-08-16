@@ -56,7 +56,7 @@
       "description": "A value specified in terms of a currency.",
       "fields": [
         {
-          "description": "Denominated in precision specified in Precision field.",
+          "description": "The value of each token denominated in precision specified in Precision field.\n",
           "example": 100,
           "label": "Value",
           "name": "Value",
@@ -84,6 +84,42 @@
       ],
       "label": "Currency Value",
       "name": "CurrencyValue"
+    },
+    {
+      "description": "A fixed value specified in terms of a currency. The \"Value\" must be 1. Theis value is fixed after instrument creation and can't be modified with instrument modifications.\n",
+      "fields": [
+        {
+          "description": "The value of each token denominated in precision specified in Precision field.\n",
+          "example": 1,
+          "label": "Value",
+          "name": "Value",
+          "options": [
+            1
+          ],
+          "required": true,
+          "size": 8,
+          "type": "uint"
+        },
+        {
+          "description": "International Organization for Standardization code for Currency. Currency for coupon. From resources/currency.\n",
+          "example": "AUD",
+          "label": "Currency Code",
+          "name": "CurrencyCode",
+          "required": true,
+          "type": "CurrencyType"
+        },
+        {
+          "description": "Required field to specify the decimal precision of the value. It will normally be the \"precision\" value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount \"$1.00\". In this scenario 100 tokens are worth $1.\n",
+          "example": 2,
+          "label": "Precision",
+          "name": "Precision",
+          "required": true,
+          "size": 1,
+          "type": "uint"
+        }
+      ],
+      "label": "Fixed Currency Value",
+      "name": "FixedCurrencyValue"
     },
     {
       "description": "A rate value specified in terms of a precision.",
@@ -807,15 +843,21 @@
           "varSize": "tiny"
         },
         {
-          "description": "Face value of each coupon specified in a currency.",
+          "description": "Face value of each token specified in a currency. The \"Value\" must be 1. Theis value is fixed after instrument creation and can't be modified with instrument modifications.\n",
           "label": "Face Value",
           "name": "FaceValue",
-          "type": "CurrencyValue"
+          "type": "FixedCurrencyValue"
         },
         {
           "label": "Expiration Timestamp",
           "name": "ExpirationTimestamp",
           "type": "Timestamp"
+        },
+        {
+          "description": "Set to true if transfers are permitted between two parties, otherwise set to false to prevent peer-to-peer transfers.\n",
+          "label": "Transfers Permitted",
+          "name": "TransfersPermitted",
+          "type": "bool"
         }
       ],
       "label": "Credit Note",

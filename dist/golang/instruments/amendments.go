@@ -1807,6 +1807,7 @@ const (
 	CreditNoteFieldName                = uint32(1)
 	CreditNoteFieldFaceValue           = uint32(2)
 	CreditNoteFieldExpirationTimestamp = uint32(3)
+	CreditNoteFieldTransfersPermitted  = uint32(4)
 )
 
 // ApplyAmendment updates a CreditNote based on amendment data.
@@ -1824,7 +1825,7 @@ func (a *CreditNote) ApplyAmendment(fip permissions.FieldIndexPath, operation ui
 		a.Name = string(data)
 		return permissions.SubPermissions(fip, operation, false)
 
-	case CreditNoteFieldFaceValue: // CurrencyValueField
+	case CreditNoteFieldFaceValue: // FixedCurrencyValueField
 		if len(fip) == 1 && len(data) == 0 {
 			a.FaceValue = nil
 			return permissions.SubPermissions(fip[1:], operation, false)
@@ -1846,6 +1847,19 @@ func (a *CreditNote) ApplyAmendment(fip permissions.FieldIndexPath, operation ui
 			return nil, fmt.Errorf("ExpirationTimestamp amendment value failed to deserialize : %s", err)
 		} else {
 			a.ExpirationTimestamp = uint64(value)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+
+	case CreditNoteFieldTransfersPermitted: // bool
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for TransfersPermitted : %v", fip)
+		}
+		if len(data) != 1 {
+			return nil, fmt.Errorf("TransfersPermitted amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.TransfersPermitted); err != nil {
+			return nil, fmt.Errorf("TransfersPermitted amendment value failed to deserialize : %s", err)
 		}
 		return permissions.SubPermissions(fip, operation, false)
 
@@ -1875,7 +1889,7 @@ func (a *CreditNote) CreateAmendments(fip permissions.FieldIndexPath,
 		})
 	}
 
-	// FaceValue CurrencyValueField
+	// FaceValue FixedCurrencyValueField
 	fip = append(ofip, CreditNoteFieldFaceValue)
 
 	FaceValueAmendments, err := a.FaceValue.CreateAmendments(fip, newValue.FaceValue)
@@ -1890,6 +1904,20 @@ func (a *CreditNote) CreateAmendments(fip permissions.FieldIndexPath,
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.ExpirationTimestamp)); err != nil {
 			return nil, errors.Wrap(err, "ExpirationTimestamp")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// TransfersPermitted bool
+	fip = append(ofip, CreditNoteFieldTransfersPermitted)
+	if a.TransfersPermitted != newValue.TransfersPermitted {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.TransfersPermitted); err != nil {
+			return nil, errors.Wrap(err, "TransfersPermitted")
 		}
 
 		result = append(result, &internal.Amendment{
@@ -2227,6 +2255,112 @@ func (a *CurrencyValueField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	// Precision uint32
 	fip = append(ofip, CurrencyValueFieldPrecision)
+	if a.Precision != newValue.Precision {
+		var buf bytes.Buffer
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Precision)); err != nil {
+			return nil, errors.Wrap(err, "Precision")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	return result, nil
+}
+
+// FixedCurrencyValueField Permission / Amendment Field Indices
+const (
+	FixedCurrencyValueFieldValue        = uint32(1)
+	FixedCurrencyValueFieldCurrencyCode = uint32(2)
+	FixedCurrencyValueFieldPrecision    = uint32(3)
+)
+
+// ApplyAmendment updates a FixedCurrencyValueField based on amendment data.
+// Note: This does not check permissions or data validity. This does check data format.
+// fip must have at least one value.
+func (a *FixedCurrencyValueField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
+
+	if len(fip) == 0 {
+		return nil, errors.New("Empty FixedCurrencyValue amendment field index path")
+	}
+
+	switch fip[0] {
+	case FixedCurrencyValueFieldValue: // uint64
+
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for Value : %v", fip)
+		}
+		buf := bytes.NewBuffer(data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("Value amendment value failed to deserialize : %s", err)
+		} else {
+			a.Value = uint64(value)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+	case FixedCurrencyValueFieldCurrencyCode: // string
+
+		if CurrenciesData(a.CurrencyCode) == nil {
+			return nil, fmt.Errorf("Currencies resource value not defined : %v", a.CurrencyCode)
+		}
+		a.CurrencyCode = string(data)
+		return permissions.SubPermissions(fip, operation, false)
+	case FixedCurrencyValueFieldPrecision: // uint32
+
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for Precision : %v", fip)
+		}
+		buf := bytes.NewBuffer(data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("Precision amendment value failed to deserialize : %s", err)
+		} else {
+			a.Precision = uint32(value)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+	}
+
+	return nil, fmt.Errorf("Unknown FixedCurrencyValue amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two FixedCurrencyValues and returns
+// amendment data.
+func (a *FixedCurrencyValueField) CreateAmendments(fip permissions.FieldIndexPath,
+	newValue *FixedCurrencyValueField) ([]*internal.Amendment, error) {
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	// Value uint64
+	fip = append(ofip, FixedCurrencyValueFieldValue)
+	if a.Value != newValue.Value {
+		var buf bytes.Buffer
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Value)); err != nil {
+			return nil, errors.Wrap(err, "Value")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// CurrencyCode string
+	fip = append(ofip, FixedCurrencyValueFieldCurrencyCode)
+	if a.CurrencyCode != newValue.CurrencyCode {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: []byte(newValue.CurrencyCode),
+		})
+	}
+
+	// Precision uint32
+	fip = append(ofip, FixedCurrencyValueFieldPrecision)
 	if a.Precision != newValue.Precision {
 		var buf bytes.Buffer
 		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Precision)); err != nil {

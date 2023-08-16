@@ -5,10 +5,17 @@ properties:
   Name:
     type: string
   FaceValue:
-    description: Face value of each coupon specified in a currency.
+    description:  >
+      Face value of each token specified in a currency. The "Value" must be 1. Theis value is fixed
+      after instrument creation and can't be modified with instrument modifications.
     type: object
-    $ref: "#/components/schemas/CurrencyValueField"
+    $ref: "#/components/schemas/FixedCurrencyValueField"
   ExpirationTimestamp:
     type: number
     example: 1594668650000000000
+  TransfersPermitted:
+    description:  >
+      Set to true if transfers are permitted between two parties, otherwise set to false to prevent
+      peer-to-peer transfers.
+    type: boolean
 
