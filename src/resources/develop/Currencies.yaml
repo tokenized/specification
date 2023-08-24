@@ -157,7 +157,7 @@ values:
     name: BulgarianLev
     label: Bulgarian lev
     metadata:
-      symbol: "lev"
+      symbol: "лв"
       precision: 2
       fractional_unit: stotinka
       polity:
