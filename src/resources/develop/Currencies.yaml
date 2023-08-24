@@ -5,20 +5,6 @@ codeType:
     type: fixedchar
     size: 3
 
-# Pending values
-###############
-#XPD    .   Palladium (one troy ounce)
-# XPF:
-#   0   CFP franc (franc Pacifique) French territories of the Pacific Ocean:  French Polynesia (PF),  NewCaledonia (NC),  Wallis and Futuna (WF)
-#XPT    .   Platinum (one troy ounce)
-#XAG    .   Silver (one troy ounce)
-#XAU    .   Gold (one troy ounce)
-#XBA    .   European Composite Unit (EURCO) (bond market unit)
-#XBB    .   European Monetary Unit (E.M.U.-6) (bond market unit)
-#XBC    .   European Unit of Account 9 (E.U.A.-9) (bond market unit)
-#XBD    .   European Unit of Account 17 (E.U.A.-17) (bond market unit)
-#XDR    .   Special drawing rights  International Monetary Fund
-
 values:
   - code: AED
     name: UnitedArabEmiratesDirham
@@ -1738,6 +1724,20 @@ values:
         - GAB
       monetary_authority: Bank of the Central African States
 
+  - code: XAG
+    name: SilverTroyOunce
+    label: Silver troy ounce
+    metadata:
+      symbol: "Ag"
+      precision: 4
+  
+  - code: XAU
+    name: GoldTroyOunce
+    label: Gold troy ounce
+    metadata:
+      symbol: "Au"
+      precision: 4
+
   - code: XCD
     name: EastCaribbeanDollar
     label: East Caribbean dollar
@@ -1756,6 +1756,14 @@ values:
         - VCT
       monetary_authority: Eastern Caribbean Central Bank
 
+  - code: XDR
+    name: IMFSpecialDrawingRights
+    label: IMF special drawing rights
+      metadata:
+        symbol: "SDR"
+        precision: 2
+        monetary_authority: International Monetary Fund
+
   - code: XOF
     name: WestAfricanCFAFranc
     label: West African CFA franc
@@ -1772,6 +1780,34 @@ values:
         - SEN
         - TGO
       monetary_authority: Central Bank of the West African States
+
+  - code: XPD
+    name: PalladiumTroyOunce
+    label: Palladium troy ounce
+    metadata:
+      symbol: "Pd"
+      precision: 4
+
+  - code: XPF
+    name: CFPFranc
+    label: CFP franc
+    metadata:
+      symbol: "FCFP"
+      precision: 0
+      fractions: 100
+      fractional_unit: centime
+      polity:
+        - PYF
+        - NCL
+        - WLF
+      monetary_authority: Overseas Issuing Institute
+
+  - code: XPT
+    name: PlatinumTroyOunce
+    label: Platinum troy ounce
+    metadata:
+      symbol: "Pt"
+      precision: 4
 
   - code: YER
     name: YemeniRial
