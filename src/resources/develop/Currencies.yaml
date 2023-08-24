@@ -102,7 +102,7 @@ values:
     name: ArubanFlorin
     label: Aruban florin
     metadata:
-      symbol: "Afl"
+      symbol: "Aƒ"
       precision: 2
       fractional_unit: cent
       polity:
