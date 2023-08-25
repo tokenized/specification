@@ -102,8 +102,8 @@ const (
 	// CostaRicanColon -
 	CurrenciesCostaRicanColon = "CRC"
 
-	// CubanConvertiblePeso -
-	CurrenciesCubanConvertiblePeso = "CUC"
+	// CubanPeso -
+	CurrenciesCubanPeso = "CUP"
 
 	// CapeVerdeanEscudo -
 	CurrenciesCapeVerdeanEscudo = "CVE"
@@ -171,9 +171,6 @@ const (
 	// HonduranLempira -
 	CurrenciesHonduranLempira = "HNL"
 
-	// CroatianKuna -
-	CurrenciesCroatianKuna = "HRK"
-
 	// HaitianGourde -
 	CurrenciesHaitianGourde = "HTG"
 
@@ -210,8 +207,8 @@ const (
 	// KenyanShilling -
 	CurrenciesKenyanShilling = "KES"
 
-	// KyrgyzstaniSom -
-	CurrenciesKyrgyzstaniSom = "KGS"
+	// KyrgyzSom -
+	CurrenciesKyrgyzSom = "KGS"
 
 	// CambodianRiel -
 	CurrenciesCambodianRiel = "KHR"
@@ -373,13 +370,13 @@ const (
 	CurrenciesSaintHelenaPound = "SHP"
 
 	// SierraLeoneanLeone -
-	CurrenciesSierraLeoneanLeone = "SLL"
+	CurrenciesSierraLeoneanLeone = "SLE"
 
 	// SomaliShilling -
 	CurrenciesSomaliShilling = "SOS"
 
-	// SurilabelseDollar -
-	CurrenciesSurilabelseDollar = "SRD"
+	// SurinameseDollar -
+	CurrenciesSurinameseDollar = "SRD"
 
 	// SouthSudanesePound -
 	CurrenciesSouthSudanesePound = "SSP"
@@ -399,8 +396,8 @@ const (
 	// TajikistaniSomoni -
 	CurrenciesTajikistaniSomoni = "TJS"
 
-	// TurkmenistanManat -
-	CurrenciesTurkmenistanManat = "TMT"
+	// TurkmenistaniManat -
+	CurrenciesTurkmenistaniManat = "TMT"
 
 	// TunisianDinar -
 	CurrenciesTunisianDinar = "TND"
@@ -438,8 +435,8 @@ const (
 	// VenezuelanBolivarSoberano -
 	CurrenciesVenezuelanBolivarSoberano = "VES"
 
-	// VietlabelseDong -
-	CurrenciesVietlabelseDong = "VND"
+	// VietnameseDong -
+	CurrenciesVietnameseDong = "VND"
 
 	// VanuatuVatu -
 	CurrenciesVanuatuVatu = "VUV"
@@ -450,11 +447,29 @@ const (
 	// CentralAfricanCFAFranc -
 	CurrenciesCentralAfricanCFAFranc = "XAF"
 
+	// SilverTroyOunce -
+	CurrenciesSilverTroyOunce = "XAG"
+
+	// GoldTroyOunce -
+	CurrenciesGoldTroyOunce = "XAU"
+
 	// EastCaribbeanDollar -
 	CurrenciesEastCaribbeanDollar = "XCD"
 
+	// IMFSpecialDrawingRights -
+	CurrenciesIMFSpecialDrawingRights = "XDR"
+
 	// WestAfricanCFAFranc -
 	CurrenciesWestAfricanCFAFranc = "XOF"
+
+	// PalladiumTroyOunce -
+	CurrenciesPalladiumTroyOunce = "XPD"
+
+	// CFPFranc -
+	CurrenciesCFPFranc = "XPF"
+
+	// PlatinumTroyOunce -
+	CurrenciesPlatinumTroyOunce = "XPT"
 
 	// YemeniRial -
 	CurrenciesYemeniRial = "YER"
@@ -482,7 +497,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "UnitedArabEmiratesDirham",
 			Label:       "United Arab Emirates dirham",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fils","monetary_authority":"Central Bank of the United Arab Emirates","polity":["ARE"],"precision":2,"symbol":"د.إ"}`,
+			MetaData:    `{"fractional_unit":"fils","monetary_authority":"Central Bank of the United Arab Emirates","polity":["ARE"],"precision":2,"symbol":"DH"}`,
 		}
 
 	case CurrenciesAfghanAfghani:
@@ -490,7 +505,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "AfghanAfghani",
 			Label:       "Afghan afghani",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Pul","monetary_authority":"Central Bank of Afghanistan","polity":["AFG"],"precision":2,"symbol":"؋"}`,
+			MetaData:    `{"fractional_unit":"pul","monetary_authority":"Da Afghanistan Bank","polity":["AFG"],"precision":2,"symbol":"؋"}`,
 		}
 
 	case CurrenciesAlbanianLek:
@@ -498,7 +513,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "AlbanianLek",
 			Label:       "Albanian lek",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Qindarkë","monetary_authority":"Bank of Albania","polity":["ALB"],"precision":2,"symbol":"L"}`,
+			MetaData:    `{"fractional_unit":"qindarkë","monetary_authority":"Bank of Albania","polity":["ALB"],"precision":2,"symbol":"lek"}`,
 		}
 
 	case CurrenciesArmenianDram:
@@ -506,7 +521,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "ArmenianDram",
 			Label:       "Armenian dram",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Luma","monetary_authority":"Central Bank of the Republic of Armenia","polity":["ARM"],"precision":2,"symbol":"֏"}`,
+			MetaData:    `{"fractional_unit":"luma","monetary_authority":"Central Bank of Armenia","polity":["ARM"],"precision":2,"symbol":"AMD"}`,
 		}
 
 	case CurrenciesNetherlandsAntilleanGuilder:
@@ -514,7 +529,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "NetherlandsAntilleanGuilder",
 			Label:       "Netherlands Antillean guilder",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Curaçao and Sint Maarten","polity":["SXM","CUW"],"precision":2,"symbol":"ƒ"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Curaçao and Sint Maarten","polity":["SXM","CUW"],"precision":2,"symbol":"NAƒ"}`,
 		}
 
 	case CurrenciesAngolanKwanza:
@@ -522,7 +537,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "AngolanKwanza",
 			Label:       "Angolan kwanza",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cêntimo","monetary_authority":"Central Bank of Angola","polity":["AGO"],"precision":2,"symbol":"Kz"}`,
+			MetaData:    `{"fractional_unit":"cêntimo","monetary_authority":"National Bank of Angola","polity":["AGO"],"precision":2,"symbol":"Kz"}`,
 		}
 
 	case CurrenciesArgentinePeso:
@@ -530,7 +545,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "ArgentinePeso",
 			Label:       "Argentine peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Argentina","polity":["ARG"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of the Argentine Republic","polity":["ARG"],"precision":2,"symbol":"AR$"}`,
 		}
 
 	case CurrenciesAustralianDollar:
@@ -538,7 +553,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "AustralianDollar",
 			Label:       "Australian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Reserve Bank of Australia","polity":["AUS","NRU","KIR","TUV"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Reserve Bank of Australia","polity":["AUS","NRU","KIR","TUV"],"precision":2,"symbol":"A$"}`,
 		}
 
 	case CurrenciesArubanFlorin:
@@ -546,7 +561,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "ArubanFlorin",
 			Label:       "Aruban florin",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Aruba","polity":["ABW"],"precision":2,"symbol":"ƒ"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Aruba","polity":["ABW"],"precision":2,"symbol":"Aƒ"}`,
 		}
 
 	case CurrenciesAzerbaijaniManat:
@@ -554,7 +569,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "AzerbaijaniManat",
 			Label:       "Azerbaijani manat",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Qəpik","monetary_authority":"Central Bank of Azerbaijan","polity":["AZE"],"precision":2,"symbol":"₼"}`,
+			MetaData:    `{"fractional_unit":"qəpik","monetary_authority":"Central Bank of Azerbaijan","polity":["AZE"],"precision":2,"symbol":"₼"}`,
 		}
 
 	case CurrenciesBosniaHerzegovinaConvertibleMark:
@@ -562,7 +577,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BosniaHerzegovinaConvertibleMark",
 			Label:       "Bosnia and Herzegovina convertible mark",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fening","monetary_authority":"Central Bank of Bosnia and Herzegovina","polity":["BIH"],"precision":2,"symbol":"КМ"}`,
+			MetaData:    `{"fractional_unit":"fening","monetary_authority":"Central Bank of Bosnia and Herzegovina","polity":["BIH"],"precision":2,"symbol":"KM"}`,
 		}
 
 	case CurrenciesBarbadianDollar:
@@ -570,7 +585,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BarbadianDollar",
 			Label:       "Barbadian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Barbados","polity":["BRB"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Barbados","polity":["BRB"],"precision":2,"symbol":"BB$"}`,
 		}
 
 	case CurrenciesBangladeshiTaka:
@@ -578,7 +593,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BangladeshiTaka",
 			Label:       "Bangladeshi taka",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Poisha","monetary_authority":"Bangladesh Bank","polity":["BGD"],"precision":2,"symbol":"৳"}`,
+			MetaData:    `{"fractional_unit":"poisha","monetary_authority":"Bangladesh Bank","polity":["BGD"],"precision":2,"symbol":"৳"}`,
 		}
 
 	case CurrenciesBulgarianLev:
@@ -586,7 +601,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BulgarianLev",
 			Label:       "Bulgarian lev",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Stotinka","monetary_authority":"Bulgarian National Bank","polity":["BGR"],"precision":2,"symbol":"лв"}`,
+			MetaData:    `{"fractional_unit":"stotinka","monetary_authority":"Bulgarian National Bank","polity":["BGR"],"precision":2,"symbol":"ЛВ"}`,
 		}
 
 	case CurrenciesBahrainiDinar:
@@ -594,7 +609,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BahrainiDinar",
 			Label:       "Bahraini dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fils","monetary_authority":"Central Bank of Bahrain","polity":["BHR"],"precision":1,"symbol":".د.ب"}`,
+			MetaData:    `{"fractional_unit":"fils","monetary_authority":"Central Bank of Bahrain","polity":["BHR"],"precision":1,"symbol":"BD"}`,
 		}
 
 	case CurrenciesBurundianFranc:
@@ -602,7 +617,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BurundianFranc",
 			Label:       "Burundian franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Bank of the Republic of Burundi","polity":["BDI"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"fractional_unit":"centime","fractions":100,"monetary_authority":"Bank of the Republic of Burundi","polity":["BDI"],"precision":0,"symbol":"FBu\""}`,
 		}
 
 	case CurrenciesBermudianDollar:
@@ -610,7 +625,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BermudianDollar",
 			Label:       "Bermudian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bermuda Monetary Authority","polity":["BMU"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bermuda Monetary Authority","polity":["BMU"],"precision":2,"symbol":"BD$"}`,
 		}
 
 	case CurrenciesBruneiDollar:
@@ -618,7 +633,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BruneiDollar",
 			Label:       "Brunei dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sen","monetary_authority":"Monetary Authority of Brunei Darussalam","polity":["BRN"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"sen","monetary_authority":"Monetary Authority of Brunei Darussalam","polity":["BRN"],"precision":2,"symbol":"B$"}`,
 		}
 
 	case CurrenciesBolivianBoliviano:
@@ -626,7 +641,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BolivianBoliviano",
 			Label:       "Bolivian boliviano",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Bolivia","polity":["BOL"],"precision":2,"symbol":"Bs."}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of Bolivia","polity":["BOL"],"precision":2,"symbol":"Bs"}`,
 		}
 
 	case CurrenciesBrazilianReal:
@@ -634,7 +649,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BrazilianReal",
 			Label:       "Brazilian real",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Brazil","polity":["BRA"],"precision":2,"symbol":"R$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of Brazil","polity":["BRA"],"precision":2,"symbol":"R$"}`,
 		}
 
 	case CurrenciesBahamianDollar:
@@ -642,7 +657,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BahamianDollar",
 			Label:       "Bahamian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of The Bahamas","polity":["BHS"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of The Bahamas","polity":["BHS"],"precision":2,"symbol":"B$"}`,
 		}
 
 	case CurrenciesBitcoin:
@@ -650,7 +665,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "Bitcoin",
 			Label:       "Bitcoin SV",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Satoshis","monetary_authority":"Satoshi Nakamoto","precision":8,"symbol":"₿"}`,
+			MetaData:    `{"fractional_unit":"satoshi","monetary_authority":"Satoshi Nakamoto","precision":8,"symbol":"₿"}`,
 		}
 
 	case CurrenciesBhutaneseNgultrum:
@@ -658,7 +673,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BhutaneseNgultrum",
 			Label:       "Bhutanese ngultrum",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Chetrum","monetary_authority":"Royal Monetary Authority of Bhutan","polity":["BTN"],"precision":2,"symbol":"Nu."}`,
+			MetaData:    `{"fractional_unit":"chetrum","monetary_authority":"Royal Monetary Authority of Bhutan","polity":["BTN"],"precision":2,"symbol":"Nu"}`,
 		}
 
 	case CurrenciesBotswanaPula:
@@ -666,7 +681,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BotswanaPula",
 			Label:       "Botswana pula",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Thebe","monetary_authority":"Bank of Botswana","polity":["BWA"],"precision":2,"symbol":"P"}`,
+			MetaData:    `{"fractional_unit":"thebe","monetary_authority":"Bank of Botswana","polity":["BWA"],"precision":2,"symbol":"P"}`,
 		}
 
 	case CurrenciesBelarusianRuble:
@@ -674,7 +689,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BelarusianRuble",
 			Label:       "Belarusian ruble",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Kapyeyka","monetary_authority":"National Bank of the Republic of Belarus","polity":["BLR"],"precision":2,"symbol":"Br"}`,
+			MetaData:    `{"fractional_unit":"kopeck","monetary_authority":"National Bank of the Republic of Belarus","polity":["BLR"],"precision":2,"symbol":"Br"}`,
 		}
 
 	case CurrenciesBelizeDollar:
@@ -682,7 +697,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "BelizeDollar",
 			Label:       "Belize dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Belize","polity":["BLZ"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Belize","polity":["BLZ"],"precision":2,"symbol":"BZ$"}`,
 		}
 
 	case CurrenciesCanadianDollar:
@@ -690,7 +705,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "CanadianDollar",
 			Label:       "Canadian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Canada","polity":["CAN"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bank of Canada","polity":["CAN"],"precision":2,"symbol":"C$"}`,
 		}
 
 	case CurrenciesCongoleseFranc:
@@ -698,7 +713,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "CongoleseFranc",
 			Label:       "Congolese franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Central Bank of the Congo","polity":["COD"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"fractional_unit":"Centime","fractions":100,"monetary_authority":"Central Bank of the Congo","polity":["COD"],"precision":0,"symbol":"FC"}`,
 		}
 
 	case CurrenciesSwissFranc:
@@ -706,7 +721,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SwissFranc",
 			Label:       "Swiss franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Rappen","monetary_authority":"Swiss National Bank","polity":["CHE","LIE"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"fractional_unit":"rappen","monetary_authority":"Swiss National Bank","polity":["CHE","LIE"],"precision":2,"symbol":"CHF"}`,
 		}
 
 	case CurrenciesChileanPeso:
@@ -714,7 +729,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "ChileanPeso",
 			Label:       "Chilean peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Chile","polity":["CHL"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","fractions":100,"monetary_authority":"Central Bank of Chile","polity":["CHL"],"precision":0,"symbol":"Ch$"}`,
 		}
 
 	case CurrenciesChineseYuan:
@@ -722,7 +737,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "ChineseYuan",
 			Label:       "Chinese yuan",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fen","monetary_authority":"People's Bank of China","polity":["CHN"],"precision":2,"symbol":"¥"}`,
+			MetaData:    `{"fractional_unit":"fen","monetary_authority":"People's Bank of China","polity":["CHN"],"precision":2,"symbol":"¥"}`,
 		}
 
 	case CurrenciesColombianPeso:
@@ -730,23 +745,23 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "ColombianPeso",
 			Label:       "Colombian peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Bank of the Republic","polity":["COL"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","fractions":100,"monetary_authority":"Bank of the Republic","polity":["COL"],"precision":0,"symbol":"Col$"}`,
 		}
 
 	case CurrenciesCostaRicanColon:
 		return &CurrenciesCode{
 			Name:        "CostaRicanColon",
-			Label:       "Costa Rican colon",
+			Label:       "Costa Rican colón",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Céntimo","monetary_authority":"Central Bank of Costa Rica","polity":["CRI"],"precision":2,"symbol":"₡"}`,
+			MetaData:    `{"fractional_unit":"céntimo","monetary_authority":"Central Bank of Costa Rica","polity":["CRI"],"precision":2,"symbol":"₡"}`,
 		}
 
-	case CurrenciesCubanConvertiblePeso:
+	case CurrenciesCubanPeso:
 		return &CurrenciesCode{
-			Name:        "CubanConvertiblePeso",
-			Label:       "Cuban convertible peso",
+			Name:        "CubanPeso",
+			Label:       "Cuban peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Cuba","polity":["CUB"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of Cuba","polity":["CUB"],"precision":2,"symbol":"Cu$"}`,
 		}
 
 	case CurrenciesCapeVerdeanEscudo:
@@ -754,7 +769,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "CapeVerdeanEscudo",
 			Label:       "Cape Verdean escudo",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Bank of Cape Verde","polity":["CUB"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Bank of Cape Verde","polity":["CPV"],"precision":2,"symbol":"Esc"}`,
 		}
 
 	case CurrenciesCzechKoruna:
@@ -762,7 +777,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "CzechKoruna",
 			Label:       "Czech koruna",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Haléř","monetary_authority":"Czech National Bank","polity":["CZE"],"precision":2,"symbol":"Kč"}`,
+			MetaData:    `{"fractional_unit":"haléř","monetary_authority":"Czech National Bank","polity":["CZE"],"precision":2,"symbol":"Kč"}`,
 		}
 
 	case CurrenciesDjiboutianFranc:
@@ -770,7 +785,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "DjiboutianFranc",
 			Label:       "Djiboutian franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Central Bank of Djibouti","polity":["DJI"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"fractional_unit":"centime","fractions":100,"monetary_authority":"Central Bank of Djibouti","polity":["DJI"],"precision":0,"symbol":"Fdj"}`,
 		}
 
 	case CurrenciesDanishKrone:
@@ -778,7 +793,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "DanishKrone",
 			Label:       "Danish krone",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Øre","monetary_authority":"Danmarks Nationalbank","polity":["DNK","FRO","GRL"],"precision":2,"symbol":"kr"}`,
+			MetaData:    `{"fractional_unit":"øre","monetary_authority":"Danmarks Nationalbank","polity":["DNK","FRO","GRL"],"precision":2,"symbol":"DKr"}`,
 		}
 
 	case CurrenciesDominicanPeso:
@@ -786,7 +801,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "DominicanPeso",
 			Label:       "Dominican peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of the Dominican Republic","polity":["DOM"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of the Dominican Republic","polity":["DOM"],"precision":2,"symbol":"RD$"}`,
 		}
 
 	case CurrenciesAlgerianDinar:
@@ -794,7 +809,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "AlgerianDinar",
 			Label:       "Algerian dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Santeem","monetary_authority":"Bank of Algeria","polity":["DZA"],"precision":2,"symbol":"د.ج"}`,
+			MetaData:    `{"monetary_authority":"Bank of Algeria","polity":["DZA"],"precision":0,"symbol":"DA"}`,
 		}
 
 	case CurrenciesEgyptianPound:
@@ -802,7 +817,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "EgyptianPound",
 			Label:       "Egyptian pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Central Bank of Egypt","polity":["EGY"],"precision":2,"symbol":"E£"}`,
+			MetaData:    `{"fractional_unit":"piastre","monetary_authority":"Central Bank of Egypt","polity":["EGY"],"precision":2,"symbol":"£E"}`,
 		}
 
 	case CurrenciesEritreanNakfa:
@@ -810,7 +825,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "EritreanNakfa",
 			Label:       "Eritrean nakfa",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Bank of Eritrea","polity":["ERI"],"precision":2,"symbol":"Nfk"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bank of Eritrea","polity":["ERI"],"precision":2,"symbol":"Nkf"}`,
 		}
 
 	case CurrenciesEthiopianBirr:
@@ -818,7 +833,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "EthiopianBirr",
 			Label:       "Ethiopian birr",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Santim","monetary_authority":"Bank of Eritrea","polity":["ETH"],"precision":2,"symbol":"Br"}`,
+			MetaData:    `{"fractional_unit":"santim","monetary_authority":"National Bank of Ethiopia","polity":["ETH"],"precision":2,"symbol":"Br"}`,
 		}
 
 	case CurrenciesEuro:
@@ -826,7 +841,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "Euro",
 			Label:       "Euro",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"European Central Bank","polity":["ALA","AND","AUT","BEL","CYP","EST","FIN","FRA","ATF","DEU","GRC","GLP","IRL","ITA","LVA","LTU","LUX","MLT","GUF","MTQ","MYT","MCO","MNE","NLD","PRT","REU","BLM","MAF","SPM","SMR","SVK","SVN","ESP"],"precision":2,"symbol":"€"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"European Central Bank","polity":["ALA","AND","AUT","BEL","CYP","EST","FIN","FRA","ATF","DEU","GRC","GLP","IRL","ITA","LVA","LTU","LUX","MLT","GUF","MTQ","MYT","MCO","MNE","NLD","PRT","REU","BLM","MAF","SPM","SMR","SVK","SVN","ESP"],"precision":2,"symbol":"€"}`,
 		}
 
 	case CurrenciesFijianDollar:
@@ -834,7 +849,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "FijianDollar",
 			Label:       "Fijian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Reserve Bank of Fiji","polity":["FJI"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Reserve Bank of Fiji","polity":["FJI"],"precision":2,"symbol":"FJ$"}`,
 		}
 
 	case CurrenciesFalklandIslandsPound:
@@ -842,7 +857,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "FalklandIslandsPound",
 			Label:       "Falkland Islands pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Penny","monetary_authority":"Government of the Falkland Islands","polity":["FLK"],"precision":2,"symbol":"£"}`,
+			MetaData:    `{"fractional_unit":"penny","monetary_authority":"Government of the Falkland Islands","polity":["FLK","SGS"],"precision":2,"symbol":"£"}`,
 		}
 
 	case CurrenciesPoundSterling:
@@ -850,7 +865,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "PoundSterling",
 			Label:       "Pound sterling",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Penny","monetary_authority":"Bank of England","polity":["GBR","IOT","IMN","JEY","GGY"],"precision":2,"symbol":"£"}`,
+			MetaData:    `{"fractional_unit":"penny","monetary_authority":"Bank of England","polity":["GBR","IOT","IMN","JEY","GGY","FLK","GIB","SGS","SHN"],"precision":2,"symbol":"£"}`,
 		}
 
 	case CurrenciesGeorgianLari:
@@ -858,7 +873,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "GeorgianLari",
 			Label:       "Georgian lari",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Tetri","monetary_authority":"National Bank of Georgia","polity":["GEO"],"precision":2,"symbol":"₾"}`,
+			MetaData:    `{"fractional_unit":"tetri","monetary_authority":"National Bank of Georgia","polity":["GEO"],"precision":2,"symbol":"₾"}`,
 		}
 
 	case CurrenciesGhanaianCedi:
@@ -866,7 +881,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "GhanaianCedi",
 			Label:       "Ghanaian cedi",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Pesewa","monetary_authority":"Bank of Ghana","polity":["GHA"],"precision":2,"symbol":"₵"}`,
+			MetaData:    `{"fractional_unit":"pesewa","monetary_authority":"Bank of Ghana","polity":["GHA"],"precision":2,"symbol":"GH₵"}`,
 		}
 
 	case CurrenciesGibraltarPound:
@@ -874,7 +889,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "GibraltarPound",
 			Label:       "Gibraltar pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Penny","monetary_authority":"Government of Gibraltar","polity":["GIB"],"precision":2,"symbol":"£"}`,
+			MetaData:    `{"fractional_unit":"penny","monetary_authority":"Government of Gibraltar","polity":["GIB"],"precision":2,"symbol":"£"}`,
 		}
 
 	case CurrenciesGambianDalasi:
@@ -882,7 +897,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "GambianDalasi",
 			Label:       "Gambian dalasi",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Butut","monetary_authority":"Central Bank of The Gambia","polity":["GMB"],"precision":2,"symbol":"D"}`,
+			MetaData:    `{"fractional_unit":"butut","monetary_authority":"Central Bank of The Gambia","polity":["GMB"],"precision":2,"symbol":"D"}`,
 		}
 
 	case CurrenciesGuineanFranc:
@@ -890,7 +905,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "GuineanFranc",
 			Label:       "Guinean franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Government of Gibraltar","polity":["GNQ"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"monetary_authority":"Central Bank of the Republic of Guinea","polity":["GNQ"],"precision":0,"symbol":"FG"}`,
 		}
 
 	case CurrenciesGuatemalanQuetzal:
@@ -898,7 +913,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "GuatemalanQuetzal",
 			Label:       "Guatemalan quetzal",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Bank of Guatemala","polity":["GTM"],"precision":2,"symbol":"Q"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Bank of Guatemala","polity":["GTM"],"precision":2,"symbol":"Q"}`,
 		}
 
 	case CurrenciesGuyaneseDollar:
@@ -906,7 +921,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "GuyaneseDollar",
 			Label:       "Guyanese dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Guyana","polity":["GUY"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bank of Guyana","polity":["GUY"],"precision":2,"symbol":"G$"}`,
 		}
 
 	case CurrenciesHongKongDollar:
@@ -914,7 +929,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "HongKongDollar",
 			Label:       "Hong Kong dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Hong Kong Monetary Authority","polity":["HKG"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Hong Kong Monetary Authority","polity":["HKG"],"precision":2,"symbol":"HK$"}`,
 		}
 
 	case CurrenciesHonduranLempira:
@@ -922,15 +937,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "HonduranLempira",
 			Label:       "Honduran lempira",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Honduras","polity":["HND"],"precision":2,"symbol":"L"}`,
-		}
-
-	case CurrenciesCroatianKuna:
-		return &CurrenciesCode{
-			Name:        "CroatianKuna",
-			Label:       "Croatian kuna",
-			Description: "",
-			MetaData:    `{"fractional_unit":"Lipa","monetary_authority":"Croatian National Bank","polity":["HRV"],"precision":2,"symbol":"kn"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of Honduras","polity":["HND"],"precision":2,"symbol":"L"}`,
 		}
 
 	case CurrenciesHaitianGourde:
@@ -938,7 +945,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "HaitianGourde",
 			Label:       "Haitian gourde",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Bank of the Republic of Haiti","polity":["HTI"],"precision":2,"symbol":"G"}`,
+			MetaData:    `{"fractional_unit":"centime","monetary_authority":"Bank of the Republic of Haiti","polity":["HTI"],"precision":2,"symbol":"G"}`,
 		}
 
 	case CurrenciesHungarianForint:
@@ -946,7 +953,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "HungarianForint",
 			Label:       "Hungarian forint",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fillér","monetary_authority":"Hungarian National Bank","polity":["HUN"],"precision":2,"symbol":"Ft"}`,
+			MetaData:    `{"fractional_unit":"fillér","monetary_authority":"Hungarian National Bank","polity":["HUN"],"precision":2,"symbol":"Ft"}`,
 		}
 
 	case CurrenciesIndonesianRupiah:
@@ -954,7 +961,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "IndonesianRupiah",
 			Label:       "Indonesian rupiah",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sen","monetary_authority":"Bank of Indonesia","polity":["IDN"],"precision":2,"symbol":"Rp"}`,
+			MetaData:    `{"fractional_unit":"sen","fractions":100,"monetary_authority":"Bank of Indonesia","polity":["IDN"],"precision":0,"symbol":"Rp"}`,
 		}
 
 	case CurrenciesIsraeliNewShekel:
@@ -962,7 +969,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "IsraeliNewShekel",
 			Label:       "Israeli new shekel",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Agora","monetary_authority":"Bank of Israel","polity":["ISR","PSE"],"precision":2,"symbol":"₪"}`,
+			MetaData:    `{"fractional_unit":"agora","monetary_authority":"Bank of Israel","polity":["ISR","PSE"],"precision":2,"symbol":"₪"}`,
 		}
 
 	case CurrenciesIndianRupee:
@@ -970,7 +977,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "IndianRupee",
 			Label:       "Indian rupee",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Paisa","monetary_authority":"Reserve Bank of India","polity":["IND","BTN"],"precision":2,"symbol":"₹"}`,
+			MetaData:    `{"fractional_unit":"paisa","monetary_authority":"Reserve Bank of India","polity":["IND","BTN"],"precision":2,"symbol":"₹"}`,
 		}
 
 	case CurrenciesIraqiDinar:
@@ -978,7 +985,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "IraqiDinar",
 			Label:       "Iraqi dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fils","monetary_authority":"Central Bank of Iraq","polity":["IRQ"],"precision":1,"symbol":"ع.د"}`,
+			MetaData:    `{"fractional_unit":"fils","fractions":1000,"monetary_authority":"Central Bank of Iraq","polity":["IRQ"],"precision":0,"symbol":"ID"}`,
 		}
 
 	case CurrenciesIranianRial:
@@ -986,7 +993,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "IranianRial",
 			Label:       "Iranian rial",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Dinar","monetary_authority":"Central Bank of Iraq","polity":["IRN"],"precision":2,"symbol":"﷼"}`,
+			MetaData:    `{"monetary_authority":"Central Bank of Iraq","polity":["IRN"],"precision":0,"symbol":"IR"}`,
 		}
 
 	case CurrenciesIcelandicKrona:
@@ -994,7 +1001,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "IcelandicKrona",
 			Label:       "Icelandic króna",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Eyrir","monetary_authority":"Central Bank of Iceland","polity":["ISL"],"precision":2,"symbol":"kr"}`,
+			MetaData:    `{"monetary_authority":"Central Bank of Iceland","polity":["ISL"],"precision":0,"symbol":"IKr"}`,
 		}
 
 	case CurrenciesJamaicanDollar:
@@ -1002,7 +1009,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "JamaicanDollar",
 			Label:       "Jamaican dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Jamaica","polity":["JAM"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bank of Jamaica","polity":["JAM"],"precision":2,"symbol":"J$"}`,
 		}
 
 	case CurrenciesJordanianDinar:
@@ -1010,7 +1017,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "JordanianDinar",
 			Label:       "Jordanian dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Central Bank of Jordan","polity":["JOR","PSE"],"precision":2,"symbol":"د.ا"}`,
+			MetaData:    `{"fractional_unit":"qrish","monetary_authority":"Central Bank of Jordan","polity":["JOR","PSE"],"precision":2,"symbol":"JD"}`,
 		}
 
 	case CurrenciesJapaneseYen:
@@ -1018,7 +1025,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "JapaneseYen",
 			Label:       "Japanese yen",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sen","monetary_authority":"Bank of Japan","polity":["JPN"],"precision":2,"symbol":"¥"}`,
+			MetaData:    `{"monetary_authority":"Bank of Japan","polity":["JPN"],"precision":0,"symbol":"¥"}`,
 		}
 
 	case CurrenciesKenyanShilling:
@@ -1026,15 +1033,15 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "KenyanShilling",
 			Label:       "Kenyan shilling",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Kenya","polity":["KEN"],"precision":2,"symbol":"Sh"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Kenya","polity":["KEN"],"precision":2,"symbol":"KSh"}`,
 		}
 
-	case CurrenciesKyrgyzstaniSom:
+	case CurrenciesKyrgyzSom:
 		return &CurrenciesCode{
-			Name:        "KyrgyzstaniSom",
-			Label:       "Kyrgyzstani som",
+			Name:        "KyrgyzSom",
+			Label:       "Kyrgyz som",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Tyiyn","monetary_authority":"National Bank of the Kyrgyz Republic","polity":["KGZ"],"precision":2,"symbol":"с"}`,
+			MetaData:    `{"fractional_unit":"tyiyn","monetary_authority":"National Bank of the Kyrgyz Republic","polity":["KGZ"],"precision":2,"symbol":"som"}`,
 		}
 
 	case CurrenciesCambodianRiel:
@@ -1042,7 +1049,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "CambodianRiel",
 			Label:       "Cambodian riel",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sen","monetary_authority":"National Bank of Cambodia","polity":["KHM"],"precision":2,"symbol":"៛"}`,
+			MetaData:    `{"fractional_unit":"sen","fractions":100,"monetary_authority":"National Bank of Cambodia","polity":["KHM"],"precision":0,"symbol":"KHR"}`,
 		}
 
 	case CurrenciesComoroFranc:
@@ -1050,7 +1057,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "ComoroFranc",
 			Label:       "Comoro franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sen","monetary_authority":"Central Bank of the Comoros","polity":["COM"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"fractional_unit":"centime","fractions":100,"monetary_authority":"Central Bank of the Comoros","polity":["COM"],"precision":0,"symbol":"FC"}`,
 		}
 
 	case CurrenciesNorthKoreanWon:
@@ -1058,7 +1065,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "NorthKoreanWon",
 			Label:       "North Korean won",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Chon","monetary_authority":"Central Bank of the Democratic People's Republic of Korea","polity":["PRK"],"precision":2,"symbol":"₩"}`,
+			MetaData:    `{"fractional_unit":"chun","monetary_authority":"Central Bank of the Democratic People's Republic of Korea","polity":["PRK"],"precision":2,"symbol":"₩"}`,
 		}
 
 	case CurrenciesSouthKoreanWon:
@@ -1066,7 +1073,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SouthKoreanWon",
 			Label:       "South Korean won",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Jeon","monetary_authority":"Bank of Korea","polity":["KOR"],"precision":2,"symbol":"₩"}`,
+			MetaData:    `{"fractional_unit":"chun","fractions":100,"monetary_authority":"Bank of Korea","polity":["KOR"],"precision":0,"symbol":"₩"}`,
 		}
 
 	case CurrenciesKuwaitiDinar:
@@ -1074,7 +1081,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "KuwaitiDinar",
 			Label:       "Kuwaiti dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fils","monetary_authority":"Central Bank of Kuwait","polity":["KWT"],"precision":1,"symbol":"د.ك"}`,
+			MetaData:    `{"fractional_unit":"fils","monetary_authority":"Central Bank of Kuwait","polity":["KWT"],"precision":3,"symbol":"KD"}`,
 		}
 
 	case CurrenciesCaymanIslandsDollar:
@@ -1082,7 +1089,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "CaymanIslandsDollar",
 			Label:       "Cayman Islands dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Cayman Islands Monetary Authority","polity":["CYM"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Cayman Islands Monetary Authority","polity":["CYM"],"precision":2,"symbol":"CI$"}`,
 		}
 
 	case CurrenciesKazakhstaniTenge:
@@ -1090,7 +1097,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "KazakhstaniTenge",
 			Label:       "Kazakhstani tenge",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Tïın","monetary_authority":"National Bank of Kazakhstan","polity":["KAZ"],"precision":2,"symbol":"₸"}`,
+			MetaData:    `{"fractional_unit":"tiyn","monetary_authority":"National Bank of Kazakhstan","polity":["KAZ"],"precision":2,"symbol":"₸"}`,
 		}
 
 	case CurrenciesLaoKip:
@@ -1098,7 +1105,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "LaoKip",
 			Label:       "Lao kip",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Att","monetary_authority":"Bank of the Lao People's Democratic Republic","polity":["LAO"],"precision":2,"symbol":"₭"}`,
+			MetaData:    `{"fractional_unit":"att","fractions":100,"monetary_authority":"Bank of the Lao People's Democratic Republic","polity":["LAO"],"precision":0,"symbol":"₭"}`,
 		}
 
 	case CurrenciesLebanesePound:
@@ -1106,7 +1113,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "LebanesePound",
 			Label:       "Lebanese pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Banque du Liban","polity":["LBN"],"precision":2,"symbol":"ل.ل"}`,
+			MetaData:    `{"monetary_authority":"Banque du Liban","polity":["LBN"],"precision":0,"symbol":"£L"}`,
 		}
 
 	case CurrenciesSriLankanRupee:
@@ -1114,7 +1121,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SriLankanRupee",
 			Label:       "Sri Lankan rupee",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Sri Lanka","polity":["LKA"],"precision":2,"symbol":"Rs"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Sri Lanka","polity":["LKA"],"precision":2,"symbol":"SLRe"}`,
 		}
 
 	case CurrenciesLiberianDollar:
@@ -1122,7 +1129,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "LiberianDollar",
 			Label:       "Liberian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Liberia","polity":["LBR"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Liberia","polity":["LBR"],"precision":2,"symbol":"L$"}`,
 		}
 
 	case CurrenciesLesothoLoti:
@@ -1130,7 +1137,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "LesothoLoti",
 			Label:       "Lesotho loti",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sente","monetary_authority":"Central Bank of Lesotho","polity":["LBR"],"precision":2,"symbol":"L"}`,
+			MetaData:    `{"fractional_unit":"sente","monetary_authority":"Central Bank of Lesotho","polity":["LBR"],"precision":2,"symbol":"L"}`,
 		}
 
 	case CurrenciesLibyanDinar:
@@ -1138,7 +1145,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "LibyanDinar",
 			Label:       "Libyan dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Dirham","monetary_authority":"Central Bank of Libya","polity":["LBY"],"precision":1,"symbol":"ل.د"}`,
+			MetaData:    `{"fractional_unit":"dirham","monetary_authority":"Central Bank of Libya","polity":["LBY"],"precision":3,"symbol":"LD"}`,
 		}
 
 	case CurrenciesMoroccanDirham:
@@ -1146,7 +1153,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MoroccanDirham",
 			Label:       "Moroccan dirham",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Bank Al-Maghrib","polity":["MAR"],"precision":2,"symbol":"د.م."}`,
+			MetaData:    `{"fractional_unit":"santim","monetary_authority":"Bank Al-Maghrib","polity":["MAR"],"precision":2,"symbol":"DH"}`,
 		}
 
 	case CurrenciesMoldovanLeu:
@@ -1154,7 +1161,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MoldovanLeu",
 			Label:       "Moldovan leu",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Ban","monetary_authority":"National Bank of Moldova","polity":["MDA"],"precision":2,"symbol":"L"}`,
+			MetaData:    `{"fractional_unit":"ban","monetary_authority":"National Bank of Moldova","polity":["MDA"],"precision":2,"symbol":"leu"}`,
 		}
 
 	case CurrenciesMalagasyAriary:
@@ -1162,7 +1169,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MalagasyAriary",
 			Label:       "Malagasy ariary",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Iraimbilanja","fractions":5,"monetary_authority":"Central Bank of Madagascar","polity":["MDG"],"precision":2,"symbol":"Ar"}`,
+			MetaData:    `{"fractional_unit":"iraimbilanja","fractions":5,"monetary_authority":"Central Bank of Madagascar","polity":["MDG"],"precision":0,"symbol":"Ar"}`,
 		}
 
 	case CurrenciesMacedonianDenar:
@@ -1170,7 +1177,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MacedonianDenar",
 			Label:       "Macedonian denar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Deni","monetary_authority":"National Bank of the Republic of Macedonia","polity":["MKD"],"precision":2,"symbol":"ден"}`,
+			MetaData:    `{"fractional_unit":"deni","fractions":100,"monetary_authority":"National Bank of the Republic of Macedonia","polity":["MKD"],"precision":0,"symbol":"DEN"}`,
 		}
 
 	case CurrenciesMyanmarKyat:
@@ -1178,7 +1185,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MyanmarKyat",
 			Label:       "Myanmar kyat",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Pya","monetary_authority":"Central Bank of Myanmar","polity":["MMR"],"precision":2,"symbol":"Ks"}`,
+			MetaData:    `{"fractional_unit":"pya","monetary_authority":"Central Bank of Myanmar","polity":["MMR"],"precision":2,"symbol":"K"}`,
 		}
 
 	case CurrenciesMongolianTogrog:
@@ -1186,7 +1193,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MongolianTogrog",
 			Label:       "Mongolian tögrög",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Möngö","monetary_authority":"Bank of Mongolia","polity":["MNG"],"precision":2,"symbol":"₮"}`,
+			MetaData:    `{"fractional_unit":"möngö","fractions":100,"monetary_authority":"Bank of Mongolia","polity":["MNG"],"precision":0,"symbol":"₮"}`,
 		}
 
 	case CurrenciesMacanesePataca:
@@ -1194,7 +1201,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MacanesePataca",
 			Label:       "Macanese pataca",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Avo","monetary_authority":"Monetary Authority of Macau","polity":["MAC"],"precision":2,"symbol":"P"}`,
+			MetaData:    `{"fractional_unit":"avo","monetary_authority":"Monetary Authority of Macau","polity":["MAC"],"precision":2,"symbol":"P"}`,
 		}
 
 	case CurrenciesMauritanianOuguiya:
@@ -1202,7 +1209,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MauritanianOuguiya",
 			Label:       "Mauritanian ouguiya",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Khoums","fractions":5,"monetary_authority":"Central Bank of Mauritania","polity":["MRT"],"precision":2,"symbol":"UM"}`,
+			MetaData:    `{"fractional_unit":"khoums","fractions":5,"monetary_authority":"Central Bank of Mauritania","polity":["MRT"],"precision":2,"symbol":"UM"}`,
 		}
 
 	case CurrenciesMauritianRupee:
@@ -1210,7 +1217,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MauritianRupee",
 			Label:       "Mauritian rupee",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Mauritius","polity":["MUS"],"precision":2,"symbol":"₨"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bank of Mauritius","polity":["MUS"],"precision":2,"symbol":"MRe"}`,
 		}
 
 	case CurrenciesMaldivianRufiyaa:
@@ -1218,7 +1225,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MaldivianRufiyaa",
 			Label:       "Maldivian rufiyaa",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Laari","monetary_authority":"Maldives Monetary Authority","polity":["MDV"],"precision":2,"symbol":".ރ"}`,
+			MetaData:    `{"fractional_unit":"laari","monetary_authority":"Maldives Monetary Authority","polity":["MDV"],"precision":2,"symbol":"Rf"}`,
 		}
 
 	case CurrenciesMalawianKwacha:
@@ -1226,7 +1233,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MalawianKwacha",
 			Label:       "Malawian kwacha",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Tambala","monetary_authority":"Reserve Bank of Malawi","polity":["MWI"],"precision":2,"symbol":"MK"}`,
+			MetaData:    `{"fractional_unit":"tambala","monetary_authority":"Reserve Bank of Malawi","polity":["MWI"],"precision":2,"symbol":"MK"}`,
 		}
 
 	case CurrenciesMexicanPeso:
@@ -1234,7 +1241,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MexicanPeso",
 			Label:       "Mexican peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Bank of Mexico","polity":["MEX"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Bank of Mexico","polity":["MEX"],"precision":2,"symbol":"MX$"}`,
 		}
 
 	case CurrenciesMalaysianRinggit:
@@ -1242,7 +1249,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MalaysianRinggit",
 			Label:       "Malaysian ringgit",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sen","monetary_authority":"Central Bank of Malaysia","polity":["MYS"],"precision":2,"symbol":"RM"}`,
+			MetaData:    `{"fractional_unit":"sen","monetary_authority":"Central Bank of Malaysia","polity":["MYS"],"precision":2,"symbol":"RM"}`,
 		}
 
 	case CurrenciesMozambicanMetical:
@@ -1250,7 +1257,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "MozambicanMetical",
 			Label:       "Mozambican metical",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Bank of Mozambique","polity":["MOZ"],"precision":2,"symbol":"MT"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Bank of Mozambique","polity":["MOZ"],"precision":2,"symbol":"MT"}`,
 		}
 
 	case CurrenciesNamibianDollar:
@@ -1258,7 +1265,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "NamibianDollar",
 			Label:       "Namibian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Namibia","polity":["NAM"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bank of Namibia","polity":["NAM"],"precision":2,"symbol":"N$"}`,
 		}
 
 	case CurrenciesNigerianNaira:
@@ -1266,7 +1273,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "NigerianNaira",
 			Label:       "Nigerian naira",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Kobo","monetary_authority":"Central Bank of Nigeria","polity":["NGA"],"precision":2,"symbol":"₦"}`,
+			MetaData:    `{"fractional_unit":"kobo","monetary_authority":"Central Bank of Nigeria","polity":["NGA"],"precision":2,"symbol":"₦"}`,
 		}
 
 	case CurrenciesNicaraguaCordoba:
@@ -1274,7 +1281,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "NicaraguaCordoba",
 			Label:       "Nicaraguan córdoba",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Nicaragua","polity":["NIC"],"precision":2,"symbol":"C$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of Nicaragua","polity":["NIC"],"precision":2,"symbol":"C$"}`,
 		}
 
 	case CurrenciesNorwegianKrone:
@@ -1282,7 +1289,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "NorwegianKrone",
 			Label:       "Norwegian krone",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Øre","monetary_authority":"Norges Bank","polity":["NOR, SJM, BVT"],"precision":2,"symbol":"kr"}`,
+			MetaData:    `{"fractional_unit":"øre","monetary_authority":"Norges Bank","polity":["NOR","SJM","BVT"],"precision":2,"symbol":"NKr"}`,
 		}
 
 	case CurrenciesNepaleseRupee:
@@ -1290,7 +1297,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "NepaleseRupee",
 			Label:       "Nepalese rupee",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Paisa","monetary_authority":"Nepal Rastra Bank","polity":["NPL"],"precision":2,"symbol":"₨"}`,
+			MetaData:    `{"fractional_unit":"paisa","monetary_authority":"Nepal Rastra Bank","polity":["NPL"],"precision":2,"symbol":"NRe"}`,
 		}
 
 	case CurrenciesNewZealandDollar:
@@ -1298,7 +1305,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "NewZealandDollar",
 			Label:       "New Zealand dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Reserve Bank of New Zealand","polity":["NZL","COK","NIU","PCN","TKL"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Reserve Bank of New Zealand","polity":["NZL","COK","NIU","PCN","TKL"],"precision":2,"symbol":"$NZ"}`,
 		}
 
 	case CurrenciesOmaniRial:
@@ -1306,7 +1313,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "OmaniRial",
 			Label:       "Omani rial",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Baisa","monetary_authority":"Central Bank of Oman","polity":["OMN"],"precision":1,"symbol":"ر.ع."}`,
+			MetaData:    `{"fractional_unit":"baisa","monetary_authority":"Central Bank of Oman","polity":["OMN"],"precision":3,"symbol":"RO"}`,
 		}
 
 	case CurrenciesPanamanianBalboa:
@@ -1314,7 +1321,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "PanamanianBalboa",
 			Label:       "Panamanian balboa",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centésimo","monetary_authority":"Central Bank of Oman","polity":["PAN"],"precision":2,"symbol":"B/."}`,
+			MetaData:    `{"fractional_unit":"centésimo","monetary_authority":"Panama National Banking Commission","polity":["PAN"],"precision":2,"symbol":"B/"}`,
 		}
 
 	case CurrenciesPeruvianSol:
@@ -1322,7 +1329,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "PeruvianSol",
 			Label:       "Peruvian sol",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Céntimo","monetary_authority":"Central Reserve Bank of Peru","polity":["PER"],"precision":2,"symbol":"S/."}`,
+			MetaData:    `{"fractional_unit":"céntimo","monetary_authority":"Central Reserve Bank of Peru","polity":["PER"],"precision":2,"symbol":"S/"}`,
 		}
 
 	case CurrenciesPapuaNewGuineanKina:
@@ -1330,7 +1337,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "PapuaNewGuineanKina",
 			Label:       "Papua New Guinean kina",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Toea","monetary_authority":"Bank of Papua New Guinea","polity":["PNG"],"precision":2,"symbol":"K"}`,
+			MetaData:    `{"fractional_unit":"toea","monetary_authority":"Bank of Papua New Guinea","polity":["PNG"],"precision":2,"symbol":"K"}`,
 		}
 
 	case CurrenciesPhilippinePeso:
@@ -1338,7 +1345,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "PhilippinePeso",
 			Label:       "Philippine peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sentimo","monetary_authority":"Central Bank of the Philippines","polity":["PHL"],"precision":2,"symbol":"₱"}`,
+			MetaData:    `{"fractional_unit":"sentimo","monetary_authority":"Central Bank of the Philippines","polity":["PHL"],"precision":2,"symbol":"₱"}`,
 		}
 
 	case CurrenciesPakistaniRupee:
@@ -1346,7 +1353,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "PakistaniRupee",
 			Label:       "Pakistani rupee",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Paisa","monetary_authority":"State Bank of Pakistan","polity":["PAK"],"precision":2,"symbol":"₨"}`,
+			MetaData:    `{"fractional_unit":"paisa","fractions":100,"monetary_authority":"State Bank of Pakistan","polity":["PAK"],"precision":0,"symbol":"PRe"}`,
 		}
 
 	case CurrenciesPolishZloty:
@@ -1354,7 +1361,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "PolishZloty",
 			Label:       "Polish złoty",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Grosz","monetary_authority":"National Bank of Poland","polity":["POL"],"precision":2,"symbol":"zł"}`,
+			MetaData:    `{"fractional_unit":"grosz","monetary_authority":"National Bank of Poland","polity":["POL"],"precision":2,"symbol":"zł"}`,
 		}
 
 	case CurrenciesParaguayanGuarani:
@@ -1362,7 +1369,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "ParaguayanGuarani",
 			Label:       "Paraguayan guaraní",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Céntimo","monetary_authority":"Central Bank of Paraguay","polity":["PRY"],"precision":2,"symbol":"₲"}`,
+			MetaData:    `{"fractional_unit":"céntimo","fractions":100,"monetary_authority":"Central Bank of Paraguay","polity":["PRY"],"precision":0,"symbol":"₲"}`,
 		}
 
 	case CurrenciesQatariRiyal:
@@ -1370,7 +1377,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "QatariRiyal",
 			Label:       "Qatari riyal",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Dirham","monetary_authority":"Qatar Central Bank","polity":["QAT"],"precision":2,"symbol":"ر.ق"}`,
+			MetaData:    `{"fractional_unit":"dirham","monetary_authority":"Qatar Central Bank","polity":["QAT"],"precision":2,"symbol":"QR"}`,
 		}
 
 	case CurrenciesRomanianLeu:
@@ -1378,7 +1385,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "RomanianLeu",
 			Label:       "Romanian leu",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Ban","monetary_authority":"National Bank of Romania","polity":["ROU"],"precision":2,"symbol":"lei"}`,
+			MetaData:    `{"fractional_unit":"ban","monetary_authority":"National Bank of Romania","polity":["ROU"],"precision":2,"symbol":"leu"}`,
 		}
 
 	case CurrenciesSerbianDinar:
@@ -1386,7 +1393,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SerbianDinar",
 			Label:       "Serbian dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Para","monetary_authority":"National Bank of Serbia","polity":["SRB"],"precision":2,"symbol":"din"}`,
+			MetaData:    `{"fractional_unit":"para","monetary_authority":"National Bank of Serbia","polity":["SRB"],"precision":2,"symbol":"DIN"}`,
 		}
 
 	case CurrenciesRussianRuble:
@@ -1394,7 +1401,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "RussianRuble",
 			Label:       "Russian ruble",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Kopek","monetary_authority":"Bank of Russia","polity":["RUS"],"precision":2,"symbol":"₽"}`,
+			MetaData:    `{"fractional_unit":"kopek","monetary_authority":"Bank of Russia","polity":["RUS"],"precision":2,"symbol":"₽"}`,
 		}
 
 	case CurrenciesRwandanFranc:
@@ -1402,7 +1409,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "RwandanFranc",
 			Label:       "Rwandan franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"National Bank of Rwanda","polity":["RWA"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"fractional_unit":"centime","fractions":100,"monetary_authority":"National Bank of Rwanda","polity":["RWA"],"precision":0,"symbol":"FRw"}`,
 		}
 
 	case CurrenciesSaudiRiyal:
@@ -1410,7 +1417,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SaudiRiyal",
 			Label:       "Saudi riyal",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Halala","monetary_authority":"Saudi Arabian Monetary Authority","polity":["SAU"],"precision":2,"symbol":"ر.س"}`,
+			MetaData:    `{"fractional_unit":"halala","monetary_authority":"Saudi Central Bank","polity":["SAU"],"precision":2,"symbol":"SAR"}`,
 		}
 
 	case CurrenciesSolomonIslandDollar:
@@ -1418,7 +1425,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SolomonIslandDollar",
 			Label:       "Solomon Islands dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Solomon Islands","polity":["SLB"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Solomon Islands","polity":["SLB"],"precision":2,"symbol":"SI$"}`,
 		}
 
 	case CurrenciesSeychelloisRupee:
@@ -1426,7 +1433,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SeychelloisRupee",
 			Label:       "Seychellois rupee",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Solomon Islands","polity":["SYC"],"precision":2,"symbol":"₨"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Solomon Islands","polity":["SYC"],"precision":2,"symbol":"SRe"}`,
 		}
 
 	case CurrenciesSudanesePound:
@@ -1434,7 +1441,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SudanesePound",
 			Label:       "Sudanese pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Bank of Sudan","polity":["SSD"],"precision":2,"symbol":"ج.س."}`,
+			MetaData:    `{"fractional_unit":"piastre","monetary_authority":"Central Bank of Sudan","polity":["SSD"],"precision":2,"symbol":"£Sd"}`,
 		}
 
 	case CurrenciesSwedishKrona:
@@ -1442,7 +1449,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SwedishKrona",
 			Label:       "Swedish krona",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Öre","monetary_authority":"Sveriges Riksbank","polity":["SWE"],"precision":2,"symbol":"kr"}`,
+			MetaData:    `{"fractional_unit":"öre","monetary_authority":"Sveriges Riksbank","polity":["SWE"],"precision":2,"symbol":"SKr"}`,
 		}
 
 	case CurrenciesSingaporeDollar:
@@ -1450,7 +1457,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SingaporeDollar",
 			Label:       "Singapore dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Monetary Authority of Singapore","polity":["SGP"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Monetary Authority of Singapore","polity":["SGP"],"precision":2,"symbol":"S$"}`,
 		}
 
 	case CurrenciesSaintHelenaPound:
@@ -1458,7 +1465,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SaintHelenaPound",
 			Label:       "Saint Helena pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Penny","monetary_authority":"Government of Saint Helena","polity":["SHN"],"precision":2,"symbol":"£"}`,
+			MetaData:    `{"fractional_unit":"penny","monetary_authority":"Government of Saint Helena","polity":["SHN"],"precision":2,"symbol":"£"}`,
 		}
 
 	case CurrenciesSierraLeoneanLeone:
@@ -1474,15 +1481,15 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SomaliShilling",
 			Label:       "Somali shilling",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Somalia","polity":["SOM"],"precision":2,"symbol":"Sl"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Somalia","polity":["SOM"],"precision":2,"symbol":"Sh"}`,
 		}
 
-	case CurrenciesSurilabelseDollar:
+	case CurrenciesSurinameseDollar:
 		return &CurrenciesCode{
-			Name:        "SurilabelseDollar",
-			Label:       "Surilabelse dollar",
+			Name:        "SurinameseDollar",
+			Label:       "Surinamese dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Surilabel","polity":["SUR"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Suriname","polity":["SUR"],"precision":2,"symbol":"SRD"}`,
 		}
 
 	case CurrenciesSouthSudanesePound:
@@ -1490,7 +1497,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SouthSudanesePound",
 			Label:       "South Sudanese pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Bank of South Sudan","polity":["SSD"],"precision":2,"symbol":"£"}`,
+			MetaData:    `{"fractional_unit":"piastre","monetary_authority":"Bank of South Sudan","polity":["SSD"],"precision":2,"symbol":"SSP"}`,
 		}
 
 	case CurrenciesSaoTomePrincipeDobra:
@@ -1498,7 +1505,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SaoTomePrincipeDobra",
 			Label:       "São Tomé and Príncipe dobra",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cêntimo","monetary_authority":"Central Bank of São Tomé and Príncipe","polity":["STP"],"precision":2,"symbol":"Db"}`,
+			MetaData:    `{"fractional_unit":"cêntimo","monetary_authority":"Central Bank of São Tomé and Príncipe","polity":["STP"],"precision":2,"symbol":"Db"}`,
 		}
 
 	case CurrenciesSyrianPound:
@@ -1506,7 +1513,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SyrianPound",
 			Label:       "Syrian pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Central Bank of Syria","polity":["SYR"],"precision":2,"symbol":"£"}`,
+			MetaData:    `{"fractional_unit":"piastre","fractions":100,"monetary_authority":"Central Bank of Syria","polity":["SYR"],"precision":0,"symbol":"£S"}`,
 		}
 
 	case CurrenciesSwaziLilangeni:
@@ -1514,7 +1521,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SwaziLilangeni",
 			Label:       "Swazi lilangeni",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Swaziland","polity":["SWZ"],"precision":2,"symbol":"L"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Eswatini","polity":["SWZ"],"precision":2,"symbol":"L"}`,
 		}
 
 	case CurrenciesThaiBaht:
@@ -1522,7 +1529,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "ThaiBaht",
 			Label:       "Thai baht",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Satang","monetary_authority":"Bank of Thailand","polity":["THA"],"precision":2,"symbol":"฿"}`,
+			MetaData:    `{"fractional_unit":"satang","monetary_authority":"Bank of Thailand","polity":["THA"],"precision":2,"symbol":"THB"}`,
 		}
 
 	case CurrenciesTajikistaniSomoni:
@@ -1530,15 +1537,15 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "TajikistaniSomoni",
 			Label:       "Tajikistani somoni",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Diram","monetary_authority":"National Bank of Tajikistan","polity":["TJK"],"precision":2,"symbol":"ЅМ"}`,
+			MetaData:    `{"fractional_unit":"diram","monetary_authority":"National Bank of Tajikistan","polity":["TJK"],"precision":2,"symbol":"SM"}`,
 		}
 
-	case CurrenciesTurkmenistanManat:
+	case CurrenciesTurkmenistaniManat:
 		return &CurrenciesCode{
-			Name:        "TurkmenistanManat",
-			Label:       "Turkmenistan manat",
+			Name:        "TurkmenistaniManat",
+			Label:       "Turkmenistani manat",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Tennesi","monetary_authority":"Central Bank of Turkmenistan","polity":["TKM"],"precision":2,"symbol":"m"}`,
+			MetaData:    `{"fractional_unit":"tenge","monetary_authority":"Central Bank of Turkmenistan","polity":["TKM"],"precision":2,"symbol":"m"}`,
 		}
 
 	case CurrenciesTunisianDinar:
@@ -1546,7 +1553,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "TunisianDinar",
 			Label:       "Tunisian dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Millime","monetary_authority":"Central Bank of Tunisia","polity":["TUN"],"precision":1,"symbol":"د.ت"}`,
+			MetaData:    `{"fractional_unit":"millime","monetary_authority":"Central Bank of Tunisia","polity":["TUN"],"precision":3,"symbol":"DT"}`,
 		}
 
 	case CurrenciesTonganPaAnga:
@@ -1554,7 +1561,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "TonganPaAnga",
 			Label:       "Tongan paʻanga",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Seniti","monetary_authority":"National Reserve Bank of Tonga","polity":["TON"],"precision":2,"symbol":"T$"}`,
+			MetaData:    `{"fractional_unit":"seniti","monetary_authority":"National Reserve Bank of Tonga","polity":["TON"],"precision":2,"symbol":"T$"}`,
 		}
 
 	case CurrenciesTurkishLira:
@@ -1562,7 +1569,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "TurkishLira",
 			Label:       "Turkish lira",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Kuruş","monetary_authority":"Central Bank of the Republic of Turkey","polity":["TUR"],"precision":2,"symbol":"₺"}`,
+			MetaData:    `{"fractional_unit":"kuruş","monetary_authority":"Central Bank of the Republic of Turkey","polity":["TUR"],"precision":2,"symbol":"₺"}`,
 		}
 
 	case CurrenciesTrinidadTobagoDollar:
@@ -1570,7 +1577,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "TrinidadTobagoDollar",
 			Label:       "Trinidad and Tobago dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Trinidad and Tobago","polity":["TTO"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Trinidad and Tobago","polity":["TTO"],"precision":2,"symbol":"TT$"}`,
 		}
 
 	case CurrenciesNewTaiwanDollar:
@@ -1578,7 +1585,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "NewTaiwanDollar",
 			Label:       "New Taiwan dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of the Republic of China (Taiwan)","polity":["TWN"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of the Republic of China (Taiwan)","polity":["TWN"],"precision":2,"symbol":"NT$"}`,
 		}
 
 	case CurrenciesTanzanianShilling:
@@ -1586,7 +1593,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "TanzanianShilling",
 			Label:       "Tanzanian shilling",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Tanzania","polity":["TZA"],"precision":2,"symbol":"Sh"}`,
+			MetaData:    `{"fractional_unit":"cent","fractions":100,"monetary_authority":"Bank of Tanzania","polity":["TZA"],"precision":0,"symbol":"TSh"}`,
 		}
 
 	case CurrenciesUkrainianHryvnia:
@@ -1594,7 +1601,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "UkrainianHryvnia",
 			Label:       "Ukrainian hryvnia",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Kopiyka","monetary_authority":"National Bank of Ukraine","polity":["UKR"],"precision":2,"symbol":"₴"}`,
+			MetaData:    `{"fractional_unit":"kopiyka","monetary_authority":"National Bank of Ukraine","polity":["UKR"],"precision":2,"symbol":"₴"}`,
 		}
 
 	case CurrenciesUgandanShilling:
@@ -1602,7 +1609,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "UgandanShilling",
 			Label:       "Ugandan shilling",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Uganda","polity":["UGA"],"precision":2,"symbol":"Sh"}`,
+			MetaData:    `{"fractional_unit":"cent","fractions":100,"monetary_authority":"Bank of Uganda","polity":["UGA"],"precision":0,"symbol":"USh"}`,
 		}
 
 	case CurrenciesUnitedStatesDollar:
@@ -1610,7 +1617,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "UnitedStatesDollar",
 			Label:       "United States dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Federal Reserve","polity":["USA","ASM","VGB","BES","ECU","SLV","GUM","HTI","MHL","FSM","MNP","PLW","PAN","PRI","TLS","TCA","VIR","UMI"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Federal Reserve","polity":["USA","ASM","VGB","BES","ECU","SLV","GUM","HTI","MHL","FSM","MNP","PLW","PAN","PRI","TLS","TCA","VIR","UMI"],"precision":2,"symbol":"$"}`,
 		}
 
 	case CurrenciesUruguayanPeso:
@@ -1618,7 +1625,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "UruguayanPeso",
 			Label:       "Uruguayan peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centésimo","monetary_authority":"Central Bank of Uruguay","polity":["URY"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centésimo","monetary_authority":"Central Bank of Uruguay","polity":["URY"],"precision":2,"symbol":"$U"}`,
 		}
 
 	case CurrenciesUzbekistaniSom:
@@ -1626,7 +1633,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "UzbekistaniSom",
 			Label:       "Uzbekistani soʻm",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Tiyin","monetary_authority":"Central Bank of the Republic of Uzbekistan","polity":["UZB"],"precision":2,"symbol":"so'm"}`,
+			MetaData:    `{"fractional_unit":"tiyin","fractions":100,"monetary_authority":"Central Bank of the Republic of Uzbekistan","polity":["UZB"],"precision":0,"symbol":"UBZ"}`,
 		}
 
 	case CurrenciesVenezuelanBolivarSoberano:
@@ -1634,15 +1641,15 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "VenezuelanBolivarSoberano",
 			Label:       "Venezuelan bolívar soberano",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Céntimo","monetary_authority":"Central Bank of Venezuela","polity":["VEN"],"precision":2,"symbol":"Bs."}`,
+			MetaData:    `{"fractional_unit":"céntimo","monetary_authority":"Central Bank of Venezuela","polity":["VEN"],"precision":2,"symbol":"VES"}`,
 		}
 
-	case CurrenciesVietlabelseDong:
+	case CurrenciesVietnameseDong:
 		return &CurrenciesCode{
-			Name:        "VietlabelseDong",
-			Label:       "Vietlabelse đồng",
+			Name:        "VietnameseDong",
+			Label:       "Vietnamese đồng",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Hào","monetary_authority":"State Bank of Vietnam","polity":["VNM"],"precision":2,"symbol":"₫"}`,
+			MetaData:    `{"monetary_authority":"State Bank of Vietnam","polity":["VNM"],"precision":0,"symbol":"₫"}`,
 		}
 
 	case CurrenciesVanuatuVatu:
@@ -1650,7 +1657,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "VanuatuVatu",
 			Label:       "Vanuatu vatu",
 			Description: "",
-			MetaData:    `{"fractional_unit":null,"monetary_authority":"Reserve Bank of Vanuatu","polity":["VUT"],"precision":0,"symbol":"Vt"}`,
+			MetaData:    `{"monetary_authority":"Reserve Bank of Vanuatu","polity":["VUT"],"precision":0,"symbol":"VT"}`,
 		}
 
 	case CurrenciesSamoanTala:
@@ -1658,7 +1665,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SamoanTala",
 			Label:       "Samoan tālā",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sene","monetary_authority":"Central Bank of Samoa","polity":["WSM"],"precision":2,"symbol":"T"}`,
+			MetaData:    `{"fractional_unit":"Sene","monetary_authority":"Central Bank of Samoa","polity":["WSM"],"precision":2,"symbol":"ST"}`,
 		}
 
 	case CurrenciesCentralAfricanCFAFranc:
@@ -1666,7 +1673,23 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "CentralAfricanCFAFranc",
 			Label:       "Central African CFA franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sene","monetary_authority":"Central Bank of Samoa","polity":["CMR","CAF","COG","TCD","GNQ","GAB"],"precision":2,"symbol":"T"}`,
+			MetaData:    `{"monetary_authority":"Bank of the Central African States","polity":["CMR","CAF","COG","TCD","GNQ","GAB"],"precision":0,"symbol":"FCFA"}`,
+		}
+
+	case CurrenciesSilverTroyOunce:
+		return &CurrenciesCode{
+			Name:        "SilverTroyOunce",
+			Label:       "Silver troy ounce",
+			Description: "",
+			MetaData:    `{"precision":4,"symbol":"Ag"}`,
+		}
+
+	case CurrenciesGoldTroyOunce:
+		return &CurrenciesCode{
+			Name:        "GoldTroyOunce",
+			Label:       "Gold troy ounce",
+			Description: "",
+			MetaData:    `{"precision":4,"symbol":"Au"}`,
 		}
 
 	case CurrenciesEastCaribbeanDollar:
@@ -1674,7 +1697,15 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "EastCaribbeanDollar",
 			Label:       "East Caribbean dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Eastern Caribbean Central Bank","polity":["AIA","ATG","DMA","GRD","MSR","KNA","LCA","VCT"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Eastern Caribbean Central Bank","polity":["AIA","ATG","DMA","GRD","MSR","KNA","LCA","VCT"],"precision":2,"symbol":"EC$"}`,
+		}
+
+	case CurrenciesIMFSpecialDrawingRights:
+		return &CurrenciesCode{
+			Name:        "IMFSpecialDrawingRights",
+			Label:       "IMF special drawing rights",
+			Description: "",
+			MetaData:    `{"monetary_authority":"International Monetary Fund","precision":2,"symbol":"SDR"}`,
 		}
 
 	case CurrenciesWestAfricanCFAFranc:
@@ -1682,7 +1713,31 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "WestAfricanCFAFranc",
 			Label:       "West African CFA franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Central Bank of West African States","polity":["BEN","BFA","CIV","GNB","MLI","NER","SEN","TGO"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"monetary_authority":"Central Bank of the West African States","polity":["BEN","BFA","CIV","GNB","MLI","NER","SEN","TGO"],"precision":0,"symbol":"FCFA"}`,
+		}
+
+	case CurrenciesPalladiumTroyOunce:
+		return &CurrenciesCode{
+			Name:        "PalladiumTroyOunce",
+			Label:       "Palladium troy ounce",
+			Description: "",
+			MetaData:    `{"precision":4,"symbol":"Pd"}`,
+		}
+
+	case CurrenciesCFPFranc:
+		return &CurrenciesCode{
+			Name:        "CFPFranc",
+			Label:       "CFP franc",
+			Description: "",
+			MetaData:    `{"fractional_unit":"centime","fractions":100,"monetary_authority":"Overseas Issuing Institute","polity":["PYF","NCL","WLF"],"precision":0,"symbol":"FCFP"}`,
+		}
+
+	case CurrenciesPlatinumTroyOunce:
+		return &CurrenciesCode{
+			Name:        "PlatinumTroyOunce",
+			Label:       "Platinum troy ounce",
+			Description: "",
+			MetaData:    `{"precision":4,"symbol":"Pt"}`,
 		}
 
 	case CurrenciesYemeniRial:
@@ -1690,7 +1745,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "YemeniRial",
 			Label:       "Yemeni rial",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fils","monetary_authority":"Central Bank of Yemen","polity":["YEM"],"precision":2,"symbol":"﷼"}`,
+			MetaData:    `{"fractional_unit":"fils","monetary_authority":"Central Bank of Yemen","polity":["YEM"],"precision":2,"symbol":"YRi"}`,
 		}
 
 	case CurrenciesSouthAfricanRand:
@@ -1698,7 +1753,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "SouthAfricanRand",
 			Label:       "South African rand",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"South African Reserve Bank","polity":["ZAF"],"precision":2,"symbol":"R"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"South African Reserve Bank","polity":["ZAF"],"precision":2,"symbol":"R"}`,
 		}
 
 	case CurrenciesZambianKwacha:
@@ -1706,7 +1761,7 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Name:        "ZambianKwacha",
 			Label:       "Zambian kwacha",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Ngwee","monetary_authority":"Bank of Zambia","polity":["ZMB"],"precision":2,"symbol":"ZK"}`,
+			MetaData:    `{"fractional_unit":"ngwee","monetary_authority":"Bank of Zambia","polity":["ZMB"],"precision":2,"symbol":"ZK"}`,
 		}
 	default:
 		return nil
@@ -1721,861 +1776,854 @@ func CurrenciesMap() map[string]*CurrenciesCode {
 			Name:        "UnitedArabEmiratesDirham",
 			Label:       "United Arab Emirates dirham",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fils","monetary_authority":"Central Bank of the United Arab Emirates","polity":["ARE"],"precision":2,"symbol":"د.إ"}`,
+			MetaData:    `{"fractional_unit":"fils","monetary_authority":"Central Bank of the United Arab Emirates","polity":["ARE"],"precision":2,"symbol":"DH"}`,
 		},
 
 		CurrenciesAfghanAfghani: &CurrenciesCode{
 			Name:        "AfghanAfghani",
 			Label:       "Afghan afghani",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Pul","monetary_authority":"Central Bank of Afghanistan","polity":["AFG"],"precision":2,"symbol":"؋"}`,
+			MetaData:    `{"fractional_unit":"pul","monetary_authority":"Da Afghanistan Bank","polity":["AFG"],"precision":2,"symbol":"؋"}`,
 		},
 
 		CurrenciesAlbanianLek: &CurrenciesCode{
 			Name:        "AlbanianLek",
 			Label:       "Albanian lek",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Qindarkë","monetary_authority":"Bank of Albania","polity":["ALB"],"precision":2,"symbol":"L"}`,
+			MetaData:    `{"fractional_unit":"qindarkë","monetary_authority":"Bank of Albania","polity":["ALB"],"precision":2,"symbol":"lek"}`,
 		},
 
 		CurrenciesArmenianDram: &CurrenciesCode{
 			Name:        "ArmenianDram",
 			Label:       "Armenian dram",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Luma","monetary_authority":"Central Bank of the Republic of Armenia","polity":["ARM"],"precision":2,"symbol":"֏"}`,
+			MetaData:    `{"fractional_unit":"luma","monetary_authority":"Central Bank of Armenia","polity":["ARM"],"precision":2,"symbol":"AMD"}`,
 		},
 
 		CurrenciesNetherlandsAntilleanGuilder: &CurrenciesCode{
 			Name:        "NetherlandsAntilleanGuilder",
 			Label:       "Netherlands Antillean guilder",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Curaçao and Sint Maarten","polity":["SXM","CUW"],"precision":2,"symbol":"ƒ"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Curaçao and Sint Maarten","polity":["SXM","CUW"],"precision":2,"symbol":"NAƒ"}`,
 		},
 
 		CurrenciesAngolanKwanza: &CurrenciesCode{
 			Name:        "AngolanKwanza",
 			Label:       "Angolan kwanza",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cêntimo","monetary_authority":"Central Bank of Angola","polity":["AGO"],"precision":2,"symbol":"Kz"}`,
+			MetaData:    `{"fractional_unit":"cêntimo","monetary_authority":"National Bank of Angola","polity":["AGO"],"precision":2,"symbol":"Kz"}`,
 		},
 
 		CurrenciesArgentinePeso: &CurrenciesCode{
 			Name:        "ArgentinePeso",
 			Label:       "Argentine peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Argentina","polity":["ARG"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of the Argentine Republic","polity":["ARG"],"precision":2,"symbol":"AR$"}`,
 		},
 
 		CurrenciesAustralianDollar: &CurrenciesCode{
 			Name:        "AustralianDollar",
 			Label:       "Australian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Reserve Bank of Australia","polity":["AUS","NRU","KIR","TUV"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Reserve Bank of Australia","polity":["AUS","NRU","KIR","TUV"],"precision":2,"symbol":"A$"}`,
 		},
 
 		CurrenciesArubanFlorin: &CurrenciesCode{
 			Name:        "ArubanFlorin",
 			Label:       "Aruban florin",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Aruba","polity":["ABW"],"precision":2,"symbol":"ƒ"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Aruba","polity":["ABW"],"precision":2,"symbol":"Aƒ"}`,
 		},
 
 		CurrenciesAzerbaijaniManat: &CurrenciesCode{
 			Name:        "AzerbaijaniManat",
 			Label:       "Azerbaijani manat",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Qəpik","monetary_authority":"Central Bank of Azerbaijan","polity":["AZE"],"precision":2,"symbol":"₼"}`,
+			MetaData:    `{"fractional_unit":"qəpik","monetary_authority":"Central Bank of Azerbaijan","polity":["AZE"],"precision":2,"symbol":"₼"}`,
 		},
 
 		CurrenciesBosniaHerzegovinaConvertibleMark: &CurrenciesCode{
 			Name:        "BosniaHerzegovinaConvertibleMark",
 			Label:       "Bosnia and Herzegovina convertible mark",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fening","monetary_authority":"Central Bank of Bosnia and Herzegovina","polity":["BIH"],"precision":2,"symbol":"КМ"}`,
+			MetaData:    `{"fractional_unit":"fening","monetary_authority":"Central Bank of Bosnia and Herzegovina","polity":["BIH"],"precision":2,"symbol":"KM"}`,
 		},
 
 		CurrenciesBarbadianDollar: &CurrenciesCode{
 			Name:        "BarbadianDollar",
 			Label:       "Barbadian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Barbados","polity":["BRB"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Barbados","polity":["BRB"],"precision":2,"symbol":"BB$"}`,
 		},
 
 		CurrenciesBangladeshiTaka: &CurrenciesCode{
 			Name:        "BangladeshiTaka",
 			Label:       "Bangladeshi taka",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Poisha","monetary_authority":"Bangladesh Bank","polity":["BGD"],"precision":2,"symbol":"৳"}`,
+			MetaData:    `{"fractional_unit":"poisha","monetary_authority":"Bangladesh Bank","polity":["BGD"],"precision":2,"symbol":"৳"}`,
 		},
 
 		CurrenciesBulgarianLev: &CurrenciesCode{
 			Name:        "BulgarianLev",
 			Label:       "Bulgarian lev",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Stotinka","monetary_authority":"Bulgarian National Bank","polity":["BGR"],"precision":2,"symbol":"лв"}`,
+			MetaData:    `{"fractional_unit":"stotinka","monetary_authority":"Bulgarian National Bank","polity":["BGR"],"precision":2,"symbol":"ЛВ"}`,
 		},
 
 		CurrenciesBahrainiDinar: &CurrenciesCode{
 			Name:        "BahrainiDinar",
 			Label:       "Bahraini dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fils","monetary_authority":"Central Bank of Bahrain","polity":["BHR"],"precision":1,"symbol":".د.ب"}`,
+			MetaData:    `{"fractional_unit":"fils","monetary_authority":"Central Bank of Bahrain","polity":["BHR"],"precision":1,"symbol":"BD"}`,
 		},
 
 		CurrenciesBurundianFranc: &CurrenciesCode{
 			Name:        "BurundianFranc",
 			Label:       "Burundian franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Bank of the Republic of Burundi","polity":["BDI"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"fractional_unit":"centime","fractions":100,"monetary_authority":"Bank of the Republic of Burundi","polity":["BDI"],"precision":0,"symbol":"FBu\""}`,
 		},
 
 		CurrenciesBermudianDollar: &CurrenciesCode{
 			Name:        "BermudianDollar",
 			Label:       "Bermudian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bermuda Monetary Authority","polity":["BMU"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bermuda Monetary Authority","polity":["BMU"],"precision":2,"symbol":"BD$"}`,
 		},
 
 		CurrenciesBruneiDollar: &CurrenciesCode{
 			Name:        "BruneiDollar",
 			Label:       "Brunei dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sen","monetary_authority":"Monetary Authority of Brunei Darussalam","polity":["BRN"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"sen","monetary_authority":"Monetary Authority of Brunei Darussalam","polity":["BRN"],"precision":2,"symbol":"B$"}`,
 		},
 
 		CurrenciesBolivianBoliviano: &CurrenciesCode{
 			Name:        "BolivianBoliviano",
 			Label:       "Bolivian boliviano",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Bolivia","polity":["BOL"],"precision":2,"symbol":"Bs."}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of Bolivia","polity":["BOL"],"precision":2,"symbol":"Bs"}`,
 		},
 
 		CurrenciesBrazilianReal: &CurrenciesCode{
 			Name:        "BrazilianReal",
 			Label:       "Brazilian real",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Brazil","polity":["BRA"],"precision":2,"symbol":"R$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of Brazil","polity":["BRA"],"precision":2,"symbol":"R$"}`,
 		},
 
 		CurrenciesBahamianDollar: &CurrenciesCode{
 			Name:        "BahamianDollar",
 			Label:       "Bahamian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of The Bahamas","polity":["BHS"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of The Bahamas","polity":["BHS"],"precision":2,"symbol":"B$"}`,
 		},
 
 		CurrenciesBitcoin: &CurrenciesCode{
 			Name:        "Bitcoin",
 			Label:       "Bitcoin SV",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Satoshis","monetary_authority":"Satoshi Nakamoto","precision":8,"symbol":"₿"}`,
+			MetaData:    `{"fractional_unit":"satoshi","monetary_authority":"Satoshi Nakamoto","precision":8,"symbol":"₿"}`,
 		},
 
 		CurrenciesBhutaneseNgultrum: &CurrenciesCode{
 			Name:        "BhutaneseNgultrum",
 			Label:       "Bhutanese ngultrum",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Chetrum","monetary_authority":"Royal Monetary Authority of Bhutan","polity":["BTN"],"precision":2,"symbol":"Nu."}`,
+			MetaData:    `{"fractional_unit":"chetrum","monetary_authority":"Royal Monetary Authority of Bhutan","polity":["BTN"],"precision":2,"symbol":"Nu"}`,
 		},
 
 		CurrenciesBotswanaPula: &CurrenciesCode{
 			Name:        "BotswanaPula",
 			Label:       "Botswana pula",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Thebe","monetary_authority":"Bank of Botswana","polity":["BWA"],"precision":2,"symbol":"P"}`,
+			MetaData:    `{"fractional_unit":"thebe","monetary_authority":"Bank of Botswana","polity":["BWA"],"precision":2,"symbol":"P"}`,
 		},
 
 		CurrenciesBelarusianRuble: &CurrenciesCode{
 			Name:        "BelarusianRuble",
 			Label:       "Belarusian ruble",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Kapyeyka","monetary_authority":"National Bank of the Republic of Belarus","polity":["BLR"],"precision":2,"symbol":"Br"}`,
+			MetaData:    `{"fractional_unit":"kopeck","monetary_authority":"National Bank of the Republic of Belarus","polity":["BLR"],"precision":2,"symbol":"Br"}`,
 		},
 
 		CurrenciesBelizeDollar: &CurrenciesCode{
 			Name:        "BelizeDollar",
 			Label:       "Belize dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Belize","polity":["BLZ"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Belize","polity":["BLZ"],"precision":2,"symbol":"BZ$"}`,
 		},
 
 		CurrenciesCanadianDollar: &CurrenciesCode{
 			Name:        "CanadianDollar",
 			Label:       "Canadian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Canada","polity":["CAN"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bank of Canada","polity":["CAN"],"precision":2,"symbol":"C$"}`,
 		},
 
 		CurrenciesCongoleseFranc: &CurrenciesCode{
 			Name:        "CongoleseFranc",
 			Label:       "Congolese franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Central Bank of the Congo","polity":["COD"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"fractional_unit":"Centime","fractions":100,"monetary_authority":"Central Bank of the Congo","polity":["COD"],"precision":0,"symbol":"FC"}`,
 		},
 
 		CurrenciesSwissFranc: &CurrenciesCode{
 			Name:        "SwissFranc",
 			Label:       "Swiss franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Rappen","monetary_authority":"Swiss National Bank","polity":["CHE","LIE"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"fractional_unit":"rappen","monetary_authority":"Swiss National Bank","polity":["CHE","LIE"],"precision":2,"symbol":"CHF"}`,
 		},
 
 		CurrenciesChileanPeso: &CurrenciesCode{
 			Name:        "ChileanPeso",
 			Label:       "Chilean peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Chile","polity":["CHL"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","fractions":100,"monetary_authority":"Central Bank of Chile","polity":["CHL"],"precision":0,"symbol":"Ch$"}`,
 		},
 
 		CurrenciesChineseYuan: &CurrenciesCode{
 			Name:        "ChineseYuan",
 			Label:       "Chinese yuan",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fen","monetary_authority":"People's Bank of China","polity":["CHN"],"precision":2,"symbol":"¥"}`,
+			MetaData:    `{"fractional_unit":"fen","monetary_authority":"People's Bank of China","polity":["CHN"],"precision":2,"symbol":"¥"}`,
 		},
 
 		CurrenciesColombianPeso: &CurrenciesCode{
 			Name:        "ColombianPeso",
 			Label:       "Colombian peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Bank of the Republic","polity":["COL"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","fractions":100,"monetary_authority":"Bank of the Republic","polity":["COL"],"precision":0,"symbol":"Col$"}`,
 		},
 
 		CurrenciesCostaRicanColon: &CurrenciesCode{
 			Name:        "CostaRicanColon",
-			Label:       "Costa Rican colon",
+			Label:       "Costa Rican colón",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Céntimo","monetary_authority":"Central Bank of Costa Rica","polity":["CRI"],"precision":2,"symbol":"₡"}`,
+			MetaData:    `{"fractional_unit":"céntimo","monetary_authority":"Central Bank of Costa Rica","polity":["CRI"],"precision":2,"symbol":"₡"}`,
 		},
 
-		CurrenciesCubanConvertiblePeso: &CurrenciesCode{
-			Name:        "CubanConvertiblePeso",
-			Label:       "Cuban convertible peso",
+		CurrenciesCubanPeso: &CurrenciesCode{
+			Name:        "CubanPeso",
+			Label:       "Cuban peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Cuba","polity":["CUB"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of Cuba","polity":["CUB"],"precision":2,"symbol":"Cu$"}`,
 		},
 
 		CurrenciesCapeVerdeanEscudo: &CurrenciesCode{
 			Name:        "CapeVerdeanEscudo",
 			Label:       "Cape Verdean escudo",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Bank of Cape Verde","polity":["CUB"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Bank of Cape Verde","polity":["CPV"],"precision":2,"symbol":"Esc"}`,
 		},
 
 		CurrenciesCzechKoruna: &CurrenciesCode{
 			Name:        "CzechKoruna",
 			Label:       "Czech koruna",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Haléř","monetary_authority":"Czech National Bank","polity":["CZE"],"precision":2,"symbol":"Kč"}`,
+			MetaData:    `{"fractional_unit":"haléř","monetary_authority":"Czech National Bank","polity":["CZE"],"precision":2,"symbol":"Kč"}`,
 		},
 
 		CurrenciesDjiboutianFranc: &CurrenciesCode{
 			Name:        "DjiboutianFranc",
 			Label:       "Djiboutian franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Central Bank of Djibouti","polity":["DJI"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"fractional_unit":"centime","fractions":100,"monetary_authority":"Central Bank of Djibouti","polity":["DJI"],"precision":0,"symbol":"Fdj"}`,
 		},
 
 		CurrenciesDanishKrone: &CurrenciesCode{
 			Name:        "DanishKrone",
 			Label:       "Danish krone",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Øre","monetary_authority":"Danmarks Nationalbank","polity":["DNK","FRO","GRL"],"precision":2,"symbol":"kr"}`,
+			MetaData:    `{"fractional_unit":"øre","monetary_authority":"Danmarks Nationalbank","polity":["DNK","FRO","GRL"],"precision":2,"symbol":"DKr"}`,
 		},
 
 		CurrenciesDominicanPeso: &CurrenciesCode{
 			Name:        "DominicanPeso",
 			Label:       "Dominican peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of the Dominican Republic","polity":["DOM"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of the Dominican Republic","polity":["DOM"],"precision":2,"symbol":"RD$"}`,
 		},
 
 		CurrenciesAlgerianDinar: &CurrenciesCode{
 			Name:        "AlgerianDinar",
 			Label:       "Algerian dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Santeem","monetary_authority":"Bank of Algeria","polity":["DZA"],"precision":2,"symbol":"د.ج"}`,
+			MetaData:    `{"monetary_authority":"Bank of Algeria","polity":["DZA"],"precision":0,"symbol":"DA"}`,
 		},
 
 		CurrenciesEgyptianPound: &CurrenciesCode{
 			Name:        "EgyptianPound",
 			Label:       "Egyptian pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Central Bank of Egypt","polity":["EGY"],"precision":2,"symbol":"E£"}`,
+			MetaData:    `{"fractional_unit":"piastre","monetary_authority":"Central Bank of Egypt","polity":["EGY"],"precision":2,"symbol":"£E"}`,
 		},
 
 		CurrenciesEritreanNakfa: &CurrenciesCode{
 			Name:        "EritreanNakfa",
 			Label:       "Eritrean nakfa",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Bank of Eritrea","polity":["ERI"],"precision":2,"symbol":"Nfk"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bank of Eritrea","polity":["ERI"],"precision":2,"symbol":"Nkf"}`,
 		},
 
 		CurrenciesEthiopianBirr: &CurrenciesCode{
 			Name:        "EthiopianBirr",
 			Label:       "Ethiopian birr",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Santim","monetary_authority":"Bank of Eritrea","polity":["ETH"],"precision":2,"symbol":"Br"}`,
+			MetaData:    `{"fractional_unit":"santim","monetary_authority":"National Bank of Ethiopia","polity":["ETH"],"precision":2,"symbol":"Br"}`,
 		},
 
 		CurrenciesEuro: &CurrenciesCode{
 			Name:        "Euro",
 			Label:       "Euro",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"European Central Bank","polity":["ALA","AND","AUT","BEL","CYP","EST","FIN","FRA","ATF","DEU","GRC","GLP","IRL","ITA","LVA","LTU","LUX","MLT","GUF","MTQ","MYT","MCO","MNE","NLD","PRT","REU","BLM","MAF","SPM","SMR","SVK","SVN","ESP"],"precision":2,"symbol":"€"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"European Central Bank","polity":["ALA","AND","AUT","BEL","CYP","EST","FIN","FRA","ATF","DEU","GRC","GLP","IRL","ITA","LVA","LTU","LUX","MLT","GUF","MTQ","MYT","MCO","MNE","NLD","PRT","REU","BLM","MAF","SPM","SMR","SVK","SVN","ESP"],"precision":2,"symbol":"€"}`,
 		},
 
 		CurrenciesFijianDollar: &CurrenciesCode{
 			Name:        "FijianDollar",
 			Label:       "Fijian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Reserve Bank of Fiji","polity":["FJI"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Reserve Bank of Fiji","polity":["FJI"],"precision":2,"symbol":"FJ$"}`,
 		},
 
 		CurrenciesFalklandIslandsPound: &CurrenciesCode{
 			Name:        "FalklandIslandsPound",
 			Label:       "Falkland Islands pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Penny","monetary_authority":"Government of the Falkland Islands","polity":["FLK"],"precision":2,"symbol":"£"}`,
+			MetaData:    `{"fractional_unit":"penny","monetary_authority":"Government of the Falkland Islands","polity":["FLK","SGS"],"precision":2,"symbol":"£"}`,
 		},
 
 		CurrenciesPoundSterling: &CurrenciesCode{
 			Name:        "PoundSterling",
 			Label:       "Pound sterling",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Penny","monetary_authority":"Bank of England","polity":["GBR","IOT","IMN","JEY","GGY"],"precision":2,"symbol":"£"}`,
+			MetaData:    `{"fractional_unit":"penny","monetary_authority":"Bank of England","polity":["GBR","IOT","IMN","JEY","GGY","FLK","GIB","SGS","SHN"],"precision":2,"symbol":"£"}`,
 		},
 
 		CurrenciesGeorgianLari: &CurrenciesCode{
 			Name:        "GeorgianLari",
 			Label:       "Georgian lari",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Tetri","monetary_authority":"National Bank of Georgia","polity":["GEO"],"precision":2,"symbol":"₾"}`,
+			MetaData:    `{"fractional_unit":"tetri","monetary_authority":"National Bank of Georgia","polity":["GEO"],"precision":2,"symbol":"₾"}`,
 		},
 
 		CurrenciesGhanaianCedi: &CurrenciesCode{
 			Name:        "GhanaianCedi",
 			Label:       "Ghanaian cedi",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Pesewa","monetary_authority":"Bank of Ghana","polity":["GHA"],"precision":2,"symbol":"₵"}`,
+			MetaData:    `{"fractional_unit":"pesewa","monetary_authority":"Bank of Ghana","polity":["GHA"],"precision":2,"symbol":"GH₵"}`,
 		},
 
 		CurrenciesGibraltarPound: &CurrenciesCode{
 			Name:        "GibraltarPound",
 			Label:       "Gibraltar pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Penny","monetary_authority":"Government of Gibraltar","polity":["GIB"],"precision":2,"symbol":"£"}`,
+			MetaData:    `{"fractional_unit":"penny","monetary_authority":"Government of Gibraltar","polity":["GIB"],"precision":2,"symbol":"£"}`,
 		},
 
 		CurrenciesGambianDalasi: &CurrenciesCode{
 			Name:        "GambianDalasi",
 			Label:       "Gambian dalasi",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Butut","monetary_authority":"Central Bank of The Gambia","polity":["GMB"],"precision":2,"symbol":"D"}`,
+			MetaData:    `{"fractional_unit":"butut","monetary_authority":"Central Bank of The Gambia","polity":["GMB"],"precision":2,"symbol":"D"}`,
 		},
 
 		CurrenciesGuineanFranc: &CurrenciesCode{
 			Name:        "GuineanFranc",
 			Label:       "Guinean franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Government of Gibraltar","polity":["GNQ"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"monetary_authority":"Central Bank of the Republic of Guinea","polity":["GNQ"],"precision":0,"symbol":"FG"}`,
 		},
 
 		CurrenciesGuatemalanQuetzal: &CurrenciesCode{
 			Name:        "GuatemalanQuetzal",
 			Label:       "Guatemalan quetzal",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Bank of Guatemala","polity":["GTM"],"precision":2,"symbol":"Q"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Bank of Guatemala","polity":["GTM"],"precision":2,"symbol":"Q"}`,
 		},
 
 		CurrenciesGuyaneseDollar: &CurrenciesCode{
 			Name:        "GuyaneseDollar",
 			Label:       "Guyanese dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Guyana","polity":["GUY"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bank of Guyana","polity":["GUY"],"precision":2,"symbol":"G$"}`,
 		},
 
 		CurrenciesHongKongDollar: &CurrenciesCode{
 			Name:        "HongKongDollar",
 			Label:       "Hong Kong dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Hong Kong Monetary Authority","polity":["HKG"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Hong Kong Monetary Authority","polity":["HKG"],"precision":2,"symbol":"HK$"}`,
 		},
 
 		CurrenciesHonduranLempira: &CurrenciesCode{
 			Name:        "HonduranLempira",
 			Label:       "Honduran lempira",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Honduras","polity":["HND"],"precision":2,"symbol":"L"}`,
-		},
-
-		CurrenciesCroatianKuna: &CurrenciesCode{
-			Name:        "CroatianKuna",
-			Label:       "Croatian kuna",
-			Description: "",
-			MetaData:    `{"fractional_unit":"Lipa","monetary_authority":"Croatian National Bank","polity":["HRV"],"precision":2,"symbol":"kn"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of Honduras","polity":["HND"],"precision":2,"symbol":"L"}`,
 		},
 
 		CurrenciesHaitianGourde: &CurrenciesCode{
 			Name:        "HaitianGourde",
 			Label:       "Haitian gourde",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Bank of the Republic of Haiti","polity":["HTI"],"precision":2,"symbol":"G"}`,
+			MetaData:    `{"fractional_unit":"centime","monetary_authority":"Bank of the Republic of Haiti","polity":["HTI"],"precision":2,"symbol":"G"}`,
 		},
 
 		CurrenciesHungarianForint: &CurrenciesCode{
 			Name:        "HungarianForint",
 			Label:       "Hungarian forint",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fillér","monetary_authority":"Hungarian National Bank","polity":["HUN"],"precision":2,"symbol":"Ft"}`,
+			MetaData:    `{"fractional_unit":"fillér","monetary_authority":"Hungarian National Bank","polity":["HUN"],"precision":2,"symbol":"Ft"}`,
 		},
 
 		CurrenciesIndonesianRupiah: &CurrenciesCode{
 			Name:        "IndonesianRupiah",
 			Label:       "Indonesian rupiah",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sen","monetary_authority":"Bank of Indonesia","polity":["IDN"],"precision":2,"symbol":"Rp"}`,
+			MetaData:    `{"fractional_unit":"sen","fractions":100,"monetary_authority":"Bank of Indonesia","polity":["IDN"],"precision":0,"symbol":"Rp"}`,
 		},
 
 		CurrenciesIsraeliNewShekel: &CurrenciesCode{
 			Name:        "IsraeliNewShekel",
 			Label:       "Israeli new shekel",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Agora","monetary_authority":"Bank of Israel","polity":["ISR","PSE"],"precision":2,"symbol":"₪"}`,
+			MetaData:    `{"fractional_unit":"agora","monetary_authority":"Bank of Israel","polity":["ISR","PSE"],"precision":2,"symbol":"₪"}`,
 		},
 
 		CurrenciesIndianRupee: &CurrenciesCode{
 			Name:        "IndianRupee",
 			Label:       "Indian rupee",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Paisa","monetary_authority":"Reserve Bank of India","polity":["IND","BTN"],"precision":2,"symbol":"₹"}`,
+			MetaData:    `{"fractional_unit":"paisa","monetary_authority":"Reserve Bank of India","polity":["IND","BTN"],"precision":2,"symbol":"₹"}`,
 		},
 
 		CurrenciesIraqiDinar: &CurrenciesCode{
 			Name:        "IraqiDinar",
 			Label:       "Iraqi dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fils","monetary_authority":"Central Bank of Iraq","polity":["IRQ"],"precision":1,"symbol":"ع.د"}`,
+			MetaData:    `{"fractional_unit":"fils","fractions":1000,"monetary_authority":"Central Bank of Iraq","polity":["IRQ"],"precision":0,"symbol":"ID"}`,
 		},
 
 		CurrenciesIranianRial: &CurrenciesCode{
 			Name:        "IranianRial",
 			Label:       "Iranian rial",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Dinar","monetary_authority":"Central Bank of Iraq","polity":["IRN"],"precision":2,"symbol":"﷼"}`,
+			MetaData:    `{"monetary_authority":"Central Bank of Iraq","polity":["IRN"],"precision":0,"symbol":"IR"}`,
 		},
 
 		CurrenciesIcelandicKrona: &CurrenciesCode{
 			Name:        "IcelandicKrona",
 			Label:       "Icelandic króna",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Eyrir","monetary_authority":"Central Bank of Iceland","polity":["ISL"],"precision":2,"symbol":"kr"}`,
+			MetaData:    `{"monetary_authority":"Central Bank of Iceland","polity":["ISL"],"precision":0,"symbol":"IKr"}`,
 		},
 
 		CurrenciesJamaicanDollar: &CurrenciesCode{
 			Name:        "JamaicanDollar",
 			Label:       "Jamaican dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Jamaica","polity":["JAM"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bank of Jamaica","polity":["JAM"],"precision":2,"symbol":"J$"}`,
 		},
 
 		CurrenciesJordanianDinar: &CurrenciesCode{
 			Name:        "JordanianDinar",
 			Label:       "Jordanian dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Central Bank of Jordan","polity":["JOR","PSE"],"precision":2,"symbol":"د.ا"}`,
+			MetaData:    `{"fractional_unit":"qrish","monetary_authority":"Central Bank of Jordan","polity":["JOR","PSE"],"precision":2,"symbol":"JD"}`,
 		},
 
 		CurrenciesJapaneseYen: &CurrenciesCode{
 			Name:        "JapaneseYen",
 			Label:       "Japanese yen",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sen","monetary_authority":"Bank of Japan","polity":["JPN"],"precision":2,"symbol":"¥"}`,
+			MetaData:    `{"monetary_authority":"Bank of Japan","polity":["JPN"],"precision":0,"symbol":"¥"}`,
 		},
 
 		CurrenciesKenyanShilling: &CurrenciesCode{
 			Name:        "KenyanShilling",
 			Label:       "Kenyan shilling",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Kenya","polity":["KEN"],"precision":2,"symbol":"Sh"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Kenya","polity":["KEN"],"precision":2,"symbol":"KSh"}`,
 		},
 
-		CurrenciesKyrgyzstaniSom: &CurrenciesCode{
-			Name:        "KyrgyzstaniSom",
-			Label:       "Kyrgyzstani som",
+		CurrenciesKyrgyzSom: &CurrenciesCode{
+			Name:        "KyrgyzSom",
+			Label:       "Kyrgyz som",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Tyiyn","monetary_authority":"National Bank of the Kyrgyz Republic","polity":["KGZ"],"precision":2,"symbol":"с"}`,
+			MetaData:    `{"fractional_unit":"tyiyn","monetary_authority":"National Bank of the Kyrgyz Republic","polity":["KGZ"],"precision":2,"symbol":"som"}`,
 		},
 
 		CurrenciesCambodianRiel: &CurrenciesCode{
 			Name:        "CambodianRiel",
 			Label:       "Cambodian riel",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sen","monetary_authority":"National Bank of Cambodia","polity":["KHM"],"precision":2,"symbol":"៛"}`,
+			MetaData:    `{"fractional_unit":"sen","fractions":100,"monetary_authority":"National Bank of Cambodia","polity":["KHM"],"precision":0,"symbol":"KHR"}`,
 		},
 
 		CurrenciesComoroFranc: &CurrenciesCode{
 			Name:        "ComoroFranc",
 			Label:       "Comoro franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sen","monetary_authority":"Central Bank of the Comoros","polity":["COM"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"fractional_unit":"centime","fractions":100,"monetary_authority":"Central Bank of the Comoros","polity":["COM"],"precision":0,"symbol":"FC"}`,
 		},
 
 		CurrenciesNorthKoreanWon: &CurrenciesCode{
 			Name:        "NorthKoreanWon",
 			Label:       "North Korean won",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Chon","monetary_authority":"Central Bank of the Democratic People's Republic of Korea","polity":["PRK"],"precision":2,"symbol":"₩"}`,
+			MetaData:    `{"fractional_unit":"chun","monetary_authority":"Central Bank of the Democratic People's Republic of Korea","polity":["PRK"],"precision":2,"symbol":"₩"}`,
 		},
 
 		CurrenciesSouthKoreanWon: &CurrenciesCode{
 			Name:        "SouthKoreanWon",
 			Label:       "South Korean won",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Jeon","monetary_authority":"Bank of Korea","polity":["KOR"],"precision":2,"symbol":"₩"}`,
+			MetaData:    `{"fractional_unit":"chun","fractions":100,"monetary_authority":"Bank of Korea","polity":["KOR"],"precision":0,"symbol":"₩"}`,
 		},
 
 		CurrenciesKuwaitiDinar: &CurrenciesCode{
 			Name:        "KuwaitiDinar",
 			Label:       "Kuwaiti dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fils","monetary_authority":"Central Bank of Kuwait","polity":["KWT"],"precision":1,"symbol":"د.ك"}`,
+			MetaData:    `{"fractional_unit":"fils","monetary_authority":"Central Bank of Kuwait","polity":["KWT"],"precision":3,"symbol":"KD"}`,
 		},
 
 		CurrenciesCaymanIslandsDollar: &CurrenciesCode{
 			Name:        "CaymanIslandsDollar",
 			Label:       "Cayman Islands dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Cayman Islands Monetary Authority","polity":["CYM"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Cayman Islands Monetary Authority","polity":["CYM"],"precision":2,"symbol":"CI$"}`,
 		},
 
 		CurrenciesKazakhstaniTenge: &CurrenciesCode{
 			Name:        "KazakhstaniTenge",
 			Label:       "Kazakhstani tenge",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Tïın","monetary_authority":"National Bank of Kazakhstan","polity":["KAZ"],"precision":2,"symbol":"₸"}`,
+			MetaData:    `{"fractional_unit":"tiyn","monetary_authority":"National Bank of Kazakhstan","polity":["KAZ"],"precision":2,"symbol":"₸"}`,
 		},
 
 		CurrenciesLaoKip: &CurrenciesCode{
 			Name:        "LaoKip",
 			Label:       "Lao kip",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Att","monetary_authority":"Bank of the Lao People's Democratic Republic","polity":["LAO"],"precision":2,"symbol":"₭"}`,
+			MetaData:    `{"fractional_unit":"att","fractions":100,"monetary_authority":"Bank of the Lao People's Democratic Republic","polity":["LAO"],"precision":0,"symbol":"₭"}`,
 		},
 
 		CurrenciesLebanesePound: &CurrenciesCode{
 			Name:        "LebanesePound",
 			Label:       "Lebanese pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Banque du Liban","polity":["LBN"],"precision":2,"symbol":"ل.ل"}`,
+			MetaData:    `{"monetary_authority":"Banque du Liban","polity":["LBN"],"precision":0,"symbol":"£L"}`,
 		},
 
 		CurrenciesSriLankanRupee: &CurrenciesCode{
 			Name:        "SriLankanRupee",
 			Label:       "Sri Lankan rupee",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Sri Lanka","polity":["LKA"],"precision":2,"symbol":"Rs"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Sri Lanka","polity":["LKA"],"precision":2,"symbol":"SLRe"}`,
 		},
 
 		CurrenciesLiberianDollar: &CurrenciesCode{
 			Name:        "LiberianDollar",
 			Label:       "Liberian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Liberia","polity":["LBR"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Liberia","polity":["LBR"],"precision":2,"symbol":"L$"}`,
 		},
 
 		CurrenciesLesothoLoti: &CurrenciesCode{
 			Name:        "LesothoLoti",
 			Label:       "Lesotho loti",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sente","monetary_authority":"Central Bank of Lesotho","polity":["LBR"],"precision":2,"symbol":"L"}`,
+			MetaData:    `{"fractional_unit":"sente","monetary_authority":"Central Bank of Lesotho","polity":["LBR"],"precision":2,"symbol":"L"}`,
 		},
 
 		CurrenciesLibyanDinar: &CurrenciesCode{
 			Name:        "LibyanDinar",
 			Label:       "Libyan dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Dirham","monetary_authority":"Central Bank of Libya","polity":["LBY"],"precision":1,"symbol":"ل.د"}`,
+			MetaData:    `{"fractional_unit":"dirham","monetary_authority":"Central Bank of Libya","polity":["LBY"],"precision":3,"symbol":"LD"}`,
 		},
 
 		CurrenciesMoroccanDirham: &CurrenciesCode{
 			Name:        "MoroccanDirham",
 			Label:       "Moroccan dirham",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Bank Al-Maghrib","polity":["MAR"],"precision":2,"symbol":"د.م."}`,
+			MetaData:    `{"fractional_unit":"santim","monetary_authority":"Bank Al-Maghrib","polity":["MAR"],"precision":2,"symbol":"DH"}`,
 		},
 
 		CurrenciesMoldovanLeu: &CurrenciesCode{
 			Name:        "MoldovanLeu",
 			Label:       "Moldovan leu",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Ban","monetary_authority":"National Bank of Moldova","polity":["MDA"],"precision":2,"symbol":"L"}`,
+			MetaData:    `{"fractional_unit":"ban","monetary_authority":"National Bank of Moldova","polity":["MDA"],"precision":2,"symbol":"leu"}`,
 		},
 
 		CurrenciesMalagasyAriary: &CurrenciesCode{
 			Name:        "MalagasyAriary",
 			Label:       "Malagasy ariary",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Iraimbilanja","fractions":5,"monetary_authority":"Central Bank of Madagascar","polity":["MDG"],"precision":2,"symbol":"Ar"}`,
+			MetaData:    `{"fractional_unit":"iraimbilanja","fractions":5,"monetary_authority":"Central Bank of Madagascar","polity":["MDG"],"precision":0,"symbol":"Ar"}`,
 		},
 
 		CurrenciesMacedonianDenar: &CurrenciesCode{
 			Name:        "MacedonianDenar",
 			Label:       "Macedonian denar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Deni","monetary_authority":"National Bank of the Republic of Macedonia","polity":["MKD"],"precision":2,"symbol":"ден"}`,
+			MetaData:    `{"fractional_unit":"deni","fractions":100,"monetary_authority":"National Bank of the Republic of Macedonia","polity":["MKD"],"precision":0,"symbol":"DEN"}`,
 		},
 
 		CurrenciesMyanmarKyat: &CurrenciesCode{
 			Name:        "MyanmarKyat",
 			Label:       "Myanmar kyat",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Pya","monetary_authority":"Central Bank of Myanmar","polity":["MMR"],"precision":2,"symbol":"Ks"}`,
+			MetaData:    `{"fractional_unit":"pya","monetary_authority":"Central Bank of Myanmar","polity":["MMR"],"precision":2,"symbol":"K"}`,
 		},
 
 		CurrenciesMongolianTogrog: &CurrenciesCode{
 			Name:        "MongolianTogrog",
 			Label:       "Mongolian tögrög",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Möngö","monetary_authority":"Bank of Mongolia","polity":["MNG"],"precision":2,"symbol":"₮"}`,
+			MetaData:    `{"fractional_unit":"möngö","fractions":100,"monetary_authority":"Bank of Mongolia","polity":["MNG"],"precision":0,"symbol":"₮"}`,
 		},
 
 		CurrenciesMacanesePataca: &CurrenciesCode{
 			Name:        "MacanesePataca",
 			Label:       "Macanese pataca",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Avo","monetary_authority":"Monetary Authority of Macau","polity":["MAC"],"precision":2,"symbol":"P"}`,
+			MetaData:    `{"fractional_unit":"avo","monetary_authority":"Monetary Authority of Macau","polity":["MAC"],"precision":2,"symbol":"P"}`,
 		},
 
 		CurrenciesMauritanianOuguiya: &CurrenciesCode{
 			Name:        "MauritanianOuguiya",
 			Label:       "Mauritanian ouguiya",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Khoums","fractions":5,"monetary_authority":"Central Bank of Mauritania","polity":["MRT"],"precision":2,"symbol":"UM"}`,
+			MetaData:    `{"fractional_unit":"khoums","fractions":5,"monetary_authority":"Central Bank of Mauritania","polity":["MRT"],"precision":2,"symbol":"UM"}`,
 		},
 
 		CurrenciesMauritianRupee: &CurrenciesCode{
 			Name:        "MauritianRupee",
 			Label:       "Mauritian rupee",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Mauritius","polity":["MUS"],"precision":2,"symbol":"₨"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bank of Mauritius","polity":["MUS"],"precision":2,"symbol":"MRe"}`,
 		},
 
 		CurrenciesMaldivianRufiyaa: &CurrenciesCode{
 			Name:        "MaldivianRufiyaa",
 			Label:       "Maldivian rufiyaa",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Laari","monetary_authority":"Maldives Monetary Authority","polity":["MDV"],"precision":2,"symbol":".ރ"}`,
+			MetaData:    `{"fractional_unit":"laari","monetary_authority":"Maldives Monetary Authority","polity":["MDV"],"precision":2,"symbol":"Rf"}`,
 		},
 
 		CurrenciesMalawianKwacha: &CurrenciesCode{
 			Name:        "MalawianKwacha",
 			Label:       "Malawian kwacha",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Tambala","monetary_authority":"Reserve Bank of Malawi","polity":["MWI"],"precision":2,"symbol":"MK"}`,
+			MetaData:    `{"fractional_unit":"tambala","monetary_authority":"Reserve Bank of Malawi","polity":["MWI"],"precision":2,"symbol":"MK"}`,
 		},
 
 		CurrenciesMexicanPeso: &CurrenciesCode{
 			Name:        "MexicanPeso",
 			Label:       "Mexican peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Bank of Mexico","polity":["MEX"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Bank of Mexico","polity":["MEX"],"precision":2,"symbol":"MX$"}`,
 		},
 
 		CurrenciesMalaysianRinggit: &CurrenciesCode{
 			Name:        "MalaysianRinggit",
 			Label:       "Malaysian ringgit",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sen","monetary_authority":"Central Bank of Malaysia","polity":["MYS"],"precision":2,"symbol":"RM"}`,
+			MetaData:    `{"fractional_unit":"sen","monetary_authority":"Central Bank of Malaysia","polity":["MYS"],"precision":2,"symbol":"RM"}`,
 		},
 
 		CurrenciesMozambicanMetical: &CurrenciesCode{
 			Name:        "MozambicanMetical",
 			Label:       "Mozambican metical",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Bank of Mozambique","polity":["MOZ"],"precision":2,"symbol":"MT"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Bank of Mozambique","polity":["MOZ"],"precision":2,"symbol":"MT"}`,
 		},
 
 		CurrenciesNamibianDollar: &CurrenciesCode{
 			Name:        "NamibianDollar",
 			Label:       "Namibian dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Namibia","polity":["NAM"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Bank of Namibia","polity":["NAM"],"precision":2,"symbol":"N$"}`,
 		},
 
 		CurrenciesNigerianNaira: &CurrenciesCode{
 			Name:        "NigerianNaira",
 			Label:       "Nigerian naira",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Kobo","monetary_authority":"Central Bank of Nigeria","polity":["NGA"],"precision":2,"symbol":"₦"}`,
+			MetaData:    `{"fractional_unit":"kobo","monetary_authority":"Central Bank of Nigeria","polity":["NGA"],"precision":2,"symbol":"₦"}`,
 		},
 
 		CurrenciesNicaraguaCordoba: &CurrenciesCode{
 			Name:        "NicaraguaCordoba",
 			Label:       "Nicaraguan córdoba",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centavo","monetary_authority":"Central Bank of Nicaragua","polity":["NIC"],"precision":2,"symbol":"C$"}`,
+			MetaData:    `{"fractional_unit":"centavo","monetary_authority":"Central Bank of Nicaragua","polity":["NIC"],"precision":2,"symbol":"C$"}`,
 		},
 
 		CurrenciesNorwegianKrone: &CurrenciesCode{
 			Name:        "NorwegianKrone",
 			Label:       "Norwegian krone",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Øre","monetary_authority":"Norges Bank","polity":["NOR, SJM, BVT"],"precision":2,"symbol":"kr"}`,
+			MetaData:    `{"fractional_unit":"øre","monetary_authority":"Norges Bank","polity":["NOR","SJM","BVT"],"precision":2,"symbol":"NKr"}`,
 		},
 
 		CurrenciesNepaleseRupee: &CurrenciesCode{
 			Name:        "NepaleseRupee",
 			Label:       "Nepalese rupee",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Paisa","monetary_authority":"Nepal Rastra Bank","polity":["NPL"],"precision":2,"symbol":"₨"}`,
+			MetaData:    `{"fractional_unit":"paisa","monetary_authority":"Nepal Rastra Bank","polity":["NPL"],"precision":2,"symbol":"NRe"}`,
 		},
 
 		CurrenciesNewZealandDollar: &CurrenciesCode{
 			Name:        "NewZealandDollar",
 			Label:       "New Zealand dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Reserve Bank of New Zealand","polity":["NZL","COK","NIU","PCN","TKL"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Reserve Bank of New Zealand","polity":["NZL","COK","NIU","PCN","TKL"],"precision":2,"symbol":"$NZ"}`,
 		},
 
 		CurrenciesOmaniRial: &CurrenciesCode{
 			Name:        "OmaniRial",
 			Label:       "Omani rial",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Baisa","monetary_authority":"Central Bank of Oman","polity":["OMN"],"precision":1,"symbol":"ر.ع."}`,
+			MetaData:    `{"fractional_unit":"baisa","monetary_authority":"Central Bank of Oman","polity":["OMN"],"precision":3,"symbol":"RO"}`,
 		},
 
 		CurrenciesPanamanianBalboa: &CurrenciesCode{
 			Name:        "PanamanianBalboa",
 			Label:       "Panamanian balboa",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centésimo","monetary_authority":"Central Bank of Oman","polity":["PAN"],"precision":2,"symbol":"B/."}`,
+			MetaData:    `{"fractional_unit":"centésimo","monetary_authority":"Panama National Banking Commission","polity":["PAN"],"precision":2,"symbol":"B/"}`,
 		},
 
 		CurrenciesPeruvianSol: &CurrenciesCode{
 			Name:        "PeruvianSol",
 			Label:       "Peruvian sol",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Céntimo","monetary_authority":"Central Reserve Bank of Peru","polity":["PER"],"precision":2,"symbol":"S/."}`,
+			MetaData:    `{"fractional_unit":"céntimo","monetary_authority":"Central Reserve Bank of Peru","polity":["PER"],"precision":2,"symbol":"S/"}`,
 		},
 
 		CurrenciesPapuaNewGuineanKina: &CurrenciesCode{
 			Name:        "PapuaNewGuineanKina",
 			Label:       "Papua New Guinean kina",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Toea","monetary_authority":"Bank of Papua New Guinea","polity":["PNG"],"precision":2,"symbol":"K"}`,
+			MetaData:    `{"fractional_unit":"toea","monetary_authority":"Bank of Papua New Guinea","polity":["PNG"],"precision":2,"symbol":"K"}`,
 		},
 
 		CurrenciesPhilippinePeso: &CurrenciesCode{
 			Name:        "PhilippinePeso",
 			Label:       "Philippine peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sentimo","monetary_authority":"Central Bank of the Philippines","polity":["PHL"],"precision":2,"symbol":"₱"}`,
+			MetaData:    `{"fractional_unit":"sentimo","monetary_authority":"Central Bank of the Philippines","polity":["PHL"],"precision":2,"symbol":"₱"}`,
 		},
 
 		CurrenciesPakistaniRupee: &CurrenciesCode{
 			Name:        "PakistaniRupee",
 			Label:       "Pakistani rupee",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Paisa","monetary_authority":"State Bank of Pakistan","polity":["PAK"],"precision":2,"symbol":"₨"}`,
+			MetaData:    `{"fractional_unit":"paisa","fractions":100,"monetary_authority":"State Bank of Pakistan","polity":["PAK"],"precision":0,"symbol":"PRe"}`,
 		},
 
 		CurrenciesPolishZloty: &CurrenciesCode{
 			Name:        "PolishZloty",
 			Label:       "Polish złoty",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Grosz","monetary_authority":"National Bank of Poland","polity":["POL"],"precision":2,"symbol":"zł"}`,
+			MetaData:    `{"fractional_unit":"grosz","monetary_authority":"National Bank of Poland","polity":["POL"],"precision":2,"symbol":"zł"}`,
 		},
 
 		CurrenciesParaguayanGuarani: &CurrenciesCode{
 			Name:        "ParaguayanGuarani",
 			Label:       "Paraguayan guaraní",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Céntimo","monetary_authority":"Central Bank of Paraguay","polity":["PRY"],"precision":2,"symbol":"₲"}`,
+			MetaData:    `{"fractional_unit":"céntimo","fractions":100,"monetary_authority":"Central Bank of Paraguay","polity":["PRY"],"precision":0,"symbol":"₲"}`,
 		},
 
 		CurrenciesQatariRiyal: &CurrenciesCode{
 			Name:        "QatariRiyal",
 			Label:       "Qatari riyal",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Dirham","monetary_authority":"Qatar Central Bank","polity":["QAT"],"precision":2,"symbol":"ر.ق"}`,
+			MetaData:    `{"fractional_unit":"dirham","monetary_authority":"Qatar Central Bank","polity":["QAT"],"precision":2,"symbol":"QR"}`,
 		},
 
 		CurrenciesRomanianLeu: &CurrenciesCode{
 			Name:        "RomanianLeu",
 			Label:       "Romanian leu",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Ban","monetary_authority":"National Bank of Romania","polity":["ROU"],"precision":2,"symbol":"lei"}`,
+			MetaData:    `{"fractional_unit":"ban","monetary_authority":"National Bank of Romania","polity":["ROU"],"precision":2,"symbol":"leu"}`,
 		},
 
 		CurrenciesSerbianDinar: &CurrenciesCode{
 			Name:        "SerbianDinar",
 			Label:       "Serbian dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Para","monetary_authority":"National Bank of Serbia","polity":["SRB"],"precision":2,"symbol":"din"}`,
+			MetaData:    `{"fractional_unit":"para","monetary_authority":"National Bank of Serbia","polity":["SRB"],"precision":2,"symbol":"DIN"}`,
 		},
 
 		CurrenciesRussianRuble: &CurrenciesCode{
 			Name:        "RussianRuble",
 			Label:       "Russian ruble",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Kopek","monetary_authority":"Bank of Russia","polity":["RUS"],"precision":2,"symbol":"₽"}`,
+			MetaData:    `{"fractional_unit":"kopek","monetary_authority":"Bank of Russia","polity":["RUS"],"precision":2,"symbol":"₽"}`,
 		},
 
 		CurrenciesRwandanFranc: &CurrenciesCode{
 			Name:        "RwandanFranc",
 			Label:       "Rwandan franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"National Bank of Rwanda","polity":["RWA"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"fractional_unit":"centime","fractions":100,"monetary_authority":"National Bank of Rwanda","polity":["RWA"],"precision":0,"symbol":"FRw"}`,
 		},
 
 		CurrenciesSaudiRiyal: &CurrenciesCode{
 			Name:        "SaudiRiyal",
 			Label:       "Saudi riyal",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Halala","monetary_authority":"Saudi Arabian Monetary Authority","polity":["SAU"],"precision":2,"symbol":"ر.س"}`,
+			MetaData:    `{"fractional_unit":"halala","monetary_authority":"Saudi Central Bank","polity":["SAU"],"precision":2,"symbol":"SAR"}`,
 		},
 
 		CurrenciesSolomonIslandDollar: &CurrenciesCode{
 			Name:        "SolomonIslandDollar",
 			Label:       "Solomon Islands dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Solomon Islands","polity":["SLB"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Solomon Islands","polity":["SLB"],"precision":2,"symbol":"SI$"}`,
 		},
 
 		CurrenciesSeychelloisRupee: &CurrenciesCode{
 			Name:        "SeychelloisRupee",
 			Label:       "Seychellois rupee",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Solomon Islands","polity":["SYC"],"precision":2,"symbol":"₨"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Solomon Islands","polity":["SYC"],"precision":2,"symbol":"SRe"}`,
 		},
 
 		CurrenciesSudanesePound: &CurrenciesCode{
 			Name:        "SudanesePound",
 			Label:       "Sudanese pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Bank of Sudan","polity":["SSD"],"precision":2,"symbol":"ج.س."}`,
+			MetaData:    `{"fractional_unit":"piastre","monetary_authority":"Central Bank of Sudan","polity":["SSD"],"precision":2,"symbol":"£Sd"}`,
 		},
 
 		CurrenciesSwedishKrona: &CurrenciesCode{
 			Name:        "SwedishKrona",
 			Label:       "Swedish krona",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Öre","monetary_authority":"Sveriges Riksbank","polity":["SWE"],"precision":2,"symbol":"kr"}`,
+			MetaData:    `{"fractional_unit":"öre","monetary_authority":"Sveriges Riksbank","polity":["SWE"],"precision":2,"symbol":"SKr"}`,
 		},
 
 		CurrenciesSingaporeDollar: &CurrenciesCode{
 			Name:        "SingaporeDollar",
 			Label:       "Singapore dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Monetary Authority of Singapore","polity":["SGP"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Monetary Authority of Singapore","polity":["SGP"],"precision":2,"symbol":"S$"}`,
 		},
 
 		CurrenciesSaintHelenaPound: &CurrenciesCode{
 			Name:        "SaintHelenaPound",
 			Label:       "Saint Helena pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Penny","monetary_authority":"Government of Saint Helena","polity":["SHN"],"precision":2,"symbol":"£"}`,
+			MetaData:    `{"fractional_unit":"penny","monetary_authority":"Government of Saint Helena","polity":["SHN"],"precision":2,"symbol":"£"}`,
 		},
 
 		CurrenciesSierraLeoneanLeone: &CurrenciesCode{
@@ -2589,210 +2637,252 @@ func CurrenciesMap() map[string]*CurrenciesCode {
 			Name:        "SomaliShilling",
 			Label:       "Somali shilling",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Somalia","polity":["SOM"],"precision":2,"symbol":"Sl"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Somalia","polity":["SOM"],"precision":2,"symbol":"Sh"}`,
 		},
 
-		CurrenciesSurilabelseDollar: &CurrenciesCode{
-			Name:        "SurilabelseDollar",
-			Label:       "Surilabelse dollar",
+		CurrenciesSurinameseDollar: &CurrenciesCode{
+			Name:        "SurinameseDollar",
+			Label:       "Surinamese dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Surilabel","polity":["SUR"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Suriname","polity":["SUR"],"precision":2,"symbol":"SRD"}`,
 		},
 
 		CurrenciesSouthSudanesePound: &CurrenciesCode{
 			Name:        "SouthSudanesePound",
 			Label:       "South Sudanese pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Bank of South Sudan","polity":["SSD"],"precision":2,"symbol":"£"}`,
+			MetaData:    `{"fractional_unit":"piastre","monetary_authority":"Bank of South Sudan","polity":["SSD"],"precision":2,"symbol":"SSP"}`,
 		},
 
 		CurrenciesSaoTomePrincipeDobra: &CurrenciesCode{
 			Name:        "SaoTomePrincipeDobra",
 			Label:       "São Tomé and Príncipe dobra",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cêntimo","monetary_authority":"Central Bank of São Tomé and Príncipe","polity":["STP"],"precision":2,"symbol":"Db"}`,
+			MetaData:    `{"fractional_unit":"cêntimo","monetary_authority":"Central Bank of São Tomé and Príncipe","polity":["STP"],"precision":2,"symbol":"Db"}`,
 		},
 
 		CurrenciesSyrianPound: &CurrenciesCode{
 			Name:        "SyrianPound",
 			Label:       "Syrian pound",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Piastre","monetary_authority":"Central Bank of Syria","polity":["SYR"],"precision":2,"symbol":"£"}`,
+			MetaData:    `{"fractional_unit":"piastre","fractions":100,"monetary_authority":"Central Bank of Syria","polity":["SYR"],"precision":0,"symbol":"£S"}`,
 		},
 
 		CurrenciesSwaziLilangeni: &CurrenciesCode{
 			Name:        "SwaziLilangeni",
 			Label:       "Swazi lilangeni",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Swaziland","polity":["SWZ"],"precision":2,"symbol":"L"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Eswatini","polity":["SWZ"],"precision":2,"symbol":"L"}`,
 		},
 
 		CurrenciesThaiBaht: &CurrenciesCode{
 			Name:        "ThaiBaht",
 			Label:       "Thai baht",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Satang","monetary_authority":"Bank of Thailand","polity":["THA"],"precision":2,"symbol":"฿"}`,
+			MetaData:    `{"fractional_unit":"satang","monetary_authority":"Bank of Thailand","polity":["THA"],"precision":2,"symbol":"THB"}`,
 		},
 
 		CurrenciesTajikistaniSomoni: &CurrenciesCode{
 			Name:        "TajikistaniSomoni",
 			Label:       "Tajikistani somoni",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Diram","monetary_authority":"National Bank of Tajikistan","polity":["TJK"],"precision":2,"symbol":"ЅМ"}`,
+			MetaData:    `{"fractional_unit":"diram","monetary_authority":"National Bank of Tajikistan","polity":["TJK"],"precision":2,"symbol":"SM"}`,
 		},
 
-		CurrenciesTurkmenistanManat: &CurrenciesCode{
-			Name:        "TurkmenistanManat",
-			Label:       "Turkmenistan manat",
+		CurrenciesTurkmenistaniManat: &CurrenciesCode{
+			Name:        "TurkmenistaniManat",
+			Label:       "Turkmenistani manat",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Tennesi","monetary_authority":"Central Bank of Turkmenistan","polity":["TKM"],"precision":2,"symbol":"m"}`,
+			MetaData:    `{"fractional_unit":"tenge","monetary_authority":"Central Bank of Turkmenistan","polity":["TKM"],"precision":2,"symbol":"m"}`,
 		},
 
 		CurrenciesTunisianDinar: &CurrenciesCode{
 			Name:        "TunisianDinar",
 			Label:       "Tunisian dinar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Millime","monetary_authority":"Central Bank of Tunisia","polity":["TUN"],"precision":1,"symbol":"د.ت"}`,
+			MetaData:    `{"fractional_unit":"millime","monetary_authority":"Central Bank of Tunisia","polity":["TUN"],"precision":3,"symbol":"DT"}`,
 		},
 
 		CurrenciesTonganPaAnga: &CurrenciesCode{
 			Name:        "TonganPaAnga",
 			Label:       "Tongan paʻanga",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Seniti","monetary_authority":"National Reserve Bank of Tonga","polity":["TON"],"precision":2,"symbol":"T$"}`,
+			MetaData:    `{"fractional_unit":"seniti","monetary_authority":"National Reserve Bank of Tonga","polity":["TON"],"precision":2,"symbol":"T$"}`,
 		},
 
 		CurrenciesTurkishLira: &CurrenciesCode{
 			Name:        "TurkishLira",
 			Label:       "Turkish lira",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Kuruş","monetary_authority":"Central Bank of the Republic of Turkey","polity":["TUR"],"precision":2,"symbol":"₺"}`,
+			MetaData:    `{"fractional_unit":"kuruş","monetary_authority":"Central Bank of the Republic of Turkey","polity":["TUR"],"precision":2,"symbol":"₺"}`,
 		},
 
 		CurrenciesTrinidadTobagoDollar: &CurrenciesCode{
 			Name:        "TrinidadTobagoDollar",
 			Label:       "Trinidad and Tobago dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of Trinidad and Tobago","polity":["TTO"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of Trinidad and Tobago","polity":["TTO"],"precision":2,"symbol":"TT$"}`,
 		},
 
 		CurrenciesNewTaiwanDollar: &CurrenciesCode{
 			Name:        "NewTaiwanDollar",
 			Label:       "New Taiwan dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Central Bank of the Republic of China (Taiwan)","polity":["TWN"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Central Bank of the Republic of China (Taiwan)","polity":["TWN"],"precision":2,"symbol":"NT$"}`,
 		},
 
 		CurrenciesTanzanianShilling: &CurrenciesCode{
 			Name:        "TanzanianShilling",
 			Label:       "Tanzanian shilling",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Tanzania","polity":["TZA"],"precision":2,"symbol":"Sh"}`,
+			MetaData:    `{"fractional_unit":"cent","fractions":100,"monetary_authority":"Bank of Tanzania","polity":["TZA"],"precision":0,"symbol":"TSh"}`,
 		},
 
 		CurrenciesUkrainianHryvnia: &CurrenciesCode{
 			Name:        "UkrainianHryvnia",
 			Label:       "Ukrainian hryvnia",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Kopiyka","monetary_authority":"National Bank of Ukraine","polity":["UKR"],"precision":2,"symbol":"₴"}`,
+			MetaData:    `{"fractional_unit":"kopiyka","monetary_authority":"National Bank of Ukraine","polity":["UKR"],"precision":2,"symbol":"₴"}`,
 		},
 
 		CurrenciesUgandanShilling: &CurrenciesCode{
 			Name:        "UgandanShilling",
 			Label:       "Ugandan shilling",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Bank of Uganda","polity":["UGA"],"precision":2,"symbol":"Sh"}`,
+			MetaData:    `{"fractional_unit":"cent","fractions":100,"monetary_authority":"Bank of Uganda","polity":["UGA"],"precision":0,"symbol":"USh"}`,
 		},
 
 		CurrenciesUnitedStatesDollar: &CurrenciesCode{
 			Name:        "UnitedStatesDollar",
 			Label:       "United States dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Federal Reserve","polity":["USA","ASM","VGB","BES","ECU","SLV","GUM","HTI","MHL","FSM","MNP","PLW","PAN","PRI","TLS","TCA","VIR","UMI"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Federal Reserve","polity":["USA","ASM","VGB","BES","ECU","SLV","GUM","HTI","MHL","FSM","MNP","PLW","PAN","PRI","TLS","TCA","VIR","UMI"],"precision":2,"symbol":"$"}`,
 		},
 
 		CurrenciesUruguayanPeso: &CurrenciesCode{
 			Name:        "UruguayanPeso",
 			Label:       "Uruguayan peso",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centésimo","monetary_authority":"Central Bank of Uruguay","polity":["URY"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"centésimo","monetary_authority":"Central Bank of Uruguay","polity":["URY"],"precision":2,"symbol":"$U"}`,
 		},
 
 		CurrenciesUzbekistaniSom: &CurrenciesCode{
 			Name:        "UzbekistaniSom",
 			Label:       "Uzbekistani soʻm",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Tiyin","monetary_authority":"Central Bank of the Republic of Uzbekistan","polity":["UZB"],"precision":2,"symbol":"so'm"}`,
+			MetaData:    `{"fractional_unit":"tiyin","fractions":100,"monetary_authority":"Central Bank of the Republic of Uzbekistan","polity":["UZB"],"precision":0,"symbol":"UBZ"}`,
 		},
 
 		CurrenciesVenezuelanBolivarSoberano: &CurrenciesCode{
 			Name:        "VenezuelanBolivarSoberano",
 			Label:       "Venezuelan bolívar soberano",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Céntimo","monetary_authority":"Central Bank of Venezuela","polity":["VEN"],"precision":2,"symbol":"Bs."}`,
+			MetaData:    `{"fractional_unit":"céntimo","monetary_authority":"Central Bank of Venezuela","polity":["VEN"],"precision":2,"symbol":"VES"}`,
 		},
 
-		CurrenciesVietlabelseDong: &CurrenciesCode{
-			Name:        "VietlabelseDong",
-			Label:       "Vietlabelse đồng",
+		CurrenciesVietnameseDong: &CurrenciesCode{
+			Name:        "VietnameseDong",
+			Label:       "Vietnamese đồng",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Hào","monetary_authority":"State Bank of Vietnam","polity":["VNM"],"precision":2,"symbol":"₫"}`,
+			MetaData:    `{"monetary_authority":"State Bank of Vietnam","polity":["VNM"],"precision":0,"symbol":"₫"}`,
 		},
 
 		CurrenciesVanuatuVatu: &CurrenciesCode{
 			Name:        "VanuatuVatu",
 			Label:       "Vanuatu vatu",
 			Description: "",
-			MetaData:    `{"fractional_unit":null,"monetary_authority":"Reserve Bank of Vanuatu","polity":["VUT"],"precision":0,"symbol":"Vt"}`,
+			MetaData:    `{"monetary_authority":"Reserve Bank of Vanuatu","polity":["VUT"],"precision":0,"symbol":"VT"}`,
 		},
 
 		CurrenciesSamoanTala: &CurrenciesCode{
 			Name:        "SamoanTala",
 			Label:       "Samoan tālā",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sene","monetary_authority":"Central Bank of Samoa","polity":["WSM"],"precision":2,"symbol":"T"}`,
+			MetaData:    `{"fractional_unit":"Sene","monetary_authority":"Central Bank of Samoa","polity":["WSM"],"precision":2,"symbol":"ST"}`,
 		},
 
 		CurrenciesCentralAfricanCFAFranc: &CurrenciesCode{
 			Name:        "CentralAfricanCFAFranc",
 			Label:       "Central African CFA franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Sene","monetary_authority":"Central Bank of Samoa","polity":["CMR","CAF","COG","TCD","GNQ","GAB"],"precision":2,"symbol":"T"}`,
+			MetaData:    `{"monetary_authority":"Bank of the Central African States","polity":["CMR","CAF","COG","TCD","GNQ","GAB"],"precision":0,"symbol":"FCFA"}`,
+		},
+
+		CurrenciesSilverTroyOunce: &CurrenciesCode{
+			Name:        "SilverTroyOunce",
+			Label:       "Silver troy ounce",
+			Description: "",
+			MetaData:    `{"precision":4,"symbol":"Ag"}`,
+		},
+
+		CurrenciesGoldTroyOunce: &CurrenciesCode{
+			Name:        "GoldTroyOunce",
+			Label:       "Gold troy ounce",
+			Description: "",
+			MetaData:    `{"precision":4,"symbol":"Au"}`,
 		},
 
 		CurrenciesEastCaribbeanDollar: &CurrenciesCode{
 			Name:        "EastCaribbeanDollar",
 			Label:       "East Caribbean dollar",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"Eastern Caribbean Central Bank","polity":["AIA","ATG","DMA","GRD","MSR","KNA","LCA","VCT"],"precision":2,"symbol":"$"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"Eastern Caribbean Central Bank","polity":["AIA","ATG","DMA","GRD","MSR","KNA","LCA","VCT"],"precision":2,"symbol":"EC$"}`,
+		},
+
+		CurrenciesIMFSpecialDrawingRights: &CurrenciesCode{
+			Name:        "IMFSpecialDrawingRights",
+			Label:       "IMF special drawing rights",
+			Description: "",
+			MetaData:    `{"monetary_authority":"International Monetary Fund","precision":2,"symbol":"SDR"}`,
 		},
 
 		CurrenciesWestAfricanCFAFranc: &CurrenciesCode{
 			Name:        "WestAfricanCFAFranc",
 			Label:       "West African CFA franc",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Centime","monetary_authority":"Central Bank of West African States","polity":["BEN","BFA","CIV","GNB","MLI","NER","SEN","TGO"],"precision":2,"symbol":"Fr"}`,
+			MetaData:    `{"monetary_authority":"Central Bank of the West African States","polity":["BEN","BFA","CIV","GNB","MLI","NER","SEN","TGO"],"precision":0,"symbol":"FCFA"}`,
+		},
+
+		CurrenciesPalladiumTroyOunce: &CurrenciesCode{
+			Name:        "PalladiumTroyOunce",
+			Label:       "Palladium troy ounce",
+			Description: "",
+			MetaData:    `{"precision":4,"symbol":"Pd"}`,
+		},
+
+		CurrenciesCFPFranc: &CurrenciesCode{
+			Name:        "CFPFranc",
+			Label:       "CFP franc",
+			Description: "",
+			MetaData:    `{"fractional_unit":"centime","fractions":100,"monetary_authority":"Overseas Issuing Institute","polity":["PYF","NCL","WLF"],"precision":0,"symbol":"FCFP"}`,
+		},
+
+		CurrenciesPlatinumTroyOunce: &CurrenciesCode{
+			Name:        "PlatinumTroyOunce",
+			Label:       "Platinum troy ounce",
+			Description: "",
+			MetaData:    `{"precision":4,"symbol":"Pt"}`,
 		},
 
 		CurrenciesYemeniRial: &CurrenciesCode{
 			Name:        "YemeniRial",
 			Label:       "Yemeni rial",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Fils","monetary_authority":"Central Bank of Yemen","polity":["YEM"],"precision":2,"symbol":"﷼"}`,
+			MetaData:    `{"fractional_unit":"fils","monetary_authority":"Central Bank of Yemen","polity":["YEM"],"precision":2,"symbol":"YRi"}`,
 		},
 
 		CurrenciesSouthAfricanRand: &CurrenciesCode{
 			Name:        "SouthAfricanRand",
 			Label:       "South African rand",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Cent","monetary_authority":"South African Reserve Bank","polity":["ZAF"],"precision":2,"symbol":"R"}`,
+			MetaData:    `{"fractional_unit":"cent","monetary_authority":"South African Reserve Bank","polity":["ZAF"],"precision":2,"symbol":"R"}`,
 		},
 
 		CurrenciesZambianKwacha: &CurrenciesCode{
 			Name:        "ZambianKwacha",
 			Label:       "Zambian kwacha",
 			Description: "",
-			MetaData:    `{"fractional_unit":"Ngwee","monetary_authority":"Bank of Zambia","polity":["ZMB"],"precision":2,"symbol":"ZK"}`,
+			MetaData:    `{"fractional_unit":"ngwee","monetary_authority":"Bank of Zambia","polity":["ZMB"],"precision":2,"symbol":"ZK"}`,
 		},
 	}
 }

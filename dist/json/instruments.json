@@ -937,13 +937,13 @@
           "code": "AED",
           "label": "United Arab Emirates dirham",
           "metadata": {
-            "fractional_unit": "Fils",
+            "fractional_unit": "fils",
             "monetary_authority": "Central Bank of the United Arab Emirates",
             "polity": [
               "ARE"
             ],
             "precision": 2,
-            "symbol": "د.إ"
+            "symbol": "DH"
           },
           "name": "UnitedArabEmiratesDirham"
         },
@@ -951,8 +951,8 @@
           "code": "AFN",
           "label": "Afghan afghani",
           "metadata": {
-            "fractional_unit": "Pul",
-            "monetary_authority": "Central Bank of Afghanistan",
+            "fractional_unit": "pul",
+            "monetary_authority": "Da Afghanistan Bank",
             "polity": [
               "AFG"
             ],
@@ -965,13 +965,13 @@
           "code": "ALL",
           "label": "Albanian lek",
           "metadata": {
-            "fractional_unit": "Qindarkë",
+            "fractional_unit": "qindarkë",
             "monetary_authority": "Bank of Albania",
             "polity": [
               "ALB"
             ],
             "precision": 2,
-            "symbol": "L"
+            "symbol": "lek"
           },
           "name": "AlbanianLek"
         },
@@ -979,13 +979,13 @@
           "code": "AMD",
           "label": "Armenian dram",
           "metadata": {
-            "fractional_unit": "Luma",
-            "monetary_authority": "Central Bank of the Republic of Armenia",
+            "fractional_unit": "luma",
+            "monetary_authority": "Central Bank of Armenia",
             "polity": [
               "ARM"
             ],
             "precision": 2,
-            "symbol": "֏"
+            "symbol": "AMD"
           },
           "name": "ArmenianDram"
         },
@@ -993,14 +993,14 @@
           "code": "ANG",
           "label": "Netherlands Antillean guilder",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Central Bank of Curaçao and Sint Maarten",
             "polity": [
               "SXM",
               "CUW"
             ],
             "precision": 2,
-            "symbol": "ƒ"
+            "symbol": "NAƒ"
           },
           "name": "NetherlandsAntilleanGuilder"
         },
@@ -1008,8 +1008,8 @@
           "code": "AOA",
           "label": "Angolan kwanza",
           "metadata": {
-            "fractional_unit": "Cêntimo",
-            "monetary_authority": "Central Bank of Angola",
+            "fractional_unit": "cêntimo",
+            "monetary_authority": "National Bank of Angola",
             "polity": [
               "AGO"
             ],
@@ -1022,13 +1022,13 @@
           "code": "ARS",
           "label": "Argentine peso",
           "metadata": {
-            "fractional_unit": "Centavo",
-            "monetary_authority": "Central Bank of Argentina",
+            "fractional_unit": "centavo",
+            "monetary_authority": "Central Bank of the Argentine Republic",
             "polity": [
               "ARG"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "AR$"
           },
           "name": "ArgentinePeso"
         },
@@ -1045,7 +1045,7 @@
               "TUV"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "A$"
           },
           "name": "AustralianDollar"
         },
@@ -1053,13 +1053,13 @@
           "code": "AWG",
           "label": "Aruban florin",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Central Bank of Aruba",
             "polity": [
               "ABW"
             ],
             "precision": 2,
-            "symbol": "ƒ"
+            "symbol": "Aƒ"
           },
           "name": "ArubanFlorin"
         },
@@ -1067,7 +1067,7 @@
           "code": "AZN",
           "label": "Azerbaijani manat",
           "metadata": {
-            "fractional_unit": "Qəpik",
+            "fractional_unit": "qəpik",
             "monetary_authority": "Central Bank of Azerbaijan",
             "polity": [
               "AZE"
@@ -1081,13 +1081,13 @@
           "code": "BAM",
           "label": "Bosnia and Herzegovina convertible mark",
           "metadata": {
-            "fractional_unit": "Fening",
+            "fractional_unit": "fening",
             "monetary_authority": "Central Bank of Bosnia and Herzegovina",
             "polity": [
               "BIH"
             ],
             "precision": 2,
-            "symbol": "КМ"
+            "symbol": "KM"
           },
           "name": "BosniaHerzegovinaConvertibleMark"
         },
@@ -1095,13 +1095,13 @@
           "code": "BBD",
           "label": "Barbadian dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Central Bank of Barbados",
             "polity": [
               "BRB"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "BB$"
           },
           "name": "BarbadianDollar"
         },
@@ -1109,7 +1109,7 @@
           "code": "BDT",
           "label": "Bangladeshi taka",
           "metadata": {
-            "fractional_unit": "Poisha",
+            "fractional_unit": "poisha",
             "monetary_authority": "Bangladesh Bank",
             "polity": [
               "BGD"
@@ -1123,13 +1123,13 @@
           "code": "BGN",
           "label": "Bulgarian lev",
           "metadata": {
-            "fractional_unit": "Stotinka",
+            "fractional_unit": "stotinka",
             "monetary_authority": "Bulgarian National Bank",
             "polity": [
               "BGR"
             ],
             "precision": 2,
-            "symbol": "лв"
+            "symbol": "ЛВ"
           },
           "name": "BulgarianLev"
         },
@@ -1137,13 +1137,13 @@
           "code": "BHD",
           "label": "Bahraini dinar",
           "metadata": {
-            "fractional_unit": "Fils",
+            "fractional_unit": "fils",
             "monetary_authority": "Central Bank of Bahrain",
             "polity": [
               "BHR"
             ],
             "precision": 1,
-            "symbol": ".د.ب"
+            "symbol": "BD"
           },
           "name": "BahrainiDinar"
         },
@@ -1151,13 +1151,14 @@
           "code": "BIF",
           "label": "Burundian franc",
           "metadata": {
-            "fractional_unit": "Centime",
+            "fractional_unit": "centime",
+            "fractions": 100,
             "monetary_authority": "Bank of the Republic of Burundi",
             "polity": [
               "BDI"
             ],
-            "precision": 2,
-            "symbol": "Fr"
+            "precision": 0,
+            "symbol": "FBu\""
           },
           "name": "BurundianFranc"
         },
@@ -1165,13 +1166,13 @@
           "code": "BMD",
           "label": "Bermudian dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Bermuda Monetary Authority",
             "polity": [
               "BMU"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "BD$"
           },
           "name": "BermudianDollar"
         },
@@ -1179,13 +1180,13 @@
           "code": "BND",
           "label": "Brunei dollar",
           "metadata": {
-            "fractional_unit": "Sen",
+            "fractional_unit": "sen",
             "monetary_authority": "Monetary Authority of Brunei Darussalam",
             "polity": [
               "BRN"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "B$"
           },
           "name": "BruneiDollar"
         },
@@ -1193,13 +1194,13 @@
           "code": "BOB",
           "label": "Bolivian boliviano",
           "metadata": {
-            "fractional_unit": "Centavo",
+            "fractional_unit": "centavo",
             "monetary_authority": "Central Bank of Bolivia",
             "polity": [
               "BOL"
             ],
             "precision": 2,
-            "symbol": "Bs."
+            "symbol": "Bs"
           },
           "name": "BolivianBoliviano"
         },
@@ -1207,7 +1208,7 @@
           "code": "BRL",
           "label": "Brazilian real",
           "metadata": {
-            "fractional_unit": "Centavo",
+            "fractional_unit": "centavo",
             "monetary_authority": "Central Bank of Brazil",
             "polity": [
               "BRA"
@@ -1221,13 +1222,13 @@
           "code": "BSD",
           "label": "Bahamian dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Central Bank of The Bahamas",
             "polity": [
               "BHS"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "B$"
           },
           "name": "BahamianDollar"
         },
@@ -1235,7 +1236,7 @@
           "code": "BSV",
           "label": "Bitcoin SV",
           "metadata": {
-            "fractional_unit": "Satoshis",
+            "fractional_unit": "satoshi",
             "monetary_authority": "Satoshi Nakamoto",
             "precision": 8,
             "symbol": "₿"
@@ -1246,13 +1247,13 @@
           "code": "BTN",
           "label": "Bhutanese ngultrum",
           "metadata": {
-            "fractional_unit": "Chetrum",
+            "fractional_unit": "chetrum",
             "monetary_authority": "Royal Monetary Authority of Bhutan",
             "polity": [
               "BTN"
             ],
             "precision": 2,
-            "symbol": "Nu."
+            "symbol": "Nu"
           },
           "name": "BhutaneseNgultrum"
         },
@@ -1260,7 +1261,7 @@
           "code": "BWP",
           "label": "Botswana pula",
           "metadata": {
-            "fractional_unit": "Thebe",
+            "fractional_unit": "thebe",
             "monetary_authority": "Bank of Botswana",
             "polity": [
               "BWA"
@@ -1274,7 +1275,7 @@
           "code": "BYN",
           "label": "Belarusian ruble",
           "metadata": {
-            "fractional_unit": "Kapyeyka",
+            "fractional_unit": "kopeck",
             "monetary_authority": "National Bank of the Republic of Belarus",
             "polity": [
               "BLR"
@@ -1288,13 +1289,13 @@
           "code": "BZD",
           "label": "Belize dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Central Bank of Belize",
             "polity": [
               "BLZ"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "BZ$"
           },
           "name": "BelizeDollar"
         },
@@ -1302,13 +1303,13 @@
           "code": "CAD",
           "label": "Canadian dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Bank of Canada",
             "polity": [
               "CAN"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "C$"
           },
           "name": "CanadianDollar"
         },
@@ -1317,12 +1318,13 @@
           "label": "Congolese franc",
           "metadata": {
             "fractional_unit": "Centime",
+            "fractions": 100,
             "monetary_authority": "Central Bank of the Congo",
             "polity": [
               "COD"
             ],
-            "precision": 2,
-            "symbol": "Fr"
+            "precision": 0,
+            "symbol": "FC"
           },
           "name": "CongoleseFranc"
         },
@@ -1330,14 +1332,14 @@
           "code": "CHF",
           "label": "Swiss franc",
           "metadata": {
-            "fractional_unit": "Rappen",
+            "fractional_unit": "rappen",
             "monetary_authority": "Swiss National Bank",
             "polity": [
               "CHE",
               "LIE"
             ],
             "precision": 2,
-            "symbol": "Fr"
+            "symbol": "CHF"
           },
           "name": "SwissFranc"
         },
@@ -1345,13 +1347,14 @@
           "code": "CLP",
           "label": "Chilean peso",
           "metadata": {
-            "fractional_unit": "Centavo",
+            "fractional_unit": "centavo",
+            "fractions": 100,
             "monetary_authority": "Central Bank of Chile",
             "polity": [
               "CHL"
             ],
-            "precision": 2,
-            "symbol": "$"
+            "precision": 0,
+            "symbol": "Ch$"
           },
           "name": "ChileanPeso"
         },
@@ -1359,7 +1362,7 @@
           "code": "CNY",
           "label": "Chinese yuan",
           "metadata": {
-            "fractional_unit": "Fen",
+            "fractional_unit": "fen",
             "monetary_authority": "People's Bank of China",
             "polity": [
               "CHN"
@@ -1373,21 +1376,22 @@
           "code": "COP",
           "label": "Colombian peso",
           "metadata": {
-            "fractional_unit": "Centavo",
+            "fractional_unit": "centavo",
+            "fractions": 100,
             "monetary_authority": "Bank of the Republic",
             "polity": [
               "COL"
             ],
-            "precision": 2,
-            "symbol": "$"
+            "precision": 0,
+            "symbol": "Col$"
           },
           "name": "ColombianPeso"
         },
         {
           "code": "CRC",
-          "label": "Costa Rican colon",
+          "label": "Costa Rican colón",
           "metadata": {
-            "fractional_unit": "Céntimo",
+            "fractional_unit": "céntimo",
             "monetary_authority": "Central Bank of Costa Rica",
             "polity": [
               "CRI"
@@ -1398,30 +1402,30 @@
           "name": "CostaRicanColon"
         },
         {
-          "code": "CUC",
-          "label": "Cuban convertible peso",
+          "code": "CUP",
+          "label": "Cuban peso",
           "metadata": {
-            "fractional_unit": "Centavo",
+            "fractional_unit": "centavo",
             "monetary_authority": "Central Bank of Cuba",
             "polity": [
               "CUB"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "Cu$"
           },
-          "name": "CubanConvertiblePeso"
+          "name": "CubanPeso"
         },
         {
           "code": "CVE",
           "label": "Cape Verdean escudo",
           "metadata": {
-            "fractional_unit": "Centavo",
+            "fractional_unit": "centavo",
             "monetary_authority": "Bank of Cape Verde",
             "polity": [
-              "CUB"
+              "CPV"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "Esc"
           },
           "name": "CapeVerdeanEscudo"
         },
@@ -1429,7 +1433,7 @@
           "code": "CZK",
           "label": "Czech koruna",
           "metadata": {
-            "fractional_unit": "Haléř",
+            "fractional_unit": "haléř",
             "monetary_authority": "Czech National Bank",
             "polity": [
               "CZE"
@@ -1443,13 +1447,14 @@
           "code": "DJF",
           "label": "Djiboutian franc",
           "metadata": {
-            "fractional_unit": "Centime",
+            "fractional_unit": "centime",
+            "fractions": 100,
             "monetary_authority": "Central Bank of Djibouti",
             "polity": [
               "DJI"
             ],
-            "precision": 2,
-            "symbol": "Fr"
+            "precision": 0,
+            "symbol": "Fdj"
           },
           "name": "DjiboutianFranc"
         },
@@ -1457,7 +1462,7 @@
           "code": "DKK",
           "label": "Danish krone",
           "metadata": {
-            "fractional_unit": "Øre",
+            "fractional_unit": "øre",
             "monetary_authority": "Danmarks Nationalbank",
             "polity": [
               "DNK",
@@ -1465,7 +1470,7 @@
               "GRL"
             ],
             "precision": 2,
-            "symbol": "kr"
+            "symbol": "DKr"
           },
           "name": "DanishKrone"
         },
@@ -1473,13 +1478,13 @@
           "code": "DOP",
           "label": "Dominican peso",
           "metadata": {
-            "fractional_unit": "Centavo",
+            "fractional_unit": "centavo",
             "monetary_authority": "Central Bank of the Dominican Republic",
             "polity": [
               "DOM"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "RD$"
           },
           "name": "DominicanPeso"
         },
@@ -1487,13 +1492,12 @@
           "code": "DZD",
           "label": "Algerian dinar",
           "metadata": {
-            "fractional_unit": "Santeem",
             "monetary_authority": "Bank of Algeria",
             "polity": [
               "DZA"
             ],
-            "precision": 2,
-            "symbol": "د.ج"
+            "precision": 0,
+            "symbol": "DA"
           },
           "name": "AlgerianDinar"
         },
@@ -1501,13 +1505,13 @@
           "code": "EGP",
           "label": "Egyptian pound",
           "metadata": {
-            "fractional_unit": "Piastre",
+            "fractional_unit": "piastre",
             "monetary_authority": "Central Bank of Egypt",
             "polity": [
               "EGY"
             ],
             "precision": 2,
-            "symbol": "E£"
+            "symbol": "£E"
           },
           "name": "EgyptianPound"
         },
@@ -1515,13 +1519,13 @@
           "code": "ERN",
           "label": "Eritrean nakfa",
           "metadata": {
-            "fractional_unit": "Piastre",
+            "fractional_unit": "cent",
             "monetary_authority": "Bank of Eritrea",
             "polity": [
               "ERI"
             ],
             "precision": 2,
-            "symbol": "Nfk"
+            "symbol": "Nkf"
           },
           "name": "EritreanNakfa"
         },
@@ -1529,8 +1533,8 @@
           "code": "ETB",
           "label": "Ethiopian birr",
           "metadata": {
-            "fractional_unit": "Santim",
-            "monetary_authority": "Bank of Eritrea",
+            "fractional_unit": "santim",
+            "monetary_authority": "National Bank of Ethiopia",
             "polity": [
               "ETH"
             ],
@@ -1543,7 +1547,7 @@
           "code": "EUR",
           "label": "Euro",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "European Central Bank",
             "polity": [
               "ALA",
@@ -1589,13 +1593,13 @@
           "code": "FJD",
           "label": "Fijian dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Reserve Bank of Fiji",
             "polity": [
               "FJI"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "FJ$"
           },
           "name": "FijianDollar"
         },
@@ -1603,10 +1607,11 @@
           "code": "FKP",
           "label": "Falkland Islands pound",
           "metadata": {
-            "fractional_unit": "Penny",
+            "fractional_unit": "penny",
             "monetary_authority": "Government of the Falkland Islands",
             "polity": [
-              "FLK"
+              "FLK",
+              "SGS"
             ],
             "precision": 2,
             "symbol": "£"
@@ -1617,14 +1622,18 @@
           "code": "GBP",
           "label": "Pound sterling",
           "metadata": {
-            "fractional_unit": "Penny",
+            "fractional_unit": "penny",
             "monetary_authority": "Bank of England",
             "polity": [
               "GBR",
               "IOT",
               "IMN",
               "JEY",
-              "GGY"
+              "GGY",
+              "FLK",
+              "GIB",
+              "SGS",
+              "SHN"
             ],
             "precision": 2,
             "symbol": "£"
@@ -1635,7 +1644,7 @@
           "code": "GEL",
           "label": "Georgian lari",
           "metadata": {
-            "fractional_unit": "Tetri",
+            "fractional_unit": "tetri",
             "monetary_authority": "National Bank of Georgia",
             "polity": [
               "GEO"
@@ -1649,13 +1658,13 @@
           "code": "GHS",
           "label": "Ghanaian cedi",
           "metadata": {
-            "fractional_unit": "Pesewa",
+            "fractional_unit": "pesewa",
             "monetary_authority": "Bank of Ghana",
             "polity": [
               "GHA"
             ],
             "precision": 2,
-            "symbol": "₵"
+            "symbol": "GH₵"
           },
           "name": "GhanaianCedi"
         },
@@ -1663,7 +1672,7 @@
           "code": "GIP",
           "label": "Gibraltar pound",
           "metadata": {
-            "fractional_unit": "Penny",
+            "fractional_unit": "penny",
             "monetary_authority": "Government of Gibraltar",
             "polity": [
               "GIB"
@@ -1677,7 +1686,7 @@
           "code": "GMD",
           "label": "Gambian dalasi",
           "metadata": {
-            "fractional_unit": "Butut",
+            "fractional_unit": "butut",
             "monetary_authority": "Central Bank of The Gambia",
             "polity": [
               "GMB"
@@ -1691,13 +1700,12 @@
           "code": "GNF",
           "label": "Guinean franc",
           "metadata": {
-            "fractional_unit": "Centime",
-            "monetary_authority": "Government of Gibraltar",
+            "monetary_authority": "Central Bank of the Republic of Guinea",
             "polity": [
               "GNQ"
             ],
-            "precision": 2,
-            "symbol": "Fr"
+            "precision": 0,
+            "symbol": "FG"
           },
           "name": "GuineanFranc"
         },
@@ -1705,7 +1713,7 @@
           "code": "GTQ",
           "label": "Guatemalan quetzal",
           "metadata": {
-            "fractional_unit": "Centavo",
+            "fractional_unit": "centavo",
             "monetary_authority": "Bank of Guatemala",
             "polity": [
               "GTM"
@@ -1719,13 +1727,13 @@
           "code": "GYD",
           "label": "Guyanese dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Bank of Guyana",
             "polity": [
               "GUY"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "G$"
           },
           "name": "GuyaneseDollar"
         },
@@ -1733,13 +1741,13 @@
           "code": "HKD",
           "label": "Hong Kong dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Hong Kong Monetary Authority",
             "polity": [
               "HKG"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "HK$"
           },
           "name": "HongKongDollar"
         },
@@ -1747,7 +1755,7 @@
           "code": "HNL",
           "label": "Honduran lempira",
           "metadata": {
-            "fractional_unit": "Centavo",
+            "fractional_unit": "centavo",
             "monetary_authority": "Central Bank of Honduras",
             "polity": [
               "HND"
@@ -1758,24 +1766,10 @@
           "name": "HonduranLempira"
         },
         {
-          "code": "HRK",
-          "label": "Croatian kuna",
-          "metadata": {
-            "fractional_unit": "Lipa",
-            "monetary_authority": "Croatian National Bank",
-            "polity": [
-              "HRV"
-            ],
-            "precision": 2,
-            "symbol": "kn"
-          },
-          "name": "CroatianKuna"
-        },
-        {
           "code": "HTG",
           "label": "Haitian gourde",
           "metadata": {
-            "fractional_unit": "Centime",
+            "fractional_unit": "centime",
             "monetary_authority": "Bank of the Republic of Haiti",
             "polity": [
               "HTI"
@@ -1789,7 +1783,7 @@
           "code": "HUF",
           "label": "Hungarian forint",
           "metadata": {
-            "fractional_unit": "Fillér",
+            "fractional_unit": "fillér",
             "monetary_authority": "Hungarian National Bank",
             "polity": [
               "HUN"
@@ -1803,12 +1797,13 @@
           "code": "IDR",
           "label": "Indonesian rupiah",
           "metadata": {
-            "fractional_unit": "Sen",
+            "fractional_unit": "sen",
+            "fractions": 100,
             "monetary_authority": "Bank of Indonesia",
             "polity": [
               "IDN"
             ],
-            "precision": 2,
+            "precision": 0,
             "symbol": "Rp"
           },
           "name": "IndonesianRupiah"
@@ -1817,7 +1812,7 @@
           "code": "ILS",
           "label": "Israeli new shekel",
           "metadata": {
-            "fractional_unit": "Agora",
+            "fractional_unit": "agora",
             "monetary_authority": "Bank of Israel",
             "polity": [
               "ISR",
@@ -1832,7 +1827,7 @@
           "code": "INR",
           "label": "Indian rupee",
           "metadata": {
-            "fractional_unit": "Paisa",
+            "fractional_unit": "paisa",
             "monetary_authority": "Reserve Bank of India",
             "polity": [
               "IND",
@@ -1847,13 +1842,14 @@
           "code": "IQD",
           "label": "Iraqi dinar",
           "metadata": {
-            "fractional_unit": "Fils",
+            "fractional_unit": "fils",
+            "fractions": 1000,
             "monetary_authority": "Central Bank of Iraq",
             "polity": [
               "IRQ"
             ],
-            "precision": 1,
-            "symbol": "ع.د"
+            "precision": 0,
+            "symbol": "ID"
           },
           "name": "IraqiDinar"
         },
@@ -1861,13 +1857,12 @@
           "code": "IRR",
           "label": "Iranian rial",
           "metadata": {
-            "fractional_unit": "Dinar",
             "monetary_authority": "Central Bank of Iraq",
             "polity": [
               "IRN"
             ],
-            "precision": 2,
-            "symbol": "﷼"
+            "precision": 0,
+            "symbol": "IR"
           },
           "name": "IranianRial"
         },
@@ -1875,13 +1870,12 @@
           "code": "ISK",
           "label": "Icelandic króna",
           "metadata": {
-            "fractional_unit": "Eyrir",
             "monetary_authority": "Central Bank of Iceland",
             "polity": [
               "ISL"
             ],
-            "precision": 2,
-            "symbol": "kr"
+            "precision": 0,
+            "symbol": "IKr"
           },
           "name": "IcelandicKrona"
         },
@@ -1889,13 +1883,13 @@
           "code": "JMD",
           "label": "Jamaican dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Bank of Jamaica",
             "polity": [
               "JAM"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "J$"
           },
           "name": "JamaicanDollar"
         },
@@ -1903,14 +1897,14 @@
           "code": "JOD",
           "label": "Jordanian dinar",
           "metadata": {
-            "fractional_unit": "Piastre",
+            "fractional_unit": "qrish",
             "monetary_authority": "Central Bank of Jordan",
             "polity": [
               "JOR",
               "PSE"
             ],
             "precision": 2,
-            "symbol": "د.ا"
+            "symbol": "JD"
           },
           "name": "JordanianDinar"
         },
@@ -1918,12 +1912,11 @@
           "code": "JPY",
           "label": "Japanese yen",
           "metadata": {
-            "fractional_unit": "Sen",
             "monetary_authority": "Bank of Japan",
             "polity": [
               "JPN"
             ],
-            "precision": 2,
+            "precision": 0,
             "symbol": "¥"
           },
           "name": "JapaneseYen"
@@ -1932,41 +1925,42 @@
           "code": "KES",
           "label": "Kenyan shilling",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Central Bank of Kenya",
             "polity": [
               "KEN"
             ],
             "precision": 2,
-            "symbol": "Sh"
+            "symbol": "KSh"
           },
           "name": "KenyanShilling"
         },
         {
           "code": "KGS",
-          "label": "Kyrgyzstani som",
+          "label": "Kyrgyz som",
           "metadata": {
-            "fractional_unit": "Tyiyn",
+            "fractional_unit": "tyiyn",
             "monetary_authority": "National Bank of the Kyrgyz Republic",
             "polity": [
               "KGZ"
             ],
             "precision": 2,
-            "symbol": "с"
+            "symbol": "som"
           },
-          "name": "KyrgyzstaniSom"
+          "name": "KyrgyzSom"
         },
         {
           "code": "KHR",
           "label": "Cambodian riel",
           "metadata": {
-            "fractional_unit": "Sen",
+            "fractional_unit": "sen",
+            "fractions": 100,
             "monetary_authority": "National Bank of Cambodia",
             "polity": [
               "KHM"
             ],
-            "precision": 2,
-            "symbol": "៛"
+            "precision": 0,
+            "symbol": "KHR"
           },
           "name": "CambodianRiel"
         },
@@ -1974,13 +1968,14 @@
           "code": "KMF",
           "label": "Comoro franc",
           "metadata": {
-            "fractional_unit": "Sen",
+            "fractional_unit": "centime",
+            "fractions": 100,
             "monetary_authority": "Central Bank of the Comoros",
             "polity": [
               "COM"
             ],
-            "precision": 2,
-            "symbol": "Fr"
+            "precision": 0,
+            "symbol": "FC"
           },
           "name": "ComoroFranc"
         },
@@ -1988,7 +1983,7 @@
           "code": "KPW",
           "label": "North Korean won",
           "metadata": {
-            "fractional_unit": "Chon",
+            "fractional_unit": "chun",
             "monetary_authority": "Central Bank of the Democratic People's Republic of Korea",
             "polity": [
               "PRK"
@@ -2002,12 +1997,13 @@
           "code": "KRW",
           "label": "South Korean won",
           "metadata": {
-            "fractional_unit": "Jeon",
+            "fractional_unit": "chun",
+            "fractions": 100,
             "monetary_authority": "Bank of Korea",
             "polity": [
               "KOR"
             ],
-            "precision": 2,
+            "precision": 0,
             "symbol": "₩"
           },
           "name": "SouthKoreanWon"
@@ -2016,13 +2012,13 @@
           "code": "KWD",
           "label": "Kuwaiti dinar",
           "metadata": {
-            "fractional_unit": "Fils",
+            "fractional_unit": "fils",
             "monetary_authority": "Central Bank of Kuwait",
             "polity": [
               "KWT"
             ],
-            "precision": 1,
-            "symbol": "د.ك"
+            "precision": 3,
+            "symbol": "KD"
           },
           "name": "KuwaitiDinar"
         },
@@ -2030,13 +2026,13 @@
           "code": "KYD",
           "label": "Cayman Islands dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Cayman Islands Monetary Authority",
             "polity": [
               "CYM"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "CI$"
           },
           "name": "CaymanIslandsDollar"
         },
@@ -2044,7 +2040,7 @@
           "code": "KZT",
           "label": "Kazakhstani tenge",
           "metadata": {
-            "fractional_unit": "Tïın",
+            "fractional_unit": "tiyn",
             "monetary_authority": "National Bank of Kazakhstan",
             "polity": [
               "KAZ"
@@ -2058,12 +2054,13 @@
           "code": "LAK",
           "label": "Lao kip",
           "metadata": {
-            "fractional_unit": "Att",
+            "fractional_unit": "att",
+            "fractions": 100,
             "monetary_authority": "Bank of the Lao People's Democratic Republic",
             "polity": [
               "LAO"
             ],
-            "precision": 2,
+            "precision": 0,
             "symbol": "₭"
           },
           "name": "LaoKip"
@@ -2072,13 +2069,12 @@
           "code": "LBP",
           "label": "Lebanese pound",
           "metadata": {
-            "fractional_unit": "Piastre",
             "monetary_authority": "Banque du Liban",
             "polity": [
               "LBN"
             ],
-            "precision": 2,
-            "symbol": "ل.ل"
+            "precision": 0,
+            "symbol": "£L"
           },
           "name": "LebanesePound"
         },
@@ -2086,13 +2082,13 @@
           "code": "LKR",
           "label": "Sri Lankan rupee",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Central Bank of Sri Lanka",
             "polity": [
               "LKA"
             ],
             "precision": 2,
-            "symbol": "Rs"
+            "symbol": "SLRe"
           },
           "name": "SriLankanRupee"
         },
@@ -2100,13 +2096,13 @@
           "code": "LRD",
           "label": "Liberian dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Central Bank of Liberia",
             "polity": [
               "LBR"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "L$"
           },
           "name": "LiberianDollar"
         },
@@ -2114,7 +2110,7 @@
           "code": "LSL",
           "label": "Lesotho loti",
           "metadata": {
-            "fractional_unit": "Sente",
+            "fractional_unit": "sente",
             "monetary_authority": "Central Bank of Lesotho",
             "polity": [
               "LBR"
@@ -2128,13 +2124,13 @@
           "code": "LYD",
           "label": "Libyan dinar",
           "metadata": {
-            "fractional_unit": "Dirham",
+            "fractional_unit": "dirham",
             "monetary_authority": "Central Bank of Libya",
             "polity": [
               "LBY"
             ],
-            "precision": 1,
-            "symbol": "ل.د"
+            "precision": 3,
+            "symbol": "LD"
           },
           "name": "LibyanDinar"
         },
@@ -2142,13 +2138,13 @@
           "code": "MAD",
           "label": "Moroccan dirham",
           "metadata": {
-            "fractional_unit": "Centime",
+            "fractional_unit": "santim",
             "monetary_authority": "Bank Al-Maghrib",
             "polity": [
               "MAR"
             ],
             "precision": 2,
-            "symbol": "د.م."
+            "symbol": "DH"
           },
           "name": "MoroccanDirham"
         },
@@ -2156,13 +2152,13 @@
           "code": "MDL",
           "label": "Moldovan leu",
           "metadata": {
-            "fractional_unit": "Ban",
+            "fractional_unit": "ban",
             "monetary_authority": "National Bank of Moldova",
             "polity": [
               "MDA"
             ],
             "precision": 2,
-            "symbol": "L"
+            "symbol": "leu"
           },
           "name": "MoldovanLeu"
         },
@@ -2170,13 +2166,13 @@
           "code": "MGA",
           "label": "Malagasy ariary",
           "metadata": {
-            "fractional_unit": "Iraimbilanja",
+            "fractional_unit": "iraimbilanja",
             "fractions": 5,
             "monetary_authority": "Central Bank of Madagascar",
             "polity": [
               "MDG"
             ],
-            "precision": 2,
+            "precision": 0,
             "symbol": "Ar"
           },
           "name": "MalagasyAriary"
@@ -2185,13 +2181,14 @@
           "code": "MKD",
           "label": "Macedonian denar",
           "metadata": {
-            "fractional_unit": "Deni",
+            "fractional_unit": "deni",
+            "fractions": 100,
             "monetary_authority": "National Bank of the Republic of Macedonia",
             "polity": [
               "MKD"
             ],
-            "precision": 2,
-            "symbol": "ден"
+            "precision": 0,
+            "symbol": "DEN"
           },
           "name": "MacedonianDenar"
         },
@@ -2199,13 +2196,13 @@
           "code": "MMK",
           "label": "Myanmar kyat",
           "metadata": {
-            "fractional_unit": "Pya",
+            "fractional_unit": "pya",
             "monetary_authority": "Central Bank of Myanmar",
             "polity": [
               "MMR"
             ],
             "precision": 2,
-            "symbol": "Ks"
+            "symbol": "K"
           },
           "name": "MyanmarKyat"
         },
@@ -2213,12 +2210,13 @@
           "code": "MNT",
           "label": "Mongolian tögrög",
           "metadata": {
-            "fractional_unit": "Möngö",
+            "fractional_unit": "möngö",
+            "fractions": 100,
             "monetary_authority": "Bank of Mongolia",
             "polity": [
               "MNG"
             ],
-            "precision": 2,
+            "precision": 0,
             "symbol": "₮"
           },
           "name": "MongolianTogrog"
@@ -2227,7 +2225,7 @@
           "code": "MOP",
           "label": "Macanese pataca",
           "metadata": {
-            "fractional_unit": "Avo",
+            "fractional_unit": "avo",
             "monetary_authority": "Monetary Authority of Macau",
             "polity": [
               "MAC"
@@ -2241,7 +2239,7 @@
           "code": "MRU",
           "label": "Mauritanian ouguiya",
           "metadata": {
-            "fractional_unit": "Khoums",
+            "fractional_unit": "khoums",
             "fractions": 5,
             "monetary_authority": "Central Bank of Mauritania",
             "polity": [
@@ -2256,13 +2254,13 @@
           "code": "MUR",
           "label": "Mauritian rupee",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Bank of Mauritius",
             "polity": [
               "MUS"
             ],
             "precision": 2,
-            "symbol": "₨"
+            "symbol": "MRe"
           },
           "name": "MauritianRupee"
         },
@@ -2270,13 +2268,13 @@
           "code": "MVR",
           "label": "Maldivian rufiyaa",
           "metadata": {
-            "fractional_unit": "Laari",
+            "fractional_unit": "laari",
             "monetary_authority": "Maldives Monetary Authority",
             "polity": [
               "MDV"
             ],
             "precision": 2,
-            "symbol": ".ރ"
+            "symbol": "Rf"
           },
           "name": "MaldivianRufiyaa"
         },
@@ -2284,7 +2282,7 @@
           "code": "MWK",
           "label": "Malawian kwacha",
           "metadata": {
-            "fractional_unit": "Tambala",
+            "fractional_unit": "tambala",
             "monetary_authority": "Reserve Bank of Malawi",
             "polity": [
               "MWI"
@@ -2298,13 +2296,13 @@
           "code": "MXN",
           "label": "Mexican peso",
           "metadata": {
-            "fractional_unit": "Centavo",
+            "fractional_unit": "centavo",
             "monetary_authority": "Bank of Mexico",
             "polity": [
               "MEX"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "MX$"
           },
           "name": "MexicanPeso"
         },
@@ -2312,7 +2310,7 @@
           "code": "MYR",
           "label": "Malaysian ringgit",
           "metadata": {
-            "fractional_unit": "Sen",
+            "fractional_unit": "sen",
             "monetary_authority": "Central Bank of Malaysia",
             "polity": [
               "MYS"
@@ -2326,7 +2324,7 @@
           "code": "MZN",
           "label": "Mozambican metical",
           "metadata": {
-            "fractional_unit": "Centavo",
+            "fractional_unit": "centavo",
             "monetary_authority": "Bank of Mozambique",
             "polity": [
               "MOZ"
@@ -2340,13 +2338,13 @@
           "code": "NAD",
           "label": "Namibian dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Bank of Namibia",
             "polity": [
               "NAM"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "N$"
           },
           "name": "NamibianDollar"
         },
@@ -2354,7 +2352,7 @@
           "code": "NGN",
           "label": "Nigerian naira",
           "metadata": {
-            "fractional_unit": "Kobo",
+            "fractional_unit": "kobo",
             "monetary_authority": "Central Bank of Nigeria",
             "polity": [
               "NGA"
@@ -2368,7 +2366,7 @@
           "code": "NIO",
           "label": "Nicaraguan córdoba",
           "metadata": {
-            "fractional_unit": "Centavo",
+            "fractional_unit": "centavo",
             "monetary_authority": "Central Bank of Nicaragua",
             "polity": [
               "NIC"
@@ -2382,13 +2380,15 @@
           "code": "NOK",
           "label": "Norwegian krone",
           "metadata": {
-            "fractional_unit": "Øre",
+            "fractional_unit": "øre",
             "monetary_authority": "Norges Bank",
             "polity": [
-              "NOR, SJM, BVT"
+              "NOR",
+              "SJM",
+              "BVT"
             ],
             "precision": 2,
-            "symbol": "kr"
+            "symbol": "NKr"
           },
           "name": "NorwegianKrone"
         },
@@ -2396,13 +2396,13 @@
           "code": "NPR",
           "label": "Nepalese rupee",
           "metadata": {
-            "fractional_unit": "Paisa",
+            "fractional_unit": "paisa",
             "monetary_authority": "Nepal Rastra Bank",
             "polity": [
               "NPL"
             ],
             "precision": 2,
-            "symbol": "₨"
+            "symbol": "NRe"
           },
           "name": "NepaleseRupee"
         },
@@ -2410,7 +2410,7 @@
           "code": "NZD",
           "label": "New Zealand dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Reserve Bank of New Zealand",
             "polity": [
               "NZL",
@@ -2420,7 +2420,7 @@
               "TKL"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "$NZ"
           },
           "name": "NewZealandDollar"
         },
@@ -2428,13 +2428,13 @@
           "code": "OMR",
           "label": "Omani rial",
           "metadata": {
-            "fractional_unit": "Baisa",
+            "fractional_unit": "baisa",
             "monetary_authority": "Central Bank of Oman",
             "polity": [
               "OMN"
             ],
-            "precision": 1,
-            "symbol": "ر.ع."
+            "precision": 3,
+            "symbol": "RO"
           },
           "name": "OmaniRial"
         },
@@ -2442,13 +2442,13 @@
           "code": "PAB",
           "label": "Panamanian balboa",
           "metadata": {
-            "fractional_unit": "Centésimo",
-            "monetary_authority": "Central Bank of Oman",
+            "fractional_unit": "centésimo",
+            "monetary_authority": "Panama National Banking Commission",
             "polity": [
               "PAN"
             ],
             "precision": 2,
-            "symbol": "B/."
+            "symbol": "B/"
           },
           "name": "PanamanianBalboa"
         },
@@ -2456,13 +2456,13 @@
           "code": "PEN",
           "label": "Peruvian sol",
           "metadata": {
-            "fractional_unit": "Céntimo",
+            "fractional_unit": "céntimo",
             "monetary_authority": "Central Reserve Bank of Peru",
             "polity": [
               "PER"
             ],
             "precision": 2,
-            "symbol": "S/."
+            "symbol": "S/"
           },
           "name": "PeruvianSol"
         },
@@ -2470,7 +2470,7 @@
           "code": "PGK",
           "label": "Papua New Guinean kina",
           "metadata": {
-            "fractional_unit": "Toea",
+            "fractional_unit": "toea",
             "monetary_authority": "Bank of Papua New Guinea",
             "polity": [
               "PNG"
@@ -2484,7 +2484,7 @@
           "code": "PHP",
           "label": "Philippine peso",
           "metadata": {
-            "fractional_unit": "Sentimo",
+            "fractional_unit": "sentimo",
             "monetary_authority": "Central Bank of the Philippines",
             "polity": [
               "PHL"
@@ -2498,13 +2498,14 @@
           "code": "PKR",
           "label": "Pakistani rupee",
           "metadata": {
-            "fractional_unit": "Paisa",
+            "fractional_unit": "paisa",
+            "fractions": 100,
             "monetary_authority": "State Bank of Pakistan",
             "polity": [
               "PAK"
             ],
-            "precision": 2,
-            "symbol": "₨"
+            "precision": 0,
+            "symbol": "PRe"
           },
           "name": "PakistaniRupee"
         },
@@ -2512,7 +2513,7 @@
           "code": "PLN",
           "label": "Polish złoty",
           "metadata": {
-            "fractional_unit": "Grosz",
+            "fractional_unit": "grosz",
             "monetary_authority": "National Bank of Poland",
             "polity": [
               "POL"
@@ -2526,12 +2527,13 @@
           "code": "PYG",
           "label": "Paraguayan guaraní",
           "metadata": {
-            "fractional_unit": "Céntimo",
+            "fractional_unit": "céntimo",
+            "fractions": 100,
             "monetary_authority": "Central Bank of Paraguay",
             "polity": [
               "PRY"
             ],
-            "precision": 2,
+            "precision": 0,
             "symbol": "₲"
           },
           "name": "ParaguayanGuarani"
@@ -2540,13 +2542,13 @@
           "code": "QAR",
           "label": "Qatari riyal",
           "metadata": {
-            "fractional_unit": "Dirham",
+            "fractional_unit": "dirham",
             "monetary_authority": "Qatar Central Bank",
             "polity": [
               "QAT"
             ],
             "precision": 2,
-            "symbol": "ر.ق"
+            "symbol": "QR"
           },
           "name": "QatariRiyal"
         },
@@ -2554,13 +2556,13 @@
           "code": "RON",
           "label": "Romanian leu",
           "metadata": {
-            "fractional_unit": "Ban",
+            "fractional_unit": "ban",
             "monetary_authority": "National Bank of Romania",
             "polity": [
               "ROU"
             ],
             "precision": 2,
-            "symbol": "lei"
+            "symbol": "leu"
           },
           "name": "RomanianLeu"
         },
@@ -2568,13 +2570,13 @@
           "code": "RSD",
           "label": "Serbian dinar",
           "metadata": {
-            "fractional_unit": "Para",
+            "fractional_unit": "para",
             "monetary_authority": "National Bank of Serbia",
             "polity": [
               "SRB"
             ],
             "precision": 2,
-            "symbol": "din"
+            "symbol": "DIN"
           },
           "name": "SerbianDinar"
         },
@@ -2582,7 +2584,7 @@
           "code": "RUB",
           "label": "Russian ruble",
           "metadata": {
-            "fractional_unit": "Kopek",
+            "fractional_unit": "kopek",
             "monetary_authority": "Bank of Russia",
             "polity": [
               "RUS"
@@ -2596,13 +2598,14 @@
           "code": "RWF",
           "label": "Rwandan franc",
           "metadata": {
-            "fractional_unit": "Centime",
+            "fractional_unit": "centime",
+            "fractions": 100,
             "monetary_authority": "National Bank of Rwanda",
             "polity": [
               "RWA"
             ],
-            "precision": 2,
-            "symbol": "Fr"
+            "precision": 0,
+            "symbol": "FRw"
           },
           "name": "RwandanFranc"
         },
@@ -2610,13 +2613,13 @@
           "code": "SAR",
           "label": "Saudi riyal",
           "metadata": {
-            "fractional_unit": "Halala",
-            "monetary_authority": "Saudi Arabian Monetary Authority",
+            "fractional_unit": "halala",
+            "monetary_authority": "Saudi Central Bank",
             "polity": [
               "SAU"
             ],
             "precision": 2,
-            "symbol": "ر.س"
+            "symbol": "SAR"
           },
           "name": "SaudiRiyal"
         },
@@ -2624,13 +2627,13 @@
           "code": "SBD",
           "label": "Solomon Islands dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Central Bank of Solomon Islands",
             "polity": [
               "SLB"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "SI$"
           },
           "name": "SolomonIslandDollar"
         },
@@ -2638,13 +2641,13 @@
           "code": "SCR",
           "label": "Seychellois rupee",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Central Bank of Solomon Islands",
             "polity": [
               "SYC"
             ],
             "precision": 2,
-            "symbol": "₨"
+            "symbol": "SRe"
           },
           "name": "SeychelloisRupee"
         },
@@ -2652,13 +2655,13 @@
           "code": "SDG",
           "label": "Sudanese pound",
           "metadata": {
-            "fractional_unit": "Piastre",
-            "monetary_authority": "Bank of Sudan",
+            "fractional_unit": "piastre",
+            "monetary_authority": "Central Bank of Sudan",
             "polity": [
               "SSD"
             ],
             "precision": 2,
-            "symbol": "ج.س."
+            "symbol": "£Sd"
           },
           "name": "SudanesePound"
         },
@@ -2666,13 +2669,13 @@
           "code": "SEK",
           "label": "Swedish krona",
           "metadata": {
-            "fractional_unit": "Öre",
+            "fractional_unit": "öre",
             "monetary_authority": "Sveriges Riksbank",
             "polity": [
               "SWE"
             ],
             "precision": 2,
-            "symbol": "kr"
+            "symbol": "SKr"
           },
           "name": "SwedishKrona"
         },
@@ -2680,13 +2683,13 @@
           "code": "SGD",
           "label": "Singapore dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Monetary Authority of Singapore",
             "polity": [
               "SGP"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "S$"
           },
           "name": "SingaporeDollar"
         },
@@ -2694,7 +2697,7 @@
           "code": "SHP",
           "label": "Saint Helena pound",
           "metadata": {
-            "fractional_unit": "Penny",
+            "fractional_unit": "penny",
             "monetary_authority": "Government of Saint Helena",
             "polity": [
               "SHN"
@@ -2705,7 +2708,7 @@
           "name": "SaintHelenaPound"
         },
         {
-          "code": "SLL",
+          "code": "SLE",
           "label": "Sierra Leonean leone",
           "metadata": {
             "fractional_unit": "Cent",
@@ -2722,41 +2725,41 @@
           "code": "SOS",
           "label": "Somali shilling",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Central Bank of Somalia",
             "polity": [
               "SOM"
             ],
             "precision": 2,
-            "symbol": "Sl"
+            "symbol": "Sh"
           },
           "name": "SomaliShilling"
         },
         {
           "code": "SRD",
-          "label": "Surilabelse dollar",
+          "label": "Surinamese dollar",
           "metadata": {
-            "fractional_unit": "Cent",
-            "monetary_authority": "Central Bank of Surilabel",
+            "fractional_unit": "cent",
+            "monetary_authority": "Central Bank of Suriname",
             "polity": [
               "SUR"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "SRD"
           },
-          "name": "SurilabelseDollar"
+          "name": "SurinameseDollar"
         },
         {
           "code": "SSP",
           "label": "South Sudanese pound",
           "metadata": {
-            "fractional_unit": "Piastre",
+            "fractional_unit": "piastre",
             "monetary_authority": "Bank of South Sudan",
             "polity": [
               "SSD"
             ],
             "precision": 2,
-            "symbol": "£"
+            "symbol": "SSP"
           },
           "name": "SouthSudanesePound"
         },
@@ -2764,7 +2767,7 @@
           "code": "STN",
           "label": "São Tomé and Príncipe dobra",
           "metadata": {
-            "fractional_unit": "Cêntimo",
+            "fractional_unit": "cêntimo",
             "monetary_authority": "Central Bank of São Tomé and Príncipe",
             "polity": [
               "STP"
@@ -2778,13 +2781,14 @@
           "code": "SYP",
           "label": "Syrian pound",
           "metadata": {
-            "fractional_unit": "Piastre",
+            "fractional_unit": "piastre",
+            "fractions": 100,
             "monetary_authority": "Central Bank of Syria",
             "polity": [
               "SYR"
             ],
-            "precision": 2,
-            "symbol": "£"
+            "precision": 0,
+            "symbol": "£S"
           },
           "name": "SyrianPound"
         },
@@ -2792,8 +2796,8 @@
           "code": "SZL",
           "label": "Swazi lilangeni",
           "metadata": {
-            "fractional_unit": "Cent",
-            "monetary_authority": "Central Bank of Swaziland",
+            "fractional_unit": "cent",
+            "monetary_authority": "Central Bank of Eswatini",
             "polity": [
               "SWZ"
             ],
@@ -2806,13 +2810,13 @@
           "code": "THB",
           "label": "Thai baht",
           "metadata": {
-            "fractional_unit": "Satang",
+            "fractional_unit": "satang",
             "monetary_authority": "Bank of Thailand",
             "polity": [
               "THA"
             ],
             "precision": 2,
-            "symbol": "฿"
+            "symbol": "THB"
           },
           "name": "ThaiBaht"
         },
@@ -2820,21 +2824,21 @@
           "code": "TJS",
           "label": "Tajikistani somoni",
           "metadata": {
-            "fractional_unit": "Diram",
+            "fractional_unit": "diram",
             "monetary_authority": "National Bank of Tajikistan",
             "polity": [
               "TJK"
             ],
             "precision": 2,
-            "symbol": "ЅМ"
+            "symbol": "SM"
           },
           "name": "TajikistaniSomoni"
         },
         {
           "code": "TMT",
-          "label": "Turkmenistan manat",
+          "label": "Turkmenistani manat",
           "metadata": {
-            "fractional_unit": "Tennesi",
+            "fractional_unit": "tenge",
             "monetary_authority": "Central Bank of Turkmenistan",
             "polity": [
               "TKM"
@@ -2842,19 +2846,19 @@
             "precision": 2,
             "symbol": "m"
           },
-          "name": "TurkmenistanManat"
+          "name": "TurkmenistaniManat"
         },
         {
           "code": "TND",
           "label": "Tunisian dinar",
           "metadata": {
-            "fractional_unit": "Millime",
+            "fractional_unit": "millime",
             "monetary_authority": "Central Bank of Tunisia",
             "polity": [
               "TUN"
             ],
-            "precision": 1,
-            "symbol": "د.ت"
+            "precision": 3,
+            "symbol": "DT"
           },
           "name": "TunisianDinar"
         },
@@ -2862,7 +2866,7 @@
           "code": "TOP",
           "label": "Tongan paʻanga",
           "metadata": {
-            "fractional_unit": "Seniti",
+            "fractional_unit": "seniti",
             "monetary_authority": "National Reserve Bank of Tonga",
             "polity": [
               "TON"
@@ -2876,7 +2880,7 @@
           "code": "TRY",
           "label": "Turkish lira",
           "metadata": {
-            "fractional_unit": "Kuruş",
+            "fractional_unit": "kuruş",
             "monetary_authority": "Central Bank of the Republic of Turkey",
             "polity": [
               "TUR"
@@ -2890,13 +2894,13 @@
           "code": "TTD",
           "label": "Trinidad and Tobago dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Central Bank of Trinidad and Tobago",
             "polity": [
               "TTO"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "TT$"
           },
           "name": "TrinidadTobagoDollar"
         },
@@ -2904,13 +2908,13 @@
           "code": "TWD",
           "label": "New Taiwan dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Central Bank of the Republic of China (Taiwan)",
             "polity": [
               "TWN"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "NT$"
           },
           "name": "NewTaiwanDollar"
         },
@@ -2918,13 +2922,14 @@
           "code": "TZS",
           "label": "Tanzanian shilling",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
+            "fractions": 100,
             "monetary_authority": "Bank of Tanzania",
             "polity": [
               "TZA"
             ],
-            "precision": 2,
-            "symbol": "Sh"
+            "precision": 0,
+            "symbol": "TSh"
           },
           "name": "TanzanianShilling"
         },
@@ -2932,7 +2937,7 @@
           "code": "UAH",
           "label": "Ukrainian hryvnia",
           "metadata": {
-            "fractional_unit": "Kopiyka",
+            "fractional_unit": "kopiyka",
             "monetary_authority": "National Bank of Ukraine",
             "polity": [
               "UKR"
@@ -2946,13 +2951,14 @@
           "code": "UGX",
           "label": "Ugandan shilling",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
+            "fractions": 100,
             "monetary_authority": "Bank of Uganda",
             "polity": [
               "UGA"
             ],
-            "precision": 2,
-            "symbol": "Sh"
+            "precision": 0,
+            "symbol": "USh"
           },
           "name": "UgandanShilling"
         },
@@ -2960,7 +2966,7 @@
           "code": "USD",
           "label": "United States dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Federal Reserve",
             "polity": [
               "USA",
@@ -2991,13 +2997,13 @@
           "code": "UYU",
           "label": "Uruguayan peso",
           "metadata": {
-            "fractional_unit": "Centésimo",
+            "fractional_unit": "centésimo",
             "monetary_authority": "Central Bank of Uruguay",
             "polity": [
               "URY"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "$U"
           },
           "name": "UruguayanPeso"
         },
@@ -3005,13 +3011,14 @@
           "code": "UZS",
           "label": "Uzbekistani soʻm",
           "metadata": {
-            "fractional_unit": "Tiyin",
+            "fractional_unit": "tiyin",
+            "fractions": 100,
             "monetary_authority": "Central Bank of the Republic of Uzbekistan",
             "polity": [
               "UZB"
             ],
-            "precision": 2,
-            "symbol": "so'm"
+            "precision": 0,
+            "symbol": "UBZ"
           },
           "name": "UzbekistaniSom"
         },
@@ -3019,41 +3026,39 @@
           "code": "VES",
           "label": "Venezuelan bolívar soberano",
           "metadata": {
-            "fractional_unit": "Céntimo",
+            "fractional_unit": "céntimo",
             "monetary_authority": "Central Bank of Venezuela",
             "polity": [
               "VEN"
             ],
             "precision": 2,
-            "symbol": "Bs."
+            "symbol": "VES"
           },
           "name": "VenezuelanBolivarSoberano"
         },
         {
           "code": "VND",
-          "label": "Vietlabelse đồng",
+          "label": "Vietnamese đồng",
           "metadata": {
-            "fractional_unit": "Hào",
             "monetary_authority": "State Bank of Vietnam",
             "polity": [
               "VNM"
             ],
-            "precision": 2,
+            "precision": 0,
             "symbol": "₫"
           },
-          "name": "VietlabelseDong"
+          "name": "VietnameseDong"
         },
         {
           "code": "VUV",
           "label": "Vanuatu vatu",
           "metadata": {
-            "fractional_unit": null,
             "monetary_authority": "Reserve Bank of Vanuatu",
             "polity": [
               "VUT"
             ],
             "precision": 0,
-            "symbol": "Vt"
+            "symbol": "VT"
           },
           "name": "VanuatuVatu"
         },
@@ -3067,7 +3072,7 @@
               "WSM"
             ],
             "precision": 2,
-            "symbol": "T"
+            "symbol": "ST"
           },
           "name": "SamoanTala"
         },
@@ -3075,8 +3080,7 @@
           "code": "XAF",
           "label": "Central African CFA franc",
           "metadata": {
-            "fractional_unit": "Sene",
-            "monetary_authority": "Central Bank of Samoa",
+            "monetary_authority": "Bank of the Central African States",
             "polity": [
               "CMR",
               "CAF",
@@ -3085,16 +3089,34 @@
               "GNQ",
               "GAB"
             ],
-            "precision": 2,
-            "symbol": "T"
+            "precision": 0,
+            "symbol": "FCFA"
           },
           "name": "CentralAfricanCFAFranc"
+        },
+        {
+          "code": "XAG",
+          "label": "Silver troy ounce",
+          "metadata": {
+            "precision": 4,
+            "symbol": "Ag"
+          },
+          "name": "SilverTroyOunce"
+        },
+        {
+          "code": "XAU",
+          "label": "Gold troy ounce",
+          "metadata": {
+            "precision": 4,
+            "symbol": "Au"
+          },
+          "name": "GoldTroyOunce"
         },
         {
           "code": "XCD",
           "label": "East Caribbean dollar",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "Eastern Caribbean Central Bank",
             "polity": [
               "AIA",
@@ -3107,16 +3129,25 @@
               "VCT"
             ],
             "precision": 2,
-            "symbol": "$"
+            "symbol": "EC$"
           },
           "name": "EastCaribbeanDollar"
+        },
+        {
+          "code": "XDR",
+          "label": "IMF special drawing rights",
+          "metadata": {
+            "monetary_authority": "International Monetary Fund",
+            "precision": 2,
+            "symbol": "SDR"
+          },
+          "name": "IMFSpecialDrawingRights"
         },
         {
           "code": "XOF",
           "label": "West African CFA franc",
           "metadata": {
-            "fractional_unit": "Centime",
-            "monetary_authority": "Central Bank of West African States",
+            "monetary_authority": "Central Bank of the West African States",
             "polity": [
               "BEN",
               "BFA",
@@ -3127,22 +3158,57 @@
               "SEN",
               "TGO"
             ],
-            "precision": 2,
-            "symbol": "Fr"
+            "precision": 0,
+            "symbol": "FCFA"
           },
           "name": "WestAfricanCFAFranc"
+        },
+        {
+          "code": "XPD",
+          "label": "Palladium troy ounce",
+          "metadata": {
+            "precision": 4,
+            "symbol": "Pd"
+          },
+          "name": "PalladiumTroyOunce"
+        },
+        {
+          "code": "XPF",
+          "label": "CFP franc",
+          "metadata": {
+            "fractional_unit": "centime",
+            "fractions": 100,
+            "monetary_authority": "Overseas Issuing Institute",
+            "polity": [
+              "PYF",
+              "NCL",
+              "WLF"
+            ],
+            "precision": 0,
+            "symbol": "FCFP"
+          },
+          "name": "CFPFranc"
+        },
+        {
+          "code": "XPT",
+          "label": "Platinum troy ounce",
+          "metadata": {
+            "precision": 4,
+            "symbol": "Pt"
+          },
+          "name": "PlatinumTroyOunce"
         },
         {
           "code": "YER",
           "label": "Yemeni rial",
           "metadata": {
-            "fractional_unit": "Fils",
+            "fractional_unit": "fils",
             "monetary_authority": "Central Bank of Yemen",
             "polity": [
               "YEM"
             ],
             "precision": 2,
-            "symbol": "﷼"
+            "symbol": "YRi"
           },
           "name": "YemeniRial"
         },
@@ -3150,7 +3216,7 @@
           "code": "ZAR",
           "label": "South African rand",
           "metadata": {
-            "fractional_unit": "Cent",
+            "fractional_unit": "cent",
             "monetary_authority": "South African Reserve Bank",
             "polity": [
               "ZAF"
@@ -3164,7 +3230,7 @@
           "code": "ZMW",
           "label": "Zambian kwacha",
           "metadata": {
-            "fractional_unit": "Ngwee",
+            "fractional_unit": "ngwee",
             "monetary_authority": "Bank of Zambia",
             "polity": [
               "ZMB"

@@ -1759,10 +1759,10 @@ values:
   - code: XDR
     name: IMFSpecialDrawingRights
     label: IMF special drawing rights
-      metadata:
-        symbol: "SDR"
-        precision: 2
-        monetary_authority: International Monetary Fund
+    metadata:
+      symbol: "SDR"
+      precision: 2
+      monetary_authority: International Monetary Fund
 
   - code: XOF
     name: WestAfricanCFAFranc
