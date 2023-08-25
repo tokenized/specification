@@ -5,28 +5,14 @@ codeType:
     type: fixedchar
     size: 3
 
-# Pending values
-###############
-#XPD    .   Palladium (one troy ounce)
-# XPF:
-#   0   CFP franc (franc Pacifique) French territories of the Pacific Ocean:  French Polynesia (PF),  NewCaledonia (NC),  Wallis and Futuna (WF)
-#XPT    .   Platinum (one troy ounce)
-#XAG    .   Silver (one troy ounce)
-#XAU    .   Gold (one troy ounce)
-#XBA    .   European Composite Unit (EURCO) (bond market unit)
-#XBB    .   European Monetary Unit (E.M.U.-6) (bond market unit)
-#XBC    .   European Unit of Account 9 (E.U.A.-9) (bond market unit)
-#XBD    .   European Unit of Account 17 (E.U.A.-17) (bond market unit)
-#XDR    .   Special drawing rights  International Monetary Fund
-
 values:
   - code: AED
     name: UnitedArabEmiratesDirham
     label: United Arab Emirates dirham
     metadata:
-      symbol: "د.إ"
+      symbol: "DH"
       precision: 2
-      fractional_unit: Fils
+      fractional_unit: fils
       polity:
         - ARE
       monetary_authority: Central Bank of the United Arab Emirates
@@ -37,18 +23,18 @@ values:
     metadata:
       symbol: "؋"
       precision: 2
-      fractional_unit: Pul
+      fractional_unit: pul
       polity:
         - AFG
-      monetary_authority: Central Bank of Afghanistan
+      monetary_authority: Da Afghanistan Bank
 
   - code: ALL
     name: AlbanianLek
     label: Albanian lek
     metadata:
-      symbol: "L"
+      symbol: "lek"
       precision: 2
-      fractional_unit: Qindarkë
+      fractional_unit: qindarkë
       polity:
         - ALB
       monetary_authority: Bank of Albania
@@ -57,20 +43,20 @@ values:
     name: ArmenianDram
     label: Armenian dram
     metadata:
-      symbol: "֏"
+      symbol: "AMD"
       precision: 2
-      fractional_unit: Luma
+      fractional_unit: luma
       polity:
         - ARM
-      monetary_authority: Central Bank of the Republic of Armenia
+      monetary_authority: Central Bank of Armenia
 
   - code: ANG
     name: NetherlandsAntilleanGuilder
     label: Netherlands Antillean guilder
     metadata:
-      symbol: "ƒ"
+      symbol: "NAƒ"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - SXM
         - CUW
@@ -82,27 +68,27 @@ values:
     metadata:
       symbol: "Kz"
       precision: 2
-      fractional_unit: Cêntimo
+      fractional_unit: cêntimo
       polity:
         - AGO
-      monetary_authority: Central Bank of Angola
+      monetary_authority: National Bank of Angola
 
   - code: ARS
     name: ArgentinePeso
     label: Argentine peso
     metadata:
-      symbol: "$"
+      symbol: "AR$"
       precision: 2
-      fractional_unit: Centavo
+      fractional_unit: centavo
       polity:
         - ARG
-      monetary_authority: Central Bank of Argentina
+      monetary_authority: Central Bank of the Argentine Republic
 
   - code: AUD
     name: AustralianDollar
     label: Australian dollar
     metadata:
-      symbol: "$"
+      symbol: "A$"
       precision: 2
       fractional_unit: Cent
       polity:
@@ -116,9 +102,9 @@ values:
     name: ArubanFlorin
     label: Aruban florin
     metadata:
-      symbol: "ƒ"
+      symbol: "Aƒ"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - ABW
       monetary_authority: Central Bank of Aruba
@@ -129,7 +115,7 @@ values:
     metadata:
       symbol: "₼"
       precision: 2
-      fractional_unit: Qəpik
+      fractional_unit: qəpik
       polity:
         - AZE
       monetary_authority: Central Bank of Azerbaijan
@@ -138,9 +124,9 @@ values:
     name: BosniaHerzegovinaConvertibleMark
     label: Bosnia and Herzegovina convertible mark
     metadata:
-      symbol: "КМ"
+      symbol: "KM"
       precision: 2
-      fractional_unit: Fening
+      fractional_unit: fening
       polity:
         - BIH
       monetary_authority: Central Bank of Bosnia and Herzegovina
@@ -149,9 +135,9 @@ values:
     name: BarbadianDollar
     label: Barbadian dollar
     metadata:
-      symbol: "$"
+      symbol: "BB$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - BRB
       monetary_authority: Central Bank of Barbados
@@ -162,7 +148,7 @@ values:
     metadata:
       symbol: "৳"
       precision: 2
-      fractional_unit: Poisha
+      fractional_unit: poisha
       polity:
         - BGD
       monetary_authority: Bangladesh Bank
@@ -171,9 +157,9 @@ values:
     name: BulgarianLev
     label: Bulgarian lev
     metadata:
-      symbol: "лв"
+      symbol: "ЛВ"
       precision: 2
-      fractional_unit: Stotinka
+      fractional_unit: stotinka
       polity:
         - BGR
       monetary_authority: Bulgarian National Bank
@@ -182,9 +168,9 @@ values:
     name: BahrainiDinar
     label: Bahraini dinar
     metadata:
-      symbol: ".د.ب"
+      symbol: "BD"
       precision: 1
-      fractional_unit: Fils
+      fractional_unit: fils
       polity:
         - BHR
       monetary_authority: Central Bank of Bahrain
@@ -193,9 +179,10 @@ values:
     name: BurundianFranc
     label: Burundian franc
     metadata:
-      symbol: "Fr"
-      precision: 2
-      fractional_unit: Centime
+      symbol: FBu"
+      precision: 0
+      fractions: 100
+      fractional_unit: centime
       polity:
         - BDI
       monetary_authority: Bank of the Republic of Burundi
@@ -204,9 +191,9 @@ values:
     name: BermudianDollar
     label: Bermudian dollar
     metadata:
-      symbol: "$"
+      symbol: "BD$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - BMU
       monetary_authority: Bermuda Monetary Authority
@@ -215,9 +202,9 @@ values:
     name: BruneiDollar
     label: Brunei dollar
     metadata:
-      symbol: "$"
+      symbol: "B$"
       precision: 2
-      fractional_unit: Sen
+      fractional_unit: sen
       polity:
         - BRN
       monetary_authority: Monetary Authority of Brunei Darussalam
@@ -226,9 +213,9 @@ values:
     name: BolivianBoliviano
     label: Bolivian boliviano
     metadata:
-      symbol: "Bs."
+      symbol: "Bs"
       precision: 2
-      fractional_unit: Centavo
+      fractional_unit: centavo
       polity:
         - BOL
       monetary_authority: Central Bank of Bolivia
@@ -239,7 +226,7 @@ values:
     metadata:
       symbol: "R$"
       precision: 2
-      fractional_unit: Centavo
+      fractional_unit: centavo
       polity:
         - BRA
       monetary_authority: Central Bank of Brazil
@@ -248,9 +235,9 @@ values:
     name: BahamianDollar
     label: Bahamian dollar
     metadata:
-      symbol: "$"
+      symbol: "B$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - BHS
       monetary_authority: Central Bank of The Bahamas
@@ -261,16 +248,16 @@ values:
     metadata:
       symbol: "₿"
       precision: 8
-      fractional_unit: Satoshis
+      fractional_unit: satoshi
       monetary_authority: Satoshi Nakamoto
 
   - code: BTN
     name: BhutaneseNgultrum
     label: Bhutanese ngultrum
     metadata:
-      symbol: "Nu."
+      symbol: "Nu"
       precision: 2
-      fractional_unit: Chetrum
+      fractional_unit: chetrum
       polity:
         - BTN
       monetary_authority: Royal Monetary Authority of Bhutan
@@ -281,7 +268,7 @@ values:
     metadata:
       symbol: "P"
       precision: 2
-      fractional_unit: Thebe
+      fractional_unit: thebe
       polity:
         - BWA
       monetary_authority: Bank of Botswana
@@ -292,7 +279,7 @@ values:
     metadata:
       symbol: "Br"
       precision: 2
-      fractional_unit: Kapyeyka
+      fractional_unit: kopeck
       polity:
         - BLR
       monetary_authority: National Bank of the Republic of Belarus
@@ -301,9 +288,9 @@ values:
     name: BelizeDollar
     label: Belize dollar
     metadata:
-      symbol: "$"
+      symbol: "BZ$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - BLZ
       monetary_authority: Central Bank of Belize
@@ -312,9 +299,9 @@ values:
     name: CanadianDollar
     label: Canadian dollar
     metadata:
-      symbol: "$"
+      symbol: "C$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - CAN
       monetary_authority: Bank of Canada
@@ -323,8 +310,9 @@ values:
     name: CongoleseFranc
     label: Congolese franc
     metadata:
-      symbol: "Fr"
-      precision: 2
+      symbol: "FC"
+      precision: 0
+      fractions: 100
       fractional_unit: Centime
       polity:
         - COD
@@ -334,9 +322,9 @@ values:
     name: SwissFranc
     label: Swiss franc
     metadata:
-      symbol: "Fr"
+      symbol: "CHF"
       precision: 2
-      fractional_unit: Rappen
+      fractional_unit: rappen
       polity:
         - CHE
         - LIE
@@ -346,9 +334,10 @@ values:
     name: ChileanPeso
     label: Chilean peso
     metadata:
-      symbol: "$"
-      precision: 2
-      fractional_unit: Centavo
+      symbol: "Ch$"
+      precision: 0
+      fractions: 100
+      fractional_unit: centavo
       polity:
         - CHL
       monetary_authority: Central Bank of Chile
@@ -359,7 +348,7 @@ values:
     metadata:
       symbol: "¥"
       precision: 2
-      fractional_unit: Fen
+      fractional_unit: fen
       polity:
         - CHN
       monetary_authority: People's Bank of China
@@ -368,31 +357,32 @@ values:
     name: ColombianPeso
     label: Colombian peso
     metadata:
-      symbol: "$"
-      precision: 2
-      fractional_unit: Centavo
+      symbol: "Col$"
+      precision: 0
+      fractions: 100
+      fractional_unit: centavo
       polity:
         - COL
       monetary_authority: Bank of the Republic
 
   - code: CRC
     name: CostaRicanColon
-    label: Costa Rican colon
+    label: Costa Rican colón
     metadata:
       symbol: "₡"
       precision: 2
-      fractional_unit: Céntimo
+      fractional_unit: céntimo
       polity:
         - CRI
       monetary_authority: Central Bank of Costa Rica
 
-  - code: CUC
-    name: CubanConvertiblePeso
-    label: Cuban convertible peso
+  - code: CUP
+    name: CubanPeso
+    label: Cuban peso
     metadata:
-      symbol: "$"
+      symbol: "Cu$"
       precision: 2
-      fractional_unit: Centavo
+      fractional_unit: centavo
       polity:
         - CUB
       monetary_authority: Central Bank of Cuba
@@ -401,11 +391,11 @@ values:
     name: CapeVerdeanEscudo
     label: Cape Verdean escudo
     metadata:
-      symbol: "$"
+      symbol: "Esc"
       precision: 2
-      fractional_unit: Centavo
+      fractional_unit: centavo
       polity:
-        - CUB
+        - CPV
       monetary_authority: Bank of Cape Verde
 
   - code: CZK
@@ -414,7 +404,7 @@ values:
     metadata:
       symbol: "Kč"
       precision: 2
-      fractional_unit: Haléř
+      fractional_unit: haléř
       polity:
         - CZE
       monetary_authority: Czech National Bank
@@ -423,9 +413,10 @@ values:
     name: DjiboutianFranc
     label: Djiboutian franc
     metadata:
-      symbol: "Fr"
-      precision: 2
-      fractional_unit: Centime
+      symbol: "Fdj"
+      precision: 0
+      fractions: 100
+      fractional_unit: centime
       polity:
         - DJI
       monetary_authority: Central Bank of Djibouti
@@ -434,9 +425,9 @@ values:
     name: DanishKrone
     label: Danish krone
     metadata:
-      symbol: "kr"
+      symbol: "DKr"
       precision: 2
-      fractional_unit: Øre
+      fractional_unit: øre
       polity:
         - DNK
         - FRO
@@ -447,9 +438,9 @@ values:
     name: DominicanPeso
     label: Dominican peso
     metadata:
-      symbol: "$"
+      symbol: "RD$"
       precision: 2
-      fractional_unit: Centavo
+      fractional_unit: centavo
       polity:
         - DOM
       monetary_authority: Central Bank of the Dominican Republic
@@ -458,9 +449,8 @@ values:
     name: AlgerianDinar
     label: Algerian dinar
     metadata:
-      symbol: "د.ج"
-      precision: 2
-      fractional_unit: Santeem
+      symbol: "DA"
+      precision: 0
       polity:
         - DZA
       monetary_authority: Bank of Algeria
@@ -469,9 +459,9 @@ values:
     name: EgyptianPound
     label: Egyptian pound
     metadata:
-      symbol: "E£"
+      symbol: "£E"
       precision: 2
-      fractional_unit: Piastre
+      fractional_unit: piastre
       polity:
         - EGY
       monetary_authority: Central Bank of Egypt
@@ -480,9 +470,9 @@ values:
     name: EritreanNakfa
     label: Eritrean nakfa
     metadata:
-      symbol: "Nfk"
+      symbol: "Nkf"
       precision: 2
-      fractional_unit: Piastre
+      fractional_unit: cent
       polity:
         - ERI
       monetary_authority: Bank of Eritrea
@@ -493,10 +483,10 @@ values:
     metadata:
       symbol: "Br"
       precision: 2
-      fractional_unit: Santim
+      fractional_unit: santim
       polity:
         - ETH
-      monetary_authority: Bank of Eritrea
+      monetary_authority: National Bank of Ethiopia
 
   - code: EUR
     name: Euro
@@ -504,7 +494,7 @@ values:
     metadata:
       symbol: "€"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - ALA
         - AND
@@ -545,9 +535,9 @@ values:
     name: FijianDollar
     label: Fijian dollar
     metadata:
-      symbol: "$"
+      symbol: "FJ$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - FJI
       monetary_authority: Reserve Bank of Fiji
@@ -558,9 +548,10 @@ values:
     metadata:
       symbol: "£"
       precision: 2
-      fractional_unit: Penny
+      fractional_unit: penny
       polity:
         - FLK
+        - SGS
       monetary_authority: Government of the Falkland Islands
 
   - code: GBP
@@ -569,13 +560,17 @@ values:
     metadata:
       symbol: "£"
       precision: 2
-      fractional_unit: Penny
+      fractional_unit: penny
       polity:
         - GBR
         - IOT
         - IMN
         - JEY
         - GGY
+        - FLK
+        - GIB
+        - SGS
+        - SHN
       monetary_authority: Bank of England
 
   - code: GEL
@@ -584,7 +579,7 @@ values:
     metadata:
       symbol: "₾"
       precision: 2
-      fractional_unit: Tetri
+      fractional_unit: tetri
       polity:
         - GEO
       monetary_authority: National Bank of Georgia
@@ -593,9 +588,9 @@ values:
     name: GhanaianCedi
     label: Ghanaian cedi
     metadata:
-      symbol: "₵"
+      symbol: "GH₵"
       precision: 2
-      fractional_unit: Pesewa
+      fractional_unit: pesewa
       polity:
         - GHA
       monetary_authority: Bank of Ghana
@@ -606,7 +601,7 @@ values:
     metadata:
       symbol: "£"
       precision: 2
-      fractional_unit: Penny
+      fractional_unit: penny
       polity:
         - GIB
       monetary_authority: Government of Gibraltar
@@ -617,7 +612,7 @@ values:
     metadata:
       symbol: "D"
       precision: 2
-      fractional_unit: Butut
+      fractional_unit: butut
       polity:
         - GMB
       monetary_authority: Central Bank of The Gambia
@@ -626,12 +621,11 @@ values:
     name: GuineanFranc
     label: Guinean franc
     metadata:
-      symbol: "Fr"
-      precision: 2
-      fractional_unit: Centime
+      symbol: "FG"
+      precision: 0
       polity:
         - GNQ
-      monetary_authority: Government of Gibraltar
+      monetary_authority: Central Bank of the Republic of Guinea
 
   - code: GTQ
     name: GuatemalanQuetzal
@@ -639,7 +633,7 @@ values:
     metadata:
       symbol: "Q"
       precision: 2
-      fractional_unit: Centavo
+      fractional_unit: centavo
       polity:
         - GTM
       monetary_authority: Bank of Guatemala
@@ -648,9 +642,9 @@ values:
     name: GuyaneseDollar
     label: Guyanese dollar
     metadata:
-      symbol: "$"
+      symbol: "G$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - GUY
       monetary_authority: Bank of Guyana
@@ -659,9 +653,9 @@ values:
     name: HongKongDollar
     label: Hong Kong dollar
     metadata:
-      symbol: "$"
+      symbol: "HK$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - HKG
       monetary_authority: Hong Kong Monetary Authority
@@ -672,21 +666,10 @@ values:
     metadata:
       symbol: "L"
       precision: 2
-      fractional_unit: Centavo
+      fractional_unit: centavo
       polity:
         - HND
       monetary_authority: Central Bank of Honduras
-
-  - code: HRK
-    name: CroatianKuna
-    label: Croatian kuna
-    metadata:
-      symbol: "kn"
-      precision: 2
-      fractional_unit: Lipa
-      polity:
-        - HRV
-      monetary_authority: Croatian National Bank
 
   - code: HTG
     name: HaitianGourde
@@ -694,7 +677,7 @@ values:
     metadata:
       symbol: "G"
       precision: 2
-      fractional_unit: 	Centime
+      fractional_unit: 	centime
       polity:
         - HTI
       monetary_authority: Bank of the Republic of Haiti
@@ -705,7 +688,7 @@ values:
     metadata:
       symbol: "Ft"
       precision: 2
-      fractional_unit: 	Fillér
+      fractional_unit: 	fillér
       polity:
         - HUN
       monetary_authority: Hungarian National Bank
@@ -715,8 +698,9 @@ values:
     label: Indonesian rupiah
     metadata:
       symbol: "Rp"
-      precision: 2
-      fractional_unit: 	Sen
+      precision: 0
+      fractions: 100
+      fractional_unit: 	sen
       polity:
         - IDN
       monetary_authority: Bank of Indonesia
@@ -727,7 +711,7 @@ values:
     metadata:
       symbol: "₪"
       precision: 2
-      fractional_unit: 	Agora
+      fractional_unit: 	agora
       polity:
         - ISR
         - PSE
@@ -739,7 +723,7 @@ values:
     metadata:
       symbol: "₹"
       precision: 2
-      fractional_unit: 	Paisa
+      fractional_unit: 	paisa
       polity:
         - IND
         - BTN
@@ -749,9 +733,10 @@ values:
     name: IraqiDinar
     label: Iraqi dinar
     metadata:
-      symbol: "ع.د"
-      precision: 1
-      fractional_unit: 	Fils
+      symbol: "ID"
+      precision: 0
+      fractions: 1000
+      fractional_unit: 	fils
       polity:
         - IRQ
       monetary_authority: Central Bank of Iraq
@@ -760,9 +745,8 @@ values:
     name: IranianRial
     label: Iranian rial
     metadata:
-      symbol: "﷼"
-      precision: 2
-      fractional_unit: Dinar
+      symbol: "IR"
+      precision: 0
       polity:
         - IRN
       monetary_authority: Central Bank of Iraq
@@ -771,9 +755,8 @@ values:
     name: IcelandicKrona
     label: Icelandic króna
     metadata:
-      symbol: "kr"
-      precision: 2
-      fractional_unit: Eyrir
+      symbol: "IKr"
+      precision: 0
       polity:
         - ISL
       monetary_authority: Central Bank of Iceland
@@ -782,9 +765,9 @@ values:
     name: JamaicanDollar
     label: Jamaican dollar
     metadata:
-      symbol: "$"
+      symbol: "J$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - JAM
       monetary_authority: Bank of Jamaica
@@ -793,9 +776,9 @@ values:
     name: JordanianDinar
     label: Jordanian dinar
     metadata:
-      symbol: "د.ا"
+      symbol: "JD"
       precision: 2
-      fractional_unit: Piastre
+      fractional_unit: qrish
       polity:
         - JOR
         - PSE
@@ -806,8 +789,7 @@ values:
     label: Japanese yen
     metadata:
       symbol: "¥"
-      precision: 2
-      fractional_unit: Sen
+      precision: 0
       polity:
         - JPN
       monetary_authority: Bank of Japan
@@ -816,20 +798,20 @@ values:
     name: KenyanShilling
     label: Kenyan shilling
     metadata:
-      symbol: "Sh"
+      symbol: "KSh"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - KEN
       monetary_authority: Central Bank of Kenya
 
   - code: KGS
-    name: KyrgyzstaniSom
-    label: Kyrgyzstani som
+    name: KyrgyzSom
+    label: Kyrgyz som
     metadata:
-      symbol: "с"
+      symbol: "som"
       precision: 2
-      fractional_unit: Tyiyn
+      fractional_unit: tyiyn
       polity:
         - KGZ
       monetary_authority: National Bank of the Kyrgyz Republic
@@ -838,9 +820,10 @@ values:
     name: CambodianRiel
     label: Cambodian riel
     metadata:
-      symbol: "៛"
-      precision: 2
-      fractional_unit: Sen
+      symbol: "KHR"
+      precision: 0
+      fractions: 100
+      fractional_unit: sen
       polity:
         - KHM
       monetary_authority: National Bank of Cambodia
@@ -849,9 +832,10 @@ values:
     name: ComoroFranc
     label: Comoro franc
     metadata:
-      symbol: "Fr"
-      precision: 2
-      fractional_unit: Sen
+      symbol: "FC"
+      precision: 0
+      fractions: 100
+      fractional_unit: centime
       polity:
         - COM
       monetary_authority: Central Bank of the Comoros
@@ -862,7 +846,7 @@ values:
     metadata:
       symbol: "₩"
       precision: 2
-      fractional_unit: Chon
+      fractional_unit: chun
       polity:
         - PRK
       monetary_authority: Central Bank of the Democratic People's Republic of Korea
@@ -872,8 +856,9 @@ values:
     label: South Korean won
     metadata:
       symbol: "₩"
-      precision: 2
-      fractional_unit: Jeon
+      precision: 0
+      fractions: 100
+      fractional_unit: chun
       polity:
         - KOR
       monetary_authority: Bank of Korea
@@ -882,9 +867,9 @@ values:
     name: KuwaitiDinar
     label: Kuwaiti dinar
     metadata:
-      symbol: "د.ك"
-      precision: 1
-      fractional_unit: Fils
+      symbol: "KD"
+      precision: 3
+      fractional_unit: fils
       polity:
         - KWT
       monetary_authority: Central Bank of Kuwait
@@ -893,9 +878,9 @@ values:
     name: CaymanIslandsDollar
     label: Cayman Islands dollar
     metadata:
-      symbol: "$"
+      symbol: "CI$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - CYM
       monetary_authority: Cayman Islands Monetary Authority
@@ -906,7 +891,7 @@ values:
     metadata:
       symbol: "₸"
       precision: 2
-      fractional_unit: Tïın
+      fractional_unit: tiyn
       polity:
         - KAZ
       monetary_authority: National Bank of Kazakhstan
@@ -916,8 +901,9 @@ values:
     label: Lao kip
     metadata:
       symbol: "₭"
-      precision: 2
-      fractional_unit: Att
+      precision: 0
+      fractions: 100
+      fractional_unit: att
       polity:
         - LAO
       monetary_authority: Bank of the Lao People's Democratic Republic
@@ -926,9 +912,8 @@ values:
     name: LebanesePound
     label: Lebanese pound
     metadata:
-      symbol: "ل.ل"
-      precision: 2
-      fractional_unit: Piastre
+      symbol: "£L"
+      precision: 0
       polity:
         - LBN
       monetary_authority: Banque du Liban
@@ -937,9 +922,9 @@ values:
     name: SriLankanRupee
     label: Sri Lankan rupee
     metadata:
-      symbol: "Rs"
+      symbol: "SLRe"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - LKA
       monetary_authority: Central Bank of Sri Lanka
@@ -948,9 +933,9 @@ values:
     name: LiberianDollar
     label: Liberian dollar
     metadata:
-      symbol: "$"
+      symbol: "L$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - LBR
       monetary_authority: Central Bank of Liberia
@@ -961,7 +946,7 @@ values:
     metadata:
       symbol: "L"
       precision: 2
-      fractional_unit: Sente
+      fractional_unit: sente
       polity:
         - LBR
       monetary_authority: Central Bank of Lesotho
@@ -970,9 +955,9 @@ values:
     name: LibyanDinar
     label: Libyan dinar
     metadata:
-      symbol: "ل.د"
-      precision: 1
-      fractional_unit: Dirham
+      symbol: "LD"
+      precision: 3
+      fractional_unit: dirham
       polity:
         - LBY
       monetary_authority: Central Bank of Libya
@@ -981,9 +966,9 @@ values:
     name: MoroccanDirham
     label: Moroccan dirham
     metadata:
-      symbol: "د.م."
+      symbol: "DH"
       precision: 2
-      fractional_unit: Centime
+      fractional_unit: santim
       polity:
         - MAR
       monetary_authority: Bank Al-Maghrib
@@ -992,9 +977,9 @@ values:
     name: MoldovanLeu
     label: Moldovan leu
     metadata:
-      symbol: "L"
+      symbol: "leu"
       precision: 2
-      fractional_unit: Ban
+      fractional_unit: ban
       polity:
         - MDA
       monetary_authority: National Bank of Moldova
@@ -1004,9 +989,9 @@ values:
     label: Malagasy ariary
     metadata:
       symbol: "Ar"
-      precision: 2
+      precision: 0
       fractions: 5
-      fractional_unit: Iraimbilanja
+      fractional_unit: iraimbilanja
       polity:
         - MDG
       monetary_authority: Central Bank of Madagascar
@@ -1015,9 +1000,10 @@ values:
     name: MacedonianDenar
     label: Macedonian denar
     metadata:
-      symbol: "ден"
-      precision: 2
-      fractional_unit: Deni
+      symbol: "DEN"
+      precision: 0
+      fractions: 100
+      fractional_unit: deni
       polity:
         - MKD
       monetary_authority: National Bank of the Republic of Macedonia
@@ -1026,9 +1012,9 @@ values:
     name: MyanmarKyat
     label: Myanmar kyat
     metadata:
-      symbol: "Ks"
+      symbol: "K"
       precision: 2
-      fractional_unit: Pya
+      fractional_unit: pya
       polity:
         - MMR
       monetary_authority: Central Bank of Myanmar
@@ -1038,8 +1024,9 @@ values:
     label: Mongolian tögrög
     metadata:
       symbol: "₮"
-      precision: 2
-      fractional_unit: Möngö
+      precision: 0
+      fractions: 100
+      fractional_unit: möngö
       polity:
         - MNG
       monetary_authority: Bank of Mongolia
@@ -1050,7 +1037,7 @@ values:
     metadata:
       symbol: "P"
       precision: 2
-      fractional_unit: Avo
+      fractional_unit: avo
       polity:
         - MAC
       monetary_authority: Monetary Authority of Macau
@@ -1062,7 +1049,7 @@ values:
       symbol: "UM"
       precision: 2
       fractions: 5
-      fractional_unit: Khoums
+      fractional_unit: khoums
       polity:
         - MRT
       monetary_authority: Central Bank of Mauritania
@@ -1071,9 +1058,9 @@ values:
     name: MauritianRupee
     label: Mauritian rupee
     metadata:
-      symbol: "₨"
+      symbol: "MRe"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - MUS
       monetary_authority: Bank of Mauritius
@@ -1082,9 +1069,9 @@ values:
     name: MaldivianRufiyaa
     label: Maldivian rufiyaa
     metadata:
-      symbol: ".ރ"
+      symbol: "Rf"
       precision: 2
-      fractional_unit: Laari
+      fractional_unit: laari
       polity:
         - MDV
       monetary_authority: Maldives Monetary Authority
@@ -1095,7 +1082,7 @@ values:
     metadata:
       symbol: "MK"
       precision: 2
-      fractional_unit: Tambala
+      fractional_unit: tambala
       polity:
         - MWI
       monetary_authority: Reserve Bank of Malawi
@@ -1104,9 +1091,9 @@ values:
     name: MexicanPeso
     label: Mexican peso
     metadata:
-      symbol: "$"
+      symbol: "MX$"
       precision: 2
-      fractional_unit: Centavo
+      fractional_unit: centavo
       polity:
         - MEX
       monetary_authority: Bank of Mexico
@@ -1117,7 +1104,7 @@ values:
     metadata:
       symbol: "RM"
       precision: 2
-      fractional_unit: Sen
+      fractional_unit: sen
       polity:
         - MYS
       monetary_authority: Central Bank of Malaysia
@@ -1128,7 +1115,7 @@ values:
     metadata:
       symbol: "MT"
       precision: 2
-      fractional_unit: Centavo
+      fractional_unit: centavo
       polity:
         - MOZ
       monetary_authority: Bank of Mozambique
@@ -1137,9 +1124,9 @@ values:
     name: NamibianDollar
     label: Namibian dollar
     metadata:
-      symbol: "$"
+      symbol: "N$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - NAM
       monetary_authority: Bank of Namibia
@@ -1150,7 +1137,7 @@ values:
     metadata:
       symbol: "₦"
       precision: 2
-      fractional_unit: Kobo
+      fractional_unit: kobo
       polity:
         - NGA
       monetary_authority: Central Bank of Nigeria
@@ -1161,7 +1148,7 @@ values:
     metadata:
       symbol: "C$"
       precision: 2
-      fractional_unit: Centavo
+      fractional_unit: centavo
       polity:
         - NIC
       monetary_authority: Central Bank of Nicaragua
@@ -1170,20 +1157,22 @@ values:
     name: NorwegianKrone
     label: Norwegian krone
     metadata:
-      symbol: "kr"
+      symbol: "NKr"
       precision: 2
-      fractional_unit: Øre
+      fractional_unit: øre
       polity:
-        - NOR, SJM, BVT
+        - NOR
+        - SJM
+        - BVT
       monetary_authority: Norges Bank
 
   - code: NPR
     name: NepaleseRupee
     label: Nepalese rupee
     metadata:
-      symbol: "₨"
+      symbol: "NRe"
       precision: 2
-      fractional_unit: Paisa
+      fractional_unit: paisa
       polity:
         - NPL
       monetary_authority: Nepal Rastra Bank
@@ -1192,9 +1181,9 @@ values:
     name: NewZealandDollar
     label: New Zealand dollar
     metadata:
-      symbol: "$"
+      symbol: "$NZ"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - NZL
         - COK
@@ -1207,9 +1196,9 @@ values:
     name: OmaniRial
     label: Omani rial
     metadata:
-      symbol: "ر.ع."
-      precision: 1
-      fractional_unit: Baisa
+      symbol: "RO"
+      precision: 3
+      fractional_unit: baisa
       polity:
         - OMN
       monetary_authority: Central Bank of Oman
@@ -1218,20 +1207,20 @@ values:
     name: PanamanianBalboa
     label: Panamanian balboa
     metadata:
-      symbol: "B/."
+      symbol: "B/"
       precision: 2
-      fractional_unit: Centésimo
+      fractional_unit: centésimo
       polity:
         - PAN
-      monetary_authority: Central Bank of Oman
+      monetary_authority: Panama National Banking Commission
 
   - code: PEN
     name: PeruvianSol
     label: Peruvian sol
     metadata:
-      symbol: "S/."
+      symbol: "S/"
       precision: 2
-      fractional_unit: Céntimo
+      fractional_unit: céntimo
       polity:
         - PER
       monetary_authority: Central Reserve Bank of Peru
@@ -1242,7 +1231,7 @@ values:
     metadata:
       symbol: "K"
       precision: 2
-      fractional_unit: Toea
+      fractional_unit: toea
       polity:
         - PNG
       monetary_authority: Bank of Papua New Guinea
@@ -1253,7 +1242,7 @@ values:
     metadata:
       symbol: "₱"
       precision: 2
-      fractional_unit: Sentimo
+      fractional_unit: sentimo
       polity:
         - PHL
       monetary_authority: Central Bank of the Philippines
@@ -1262,9 +1251,10 @@ values:
     name: PakistaniRupee
     label: Pakistani rupee
     metadata:
-      symbol: "₨"
-      precision: 2
-      fractional_unit: Paisa
+      symbol: "PRe"
+      precision: 0
+      fractions: 100
+      fractional_unit: paisa
       polity:
         - PAK
       monetary_authority: State Bank of Pakistan
@@ -1275,7 +1265,7 @@ values:
     metadata:
       symbol: "zł"
       precision: 2
-      fractional_unit: Grosz
+      fractional_unit: grosz
       polity:
         - POL
       monetary_authority: National Bank of Poland
@@ -1285,8 +1275,9 @@ values:
     label: Paraguayan guaraní
     metadata:
       symbol: "₲"
-      precision: 2
-      fractional_unit: Céntimo
+      precision: 0
+      fractions: 100
+      fractional_unit: céntimo
       polity:
         - PRY
       monetary_authority: Central Bank of Paraguay
@@ -1295,9 +1286,9 @@ values:
     name: QatariRiyal
     label: Qatari riyal
     metadata:
-      symbol: "ر.ق"
+      symbol: "QR"
       precision: 2
-      fractional_unit: Dirham
+      fractional_unit: dirham
       polity:
         - QAT
       monetary_authority: Qatar Central Bank
@@ -1306,9 +1297,9 @@ values:
     name: RomanianLeu
     label: Romanian leu
     metadata:
-      symbol: "lei"
+      symbol: "leu"
       precision: 2
-      fractional_unit: Ban
+      fractional_unit: ban
       polity:
         - ROU
       monetary_authority: National Bank of Romania
@@ -1317,9 +1308,9 @@ values:
     name: SerbianDinar
     label: Serbian dinar
     metadata:
-      symbol: "din"
+      symbol: "DIN"
       precision: 2
-      fractional_unit: Para
+      fractional_unit: para
       polity:
         - SRB
       monetary_authority: National Bank of Serbia
@@ -1330,7 +1321,7 @@ values:
     metadata:
       symbol: "₽"
       precision: 2
-      fractional_unit: Kopek
+      fractional_unit: kopek
       polity:
         - RUS
       monetary_authority: Bank of Russia
@@ -1339,9 +1330,10 @@ values:
     name: RwandanFranc
     label: Rwandan franc
     metadata:
-      symbol: "Fr"
-      precision: 2
-      fractional_unit: Centime
+      symbol: "FRw"
+      precision: 0
+      fractions: 100
+      fractional_unit: centime
       polity:
         - RWA
       monetary_authority: National Bank of Rwanda
@@ -1350,20 +1342,20 @@ values:
     name: SaudiRiyal
     label: Saudi riyal
     metadata:
-      symbol: "ر.س"
+      symbol: "SAR"
       precision: 2
-      fractional_unit: Halala
+      fractional_unit: halala
       polity:
         - SAU
-      monetary_authority: Saudi Arabian Monetary Authority
+      monetary_authority: Saudi Central Bank
 
   - code: SBD
     name: SolomonIslandDollar
     label: Solomon Islands dollar
     metadata:
-      symbol: "$"
+      symbol: "SI$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - SLB
       monetary_authority: Central Bank of Solomon Islands
@@ -1372,9 +1364,9 @@ values:
     name: SeychelloisRupee
     label: Seychellois rupee
     metadata:
-      symbol: "₨"
+      symbol: "SRe"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - SYC
       monetary_authority: Central Bank of Solomon Islands
@@ -1383,20 +1375,20 @@ values:
     name: SudanesePound
     label: Sudanese pound
     metadata:
-      symbol: "ج.س."
+      symbol: "£Sd"
       precision: 2
-      fractional_unit: Piastre
+      fractional_unit: piastre
       polity:
         - SSD
-      monetary_authority: Bank of Sudan
+      monetary_authority: Central Bank of Sudan
 
   - code: SEK
     name: SwedishKrona
     label: Swedish krona
     metadata:
-      symbol: "kr"
+      symbol: "SKr"
       precision: 2
-      fractional_unit: Öre
+      fractional_unit: öre
       polity:
         - SWE
       monetary_authority: Sveriges Riksbank
@@ -1405,9 +1397,9 @@ values:
     name: SingaporeDollar
     label: Singapore dollar
     metadata:
-      symbol: "$"
+      symbol: "S$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - SGP
       monetary_authority: Monetary Authority of Singapore
@@ -1418,12 +1410,12 @@ values:
     metadata:
       symbol: "£"
       precision: 2
-      fractional_unit: Penny
+      fractional_unit: penny
       polity:
         - SHN
       monetary_authority: Government of Saint Helena
 
-  - code: SLL
+  - code: SLE
     name: SierraLeoneanLeone
     label: Sierra Leonean leone
     metadata:
@@ -1438,31 +1430,31 @@ values:
     name: SomaliShilling
     label: Somali shilling
     metadata:
-      symbol: "Sl"
+      symbol: "Sh"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - SOM
       monetary_authority: Central Bank of Somalia
 
   - code: SRD
-    name: SurilabelseDollar
-    label: Surilabelse dollar
+    name: SurinameseDollar
+    label: Surinamese dollar
     metadata:
-      symbol: "$"
+      symbol: "SRD"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - SUR
-      monetary_authority: Central Bank of Surilabel
+      monetary_authority: Central Bank of Suriname
 
   - code: SSP
     name: SouthSudanesePound
     label: South Sudanese pound
     metadata:
-      symbol: "£"
+      symbol: "SSP"
       precision: 2
-      fractional_unit: Piastre
+      fractional_unit: piastre
       polity:
         - SSD
       monetary_authority: Bank of South Sudan
@@ -1473,7 +1465,7 @@ values:
     metadata:
       symbol: "Db"
       precision: 2
-      fractional_unit: Cêntimo
+      fractional_unit: cêntimo
       polity:
         - STP
       monetary_authority: Central Bank of São Tomé and Príncipe
@@ -1482,9 +1474,10 @@ values:
     name: SyrianPound
     label: Syrian pound
     metadata:
-      symbol: "£"
-      precision: 2
-      fractional_unit: Piastre
+      symbol: "£S"
+      precision: 0
+      fractions: 100
+      fractional_unit: piastre
       polity:
         - SYR
       monetary_authority: Central Bank of Syria
@@ -1495,18 +1488,18 @@ values:
     metadata:
       symbol: "L"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - SWZ
-      monetary_authority: Central Bank of Swaziland
+      monetary_authority: Central Bank of Eswatini
 
   - code: THB
     name: ThaiBaht
     label: Thai baht
     metadata:
-      symbol: "฿"
+      symbol: "THB"
       precision: 2
-      fractional_unit: Satang
+      fractional_unit: satang
       polity:
         - THA
       monetary_authority: Bank of Thailand
@@ -1515,20 +1508,20 @@ values:
     name: TajikistaniSomoni
     label: Tajikistani somoni
     metadata:
-      symbol: "ЅМ"
+      symbol: "SM"
       precision: 2
-      fractional_unit: Diram
+      fractional_unit: diram
       polity:
         - TJK
       monetary_authority: National Bank of Tajikistan
 
   - code: TMT
-    name: TurkmenistanManat
-    label: Turkmenistan manat
+    name: TurkmenistaniManat
+    label: Turkmenistani manat
     metadata:
       symbol: "m"
       precision: 2
-      fractional_unit: Tennesi
+      fractional_unit: tenge
       polity:
         - TKM
       monetary_authority: Central Bank of Turkmenistan
@@ -1537,9 +1530,9 @@ values:
     name: TunisianDinar
     label: Tunisian dinar
     metadata:
-      symbol: "د.ت"
-      precision: 1
-      fractional_unit: Millime
+      symbol: "DT"
+      precision: 3
+      fractional_unit: millime
       polity:
         - TUN
       monetary_authority: Central Bank of Tunisia
@@ -1550,7 +1543,7 @@ values:
     metadata:
       symbol: "T$"
       precision: 2
-      fractional_unit: Seniti
+      fractional_unit: seniti
       polity:
         - TON
       monetary_authority: National Reserve Bank of Tonga
@@ -1561,7 +1554,7 @@ values:
     metadata:
       symbol: "₺"
       precision: 2
-      fractional_unit: Kuruş
+      fractional_unit: kuruş
       polity:
         - TUR
       monetary_authority: Central Bank of the Republic of Turkey
@@ -1570,9 +1563,9 @@ values:
     name: TrinidadTobagoDollar
     label: Trinidad and Tobago dollar
     metadata:
-      symbol: "$"
+      symbol: "TT$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - TTO
       monetary_authority: Central Bank of Trinidad and Tobago
@@ -1581,9 +1574,9 @@ values:
     name: NewTaiwanDollar
     label: New Taiwan dollar
     metadata:
-      symbol: "$"
+      symbol: "NT$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - TWN
       monetary_authority: Central Bank of the Republic of China (Taiwan)
@@ -1592,9 +1585,10 @@ values:
     name: TanzanianShilling
     label: Tanzanian shilling
     metadata:
-      symbol: "Sh"
-      precision: 2
-      fractional_unit: Cent
+      symbol: "TSh"
+      precision: 0
+      fractions: 100
+      fractional_unit: cent
       polity:
         - TZA
       monetary_authority: Bank of Tanzania
@@ -1605,7 +1599,7 @@ values:
     metadata:
       symbol: "₴"
       precision: 2
-      fractional_unit: Kopiyka
+      fractional_unit: kopiyka
       polity:
         - UKR
       monetary_authority: National Bank of Ukraine
@@ -1614,9 +1608,10 @@ values:
     name: UgandanShilling
     label: Ugandan shilling
     metadata:
-      symbol: "Sh"
-      precision: 2
-      fractional_unit: Cent
+      symbol: "USh"
+      precision: 0
+      fractions: 100
+      fractional_unit: cent
       polity:
         - UGA
       monetary_authority: Bank of Uganda
@@ -1627,7 +1622,7 @@ values:
     metadata:
       symbol: "$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - USA
         - ASM
@@ -1653,9 +1648,9 @@ values:
     name: UruguayanPeso
     label: Uruguayan peso
     metadata:
-      symbol: "$"
+      symbol: "$U"
       precision: 2
-      fractional_unit: Centésimo
+      fractional_unit: centésimo
       polity:
         - URY
       monetary_authority: Central Bank of Uruguay
@@ -1664,9 +1659,10 @@ values:
     name: UzbekistaniSom
     label: Uzbekistani soʻm
     metadata:
-      symbol: "so'm"
-      precision: 2
-      fractional_unit: Tiyin
+      symbol: "UBZ"
+      precision: 0
+      fractions: 100
+      fractional_unit: tiyin
       polity:
         - UZB
       monetary_authority: Central Bank of the Republic of Uzbekistan
@@ -1675,20 +1671,19 @@ values:
     name: VenezuelanBolivarSoberano
     label: Venezuelan bolívar soberano
     metadata:
-      symbol: "Bs."
+      symbol: "VES"
       precision: 2
-      fractional_unit: Céntimo
+      fractional_unit: céntimo
       polity:
         - VEN
       monetary_authority: Central Bank of Venezuela
 
   - code: VND
-    name: VietlabelseDong
-    label: Vietlabelse đồng
+    name: VietnameseDong
+    label: Vietnamese đồng
     metadata:
       symbol: "₫"
-      precision: 2
-      fractional_unit: Hào
+      precision: 0
       polity:
         - VNM
       monetary_authority: State Bank of Vietnam
@@ -1697,9 +1692,8 @@ values:
     name: VanuatuVatu
     label: Vanuatu vatu
     metadata:
-      symbol: "Vt"
+      symbol: "VT"
       precision: 0
-      fractional_unit: ~
       polity:
         - VUT
       monetary_authority: Reserve Bank of Vanuatu
@@ -1708,7 +1702,7 @@ values:
     name: SamoanTala
     label: Samoan tālā
     metadata:
-      symbol: "T"
+      symbol: "ST"
       precision: 2
       fractional_unit: Sene
       polity:
@@ -1719,9 +1713,8 @@ values:
     name: CentralAfricanCFAFranc
     label: Central African CFA franc
     metadata:
-      symbol: "T"
-      precision: 2
-      fractional_unit: Sene
+      symbol: "FCFA"
+      precision: 0
       polity:
         - CMR
         - CAF
@@ -1729,15 +1722,29 @@ values:
         - TCD
         - GNQ
         - GAB
-      monetary_authority: Central Bank of Samoa
+      monetary_authority: Bank of the Central African States
+
+  - code: XAG
+    name: SilverTroyOunce
+    label: Silver troy ounce
+    metadata:
+      symbol: "Ag"
+      precision: 4
+  
+  - code: XAU
+    name: GoldTroyOunce
+    label: Gold troy ounce
+    metadata:
+      symbol: "Au"
+      precision: 4
 
   - code: XCD
     name: EastCaribbeanDollar
     label: East Caribbean dollar
     metadata:
-      symbol: "$"
+      symbol: "EC$"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - AIA
         - ATG
@@ -1749,13 +1756,20 @@ values:
         - VCT
       monetary_authority: Eastern Caribbean Central Bank
 
+  - code: XDR
+    name: IMFSpecialDrawingRights
+    label: IMF special drawing rights
+      metadata:
+        symbol: "SDR"
+        precision: 2
+        monetary_authority: International Monetary Fund
+
   - code: XOF
     name: WestAfricanCFAFranc
     label: West African CFA franc
     metadata:
-      symbol: "Fr"
-      precision: 2
-      fractional_unit: Centime
+      symbol: "FCFA"
+      precision: 0
       polity:
         - BEN
         - BFA
@@ -1765,15 +1779,43 @@ values:
         - NER
         - SEN
         - TGO
-      monetary_authority: Central Bank of West African States
+      monetary_authority: Central Bank of the West African States
+
+  - code: XPD
+    name: PalladiumTroyOunce
+    label: Palladium troy ounce
+    metadata:
+      symbol: "Pd"
+      precision: 4
+
+  - code: XPF
+    name: CFPFranc
+    label: CFP franc
+    metadata:
+      symbol: "FCFP"
+      precision: 0
+      fractions: 100
+      fractional_unit: centime
+      polity:
+        - PYF
+        - NCL
+        - WLF
+      monetary_authority: Overseas Issuing Institute
+
+  - code: XPT
+    name: PlatinumTroyOunce
+    label: Platinum troy ounce
+    metadata:
+      symbol: "Pt"
+      precision: 4
 
   - code: YER
     name: YemeniRial
     label: Yemeni rial
     metadata:
-      symbol: "﷼"
+      symbol: "YRi"
       precision: 2
-      fractional_unit: Fils
+      fractional_unit: fils
       polity:
         - YEM
       monetary_authority: Central Bank of Yemen
@@ -1784,7 +1826,7 @@ values:
     metadata:
       symbol: "R"
       precision: 2
-      fractional_unit: Cent
+      fractional_unit: cent
       polity:
         - ZAF
       monetary_authority: South African Reserve Bank
@@ -1795,7 +1837,7 @@ values:
     metadata:
       symbol: "ZK"
       precision: 2
-      fractional_unit: Ngwee
+      fractional_unit: ngwee
       polity:
         - ZMB
       monetary_authority: Bank of Zambia
