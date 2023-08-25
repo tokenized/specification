@@ -43,7 +43,7 @@ values:
     name: ArmenianDram
     label: Armenian dram
     metadata:
-      symbol: "֏"
+      symbol: "AMD"
       precision: 2
       fractional_unit: luma
       polity:
@@ -77,7 +77,7 @@ values:
     name: ArgentinePeso
     label: Argentine peso
     metadata:
-      symbol: "Arg$"
+      symbol: "AR$"
       precision: 2
       fractional_unit: centavo
       polity:
@@ -157,7 +157,7 @@ values:
     name: BulgarianLev
     label: Bulgarian lev
     metadata:
-      symbol: "лв"
+      symbol: "ЛВ"
       precision: 2
       fractional_unit: stotinka
       polity:
@@ -745,7 +745,7 @@ values:
     name: IranianRial
     label: Iranian rial
     metadata:
-      symbol: "﷼"
+      symbol: "IR"
       precision: 0
       polity:
         - IRN
@@ -820,7 +820,7 @@ values:
     name: CambodianRiel
     label: Cambodian riel
     metadata:
-      symbol: "៛"
+      symbol: "KHR"
       precision: 0
       fractions: 100
       fractional_unit: sen
@@ -922,7 +922,7 @@ values:
     name: SriLankanRupee
     label: Sri Lankan rupee
     metadata:
-      symbol: "රු"
+      symbol: "SLRe"
       precision: 2
       fractional_unit: cent
       polity:
@@ -977,7 +977,7 @@ values:
     name: MoldovanLeu
     label: Moldovan leu
     metadata:
-      symbol: "L"
+      symbol: "leu"
       precision: 2
       fractional_unit: ban
       polity:
@@ -1091,7 +1091,7 @@ values:
     name: MexicanPeso
     label: Mexican peso
     metadata:
-      symbol: "Mex$"
+      symbol: "MX$"
       precision: 2
       fractional_unit: centavo
       polity:
@@ -1170,7 +1170,7 @@ values:
     name: NepaleseRupee
     label: Nepalese rupee
     metadata:
-      symbol: "रु"
+      symbol: "NRe"
       precision: 2
       fractional_unit: paisa
       polity:
@@ -1497,7 +1497,7 @@ values:
     name: ThaiBaht
     label: Thai baht
     metadata:
-      symbol: "฿"
+      symbol: "THB"
       precision: 2
       fractional_unit: satang
       polity:
@@ -1671,7 +1671,7 @@ values:
     name: VenezuelanBolivarSoberano
     label: Venezuelan bolívar soberano
     metadata:
-      symbol: "Bs.S"
+      symbol: "VES"
       precision: 2
       fractional_unit: céntimo
       polity:
@@ -1813,7 +1813,7 @@ values:
     name: YemeniRial
     label: Yemeni rial
     metadata:
-      symbol: "﷼"
+      symbol: "YRi"
       precision: 2
       fractional_unit: fils
       polity:
