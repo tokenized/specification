@@ -248,7 +248,7 @@ values:
     metadata:
       symbol: "₿"
       precision: 8
-      fractional_unit: satoshis
+      fractional_unit: satoshi
       monetary_authority: Satoshi Nakamoto
 
   - code: BTN
