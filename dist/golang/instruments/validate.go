@@ -530,9 +530,6 @@ func (a *CurrencyValueField) Validate() error {
 	if a.Precision > uint32(max1ByteInteger) {
 		return fmt.Errorf("Precision over max value : %d > %d", a.Precision, max1ByteInteger)
 	}
-	if a.Precision == 0 {
-		return fmt.Errorf("Precision required")
-	}
 
 	return nil
 }
@@ -572,9 +569,6 @@ func (a *FixedCurrencyValueField) Validate() error {
 	// Field Precision - uint
 	if a.Precision > uint32(max1ByteInteger) {
 		return fmt.Errorf("Precision over max value : %d > %d", a.Precision, max1ByteInteger)
-	}
-	if a.Precision == 0 {
-		return fmt.Errorf("Precision required")
 	}
 
 	return nil

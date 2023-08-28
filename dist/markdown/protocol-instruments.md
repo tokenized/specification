@@ -1234,9 +1234,9 @@ A value specified in terms of a currency.
             uint(1)
         </td>
         <td>
-            Required field to specify the decimal precision of the value. It will normally be the  &#34;precision&#34; value associated with the Currency. It is the number of decimal places between  the number of tokens and the common unit of measure. For example, in AUD, the common unit is  the dollar, but a token would only be worth a penny. So the precision should be 2 for the  two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1.
+            Specify the decimal precision of the value. It will normally be the &#34;precision&#34; value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1. Zero is assumed if no value is specified.
 
-             This field is always required.  Example: 2
+             Example: 2
         </td>
     </tr>
 
@@ -1286,9 +1286,9 @@ A fixed value specified in terms of a currency. The &#34;Value&#34; must be 1. T
             uint(1)
         </td>
         <td>
-            Required field to specify the decimal precision of the value. It will normally be the &#34;precision&#34; value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1.
+            Specify the decimal precision of the value. It will normally be the &#34;precision&#34; value associated with the Currency. It is the number of decimal places between the number of tokens and the common unit of measure. For example, in AUD, the common unit is the dollar, but a token would only be worth a penny. So the precision should be 2 for the two decimal places in a dollar amount &#34;$1.00&#34;. In this scenario 100 tokens are worth $1. Zero is assumed if no value is specified.
 
-             This field is always required.  Example: 2
+             Example: 2
         </td>
     </tr>
 

@@ -20,6 +20,17 @@ var cmdDecode = &cobra.Command{
 			return errors.New("Wrong argument count : requires 1")
 		}
 
+		if len(args[0]) > 2 && args[0][0] == '0' && args[0][1] == 'x' {
+			b, hexErr := hex.DecodeString(args[0][2:])
+			if hexErr == nil {
+				if err := print.PrintBytes(b); err != nil {
+					return errors.Wrap(err, "decode")
+				}
+
+				return nil
+			}
+		}
+
 		b, hexErr := hex.DecodeString(args[0])
 		if hexErr == nil {
 			if err := print.PrintBytes(b); err != nil {
