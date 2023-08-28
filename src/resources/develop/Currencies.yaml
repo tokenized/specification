@@ -1617,8 +1617,8 @@ values:
       monetary_authority: Bank of Uganda
 
   - code: USD
-    name: UnitedStatesDollar
-    label: United States dollar
+    name: USDollar
+    label: US dollar
     metadata:
       symbol: "$"
       precision: 2
