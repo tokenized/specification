@@ -17,9 +17,9 @@ all: prepare tools run-generate format test
 run-win: prepare-win tools run-generate format-win
 
 protobuf:
-	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/actions --js_out=library=actions,binary:dist/typescript/protobuf/actions --python_out=dist/python/ dist/protobuf/actions.proto
-	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/instruments --js_out=library=instruments,binary:dist/typescript/protobuf/instruments --python_out=dist/python/ dist/protobuf/instruments.proto
-	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/messages --js_out=library=messages,binary:dist/typescript/protobuf/messages --python_out=dist/python/ dist/protobuf/messages.proto
+	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/actions --js_out=library=actions,binary:dist/typescript/protobuf/actions --python_out=dist/python/ --cpp_out=dist/c++/actions dist/protobuf/actions.proto
+	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/instruments --js_out=library=instruments,binary:dist/typescript/protobuf/instruments --python_out=dist/python/ --cpp_out=dist/c++/instruments dist/protobuf/instruments.proto
+	protoc --proto_path=dist/protobuf --go_opt=paths=source_relative --go_out=dist/golang/messages --js_out=library=messages,binary:dist/typescript/protobuf/messages --python_out=dist/python/ --cpp_out=dist/c++/messages dist/protobuf/messages.proto
 
 generate-code:
 	go run internal/cmd/generate/main.go

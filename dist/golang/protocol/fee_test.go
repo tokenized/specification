@@ -1008,3 +1008,121 @@ func Test_EstimatedConfiscationResponse(t *testing.T) {
 	t.Logf("Verified Estimated Response Funding : got %d, want %d", funding,
 		responseFee+outputValue)
 }
+
+func Test_TransferResponseFees_Example1(t *testing.T) {
+	contractFees := []uint64{2000}
+	feeRate := float32(0.05)
+	dustFeeRate := float32(0.0)
+
+	h := "006a02bd015108746573742e544b4e5301000254314d12010a850212034343591a14a451388d80b00661b4b90cfe103ee7ec615f0994220210412a710a152055e69778997556277d03d42794a91ebb41493a2d103218012a463044022032c6a3043487bc35aa44acb64f0945d6024fab2de3d63cc8e8389420a2fdbec5022023897ffe30cb511f493056a6bd49a9e0d4e9b27d537046ae02222084e3ec8f1330bca2313889beb7feecad82c1172a710a1520449c2b9f4500c765ee0eac4b9fdc62d5c2561829100f18012a46304402204c1952abf8fff745723166321c71193af10a86e1c138cb5ae548936fa607da640220708d7e9db541c07d694fcbde588f97a25d53266a1d925f7f3c4c0f678260fe2730bca23138ffd4b6afedad82c11710d38bc6eeb5be8cc017"
+
+	b, err := hex.DecodeString(h)
+	if err != nil {
+		t.Fatalf("Failed to parse transfer hex : %s", err)
+	}
+
+	action, err := Deserialize(b, true)
+	if err != nil {
+		t.Fatalf("Failed to deserialize transfer : %s", err)
+	}
+
+	transfer := action.(*actions.Transfer)
+	js, _ := json.MarshalIndent(transfer, "", "  ")
+	t.Logf("Transfer : %s", js)
+
+	requestTx := wire.NewMsgTx(1)
+
+	var lockingScripts []bitcoin.Script
+	for i := 0; i < 2; i++ {
+		key, _ := bitcoin.GenerateKey(bitcoin.TestNet)
+		script, _ := key.LockingScript()
+		lockingScripts = append(lockingScripts, script)
+
+		var randHash bitcoin.Hash32
+		rand.Read(randHash[:])
+		requestTx.AddTxIn(wire.NewTxIn(wire.NewOutPoint(&randHash, 1), nil))
+	}
+
+	key, _ := bitcoin.GenerateKey(bitcoin.TestNet)
+	script, _ := key.LockingScript()
+	requestTx.AddTxOut(wire.NewTxOut(2021, script))
+
+	requestTx.AddTxOut(wire.NewTxOut(0, b))
+
+	key, _ = bitcoin.GenerateKey(bitcoin.TestNet)
+	script, _ = key.LockingScript()
+	requestTx.AddTxOut(wire.NewTxOut(187, script))
+
+	// Estimate funding
+	funding, boomerang, err := EstimatedTransferResponse(requestTx, lockingScripts, feeRate,
+		dustFeeRate, contractFees, true)
+
+	if err != nil {
+		t.Fatalf("Failed to estimate response : %s", err)
+	}
+
+	t.Logf("Funding : %v", funding)
+	t.Logf("Boomerang : %d", boomerang)
+
+	if len(funding) < 1 {
+		t.Fatalf("No contract funding returned")
+	}
+
+	// From response 522efbe6014b5bf740c48db0b7790d6f3a9203de06ecad1d67abeb01d1281aff
+	if funding[0] < 2022 {
+		t.Errorf("Not enough contract funding : got %d, want %d", funding[0], 2022)
+	}
+
+	if boomerang > 0 {
+		t.Errorf("Not enough boomerang : got %d, want %d", boomerang, 0)
+	}
+}
+
+func Test_TransferResponseFees_Example2(t *testing.T) {
+	contractFees := []uint64{2000, 2000}
+	feeRate := float32(0.05)
+	dustFeeRate := float32(0.0)
+
+	h := "010000000215664abb2cbc7db1d1d3b8ed8ed985fcfaed062ce0318f11aeab87dc645bec65010000006a47304402206792e2b1bb0fd2c0c31ab4ece1ab60d1057be2de1e984b9ccf385458fe9bb09802207823e56eefbea591b60f4fd816a59f2f120128162b548b760e06f0fe6deb6dca412103b8fe59c51966f28f8267ef5c43e638abe2721308eefae9677770f258eb95eba4ffffffff164fb009edd8681f2464d8b2bf7af0a3813819c0e1e974208f3fd8afa3baa08d010000006b483045022100c38f5c4d3da12333c72d565c34ef9c5b719db7d4df4ce6fc61ab6ffb8f44b5ea022047c7ef850d54c20c95b9a74ec966c46425a6987639e5c06a1c910b8dc0805871412103e52b04d4eafb375a6aee21ade32591fbac969976a43559225cadf7a3af25aa2dffffffff03e5070000000000001976a914b082b8cce2697aaaacfa698f1950e44e0ba1175c88ac0000000000000000fd2a01006a02bd015108746573742e544b4e5301000254314d12010a850212034343591a14a451388d80b00661b4b90cfe103ee7ec615f0994220210412a710a152055e69778997556277d03d42794a91ebb41493a2d103218012a463044022032c6a3043487bc35aa44acb64f0945d6024fab2de3d63cc8e8389420a2fdbec5022023897ffe30cb511f493056a6bd49a9e0d4e9b27d537046ae02222084e3ec8f1330bca2313889beb7feecad82c1172a710a1520449c2b9f4500c765ee0eac4b9fdc62d5c2561829100f18012a46304402204c1952abf8fff745723166321c71193af10a86e1c138cb5ae548936fa607da640220708d7e9db541c07d694fcbde588f97a25d53266a1d925f7f3c4c0f678260fe2730bca23138ffd4b6afedad82c11710d38bc6eeb5be8cc017bb000000000000001976a91458d2f37dd57fd7d907b72fc7de6875c79edb184588ac00000000"
+
+	b, err := hex.DecodeString(h)
+	if err != nil {
+		t.Fatalf("Failed to parse request tx hex : %s", err)
+	}
+
+	requestTx := &wire.MsgTx{}
+	if err := requestTx.Deserialize(bytes.NewReader(b)); err != nil {
+		t.Fatalf("Failed to parse request tx : %s", err)
+	}
+
+	key, _ := bitcoin.GenerateKey(bitcoin.TestNet)
+	script, _ := key.LockingScript()
+	var lockingScripts []bitcoin.Script
+	for range requestTx.TxIn {
+		lockingScripts = append(lockingScripts, script)
+	}
+
+	// Estimate funding
+	funding, boomerang, err := EstimatedTransferResponse(requestTx, lockingScripts, feeRate,
+		dustFeeRate, contractFees, true)
+
+	if err != nil {
+		t.Fatalf("Failed to estimate response : %s", err)
+	}
+
+	t.Logf("Funding : %v", funding)
+	t.Logf("Boomerang : %d", boomerang)
+
+	if len(funding) < 1 {
+		t.Fatalf("No contract funding returned")
+	}
+
+	// From response 522efbe6014b5bf740c48db0b7790d6f3a9203de06ecad1d67abeb01d1281aff
+	if funding[0] < 2022 {
+		t.Errorf("Not enough contract funding : got %d, want %d", funding[0], 2022)
+	}
+
+	if boomerang > 0 {
+		t.Errorf("Not enough boomerang : got %d, want %d", boomerang, 0)
+	}
+}
