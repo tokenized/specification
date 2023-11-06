@@ -2,6 +2,7 @@ package print
 
 import (
 	"bytes"
+	"crypto/sha256"
 	"encoding/json"
 	"fmt"
 
@@ -149,6 +150,21 @@ func PrintAction(action actions.Action) error {
 				fmt.Printf("Instrument ID %d: Invalid: %s\n", i, err)
 			} else {
 				fmt.Printf("Instrument ID %d: %s\n", i, instrumentID)
+			}
+
+			for _, receiver := range instrumentTransfer.InstrumentReceivers {
+				ra, err := bitcoin.DecodeRawAddress(receiver.Address)
+				if err != nil {
+					continue
+				}
+
+				fmt.Printf("Receiver:\n")
+				fmt.Printf(" Address: %s\n", bitcoin.NewAddressFromRawAddress(ra, bitcoin.MainNet))
+
+				ls, err := ra.LockingScript()
+				if err == nil {
+					fmt.Printf(" Script Hash: %s\n", bitcoin.Hash32(sha256.Sum256(ls)))
+				}
 			}
 		}
 

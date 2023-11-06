@@ -17,5 +17,6 @@ func Execute() {
 	scCmd.AddCommand(cmdCreateInstrument)
 	scCmd.AddCommand(cmdCreateTransfer)
 	scCmd.AddCommand(cmdDisplayTx)
+	scCmd.AddCommand(cmdDisplayScript)
 	scCmd.Execute()
 }
