@@ -127,3 +127,8 @@ fields:
     description: "If specified, the instrument can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only."
     type: Polity[]
     listSize: small
+
+  - name: TransferFee
+    label: Transfer Fee
+    description: "The fee paid for each transfer request. Only taken when a tranfer is successful."
+    type: Fee

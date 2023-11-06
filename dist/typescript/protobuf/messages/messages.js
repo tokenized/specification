@@ -1766,7 +1766,7 @@ proto.messages.SignatureRequest.prototype.setPayload = function(value) {
  * @private {!Array<number>}
  * @const
  */
-proto.messages.SettlementRequest.repeatedFields_ = [3];
+proto.messages.SettlementRequest.repeatedFields_ = [3,5];
 
 
 
@@ -1803,7 +1803,9 @@ proto.messages.SettlementRequest.toObject = function(includeInstance, msg) {
     transfertxid: msg.getTransfertxid_asB64(),
     contractfeesList: jspb.Message.toObjectList(msg.getContractfeesList(),
     proto.messages.TargetAddressField.toObject, includeInstance),
-    settlement: msg.getSettlement_asB64()
+    settlement: msg.getSettlement_asB64(),
+    transferfeesList: jspb.Message.toObjectList(msg.getTransferfeesList(),
+    proto.messages.TargetAddressField.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1856,6 +1858,11 @@ proto.messages.SettlementRequest.deserializeBinaryFromReader = function(msg, rea
     case 4:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setSettlement(value);
+      break;
+    case 5:
+      var value = new proto.messages.TargetAddressField;
+      reader.readMessage(value,proto.messages.TargetAddressField.deserializeBinaryFromReader);
+      msg.addTransferfees(value);
       break;
     default:
       reader.skipField();
@@ -1913,6 +1920,14 @@ proto.messages.SettlementRequest.serializeBinaryToWriter = function(message, wri
     writer.writeBytes(
       4,
       f
+    );
+  }
+  f = message.getTransferfeesList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      5,
+      f,
+      proto.messages.TargetAddressField.serializeBinaryToWriter
     );
   }
 };
@@ -2055,6 +2070,44 @@ proto.messages.SettlementRequest.prototype.getSettlement_asU8 = function() {
  */
 proto.messages.SettlementRequest.prototype.setSettlement = function(value) {
   return jspb.Message.setProto3BytesField(this, 4, value);
+};
+
+
+/**
+ * repeated TargetAddressField TransferFees = 5;
+ * @return {!Array<!proto.messages.TargetAddressField>}
+ */
+proto.messages.SettlementRequest.prototype.getTransferfeesList = function() {
+  return /** @type{!Array<!proto.messages.TargetAddressField>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.messages.TargetAddressField, 5));
+};
+
+
+/**
+ * @param {!Array<!proto.messages.TargetAddressField>} value
+ * @return {!proto.messages.SettlementRequest} returns this
+*/
+proto.messages.SettlementRequest.prototype.setTransferfeesList = function(value) {
+  return jspb.Message.setRepeatedWrapperField(this, 5, value);
+};
+
+
+/**
+ * @param {!proto.messages.TargetAddressField=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.messages.TargetAddressField}
+ */
+proto.messages.SettlementRequest.prototype.addTransferfees = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 5, opt_value, proto.messages.TargetAddressField, opt_index);
+};
+
+
+/**
+ * Clears the list making it empty but non-null.
+ * @return {!proto.messages.SettlementRequest} returns this
+ */
+proto.messages.SettlementRequest.prototype.clearTransferfeesList = function() {
+  return this.setTransferfeesList([]);
 };
 
 

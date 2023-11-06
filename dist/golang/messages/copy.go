@@ -131,6 +131,12 @@ func (a *SettlementRequest) Copy() *SettlementRequest {
 	result.Settlement = make([]byte, len(a.Settlement))
 	copy(result.Settlement, a.Settlement)
 
+	// Field TransferFees - TargetAddress
+	result.TransferFees = make([]*TargetAddressField, len(a.TransferFees))
+	for i, v := range a.TransferFees {
+		result.TransferFees[i] = v.Copy()
+	}
+
 	return result
 }
 

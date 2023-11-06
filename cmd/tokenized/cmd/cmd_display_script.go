@@ -24,7 +24,7 @@ import (
 
 var (
 	ErrNotFound = errors.New("Not Found")
-	ErrTimeout       = errors.New("Timeout")
+	ErrTimeout  = errors.New("Timeout")
 )
 
 type TxHash struct {

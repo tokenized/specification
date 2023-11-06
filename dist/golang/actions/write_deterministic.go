@@ -473,6 +473,10 @@ func (a *InstrumentDefinition) WriteDeterministic(w io.Writer) error {
 		}
 	}
 
+	if err := a.TransferFee.WriteDeterministic(w); err != nil {
+		return errors.Wrap(err, "TransferFee")
+	}
+
 	return nil
 }
 
@@ -539,6 +543,10 @@ func (a *InstrumentCreation) WriteDeterministic(w io.Writer) error {
 		if _, err := w.Write([]byte(item)); err != nil {
 			return errors.Wrapf(err, "TradeRestrictions %d", i)
 		}
+	}
+
+	if err := a.TransferFee.WriteDeterministic(w); err != nil {
+		return errors.Wrap(err, "TransferFee")
 	}
 
 	return nil
@@ -1319,6 +1327,16 @@ func (a *EntityField) WriteDeterministic(w io.Writer) error {
 
 	if _, err := w.Write([]byte(a.PaymailHandle)); err != nil {
 		return errors.Wrap(err, "PaymailHandle")
+	}
+
+	return nil
+}
+
+// WriteDeterministic writes data from a Fee in a deterministic way so the data can
+// be used to sign an object. The data output can not be parsed back into an object.
+func (a *FeeField) WriteDeterministic(w io.Writer) error {
+	if err := bitcoin.WriteBase128VarInt(w, uint64(a.Quantity)); err != nil {
+		return errors.Wrap(err, "Quantity")
 	}
 
 	return nil

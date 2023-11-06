@@ -1,0 +1,12 @@
+
+name: Fee
+label: Fee
+description: A fee paid for a service. Only bitcoin currently supported as the instrument.
+
+fields:
+  - name: Quantity
+    label: Quantity
+    description: "The quantity of tokens of the specified instrument to be paid."
+    type: uint
+    size: 8
+    example: 100

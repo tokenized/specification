@@ -748,6 +748,11 @@ func (l *InstrumentDefinition) Equal(right proto.Message) bool {
 		}
 	}
 
+	// Field TransferFee - Fee
+	if !c.TransferFee.Equal(r.TransferFee) {
+		return false // fmt.Errorf("TransferFee : %s", err)
+	}
+
 	return true
 }
 
@@ -846,6 +851,11 @@ func (l *InstrumentCreation) Equal(right proto.Message) bool {
 		if v != r.TradeRestrictions[i] {
 			return false // fmt.Errorf("Element TradeRestrictions string mismatched")
 		}
+	}
+
+	// Field TransferFee - Fee
+	if !c.TransferFee.Equal(r.TransferFee) {
+		return false // fmt.Errorf("TransferFee : %s", err)
 	}
 
 	return true
@@ -2266,6 +2276,31 @@ func (l *EntityField) Equal(right proto.Message) bool {
 	// Field PaymailHandle - varchar
 	if c.PaymailHandle != r.PaymailHandle {
 		return false // fmt.Errorf("PaymailHandle string mismatched")
+	}
+
+	return true
+}
+
+func (l *FeeField) Equal(right proto.Message) bool {
+	c := l
+	if c == nil {
+		if right == nil {
+			return true
+		}
+		c = &FeeField{}
+	}
+	r, ok := right.(*FeeField)
+	if !ok {
+		return false
+	}
+
+	if r == nil {
+		r = &FeeField{}
+	}
+
+	// Field Quantity - uint
+	if c.Quantity != r.Quantity {
+		return false // fmt.Errorf("Quantity integer mismatched")
 	}
 
 	return true

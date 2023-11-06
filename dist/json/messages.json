@@ -625,6 +625,13 @@
           "name": "Settlement",
           "type": "varbin",
           "varSize": "medium"
+        },
+        {
+          "description": "Transfer fees (in bitcoin) and addresses(PKHs) where fees should be paid. Added by each contract as settlement data is added.",
+          "label": "Transfer Fees",
+          "listSize": "small",
+          "name": "TransferFees",
+          "type": "TargetAddress[]"
         }
       ],
       "label": "Settlement Request",

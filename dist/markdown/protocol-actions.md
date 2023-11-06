@@ -1771,6 +1771,17 @@ This action is used by the administration to define the properties/characteristi
         </td>
     </tr>
 
+    <tr>
+        <td>TransferFee</td>
+        <td>
+            <a href="#type-fee">Fee</a>
+        </td>
+        <td>
+            The fee paid for each transfer request. Only taken when a tranfer is successful.
+            
+        </td>
+    </tr>
+
 </table>
 
 ##### Transaction Summary
@@ -2007,6 +2018,17 @@ This action creates an instrument in response to the administration&#39;s instru
         </td>
         <td>
             If specified, the instrument can only be traded within the specified trade restriction zone. For example, AUS would restrict to Australian residents only.
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>TransferFee</td>
+        <td>
+            <a href="#type-fee">Fee</a>
+        </td>
+        <td>
+            The fee paid for each transfer request. Only taken when a tranfer is successful.
             
         </td>
     </tr>
@@ -4195,6 +4217,7 @@ Used to reject request actions that do not comply with the Contract. If money is
 - [Defined Term](#type-defined-term)
 - [Document](#type-document)
 - [Entity](#type-entity)
+- [Fee](#type-fee)
 - [Manager](#type-manager)
 - [Oracle](#type-oracle)
 - [Quantity Index](#type-quantity-index)
@@ -4952,6 +4975,32 @@ Entity represents the details of a legal Entity, such as a public or private com
         <td>
             Length 0-255 bytes. Handle containing an alias and domain name performing queries defined in the Paymail protocol.
              Example: satoshi@tokenized.id
+        </td>
+    </tr>
+
+</table>
+
+
+
+<a name="type-fee"></a>
+### Fee
+
+A fee paid for a service. Only bitcoin currently supported as the instrument.
+
+<table>
+    <tr>
+        <th style="width:15%">Field</th>
+        <th style="width:15%">Type</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Quantity</td>
+        <td>
+            uint(8)
+        </td>
+        <td>
+            The quantity of tokens of the specified instrument to be paid.
+             Example: 100
         </td>
     </tr>
 

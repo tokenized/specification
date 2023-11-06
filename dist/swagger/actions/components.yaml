@@ -82,6 +82,8 @@ components:
       $ref: ./_components/schemas/tokenized/actions/DocumentField.yaml
     EntityField:
       $ref: ./_components/schemas/tokenized/actions/EntityField.yaml
+    FeeField:
+      $ref: ./_components/schemas/tokenized/actions/FeeField.yaml
     ManagerField:
       $ref: ./_components/schemas/tokenized/actions/ManagerField.yaml
     OracleField:

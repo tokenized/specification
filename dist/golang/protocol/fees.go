@@ -1014,7 +1014,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 	}
 
 	return EstimatedTransferResponseFull(requestTx, inputLockingScripts, feeRate, dustFeeRate,
-		fullContractFees, isTest)
+		fullContractFees, nil, isTest)
 }
 
 // EstimatedTransferResponse calculates information about the contract's response to a transfer
@@ -1039,7 +1039,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 // Attempts to use the maximum possible size of each element so the returned values are an
 // overestimation, ensuring that a transfer funded in this manner can complete successfully.
 func EstimatedTransferResponseFull(requestTx *wire.MsgTx, inputLockingScripts []bitcoin.Script,
-	feeRate, dustFeeRate float32, contractFees []OutputDetails,
+	feeRate, dustFeeRate float32, contractFees, transferFees []OutputDetails,
 	isTest bool) ([]uint64, uint64, error) {
 
 	// Find Tokenized Transfer
@@ -1210,6 +1210,11 @@ func EstimatedTransferResponseFull(requestTx *wire.MsgTx, inputLockingScripts []
 			txSizeOutputs += fees.OutputSizeForLockingScriptSize(contractFees[i].LockingScriptSize)
 			outputCount++
 		}
+
+		if len(transferFees) > i && transferFees[i].Value > 0 {
+			txSizeOutputs += fees.OutputSizeForLockingScriptSize(transferFees[i].LockingScriptSize)
+			outputCount++
+		}
 	}
 
 	// Calculate settlement tx funding from parts
@@ -1225,6 +1230,9 @@ func EstimatedTransferResponseFull(requestTx *wire.MsgTx, inputLockingScripts []
 	funding := make([]uint64, len(request.Instruments))
 	for i := range funding {
 		funding[i] = contractFees[i].Value + fundingForTokens[i]
+		if len(transferFees) > i && transferFees[i].Value > 0 {
+			funding[i] += transferFees[i].Value
+		}
 	}
 	funding[masterContractIndex] += uint64(settlementTxFee)
 
@@ -1235,6 +1243,7 @@ func EstimatedTransferResponseFull(requestTx *wire.MsgTx, inputLockingScripts []
 
 	isMaster := true
 	requestContractFees := []*messages.TargetAddressField{}
+	requestTransferFees := []*messages.TargetAddressField{}
 	previousSettlementData = nil
 	txHash := requestTx.TxHash()
 	previousLockingScript := requestTx.TxOut[masterContractIndex].LockingScript
@@ -1246,11 +1255,27 @@ func EstimatedTransferResponseFull(requestTx *wire.MsgTx, inputLockingScripts []
 		}
 
 		if isMaster {
-			requestContractFees = append(requestContractFees,
-				&messages.TargetAddressField{
-					Address:  make([]byte, 22),
-					Quantity: contractFees[i].Value,
-				})
+			if contractFees[i].Value > 0 {
+				requestContractFees = append(requestContractFees,
+					&messages.TargetAddressField{
+						Address:  make([]byte, contractFees[i].LockingScriptSize+1),
+						Quantity: contractFees[i].Value,
+					})
+			} else {
+				requestContractFees = append(requestContractFees,
+					&messages.TargetAddressField{})
+			}
+
+			if len(transferFees) > i && transferFees[i].Value > 0 {
+				requestTransferFees = append(requestTransferFees,
+					&messages.TargetAddressField{
+						Address:  make([]byte, transferFees[i].LockingScriptSize+1),
+						Quantity: transferFees[i].Value,
+					})
+			} else {
+				requestTransferFees = append(requestTransferFees,
+					&messages.TargetAddressField{})
+			}
 
 			previousSettlementData = accumulatedSettlementData[i]
 
@@ -1264,6 +1289,7 @@ func EstimatedTransferResponseFull(requestTx *wire.MsgTx, inputLockingScripts []
 			Timestamp:    uint64(now.UnixNano()),
 			TransferTxId: requestTx.TxHash().Bytes(),
 			ContractFees: requestContractFees,
+			TransferFees: requestTransferFees,
 			Settlement:   previousSettlementData,
 		}
 
@@ -1361,11 +1387,27 @@ func EstimatedTransferResponseFull(requestTx *wire.MsgTx, inputLockingScripts []
 		boomerang += uint64(math.Ceil(float64(sigTxBuf.Len()) * float64(feeRate)))
 		boomerang += previousDust // Dust output to previous contract
 
-		requestContractFees = append(requestContractFees,
-			&messages.TargetAddressField{
-				Address:  make([]byte, 22),
-				Quantity: contractFees[i].Value,
-			})
+		if contractFees[i].Value > 0 {
+			requestContractFees = append(requestContractFees,
+				&messages.TargetAddressField{
+					Address:  make([]byte, contractFees[i].LockingScriptSize+1),
+					Quantity: contractFees[i].Value,
+				})
+		} else {
+			requestContractFees = append(requestContractFees,
+				&messages.TargetAddressField{})
+		}
+
+		if len(transferFees) > i && transferFees[i].Value > 0 {
+			requestTransferFees = append(requestTransferFees,
+				&messages.TargetAddressField{
+					Address:  make([]byte, transferFees[i].LockingScriptSize+1),
+					Quantity: transferFees[i].Value,
+				})
+		} else {
+			requestTransferFees = append(requestTransferFees,
+				&messages.TargetAddressField{})
+		}
 
 		previousLockingScript := requestTx.TxOut[instrument.ContractIndex].LockingScript
 		previousDust = txbuilder.DustLimitForLockingScript(previousLockingScript, dustFeeRate)

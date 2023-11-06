@@ -66,6 +66,7 @@ fieldTypes:
   - "types/DefinedTerm"
   - "types/Document"
   - "types/Entity"
+  - "types/Fee"
   - "types/Manager"
   - "types/Oracle"
   - "types/QuantityIndex"

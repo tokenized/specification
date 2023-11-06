@@ -97,4 +97,8 @@ properties:
     type: array
     items:
       type: string
+  TransferFee:
+    description: The fee paid for each transfer request. Only taken when a tranfer is successful.
+    type: object
+    $ref: "#/components/schemas/FeeField"
 

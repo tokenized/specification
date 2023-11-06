@@ -770,6 +770,11 @@ func (a *InstrumentDefinition) Validate() error {
 		}
 	}
 
+	// Field TransferFee - Fee
+	if err := a.TransferFee.Validate(); err != nil {
+		return errors.Wrap(err, "TransferFee")
+	}
+
 	return nil
 }
 
@@ -841,6 +846,11 @@ func (a *InstrumentCreation) Validate() error {
 		if len(v) > max1ByteInteger {
 			return fmt.Errorf("[%d] TradeRestrictions size over max value : %d > %d", i, len(v), max1ByteInteger)
 		}
+	}
+
+	// Field TransferFee - Fee
+	if err := a.TransferFee.Validate(); err != nil {
+		return errors.Wrap(err, "TransferFee")
 	}
 
 	return nil
@@ -2093,6 +2103,16 @@ func (a *EntityField) Validate() error {
 	if len(a.PaymailHandle) > max1ByteInteger {
 		return fmt.Errorf("PaymailHandle over max size : %d > %d", len(a.PaymailHandle), max1ByteInteger)
 	}
+
+	return nil
+}
+
+func (a *FeeField) Validate() error {
+	if a == nil {
+		return nil
+	}
+
+	// Field Quantity - uint
 
 	return nil
 }

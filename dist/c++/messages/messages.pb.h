@@ -1216,6 +1216,7 @@ class SettlementRequest PROTOBUF_FINAL :
 
   enum : int {
     kContractFeesFieldNumber = 3,
+    kTransferFeesFieldNumber = 5,
     kTransferTxIdFieldNumber = 2,
     kSettlementFieldNumber = 4,
     kTimestampFieldNumber = 1,
@@ -1237,6 +1238,24 @@ class SettlementRequest PROTOBUF_FINAL :
   ::messages::TargetAddressField* add_contractfees();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::messages::TargetAddressField >&
       contractfees() const;
+
+  // repeated .messages.TargetAddressField TransferFees = 5;
+  int transferfees_size() const;
+  private:
+  int _internal_transferfees_size() const;
+  public:
+  void clear_transferfees();
+  ::messages::TargetAddressField* mutable_transferfees(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::messages::TargetAddressField >*
+      mutable_transferfees();
+  private:
+  const ::messages::TargetAddressField& _internal_transferfees(int index) const;
+  ::messages::TargetAddressField* _internal_add_transferfees();
+  public:
+  const ::messages::TargetAddressField& transferfees(int index) const;
+  ::messages::TargetAddressField* add_transferfees();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::messages::TargetAddressField >&
+      transferfees() const;
 
   // bytes TransferTxId = 2;
   void clear_transfertxid();
@@ -1305,6 +1324,7 @@ class SettlementRequest PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::messages::TargetAddressField > contractfees_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::messages::TargetAddressField > transferfees_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr transfertxid_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr settlement_;
   ::PROTOBUF_NAMESPACE_ID::uint64 timestamp_;
@@ -6287,6 +6307,45 @@ inline void SettlementRequest::unsafe_arena_set_allocated_settlement(
   settlement_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       settlement, GetArena());
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:messages.SettlementRequest.Settlement)
+}
+
+// repeated .messages.TargetAddressField TransferFees = 5;
+inline int SettlementRequest::_internal_transferfees_size() const {
+  return transferfees_.size();
+}
+inline int SettlementRequest::transferfees_size() const {
+  return _internal_transferfees_size();
+}
+inline void SettlementRequest::clear_transferfees() {
+  transferfees_.Clear();
+}
+inline ::messages::TargetAddressField* SettlementRequest::mutable_transferfees(int index) {
+  // @@protoc_insertion_point(field_mutable:messages.SettlementRequest.TransferFees)
+  return transferfees_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::messages::TargetAddressField >*
+SettlementRequest::mutable_transferfees() {
+  // @@protoc_insertion_point(field_mutable_list:messages.SettlementRequest.TransferFees)
+  return &transferfees_;
+}
+inline const ::messages::TargetAddressField& SettlementRequest::_internal_transferfees(int index) const {
+  return transferfees_.Get(index);
+}
+inline const ::messages::TargetAddressField& SettlementRequest::transferfees(int index) const {
+  // @@protoc_insertion_point(field_get:messages.SettlementRequest.TransferFees)
+  return _internal_transferfees(index);
+}
+inline ::messages::TargetAddressField* SettlementRequest::_internal_add_transferfees() {
+  return transferfees_.Add();
+}
+inline ::messages::TargetAddressField* SettlementRequest::add_transferfees() {
+  // @@protoc_insertion_point(field_add:messages.SettlementRequest.TransferFees)
+  return _internal_add_transferfees();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::messages::TargetAddressField >&
+SettlementRequest::transferfees() const {
+  // @@protoc_insertion_point(field_list:messages.SettlementRequest.TransferFees)
+  return transferfees_;
 }
 
 // -------------------------------------------------------------------

@@ -576,6 +576,21 @@
       "name": "Entity"
     },
     {
+      "description": "A fee paid for a service. Only bitcoin currently supported as the instrument.",
+      "fields": [
+        {
+          "description": "The quantity of tokens of the specified instrument to be paid.",
+          "example": 100,
+          "label": "Quantity",
+          "name": "Quantity",
+          "size": 8,
+          "type": "uint"
+        }
+      ],
+      "label": "Fee",
+      "name": "Fee"
+    },
+    {
       "description": "Manager is used to refer to a role that is responsible for the Management of an Entity.",
       "fields": [
         {
@@ -1863,6 +1878,12 @@
           "listSize": "small",
           "name": "TradeRestrictions",
           "type": "Polity[]"
+        },
+        {
+          "description": "The fee paid for each transfer request. Only taken when a tranfer is successful.",
+          "label": "Transfer Fee",
+          "name": "TransferFee",
+          "type": "Fee"
         }
       ],
       "label": "Instrument Definition",
@@ -2016,6 +2037,12 @@
           "listSize": "small",
           "name": "TradeRestrictions",
           "type": "Polity[]"
+        },
+        {
+          "description": "The fee paid for each transfer request. Only taken when a tranfer is successful.",
+          "label": "Transfer Fee",
+          "name": "TransferFee",
+          "type": "Fee"
         }
       ],
       "label": "Instrument Creation",

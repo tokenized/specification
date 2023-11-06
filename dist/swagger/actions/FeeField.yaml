@@ -1,0 +1,9 @@
+
+description: A fee paid for a service. Only bitcoin currently supported as the instrument.
+type: object
+properties:
+  Quantity:
+    description: The quantity of tokens of the specified instrument to be paid.
+    type: number
+    example: 100
+

@@ -159,6 +159,16 @@ func (a *SettlementRequest) Validate() error {
 		return fmt.Errorf("Settlement over max size : %d > %d", len(a.Settlement), max4ByteInteger)
 	}
 
+	// Field TransferFees - TargetAddress
+	if len(a.TransferFees) > max2ByteInteger {
+		return fmt.Errorf("TransferFees list over max length : %d > %d", len(a.TransferFees), max2ByteInteger)
+	}
+	for i, v := range a.TransferFees {
+		if err := v.Validate(); err != nil {
+			return errors.Wrap(err, fmt.Sprintf("TransferFees[%d]", i))
+		}
+	}
+
 	return nil
 }
 

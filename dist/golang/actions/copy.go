@@ -447,6 +447,9 @@ func (a *InstrumentDefinition) Copy() *InstrumentDefinition {
 		result.TradeRestrictions[i] = v
 	}
 
+	// Field TransferFee - Fee
+	result.TransferFee = a.TransferFee.Copy()
+
 	return result
 }
 
@@ -507,6 +510,9 @@ func (a *InstrumentCreation) Copy() *InstrumentCreation {
 	for i, v := range a.TradeRestrictions {
 		result.TradeRestrictions[i] = v
 	}
+
+	// Field TransferFee - Fee
+	result.TransferFee = a.TransferFee.Copy()
 
 	return result
 }
@@ -1328,6 +1334,19 @@ func (a *EntityField) Copy() *EntityField {
 
 	// Field PaymailHandle - varchar
 	result.PaymailHandle = a.PaymailHandle
+
+	return result
+}
+
+func (a *FeeField) Copy() *FeeField {
+	if a == nil {
+		return nil
+	}
+
+	result := &FeeField{}
+
+	// Field Quantity - uint
+	result.Quantity = a.Quantity
 
 	return result
 }

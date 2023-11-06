@@ -1342,6 +1342,7 @@ const (
 	InstrumentFieldInstrumentType                        = uint32(11)
 	InstrumentFieldInstrumentPayload                     = uint32(12)
 	InstrumentFieldTradeRestrictions                     = uint32(13)
+	InstrumentFieldTransferFee                           = uint32(14)
 )
 
 // CreateAmendments determines the differences between two InstrumentDefinitions and returns
@@ -1528,6 +1529,15 @@ func (a *InstrumentCreation) CreateAmendments(newValue *InstrumentDefinition) ([
 		result = append(result, amendment)
 	}
 
+	// TransferFee FeeField
+	fip = []uint32{InstrumentFieldTransferFee}
+
+	TransferFeeAmendments, err := a.TransferFee.CreateAmendments(fip, newValue.TransferFee)
+	if err != nil {
+		return nil, errors.Wrap(err, "TransferFee")
+	}
+	result = append(result, TransferFeeAmendments...)
+
 	r, err := convertAmendments(result)
 	if err != nil {
 		return nil, errors.Wrap(err, "convert amendments")
@@ -1701,6 +1711,19 @@ func (a *InstrumentCreation) ApplyAmendment(fip permissions.FieldIndexPath, oper
 			a.TradeRestrictions = append(a.TradeRestrictions[:fip[1]], a.TradeRestrictions[fip[1]+1:]...)
 			return permissions.SubPermissions(fip, operation, true)
 		}
+
+	case InstrumentFieldTransferFee: // FeeField
+		if len(fip) == 1 && len(data) == 0 {
+			a.TransferFee = nil
+			return permissions.SubPermissions(fip[1:], operation, false)
+		}
+
+		subPermissions, err := permissions.SubPermissions(fip, operation, false)
+		if err != nil {
+			return nil, errors.Wrap(err, "sub permissions")
+		}
+
+		return a.TransferFee.ApplyAmendment(fip[1:], operation, data, subPermissions)
 
 	}
 
@@ -3809,6 +3832,78 @@ func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
 			Data: []byte(newValue.PaymailHandle),
+		})
+	}
+
+	return result, nil
+}
+
+// FeeField Permission / Amendment Field Indices
+const (
+	FeeFieldQuantity = uint32(1)
+)
+
+// ApplyAmendment updates a FeeField based on amendment data.
+// Note: This does not check permissions or data validity. This does check data format.
+// fip must have at least one value.
+func (a *FeeField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint32,
+	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
+
+	if len(fip) == 0 {
+		return nil, errors.New("Empty Fee amendment field index path")
+	}
+
+	switch fip[0] {
+	case FeeFieldQuantity: // uint64
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for Quantity : %v", fip)
+		}
+		buf := bytes.NewBuffer(data)
+		if value, err := bitcoin.ReadBase128VarInt(buf); err != nil {
+			return nil, fmt.Errorf("Quantity amendment value failed to deserialize : %s", err)
+		} else {
+			a.Quantity = uint64(value)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+
+	}
+
+	return nil, fmt.Errorf("Unknown Fee amendment field index : %v", fip)
+}
+
+// CreateAmendments determines the differences between two Fees and returns
+// amendment data.
+func (a *FeeField) CreateAmendments(fip permissions.FieldIndexPath,
+	newValue *FeeField) ([]*internal.Amendment, error) {
+
+	var result []*internal.Amendment
+	ofip := fip.Copy() // save original to be appended for each field
+
+	if a != nil && newValue == nil {
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      nil,
+		})
+
+		return result, nil
+	}
+
+	if a.Equal(newValue) {
+		return nil, nil
+	}
+
+	// Quantity uint64
+	fip = append(ofip, FeeFieldQuantity)
+	if a.Quantity != newValue.Quantity {
+		var buf bytes.Buffer
+		if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.Quantity)); err != nil {
+			return nil, errors.Wrap(err, "Quantity")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
 		})
 	}
 

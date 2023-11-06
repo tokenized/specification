@@ -47,7 +47,7 @@ struct TableStruct_actions_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[48]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[49]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -121,6 +121,9 @@ extern EntityFieldDefaultTypeInternal _EntityField_default_instance_;
 class Establishment;
 class EstablishmentDefaultTypeInternal;
 extern EstablishmentDefaultTypeInternal _Establishment_default_instance_;
+class FeeField;
+class FeeFieldDefaultTypeInternal;
+extern FeeFieldDefaultTypeInternal _FeeField_default_instance_;
 class Freeze;
 class FreezeDefaultTypeInternal;
 extern FreezeDefaultTypeInternal _Freeze_default_instance_;
@@ -223,6 +226,7 @@ template<> ::actions::DeprecatedReconciliation* Arena::CreateMaybeMessage<::acti
 template<> ::actions::DocumentField* Arena::CreateMaybeMessage<::actions::DocumentField>(Arena*);
 template<> ::actions::EntityField* Arena::CreateMaybeMessage<::actions::EntityField>(Arena*);
 template<> ::actions::Establishment* Arena::CreateMaybeMessage<::actions::Establishment>(Arena*);
+template<> ::actions::FeeField* Arena::CreateMaybeMessage<::actions::FeeField>(Arena*);
 template<> ::actions::Freeze* Arena::CreateMaybeMessage<::actions::Freeze>(Arena*);
 template<> ::actions::InstrumentCreation* Arena::CreateMaybeMessage<::actions::InstrumentCreation>(Arena*);
 template<> ::actions::InstrumentDefinition* Arena::CreateMaybeMessage<::actions::InstrumentDefinition>(Arena*);
@@ -3009,6 +3013,7 @@ class InstrumentDefinition PROTOBUF_FINAL :
     kInstrumentPermissionsFieldNumber = 1,
     kInstrumentTypeFieldNumber = 11,
     kInstrumentPayloadFieldNumber = 12,
+    kTransferFeeFieldNumber = 14,
     kVoteMultiplierFieldNumber = 6,
     kEnforcementOrdersPermittedFieldNumber = 4,
     kVotingRightsFieldNumber = 5,
@@ -3116,6 +3121,24 @@ class InstrumentDefinition PROTOBUF_FINAL :
   std::string* _internal_mutable_instrumentpayload();
   public:
 
+  // .actions.FeeField TransferFee = 14;
+  bool has_transferfee() const;
+  private:
+  bool _internal_has_transferfee() const;
+  public:
+  void clear_transferfee();
+  const ::actions::FeeField& transferfee() const;
+  ::actions::FeeField* release_transferfee();
+  ::actions::FeeField* mutable_transferfee();
+  void set_allocated_transferfee(::actions::FeeField* transferfee);
+  private:
+  const ::actions::FeeField& _internal_transferfee() const;
+  ::actions::FeeField* _internal_mutable_transferfee();
+  public:
+  void unsafe_arena_set_allocated_transferfee(
+      ::actions::FeeField* transferfee);
+  ::actions::FeeField* unsafe_arena_release_transferfee();
+
   // uint32 VoteMultiplier = 6;
   void clear_votemultiplier();
   ::PROTOBUF_NAMESPACE_ID::uint32 votemultiplier() const;
@@ -3190,6 +3213,7 @@ class InstrumentDefinition PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr instrumentpermissions_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr instrumenttype_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr instrumentpayload_;
+  ::actions::FeeField* transferfee_;
   ::PROTOBUF_NAMESPACE_ID::uint32 votemultiplier_;
   bool enforcementorderspermitted_;
   bool votingrights_;
@@ -3320,6 +3344,7 @@ class InstrumentCreation PROTOBUF_FINAL :
     kInstrumentPermissionsFieldNumber = 3,
     kInstrumentTypeFieldNumber = 13,
     kInstrumentPayloadFieldNumber = 14,
+    kTransferFeeFieldNumber = 18,
     kInstrumentIndexFieldNumber = 2,
     kVoteMultiplierFieldNumber = 8,
     kEnforcementOrdersPermittedFieldNumber = 6,
@@ -3455,6 +3480,24 @@ class InstrumentCreation PROTOBUF_FINAL :
   std::string* _internal_mutable_instrumentpayload();
   public:
 
+  // .actions.FeeField TransferFee = 18;
+  bool has_transferfee() const;
+  private:
+  bool _internal_has_transferfee() const;
+  public:
+  void clear_transferfee();
+  const ::actions::FeeField& transferfee() const;
+  ::actions::FeeField* release_transferfee();
+  ::actions::FeeField* mutable_transferfee();
+  void set_allocated_transferfee(::actions::FeeField* transferfee);
+  private:
+  const ::actions::FeeField& _internal_transferfee() const;
+  ::actions::FeeField* _internal_mutable_transferfee();
+  public:
+  void unsafe_arena_set_allocated_transferfee(
+      ::actions::FeeField* transferfee);
+  ::actions::FeeField* unsafe_arena_release_transferfee();
+
   // uint64 InstrumentIndex = 2;
   void clear_instrumentindex();
   ::PROTOBUF_NAMESPACE_ID::uint64 instrumentindex() const;
@@ -3557,6 +3600,7 @@ class InstrumentCreation PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr instrumentpermissions_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr instrumenttype_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr instrumentpayload_;
+  ::actions::FeeField* transferfee_;
   ::PROTOBUF_NAMESPACE_ID::uint64 instrumentindex_;
   ::PROTOBUF_NAMESPACE_ID::uint32 votemultiplier_;
   bool enforcementorderspermitted_;
@@ -10437,6 +10481,143 @@ class EntityField PROTOBUF_FINAL :
 };
 // -------------------------------------------------------------------
 
+class FeeField PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:actions.FeeField) */ {
+ public:
+  inline FeeField() : FeeField(nullptr) {};
+  virtual ~FeeField();
+
+  FeeField(const FeeField& from);
+  FeeField(FeeField&& from) noexcept
+    : FeeField() {
+    *this = ::std::move(from);
+  }
+
+  inline FeeField& operator=(const FeeField& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline FeeField& operator=(FeeField&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const FeeField& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const FeeField* internal_default_instance() {
+    return reinterpret_cast<const FeeField*>(
+               &_FeeField_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    41;
+
+  friend void swap(FeeField& a, FeeField& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(FeeField* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(FeeField* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline FeeField* New() const final {
+    return CreateMaybeMessage<FeeField>(nullptr);
+  }
+
+  FeeField* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<FeeField>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const FeeField& from);
+  void MergeFrom(const FeeField& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(FeeField* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "actions.FeeField";
+  }
+  protected:
+  explicit FeeField(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_actions_2eproto);
+    return ::descriptor_table_actions_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kQuantityFieldNumber = 1,
+  };
+  // uint64 Quantity = 1;
+  void clear_quantity();
+  ::PROTOBUF_NAMESPACE_ID::uint64 quantity() const;
+  void set_quantity(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint64 _internal_quantity() const;
+  void _internal_set_quantity(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:actions.FeeField)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::uint64 quantity_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_actions_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ManagerField PROTOBUF_FINAL :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:actions.ManagerField) */ {
  public:
@@ -10479,7 +10660,7 @@ class ManagerField PROTOBUF_FINAL :
                &_ManagerField_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    41;
+    42;
 
   friend void swap(ManagerField& a, ManagerField& b) {
     a.Swap(&b);
@@ -10643,7 +10824,7 @@ class OracleField PROTOBUF_FINAL :
                &_OracleField_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    42;
+    43;
 
   friend void swap(OracleField& a, OracleField& b) {
     a.Swap(&b);
@@ -10821,7 +11002,7 @@ class QuantityIndexField PROTOBUF_FINAL :
                &_QuantityIndexField_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    43;
+    44;
 
   friend void swap(QuantityIndexField& a, QuantityIndexField& b) {
     a.Swap(&b);
@@ -10969,7 +11150,7 @@ class ReferenceTransactionField PROTOBUF_FINAL :
                &_ReferenceTransactionField_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    44;
+    45;
 
   friend void swap(ReferenceTransactionField& a, ReferenceTransactionField& b) {
     a.Swap(&b);
@@ -11148,7 +11329,7 @@ class ServiceField PROTOBUF_FINAL :
                &_ServiceField_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    45;
+    46;
 
   friend void swap(ServiceField& a, ServiceField& b) {
     a.Swap(&b);
@@ -11339,7 +11520,7 @@ class TargetAddressField PROTOBUF_FINAL :
                &_TargetAddressField_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    46;
+    47;
 
   friend void swap(TargetAddressField& a, TargetAddressField& b) {
     a.Swap(&b);
@@ -11503,7 +11684,7 @@ class VotingSystemField PROTOBUF_FINAL :
                &_VotingSystemField_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    48;
 
   friend void swap(VotingSystemField& a, VotingSystemField& b) {
     a.Swap(&b);
@@ -16381,6 +16562,87 @@ InstrumentDefinition::mutable_traderestrictions() {
   return &traderestrictions_;
 }
 
+// .actions.FeeField TransferFee = 14;
+inline bool InstrumentDefinition::_internal_has_transferfee() const {
+  return this != internal_default_instance() && transferfee_ != nullptr;
+}
+inline bool InstrumentDefinition::has_transferfee() const {
+  return _internal_has_transferfee();
+}
+inline void InstrumentDefinition::clear_transferfee() {
+  if (GetArena() == nullptr && transferfee_ != nullptr) {
+    delete transferfee_;
+  }
+  transferfee_ = nullptr;
+}
+inline const ::actions::FeeField& InstrumentDefinition::_internal_transferfee() const {
+  const ::actions::FeeField* p = transferfee_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::actions::FeeField*>(
+      &::actions::_FeeField_default_instance_);
+}
+inline const ::actions::FeeField& InstrumentDefinition::transferfee() const {
+  // @@protoc_insertion_point(field_get:actions.InstrumentDefinition.TransferFee)
+  return _internal_transferfee();
+}
+inline void InstrumentDefinition::unsafe_arena_set_allocated_transferfee(
+    ::actions::FeeField* transferfee) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(transferfee_);
+  }
+  transferfee_ = transferfee;
+  if (transferfee) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:actions.InstrumentDefinition.TransferFee)
+}
+inline ::actions::FeeField* InstrumentDefinition::release_transferfee() {
+  auto temp = unsafe_arena_release_transferfee();
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::actions::FeeField* InstrumentDefinition::unsafe_arena_release_transferfee() {
+  // @@protoc_insertion_point(field_release:actions.InstrumentDefinition.TransferFee)
+  
+  ::actions::FeeField* temp = transferfee_;
+  transferfee_ = nullptr;
+  return temp;
+}
+inline ::actions::FeeField* InstrumentDefinition::_internal_mutable_transferfee() {
+  
+  if (transferfee_ == nullptr) {
+    auto* p = CreateMaybeMessage<::actions::FeeField>(GetArena());
+    transferfee_ = p;
+  }
+  return transferfee_;
+}
+inline ::actions::FeeField* InstrumentDefinition::mutable_transferfee() {
+  // @@protoc_insertion_point(field_mutable:actions.InstrumentDefinition.TransferFee)
+  return _internal_mutable_transferfee();
+}
+inline void InstrumentDefinition::set_allocated_transferfee(::actions::FeeField* transferfee) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete transferfee_;
+  }
+  if (transferfee) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(transferfee);
+    if (message_arena != submessage_arena) {
+      transferfee = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, transferfee, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  transferfee_ = transferfee;
+  // @@protoc_insertion_point(field_set_allocated:actions.InstrumentDefinition.TransferFee)
+}
+
 // -------------------------------------------------------------------
 
 // InstrumentCreation
@@ -16981,6 +17243,87 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 InstrumentCreation::mutable_traderestrictions() {
   // @@protoc_insertion_point(field_mutable_list:actions.InstrumentCreation.TradeRestrictions)
   return &traderestrictions_;
+}
+
+// .actions.FeeField TransferFee = 18;
+inline bool InstrumentCreation::_internal_has_transferfee() const {
+  return this != internal_default_instance() && transferfee_ != nullptr;
+}
+inline bool InstrumentCreation::has_transferfee() const {
+  return _internal_has_transferfee();
+}
+inline void InstrumentCreation::clear_transferfee() {
+  if (GetArena() == nullptr && transferfee_ != nullptr) {
+    delete transferfee_;
+  }
+  transferfee_ = nullptr;
+}
+inline const ::actions::FeeField& InstrumentCreation::_internal_transferfee() const {
+  const ::actions::FeeField* p = transferfee_;
+  return p != nullptr ? *p : *reinterpret_cast<const ::actions::FeeField*>(
+      &::actions::_FeeField_default_instance_);
+}
+inline const ::actions::FeeField& InstrumentCreation::transferfee() const {
+  // @@protoc_insertion_point(field_get:actions.InstrumentCreation.TransferFee)
+  return _internal_transferfee();
+}
+inline void InstrumentCreation::unsafe_arena_set_allocated_transferfee(
+    ::actions::FeeField* transferfee) {
+  if (GetArena() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(transferfee_);
+  }
+  transferfee_ = transferfee;
+  if (transferfee) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:actions.InstrumentCreation.TransferFee)
+}
+inline ::actions::FeeField* InstrumentCreation::release_transferfee() {
+  auto temp = unsafe_arena_release_transferfee();
+  if (GetArena() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+  return temp;
+}
+inline ::actions::FeeField* InstrumentCreation::unsafe_arena_release_transferfee() {
+  // @@protoc_insertion_point(field_release:actions.InstrumentCreation.TransferFee)
+  
+  ::actions::FeeField* temp = transferfee_;
+  transferfee_ = nullptr;
+  return temp;
+}
+inline ::actions::FeeField* InstrumentCreation::_internal_mutable_transferfee() {
+  
+  if (transferfee_ == nullptr) {
+    auto* p = CreateMaybeMessage<::actions::FeeField>(GetArena());
+    transferfee_ = p;
+  }
+  return transferfee_;
+}
+inline ::actions::FeeField* InstrumentCreation::mutable_transferfee() {
+  // @@protoc_insertion_point(field_mutable:actions.InstrumentCreation.TransferFee)
+  return _internal_mutable_transferfee();
+}
+inline void InstrumentCreation::set_allocated_transferfee(::actions::FeeField* transferfee) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArena();
+  if (message_arena == nullptr) {
+    delete transferfee_;
+  }
+  if (transferfee) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::GetArena(transferfee);
+    if (message_arena != submessage_arena) {
+      transferfee = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, transferfee, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  transferfee_ = transferfee;
+  // @@protoc_insertion_point(field_set_allocated:actions.InstrumentCreation.TransferFee)
 }
 
 // -------------------------------------------------------------------
@@ -25015,6 +25358,30 @@ inline void EntityField::unsafe_arena_set_allocated_paymailhandle(
 
 // -------------------------------------------------------------------
 
+// FeeField
+
+// uint64 Quantity = 1;
+inline void FeeField::clear_quantity() {
+  quantity_ = PROTOBUF_ULONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 FeeField::_internal_quantity() const {
+  return quantity_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint64 FeeField::quantity() const {
+  // @@protoc_insertion_point(field_get:actions.FeeField.Quantity)
+  return _internal_quantity();
+}
+inline void FeeField::_internal_set_quantity(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  
+  quantity_ = value;
+}
+inline void FeeField::set_quantity(::PROTOBUF_NAMESPACE_ID::uint64 value) {
+  _internal_set_quantity(value);
+  // @@protoc_insertion_point(field_set:actions.FeeField.Quantity)
+}
+
+// -------------------------------------------------------------------
+
 // ManagerField
 
 // uint32 Type = 1;
@@ -25993,6 +26360,8 @@ inline void VotingSystemField::set_holderproposalfee(::PROTOBUF_NAMESPACE_ID::ui
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

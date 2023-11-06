@@ -152,6 +152,7 @@ message InstrumentDefinition {
     string InstrumentType                          = 11;  // InstrumentType
     bytes InstrumentPayload                        = 12;  // varbin
     repeated string TradeRestrictions              = 13;  // Polity[]
+    FeeField TransferFee                           = 14;  // Fee
 }
 
 // Message - Instrument Creation (I2)
@@ -173,6 +174,7 @@ message InstrumentCreation {
     uint32 InstrumentRevision                      = 15;  // uint
     uint64 Timestamp                               = 16;  // Timestamp
     repeated string TradeRestrictions              = 17;  // Polity[]
+    FeeField TransferFee                           = 18;  // Fee
 }
 
 // Message - Instrument Modification (I3)
@@ -438,6 +440,11 @@ message EntityField {
     string DomainName                              = 15;  // varchar
     reserved                                         16;  // Deprecated EntityContractAddress
     string PaymailHandle                           = 17;  // varchar
+}
+
+// Field - Fee
+message FeeField {
+    uint64 Quantity                                = 1;   // uint
 }
 
 // Field - Manager

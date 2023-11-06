@@ -408,6 +408,9 @@
       "TradeRestrictions": [
         "GBR"
       ],
+      "TransferFee": {
+        "Quantity": "100"
+      },
       "VoteMultiplier": "3",
       "VotingRights": "true"
     }
@@ -434,6 +437,9 @@
       "TradeRestrictions": [
         "GBR"
       ],
+      "TransferFee": {
+        "Quantity": "100"
+      },
       "VoteMultiplier": "3",
       "VotingRights": "true"
     }

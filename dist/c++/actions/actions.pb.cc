@@ -22,6 +22,7 @@ extern PROTOBUF_INTERNAL_EXPORT_actions_2eproto ::PROTOBUF_NAMESPACE_ID::interna
 extern PROTOBUF_INTERNAL_EXPORT_actions_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_DefinedTermField_actions_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_actions_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_DocumentField_actions_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_actions_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_EntityField_actions_2eproto;
+extern PROTOBUF_INTERNAL_EXPORT_actions_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_FeeField_actions_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_actions_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_InstrumentReceiverField_actions_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_actions_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_InstrumentSettlementField_actions_2eproto;
 extern PROTOBUF_INTERNAL_EXPORT_actions_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<2> scc_info_InstrumentTransferField_actions_2eproto;
@@ -197,6 +198,10 @@ class EntityFieldDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<EntityField> _instance;
 } _EntityField_default_instance_;
+class FeeFieldDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<FeeField> _instance;
+} _FeeField_default_instance_;
 class ManagerFieldDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<ManagerField> _instance;
@@ -557,6 +562,20 @@ static void InitDefaultsscc_info_Establishment_actions_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Establishment_actions_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Establishment_actions_2eproto}, {}};
 
+static void InitDefaultsscc_info_FeeField_actions_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::actions::_FeeField_default_instance_;
+    new (ptr) ::actions::FeeField();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::actions::FeeField::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_FeeField_actions_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_FeeField_actions_2eproto}, {}};
+
 static void InitDefaultsscc_info_Freeze_actions_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -583,8 +602,9 @@ static void InitDefaultsscc_info_InstrumentCreation_actions_2eproto() {
   ::actions::InstrumentCreation::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_InstrumentCreation_actions_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_InstrumentCreation_actions_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_InstrumentCreation_actions_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_InstrumentCreation_actions_2eproto}, {
+      &scc_info_FeeField_actions_2eproto.base,}};
 
 static void InitDefaultsscc_info_InstrumentDefinition_actions_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -597,8 +617,9 @@ static void InitDefaultsscc_info_InstrumentDefinition_actions_2eproto() {
   ::actions::InstrumentDefinition::InitAsDefaultInstance();
 }
 
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_InstrumentDefinition_actions_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_InstrumentDefinition_actions_2eproto}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_InstrumentDefinition_actions_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_InstrumentDefinition_actions_2eproto}, {
+      &scc_info_FeeField_actions_2eproto.base,}};
 
 static void InitDefaultsscc_info_InstrumentModification_actions_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -938,7 +959,7 @@ static void InitDefaultsscc_info_VotingSystemField_actions_2eproto() {
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_VotingSystemField_actions_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_VotingSystemField_actions_2eproto}, {}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_actions_2eproto[48];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_actions_2eproto[49];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_actions_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_actions_2eproto = nullptr;
 
@@ -1082,6 +1103,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_actions_2eproto::offsets[] PRO
   PROTOBUF_FIELD_OFFSET(::actions::InstrumentDefinition, instrumenttype_),
   PROTOBUF_FIELD_OFFSET(::actions::InstrumentDefinition, instrumentpayload_),
   PROTOBUF_FIELD_OFFSET(::actions::InstrumentDefinition, traderestrictions_),
+  PROTOBUF_FIELD_OFFSET(::actions::InstrumentDefinition, transferfee_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::actions::InstrumentCreation, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1102,6 +1124,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_actions_2eproto::offsets[] PRO
   PROTOBUF_FIELD_OFFSET(::actions::InstrumentCreation, instrumentrevision_),
   PROTOBUF_FIELD_OFFSET(::actions::InstrumentCreation, timestamp_),
   PROTOBUF_FIELD_OFFSET(::actions::InstrumentCreation, traderestrictions_),
+  PROTOBUF_FIELD_OFFSET(::actions::InstrumentCreation, transferfee_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::actions::InstrumentModification, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -1395,6 +1418,12 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_actions_2eproto::offsets[] PRO
   PROTOBUF_FIELD_OFFSET(::actions::EntityField, domainname_),
   PROTOBUF_FIELD_OFFSET(::actions::EntityField, paymailhandle_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::actions::FeeField, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::actions::FeeField, quantity_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::actions::ManagerField, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -1459,45 +1488,46 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 106, -1, sizeof(::actions::BodyOfAgreementFormation)},
   { 115, -1, sizeof(::actions::BodyOfAgreementAmendment)},
   { 123, -1, sizeof(::actions::InstrumentDefinition)},
-  { 139, -1, sizeof(::actions::InstrumentCreation)},
-  { 159, -1, sizeof(::actions::InstrumentModification)},
-  { 169, -1, sizeof(::actions::Transfer)},
-  { 178, -1, sizeof(::actions::Settlement)},
-  { 185, -1, sizeof(::actions::RectificationSettlement)},
-  { 193, -1, sizeof(::actions::Proposal)},
-  { 208, -1, sizeof(::actions::Vote)},
-  { 214, -1, sizeof(::actions::BallotCast)},
-  { 221, -1, sizeof(::actions::BallotCounted)},
-  { 230, -1, sizeof(::actions::Result)},
-  { 242, -1, sizeof(::actions::Order)},
-  { 263, -1, sizeof(::actions::Freeze)},
-  { 273, -1, sizeof(::actions::Thaw)},
-  { 280, -1, sizeof(::actions::Confiscation)},
-  { 290, -1, sizeof(::actions::DeprecatedReconciliation)},
-  { 299, -1, sizeof(::actions::Establishment)},
-  { 305, -1, sizeof(::actions::Addition)},
-  { 311, -1, sizeof(::actions::Alteration)},
-  { 318, -1, sizeof(::actions::Removal)},
-  { 325, -1, sizeof(::actions::Message)},
-  { 334, -1, sizeof(::actions::Rejection)},
-  { 344, -1, sizeof(::actions::AdministratorField)},
-  { 351, -1, sizeof(::actions::AdminIdentityCertificateField)},
-  { 360, -1, sizeof(::actions::AmendmentField)},
-  { 368, -1, sizeof(::actions::InstrumentReceiverField)},
-  { 380, -1, sizeof(::actions::InstrumentSettlementField)},
-  { 389, -1, sizeof(::actions::InstrumentTransferField)},
-  { 399, -1, sizeof(::actions::ChapterField)},
-  { 407, -1, sizeof(::actions::ClauseField)},
-  { 415, -1, sizeof(::actions::DefinedTermField)},
-  { 422, -1, sizeof(::actions::DocumentField)},
-  { 430, -1, sizeof(::actions::EntityField)},
-  { 451, -1, sizeof(::actions::ManagerField)},
-  { 458, -1, sizeof(::actions::OracleField)},
-  { 465, -1, sizeof(::actions::QuantityIndexField)},
-  { 472, -1, sizeof(::actions::ReferenceTransactionField)},
-  { 479, -1, sizeof(::actions::ServiceField)},
-  { 487, -1, sizeof(::actions::TargetAddressField)},
-  { 494, -1, sizeof(::actions::VotingSystemField)},
+  { 140, -1, sizeof(::actions::InstrumentCreation)},
+  { 161, -1, sizeof(::actions::InstrumentModification)},
+  { 171, -1, sizeof(::actions::Transfer)},
+  { 180, -1, sizeof(::actions::Settlement)},
+  { 187, -1, sizeof(::actions::RectificationSettlement)},
+  { 195, -1, sizeof(::actions::Proposal)},
+  { 210, -1, sizeof(::actions::Vote)},
+  { 216, -1, sizeof(::actions::BallotCast)},
+  { 223, -1, sizeof(::actions::BallotCounted)},
+  { 232, -1, sizeof(::actions::Result)},
+  { 244, -1, sizeof(::actions::Order)},
+  { 265, -1, sizeof(::actions::Freeze)},
+  { 275, -1, sizeof(::actions::Thaw)},
+  { 282, -1, sizeof(::actions::Confiscation)},
+  { 292, -1, sizeof(::actions::DeprecatedReconciliation)},
+  { 301, -1, sizeof(::actions::Establishment)},
+  { 307, -1, sizeof(::actions::Addition)},
+  { 313, -1, sizeof(::actions::Alteration)},
+  { 320, -1, sizeof(::actions::Removal)},
+  { 327, -1, sizeof(::actions::Message)},
+  { 336, -1, sizeof(::actions::Rejection)},
+  { 346, -1, sizeof(::actions::AdministratorField)},
+  { 353, -1, sizeof(::actions::AdminIdentityCertificateField)},
+  { 362, -1, sizeof(::actions::AmendmentField)},
+  { 370, -1, sizeof(::actions::InstrumentReceiverField)},
+  { 382, -1, sizeof(::actions::InstrumentSettlementField)},
+  { 391, -1, sizeof(::actions::InstrumentTransferField)},
+  { 401, -1, sizeof(::actions::ChapterField)},
+  { 409, -1, sizeof(::actions::ClauseField)},
+  { 417, -1, sizeof(::actions::DefinedTermField)},
+  { 424, -1, sizeof(::actions::DocumentField)},
+  { 432, -1, sizeof(::actions::EntityField)},
+  { 453, -1, sizeof(::actions::FeeField)},
+  { 459, -1, sizeof(::actions::ManagerField)},
+  { 466, -1, sizeof(::actions::OracleField)},
+  { 473, -1, sizeof(::actions::QuantityIndexField)},
+  { 480, -1, sizeof(::actions::ReferenceTransactionField)},
+  { 487, -1, sizeof(::actions::ServiceField)},
+  { 495, -1, sizeof(::actions::TargetAddressField)},
+  { 502, -1, sizeof(::actions::VotingSystemField)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -1542,6 +1572,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::actions::_DefinedTermField_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::actions::_DocumentField_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::actions::_EntityField_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::actions::_FeeField_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::actions::_ManagerField_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::actions::_OracleField_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::actions::_QuantityIndexField_default_instance_),
@@ -1623,7 +1654,7 @@ const char descriptor_table_protodef_actions_2eproto[] PROTOBUF_SECTION_VARIABLE
   "d\022\020\n\010Revision\030\003 \001(\r\022\021\n\tTimestamp\030\004 \001(\004\"j"
   "\n\030BodyOfAgreementAmendment\022\020\n\010Revision\030\001"
   " \001(\r\022+\n\nAmendments\030\002 \003(\0132\027.actions.Amend"
-  "mentField\022\017\n\007RefTxID\030\003 \001(\014\"\337\002\n\024Instrumen"
+  "mentField\022\017\n\007RefTxID\030\003 \001(\014\"\207\003\n\024Instrumen"
   "tDefinition\022\035\n\025InstrumentPermissions\030\001 \001"
   "(\014\022\"\n\032EnforcementOrdersPermitted\030\004 \001(\010\022\024"
   "\n\014VotingRights\030\005 \001(\010\022\026\n\016VoteMultiplier\030\006"
@@ -1632,7 +1663,8 @@ const char descriptor_table_protodef_actions_2eproto[] PROTOBUF_SECTION_VARIABLE
   "cationGovernance\030\t \001(\r\022\032\n\022AuthorizedToke"
   "nQty\030\n \001(\004\022\026\n\016InstrumentType\030\013 \001(\t\022\031\n\021In"
   "strumentPayload\030\014 \001(\014\022\031\n\021TradeRestrictio"
-  "ns\030\r \003(\tJ\004\010\002\020\003J\004\010\003\020\004\"\275\003\n\022InstrumentCreat"
+  "ns\030\r \003(\t\022&\n\013TransferFee\030\016 \001(\0132\021.actions."
+  "FeeFieldJ\004\010\002\020\003J\004\010\003\020\004\"\345\003\n\022InstrumentCreat"
   "ion\022\026\n\016InstrumentCode\030\001 \001(\014\022\027\n\017Instrumen"
   "tIndex\030\002 \001(\004\022\035\n\025InstrumentPermissions\030\003 "
   "\001(\014\022\"\n\032EnforcementOrdersPermitted\030\006 \001(\010\022"
@@ -1643,7 +1675,8 @@ const char descriptor_table_protodef_actions_2eproto[] PROTOBUF_SECTION_VARIABLE
   "enQty\030\014 \001(\004\022\026\n\016InstrumentType\030\r \001(\t\022\031\n\021I"
   "nstrumentPayload\030\016 \001(\014\022\032\n\022InstrumentRevi"
   "sion\030\017 \001(\r\022\021\n\tTimestamp\030\020 \001(\004\022\031\n\021TradeRe"
-  "strictions\030\021 \003(\tJ\004\010\004\020\005J\004\010\005\020\006\"\242\001\n\026Instrum"
+  "strictions\030\021 \003(\t\022&\n\013TransferFee\030\022 \001(\0132\021."
+  "actions.FeeFieldJ\004\010\004\020\005J\004\010\005\020\006\"\242\001\n\026Instrum"
   "entModification\022\026\n\016InstrumentType\030\001 \001(\t\022"
   "\026\n\016InstrumentCode\030\002 \001(\014\022\032\n\022InstrumentRev"
   "ision\030\003 \001(\r\022+\n\nAmendments\030\004 \003(\0132\027.action"
@@ -1745,26 +1778,27 @@ const char descriptor_table_protodef_actions_2eproto[] PROTOBUF_SECTION_VARIABLE
   "\t\0223\n\016Administration\030\r \003(\0132\033.actions.Admi"
   "nistratorField\022)\n\nManagement\030\016 \003(\0132\025.act"
   "ions.ManagerField\022\022\n\nDomainName\030\017 \001(\t\022\025\n"
-  "\rPaymailHandle\030\021 \001(\tJ\004\010\020\020\021\"*\n\014ManagerFie"
-  "ld\022\014\n\004Type\030\001 \001(\r\022\014\n\004Name\030\002 \001(\t\"L\n\013Oracle"
-  "Field\022\023\n\013OracleTypes\030\004 \003(\r\022\026\n\016EntityCont"
-  "ract\030\005 \001(\014J\004\010\001\020\002J\004\010\002\020\003J\004\010\003\020\004\"5\n\022Quantity"
-  "IndexField\022\r\n\005Index\030\001 \001(\r\022\020\n\010Quantity\030\002 "
-  "\001(\004\"A\n\031ReferenceTransactionField\022\023\n\013Tran"
-  "saction\030\001 \001(\014\022\017\n\007Outputs\030\002 \003(\014\"<\n\014Servic"
-  "eField\022\014\n\004Type\030\001 \001(\r\022\013\n\003URL\030\002 \001(\t\022\021\n\tPub"
-  "licKey\030\003 \001(\014\"7\n\022TargetAddressField\022\017\n\007Ad"
-  "dress\030\001 \001(\014\022\020\n\010Quantity\030\002 \001(\004\"\240\001\n\021Voting"
-  "SystemField\022\014\n\004Name\030\001 \001(\t\022\020\n\010VoteType\030\002 "
-  "\001(\t\022\022\n\nTallyLogic\030\003 \001(\r\022\033\n\023ThresholdPerc"
-  "entage\030\004 \001(\r\022\037\n\027VoteMultiplierPermitted\030"
-  "\005 \001(\010\022\031\n\021HolderProposalFee\030\006 \001(\004B8Z6gith"
-  "ub.com/tokenized/specification/dist/gola"
-  "ng/actionsb\006proto3"
+  "\rPaymailHandle\030\021 \001(\tJ\004\010\020\020\021\"\034\n\010FeeField\022\020"
+  "\n\010Quantity\030\001 \001(\004\"*\n\014ManagerField\022\014\n\004Type"
+  "\030\001 \001(\r\022\014\n\004Name\030\002 \001(\t\"L\n\013OracleField\022\023\n\013O"
+  "racleTypes\030\004 \003(\r\022\026\n\016EntityContract\030\005 \001(\014"
+  "J\004\010\001\020\002J\004\010\002\020\003J\004\010\003\020\004\"5\n\022QuantityIndexField"
+  "\022\r\n\005Index\030\001 \001(\r\022\020\n\010Quantity\030\002 \001(\004\"A\n\031Ref"
+  "erenceTransactionField\022\023\n\013Transaction\030\001 "
+  "\001(\014\022\017\n\007Outputs\030\002 \003(\014\"<\n\014ServiceField\022\014\n\004"
+  "Type\030\001 \001(\r\022\013\n\003URL\030\002 \001(\t\022\021\n\tPublicKey\030\003 \001"
+  "(\014\"7\n\022TargetAddressField\022\017\n\007Address\030\001 \001("
+  "\014\022\020\n\010Quantity\030\002 \001(\004\"\240\001\n\021VotingSystemFiel"
+  "d\022\014\n\004Name\030\001 \001(\t\022\020\n\010VoteType\030\002 \001(\t\022\022\n\nTal"
+  "lyLogic\030\003 \001(\r\022\033\n\023ThresholdPercentage\030\004 \001"
+  "(\r\022\037\n\027VoteMultiplierPermitted\030\005 \001(\010\022\031\n\021H"
+  "olderProposalFee\030\006 \001(\004B8Z6github.com/tok"
+  "enized/specification/dist/golang/actions"
+  "b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_actions_2eproto_deps[1] = {
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_actions_2eproto_sccs[48] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_actions_2eproto_sccs[49] = {
   &scc_info_Addition_actions_2eproto.base,
   &scc_info_AdminIdentityCertificateField_actions_2eproto.base,
   &scc_info_AdministratorField_actions_2eproto.base,
@@ -1787,6 +1821,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_act
   &scc_info_DocumentField_actions_2eproto.base,
   &scc_info_EntityField_actions_2eproto.base,
   &scc_info_Establishment_actions_2eproto.base,
+  &scc_info_FeeField_actions_2eproto.base,
   &scc_info_Freeze_actions_2eproto.base,
   &scc_info_InstrumentCreation_actions_2eproto.base,
   &scc_info_InstrumentDefinition_actions_2eproto.base,
@@ -1816,10 +1851,10 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_act
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_actions_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_actions_2eproto = {
-  false, false, descriptor_table_protodef_actions_2eproto, "actions.proto", 8338,
-  &descriptor_table_actions_2eproto_once, descriptor_table_actions_2eproto_sccs, descriptor_table_actions_2eproto_deps, 48, 0,
+  false, false, descriptor_table_protodef_actions_2eproto, "actions.proto", 8448,
+  &descriptor_table_actions_2eproto_once, descriptor_table_actions_2eproto_sccs, descriptor_table_actions_2eproto_deps, 49, 0,
   schemas, file_default_instances, TableStruct_actions_2eproto::offsets,
-  file_level_metadata_actions_2eproto, 48, file_level_enum_descriptors_actions_2eproto, file_level_service_descriptors_actions_2eproto,
+  file_level_metadata_actions_2eproto, 49, file_level_enum_descriptors_actions_2eproto, file_level_service_descriptors_actions_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -5794,11 +5829,18 @@ void BodyOfAgreementAmendment::InternalSwap(BodyOfAgreementAmendment* other) {
 // ===================================================================
 
 void InstrumentDefinition::InitAsDefaultInstance() {
+  ::actions::_InstrumentDefinition_default_instance_._instance.get_mutable()->transferfee_ = const_cast< ::actions::FeeField*>(
+      ::actions::FeeField::internal_default_instance());
 }
 class InstrumentDefinition::_Internal {
  public:
+  static const ::actions::FeeField& transferfee(const InstrumentDefinition* msg);
 };
 
+const ::actions::FeeField&
+InstrumentDefinition::_Internal::transferfee(const InstrumentDefinition* msg) {
+  return *msg->transferfee_;
+}
 InstrumentDefinition::InstrumentDefinition(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   traderestrictions_(arena) {
@@ -5825,6 +5867,11 @@ InstrumentDefinition::InstrumentDefinition(const InstrumentDefinition& from)
     instrumentpayload_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_instrumentpayload(),
       GetArena());
   }
+  if (from._internal_has_transferfee()) {
+    transferfee_ = new ::actions::FeeField(*from.transferfee_);
+  } else {
+    transferfee_ = nullptr;
+  }
   ::memcpy(&votemultiplier_, &from.votemultiplier_,
     static_cast<size_t>(reinterpret_cast<char*>(&instrumentmodificationgovernance_) -
     reinterpret_cast<char*>(&votemultiplier_)) + sizeof(instrumentmodificationgovernance_));
@@ -5836,9 +5883,9 @@ void InstrumentDefinition::SharedCtor() {
   instrumentpermissions_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   instrumenttype_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   instrumentpayload_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ::memset(&votemultiplier_, 0, static_cast<size_t>(
+  ::memset(&transferfee_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&instrumentmodificationgovernance_) -
-      reinterpret_cast<char*>(&votemultiplier_)) + sizeof(instrumentmodificationgovernance_));
+      reinterpret_cast<char*>(&transferfee_)) + sizeof(instrumentmodificationgovernance_));
 }
 
 InstrumentDefinition::~InstrumentDefinition() {
@@ -5852,6 +5899,7 @@ void InstrumentDefinition::SharedDtor() {
   instrumentpermissions_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   instrumenttype_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   instrumentpayload_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete transferfee_;
 }
 
 void InstrumentDefinition::ArenaDtor(void* object) {
@@ -5879,6 +5927,10 @@ void InstrumentDefinition::Clear() {
   instrumentpermissions_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   instrumenttype_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   instrumentpayload_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  if (GetArena() == nullptr && transferfee_ != nullptr) {
+    delete transferfee_;
+  }
+  transferfee_ = nullptr;
   ::memset(&votemultiplier_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&instrumentmodificationgovernance_) -
       reinterpret_cast<char*>(&votemultiplier_)) + sizeof(instrumentmodificationgovernance_));
@@ -5979,6 +6031,13 @@ const char* InstrumentDefinition::_InternalParse(const char* ptr, ::PROTOBUF_NAM
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<106>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // .actions.FeeField TransferFee = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 114)) {
+          ptr = ctx->ParseMessage(_internal_mutable_transferfee(), ptr);
+          CHK_(ptr);
         } else goto handle_unusual;
         continue;
       default: {
@@ -6083,6 +6142,14 @@ failure:
     target = stream->WriteString(13, s, target);
   }
 
+  // .actions.FeeField TransferFee = 14;
+  if (this->has_transferfee()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        14, _Internal::transferfee(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -6126,6 +6193,13 @@ size_t InstrumentDefinition::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_instrumentpayload());
+  }
+
+  // .actions.FeeField TransferFee = 14;
+  if (this->has_transferfee()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *transferfee_);
   }
 
   // uint32 VoteMultiplier = 6;
@@ -6210,6 +6284,9 @@ void InstrumentDefinition::MergeFrom(const InstrumentDefinition& from) {
   if (from.instrumentpayload().size() > 0) {
     _internal_set_instrumentpayload(from._internal_instrumentpayload());
   }
+  if (from.has_transferfee()) {
+    _internal_mutable_transferfee()->::actions::FeeField::MergeFrom(from._internal_transferfee());
+  }
   if (from.votemultiplier() != 0) {
     _internal_set_votemultiplier(from._internal_votemultiplier());
   }
@@ -6261,9 +6338,9 @@ void InstrumentDefinition::InternalSwap(InstrumentDefinition* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(InstrumentDefinition, instrumentmodificationgovernance_)
       + sizeof(InstrumentDefinition::instrumentmodificationgovernance_)
-      - PROTOBUF_FIELD_OFFSET(InstrumentDefinition, votemultiplier_)>(
-          reinterpret_cast<char*>(&votemultiplier_),
-          reinterpret_cast<char*>(&other->votemultiplier_));
+      - PROTOBUF_FIELD_OFFSET(InstrumentDefinition, transferfee_)>(
+          reinterpret_cast<char*>(&transferfee_),
+          reinterpret_cast<char*>(&other->transferfee_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata InstrumentDefinition::GetMetadata() const {
@@ -6274,11 +6351,18 @@ void InstrumentDefinition::InternalSwap(InstrumentDefinition* other) {
 // ===================================================================
 
 void InstrumentCreation::InitAsDefaultInstance() {
+  ::actions::_InstrumentCreation_default_instance_._instance.get_mutable()->transferfee_ = const_cast< ::actions::FeeField*>(
+      ::actions::FeeField::internal_default_instance());
 }
 class InstrumentCreation::_Internal {
  public:
+  static const ::actions::FeeField& transferfee(const InstrumentCreation* msg);
 };
 
+const ::actions::FeeField&
+InstrumentCreation::_Internal::transferfee(const InstrumentCreation* msg) {
+  return *msg->transferfee_;
+}
 InstrumentCreation::InstrumentCreation(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena),
   traderestrictions_(arena) {
@@ -6310,6 +6394,11 @@ InstrumentCreation::InstrumentCreation(const InstrumentCreation& from)
     instrumentpayload_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_instrumentpayload(),
       GetArena());
   }
+  if (from._internal_has_transferfee()) {
+    transferfee_ = new ::actions::FeeField(*from.transferfee_);
+  } else {
+    transferfee_ = nullptr;
+  }
   ::memcpy(&instrumentindex_, &from.instrumentindex_,
     static_cast<size_t>(reinterpret_cast<char*>(&timestamp_) -
     reinterpret_cast<char*>(&instrumentindex_)) + sizeof(timestamp_));
@@ -6322,9 +6411,9 @@ void InstrumentCreation::SharedCtor() {
   instrumentpermissions_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   instrumenttype_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   instrumentpayload_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ::memset(&instrumentindex_, 0, static_cast<size_t>(
+  ::memset(&transferfee_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&timestamp_) -
-      reinterpret_cast<char*>(&instrumentindex_)) + sizeof(timestamp_));
+      reinterpret_cast<char*>(&transferfee_)) + sizeof(timestamp_));
 }
 
 InstrumentCreation::~InstrumentCreation() {
@@ -6339,6 +6428,7 @@ void InstrumentCreation::SharedDtor() {
   instrumentpermissions_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   instrumenttype_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   instrumentpayload_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete transferfee_;
 }
 
 void InstrumentCreation::ArenaDtor(void* object) {
@@ -6367,6 +6457,10 @@ void InstrumentCreation::Clear() {
   instrumentpermissions_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   instrumenttype_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   instrumentpayload_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  if (GetArena() == nullptr && transferfee_ != nullptr) {
+    delete transferfee_;
+  }
+  transferfee_ = nullptr;
   ::memset(&instrumentindex_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&timestamp_) -
       reinterpret_cast<char*>(&instrumentindex_)) + sizeof(timestamp_));
@@ -6498,6 +6592,13 @@ const char* InstrumentCreation::_InternalParse(const char* ptr, ::PROTOBUF_NAMES
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<138>(ptr));
         } else goto handle_unusual;
         continue;
+      // .actions.FeeField TransferFee = 18;
+      case 18:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 146)) {
+          ptr = ctx->ParseMessage(_internal_mutable_transferfee(), ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
       default: {
       handle_unusual:
         if ((tag & 7) == 4 || tag == 0) {
@@ -6624,6 +6725,14 @@ failure:
     target = stream->WriteString(17, s, target);
   }
 
+  // .actions.FeeField TransferFee = 18;
+  if (this->has_transferfee()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        18, _Internal::transferfee(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -6674,6 +6783,13 @@ size_t InstrumentCreation::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_instrumentpayload());
+  }
+
+  // .actions.FeeField TransferFee = 18;
+  if (this->has_transferfee()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *transferfee_);
   }
 
   // uint64 InstrumentIndex = 2;
@@ -6782,6 +6898,9 @@ void InstrumentCreation::MergeFrom(const InstrumentCreation& from) {
   if (from.instrumentpayload().size() > 0) {
     _internal_set_instrumentpayload(from._internal_instrumentpayload());
   }
+  if (from.has_transferfee()) {
+    _internal_mutable_transferfee()->::actions::FeeField::MergeFrom(from._internal_transferfee());
+  }
   if (from.instrumentindex() != 0) {
     _internal_set_instrumentindex(from._internal_instrumentindex());
   }
@@ -6843,9 +6962,9 @@ void InstrumentCreation::InternalSwap(InstrumentCreation* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(InstrumentCreation, timestamp_)
       + sizeof(InstrumentCreation::timestamp_)
-      - PROTOBUF_FIELD_OFFSET(InstrumentCreation, instrumentindex_)>(
-          reinterpret_cast<char*>(&instrumentindex_),
-          reinterpret_cast<char*>(&other->instrumentindex_));
+      - PROTOBUF_FIELD_OFFSET(InstrumentCreation, transferfee_)>(
+          reinterpret_cast<char*>(&transferfee_),
+          reinterpret_cast<char*>(&other->transferfee_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata InstrumentCreation::GetMetadata() const {
@@ -16735,6 +16854,203 @@ void EntityField::InternalSwap(EntityField* other) {
 
 // ===================================================================
 
+void FeeField::InitAsDefaultInstance() {
+}
+class FeeField::_Internal {
+ public:
+};
+
+FeeField::FeeField(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
+  SharedCtor();
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:actions.FeeField)
+}
+FeeField::FeeField(const FeeField& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  quantity_ = from.quantity_;
+  // @@protoc_insertion_point(copy_constructor:actions.FeeField)
+}
+
+void FeeField::SharedCtor() {
+  quantity_ = PROTOBUF_ULONGLONG(0);
+}
+
+FeeField::~FeeField() {
+  // @@protoc_insertion_point(destructor:actions.FeeField)
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+void FeeField::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+}
+
+void FeeField::ArenaDtor(void* object) {
+  FeeField* _this = reinterpret_cast< FeeField* >(object);
+  (void)_this;
+}
+void FeeField::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void FeeField::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const FeeField& FeeField::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_FeeField_actions_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void FeeField::Clear() {
+// @@protoc_insertion_point(message_clear_start:actions.FeeField)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  quantity_ = PROTOBUF_ULONGLONG(0);
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* FeeField::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // uint64 Quantity = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          quantity_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* FeeField::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:actions.FeeField)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // uint64 Quantity = 1;
+  if (this->quantity() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_quantity(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:actions.FeeField)
+  return target;
+}
+
+size_t FeeField::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:actions.FeeField)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // uint64 Quantity = 1;
+  if (this->quantity() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64Size(
+        this->_internal_quantity());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void FeeField::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:actions.FeeField)
+  GOOGLE_DCHECK_NE(&from, this);
+  const FeeField* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<FeeField>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:actions.FeeField)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:actions.FeeField)
+    MergeFrom(*source);
+  }
+}
+
+void FeeField::MergeFrom(const FeeField& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:actions.FeeField)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.quantity() != 0) {
+    _internal_set_quantity(from._internal_quantity());
+  }
+}
+
+void FeeField::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:actions.FeeField)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void FeeField::CopyFrom(const FeeField& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:actions.FeeField)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FeeField::IsInitialized() const {
+  return true;
+}
+
+void FeeField::InternalSwap(FeeField* other) {
+  using std::swap;
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  swap(quantity_, other->quantity_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata FeeField::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
 void ManagerField::InitAsDefaultInstance() {
 }
 class ManagerField::_Internal {
@@ -18656,6 +18972,9 @@ template<> PROTOBUF_NOINLINE ::actions::DocumentField* Arena::CreateMaybeMessage
 }
 template<> PROTOBUF_NOINLINE ::actions::EntityField* Arena::CreateMaybeMessage< ::actions::EntityField >(Arena* arena) {
   return Arena::CreateMessageInternal< ::actions::EntityField >(arena);
+}
+template<> PROTOBUF_NOINLINE ::actions::FeeField* Arena::CreateMaybeMessage< ::actions::FeeField >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::actions::FeeField >(arena);
 }
 template<> PROTOBUF_NOINLINE ::actions::ManagerField* Arena::CreateMaybeMessage< ::actions::ManagerField >(Arena* arena) {
   return Arena::CreateMessageInternal< ::actions::ManagerField >(arena);

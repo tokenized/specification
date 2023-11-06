@@ -562,5 +562,6 @@ func (a *InstrumentDefinition) Creation() (*InstrumentCreation, error) {
 		InstrumentType:                   a.InstrumentType,
 		InstrumentPayload:                a.InstrumentPayload,
 		TradeRestrictions:                a.TradeRestrictions,
+		TransferFee:                      a.TransferFee,
 	}, nil
 }

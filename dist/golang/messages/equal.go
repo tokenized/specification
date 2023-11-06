@@ -238,6 +238,16 @@ func (l *SettlementRequest) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Settlement bytes mismatched")
 	}
 
+	// Field TransferFees - TargetAddress
+	if len(c.TransferFees) != len(r.TransferFees) {
+		return false // fmt.Errorf("List length mismatched")
+	}
+	for i, v := range c.TransferFees {
+		if !v.Equal(r.TransferFees[i]) {
+			return false // fmt.Errorf("TransferFees[%d] : %s", i, err)
+		}
+	}
+
 	return true
 }
 

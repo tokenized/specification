@@ -46,6 +46,7 @@ message SettlementRequest {
     bytes TransferTxId                             = 2;   // TxId
     repeated TargetAddressField ContractFees       = 3;   // TargetAddress[]
     bytes Settlement                               = 4;   // varbin
+    repeated TargetAddressField TransferFees       = 5;   // TargetAddress[]
 }
 
 // Message - Output Metadata (1004)

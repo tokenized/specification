@@ -544,6 +544,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_messages_2eproto::offsets[] PR
   PROTOBUF_FIELD_OFFSET(::messages::SettlementRequest, transfertxid_),
   PROTOBUF_FIELD_OFFSET(::messages::SettlementRequest, contractfees_),
   PROTOBUF_FIELD_OFFSET(::messages::SettlementRequest, settlement_),
+  PROTOBUF_FIELD_OFFSET(::messages::SettlementRequest, transferfees_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::messages::OutputMetadata, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -712,25 +713,25 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 27, -1, sizeof(::messages::Offer)},
   { 34, -1, sizeof(::messages::SignatureRequest)},
   { 41, -1, sizeof(::messages::SettlementRequest)},
-  { 50, -1, sizeof(::messages::OutputMetadata)},
-  { 58, -1, sizeof(::messages::Distribution)},
-  { 65, -1, sizeof(::messages::InitiateRelationship)},
-  { 77, -1, sizeof(::messages::PendingAcceptRelationship)},
-  { 84, -1, sizeof(::messages::AcceptRelationship)},
-  { 91, -1, sizeof(::messages::RelationshipAmendment)},
-  { 100, -1, sizeof(::messages::InitiateThread)},
-  { 107, -1, sizeof(::messages::AdministratorField)},
-  { 114, -1, sizeof(::messages::ChannelPartyField)},
-  { 121, -1, sizeof(::messages::DocumentField)},
-  { 129, -1, sizeof(::messages::EntityField)},
-  { 150, -1, sizeof(::messages::IdentityOracleProofField)},
-  { 158, -1, sizeof(::messages::ManagerField)},
-  { 165, -1, sizeof(::messages::OracleSignatureField)},
-  { 175, -1, sizeof(::messages::OutpointField)},
-  { 182, -1, sizeof(::messages::OutputTagField)},
-  { 188, -1, sizeof(::messages::PaymailProofField)},
-  { 196, -1, sizeof(::messages::PeriodField)},
-  { 203, -1, sizeof(::messages::TargetAddressField)},
+  { 51, -1, sizeof(::messages::OutputMetadata)},
+  { 59, -1, sizeof(::messages::Distribution)},
+  { 66, -1, sizeof(::messages::InitiateRelationship)},
+  { 78, -1, sizeof(::messages::PendingAcceptRelationship)},
+  { 85, -1, sizeof(::messages::AcceptRelationship)},
+  { 92, -1, sizeof(::messages::RelationshipAmendment)},
+  { 101, -1, sizeof(::messages::InitiateThread)},
+  { 108, -1, sizeof(::messages::AdministratorField)},
+  { 115, -1, sizeof(::messages::ChannelPartyField)},
+  { 122, -1, sizeof(::messages::DocumentField)},
+  { 130, -1, sizeof(::messages::EntityField)},
+  { 151, -1, sizeof(::messages::IdentityOracleProofField)},
+  { 159, -1, sizeof(::messages::ManagerField)},
+  { 166, -1, sizeof(::messages::OracleSignatureField)},
+  { 176, -1, sizeof(::messages::OutpointField)},
+  { 183, -1, sizeof(::messages::OutputTagField)},
+  { 189, -1, sizeof(::messages::PaymailProofField)},
+  { 197, -1, sizeof(::messages::PeriodField)},
+  { 204, -1, sizeof(::messages::TargetAddressField)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -776,60 +777,61 @@ const char descriptor_table_protodef_messages_2eproto[] PROTOBUF_SECTION_VARIABL
   "\001 \001(\004\022\023\n\013Transaction\030\002 \001(\014\"+\n\005Offer\022\021\n\tT"
   "imestamp\030\001 \001(\004\022\017\n\007Payload\030\002 \001(\014\"6\n\020Signa"
   "tureRequest\022\021\n\tTimestamp\030\001 \001(\004\022\017\n\007Payloa"
-  "d\030\002 \001(\014\"\204\001\n\021SettlementRequest\022\021\n\tTimesta"
+  "d\030\002 \001(\014\"\270\001\n\021SettlementRequest\022\021\n\tTimesta"
   "mp\030\001 \001(\004\022\024\n\014TransferTxId\030\002 \001(\014\0222\n\014Contra"
   "ctFees\030\003 \003(\0132\034.messages.TargetAddressFie"
-  "ld\022\022\n\nSettlement\030\004 \001(\014\"g\n\016OutputMetadata"
-  "\022\031\n\021OutputDescription\030\001 \001(\t\022\014\n\004Tags\030\002 \003("
-  "\r\022,\n\nCustomTags\030\003 \003(\0132\030.messages.OutputT"
-  "agField\"9\n\014Distribution\022\026\n\016InstrumentCod"
-  "e\030\001 \001(\014\022\021\n\tTimestamp\030\002 \001(\004\"\303\001\n\024InitiateR"
-  "elationship\022\014\n\004Type\030\001 \001(\r\022\014\n\004Seed\030\002 \001(\014\022"
-  "\014\n\004Flag\030\003 \001(\014\022\026\n\016EncryptionType\030\004 \001(\r\022\033\n"
-  "\023ProofOfIdentityType\030\005 \001(\r\022\027\n\017ProofOfIde"
-  "ntity\030\006 \001(\014\0223\n\016ChannelParties\030\007 \003(\0132\033.me"
-  "ssages.ChannelPartyField\"Q\n\031PendingAccep"
-  "tRelationship\022\033\n\023ProofOfIdentityType\030\001 \001"
-  "(\r\022\027\n\017ProofOfIdentity\030\002 \001(\014\"J\n\022AcceptRel"
-  "ationship\022\033\n\023ProofOfIdentityType\030\001 \001(\r\022\027"
-  "\n\017ProofOfIdentity\030\002 \001(\014\"x\n\025RelationshipA"
-  "mendment\022\014\n\004Seed\030\001 \001(\014\022\034\n\024BaseEncryption"
-  "Secret\030\002 \001(\014\022\030\n\020AddMemberIndexes\030\003 \001(\r\022\031"
-  "\n\021DropMemberIndexes\030\004 \001(\r\",\n\016InitiateThr"
-  "ead\022\014\n\004Flag\030\001 \001(\014\022\014\n\004Seed\030\002 \001(\014\"0\n\022Admin"
-  "istratorField\022\014\n\004Type\030\001 \001(\r\022\014\n\004Name\030\002 \001("
-  "\t\"G\n\021ChannelPartyField\022\035\n\025Administrative"
-  "Address\030\001 \001(\014\022\023\n\013OutputIndex\030\002 \001(\r\"=\n\rDo"
-  "cumentField\022\014\n\004Name\030\001 \001(\t\022\014\n\004Type\030\002 \001(\t\022"
-  "\020\n\010Contents\030\003 \001(\014\"\224\003\n\013EntityField\022\014\n\004Nam"
-  "e\030\001 \001(\t\022\014\n\004Type\030\002 \001(\t\022\013\n\003LEI\030\003 \001(\t\022\022\n\nUn"
-  "itNumber\030\004 \001(\t\022\026\n\016BuildingNumber\030\005 \001(\t\022\016"
-  "\n\006Street\030\006 \001(\t\022\022\n\nSuburbCity\030\007 \001(\t\022\"\n\032Te"
-  "rritoryStateProvinceCode\030\010 \001(\t\022\023\n\013Countr"
-  "yCode\030\t \001(\t\022\025\n\rPostalZIPCode\030\n \001(\t\022\024\n\014Em"
-  "ailAddress\030\013 \001(\t\022\023\n\013PhoneNumber\030\014 \001(\t\0224\n"
-  "\016Administration\030\r \003(\0132\034.messages.Adminis"
-  "tratorField\022*\n\nManagement\030\016 \003(\0132\026.messag"
-  "es.ManagerField\022\022\n\nDomainName\030\017 \001(\t\022\025\n\rP"
-  "aymailHandle\030\021 \001(\tJ\004\010\020\020\021\"\212\001\n\030IdentityOra"
-  "cleProofField\022\016\n\006UserID\030\001 \001(\014\022%\n\006Entity\030"
-  "\002 \001(\0132\025.messages.EntityField\0227\n\017OracleSi"
-  "gnature\030\003 \001(\0132\036.messages.OracleSignature"
-  "Field\"*\n\014ManagerField\022\014\n\004Type\030\001 \001(\r\022\014\n\004N"
-  "ame\030\002 \001(\t\"\234\001\n\024OracleSignatureField\022\021\n\tOr"
-  "acleURL\030\001 \001(\t\022\023\n\013BlockHeight\030\002 \001(\r\022-\n\016Va"
-  "lidityPeriod\030\003 \001(\0132\025.messages.PeriodFiel"
-  "d\022\032\n\022SignatureAlgorithm\030\004 \001(\r\022\021\n\tSignatu"
-  "re\030\005 \001(\014\"2\n\rOutpointField\022\014\n\004TxId\030\001 \001(\014\022"
-  "\023\n\013OutputIndex\030\002 \001(\r\"\035\n\016OutputTagField\022\013"
-  "\n\003Tag\030\001 \001(\t\"l\n\021PaymailProofField\022\016\n\006User"
-  "ID\030\001 \001(\014\022\016\n\006Handle\030\002 \001(\t\0227\n\017OracleSignat"
-  "ure\030\003 \001(\0132\036.messages.OracleSignatureFiel"
-  "d\")\n\013PeriodField\022\r\n\005Begin\030\001 \001(\004\022\013\n\003End\030\002"
-  " \001(\004\"7\n\022TargetAddressField\022\017\n\007Address\030\001 "
-  "\001(\014\022\020\n\010Quantity\030\002 \001(\004B9Z7github.com/toke"
-  "nized/specification/dist/golang/messages"
-  "b\006proto3"
+  "ld\022\022\n\nSettlement\030\004 \001(\014\0222\n\014TransferFees\030\005"
+  " \003(\0132\034.messages.TargetAddressField\"g\n\016Ou"
+  "tputMetadata\022\031\n\021OutputDescription\030\001 \001(\t\022"
+  "\014\n\004Tags\030\002 \003(\r\022,\n\nCustomTags\030\003 \003(\0132\030.mess"
+  "ages.OutputTagField\"9\n\014Distribution\022\026\n\016I"
+  "nstrumentCode\030\001 \001(\014\022\021\n\tTimestamp\030\002 \001(\004\"\303"
+  "\001\n\024InitiateRelationship\022\014\n\004Type\030\001 \001(\r\022\014\n"
+  "\004Seed\030\002 \001(\014\022\014\n\004Flag\030\003 \001(\014\022\026\n\016EncryptionT"
+  "ype\030\004 \001(\r\022\033\n\023ProofOfIdentityType\030\005 \001(\r\022\027"
+  "\n\017ProofOfIdentity\030\006 \001(\014\0223\n\016ChannelPartie"
+  "s\030\007 \003(\0132\033.messages.ChannelPartyField\"Q\n\031"
+  "PendingAcceptRelationship\022\033\n\023ProofOfIden"
+  "tityType\030\001 \001(\r\022\027\n\017ProofOfIdentity\030\002 \001(\014\""
+  "J\n\022AcceptRelationship\022\033\n\023ProofOfIdentity"
+  "Type\030\001 \001(\r\022\027\n\017ProofOfIdentity\030\002 \001(\014\"x\n\025R"
+  "elationshipAmendment\022\014\n\004Seed\030\001 \001(\014\022\034\n\024Ba"
+  "seEncryptionSecret\030\002 \001(\014\022\030\n\020AddMemberInd"
+  "exes\030\003 \001(\r\022\031\n\021DropMemberIndexes\030\004 \001(\r\",\n"
+  "\016InitiateThread\022\014\n\004Flag\030\001 \001(\014\022\014\n\004Seed\030\002 "
+  "\001(\014\"0\n\022AdministratorField\022\014\n\004Type\030\001 \001(\r\022"
+  "\014\n\004Name\030\002 \001(\t\"G\n\021ChannelPartyField\022\035\n\025Ad"
+  "ministrativeAddress\030\001 \001(\014\022\023\n\013OutputIndex"
+  "\030\002 \001(\r\"=\n\rDocumentField\022\014\n\004Name\030\001 \001(\t\022\014\n"
+  "\004Type\030\002 \001(\t\022\020\n\010Contents\030\003 \001(\014\"\224\003\n\013Entity"
+  "Field\022\014\n\004Name\030\001 \001(\t\022\014\n\004Type\030\002 \001(\t\022\013\n\003LEI"
+  "\030\003 \001(\t\022\022\n\nUnitNumber\030\004 \001(\t\022\026\n\016BuildingNu"
+  "mber\030\005 \001(\t\022\016\n\006Street\030\006 \001(\t\022\022\n\nSuburbCity"
+  "\030\007 \001(\t\022\"\n\032TerritoryStateProvinceCode\030\010 \001"
+  "(\t\022\023\n\013CountryCode\030\t \001(\t\022\025\n\rPostalZIPCode"
+  "\030\n \001(\t\022\024\n\014EmailAddress\030\013 \001(\t\022\023\n\013PhoneNum"
+  "ber\030\014 \001(\t\0224\n\016Administration\030\r \003(\0132\034.mess"
+  "ages.AdministratorField\022*\n\nManagement\030\016 "
+  "\003(\0132\026.messages.ManagerField\022\022\n\nDomainNam"
+  "e\030\017 \001(\t\022\025\n\rPaymailHandle\030\021 \001(\tJ\004\010\020\020\021\"\212\001\n"
+  "\030IdentityOracleProofField\022\016\n\006UserID\030\001 \001("
+  "\014\022%\n\006Entity\030\002 \001(\0132\025.messages.EntityField"
+  "\0227\n\017OracleSignature\030\003 \001(\0132\036.messages.Ora"
+  "cleSignatureField\"*\n\014ManagerField\022\014\n\004Typ"
+  "e\030\001 \001(\r\022\014\n\004Name\030\002 \001(\t\"\234\001\n\024OracleSignatur"
+  "eField\022\021\n\tOracleURL\030\001 \001(\t\022\023\n\013BlockHeight"
+  "\030\002 \001(\r\022-\n\016ValidityPeriod\030\003 \001(\0132\025.message"
+  "s.PeriodField\022\032\n\022SignatureAlgorithm\030\004 \001("
+  "\r\022\021\n\tSignature\030\005 \001(\014\"2\n\rOutpointField\022\014\n"
+  "\004TxId\030\001 \001(\014\022\023\n\013OutputIndex\030\002 \001(\r\"\035\n\016Outp"
+  "utTagField\022\013\n\003Tag\030\001 \001(\t\"l\n\021PaymailProofF"
+  "ield\022\016\n\006UserID\030\001 \001(\014\022\016\n\006Handle\030\002 \001(\t\0227\n\017"
+  "OracleSignature\030\003 \001(\0132\036.messages.OracleS"
+  "ignatureField\")\n\013PeriodField\022\r\n\005Begin\030\001 "
+  "\001(\004\022\013\n\003End\030\002 \001(\004\"7\n\022TargetAddressField\022\017"
+  "\n\007Address\030\001 \001(\014\022\020\n\010Quantity\030\002 \001(\004B9Z7git"
+  "hub.com/tokenized/specification/dist/gol"
+  "ang/messagesb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_messages_2eproto_deps[1] = {
 };
@@ -862,7 +864,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_mes
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_messages_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_messages_2eproto = {
-  false, false, descriptor_table_protodef_messages_2eproto, "messages.proto", 2688,
+  false, false, descriptor_table_protodef_messages_2eproto, "messages.proto", 2740,
   &descriptor_table_messages_2eproto_once, descriptor_table_messages_2eproto_sccs, descriptor_table_messages_2eproto_deps, 25, 0,
   schemas, file_default_instances, TableStruct_messages_2eproto::offsets,
   file_level_metadata_messages_2eproto, 25, file_level_enum_descriptors_messages_2eproto, file_level_service_descriptors_messages_2eproto,
@@ -2293,14 +2295,16 @@ class SettlementRequest::_Internal {
 
 SettlementRequest::SettlementRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena),
-  contractfees_(arena) {
+  contractfees_(arena),
+  transferfees_(arena) {
   SharedCtor();
   RegisterArenaDtor(arena);
   // @@protoc_insertion_point(arena_constructor:messages.SettlementRequest)
 }
 SettlementRequest::SettlementRequest(const SettlementRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      contractfees_(from.contractfees_) {
+      contractfees_(from.contractfees_),
+      transferfees_(from.transferfees_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   transfertxid_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_transfertxid().empty()) {
@@ -2357,6 +2361,7 @@ void SettlementRequest::Clear() {
   (void) cached_has_bits;
 
   contractfees_.Clear();
+  transferfees_.Clear();
   transfertxid_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   settlement_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   timestamp_ = PROTOBUF_ULONGLONG(0);
@@ -2404,6 +2409,18 @@ const char* SettlementRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
           auto str = _internal_mutable_settlement();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // repeated .messages.TargetAddressField TransferFees = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_transferfees(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -2460,6 +2477,14 @@ failure:
         4, this->_internal_settlement(), target);
   }
 
+  // repeated .messages.TargetAddressField TransferFees = 5;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_transferfees_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(5, this->_internal_transferfees(i), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2479,6 +2504,13 @@ size_t SettlementRequest::ByteSizeLong() const {
   // repeated .messages.TargetAddressField ContractFees = 3;
   total_size += 1UL * this->_internal_contractfees_size();
   for (const auto& msg : this->contractfees_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated .messages.TargetAddressField TransferFees = 5;
+  total_size += 1UL * this->_internal_transferfees_size();
+  for (const auto& msg : this->transferfees_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -2536,6 +2568,7 @@ void SettlementRequest::MergeFrom(const SettlementRequest& from) {
   (void) cached_has_bits;
 
   contractfees_.MergeFrom(from.contractfees_);
+  transferfees_.MergeFrom(from.transferfees_);
   if (from.transfertxid().size() > 0) {
     _internal_set_transfertxid(from._internal_transfertxid());
   }
@@ -2569,6 +2602,7 @@ void SettlementRequest::InternalSwap(SettlementRequest* other) {
   using std::swap;
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   contractfees_.InternalSwap(&other->contractfees_);
+  transferfees_.InternalSwap(&other->transferfees_);
   transfertxid_.Swap(&other->transfertxid_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   settlement_.Swap(&other->settlement_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   swap(timestamp_, other->timestamp_);

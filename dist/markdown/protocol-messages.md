@@ -357,6 +357,16 @@ A message that contains a multi-contract settlement that needs settlement data a
                 
             </td>
         </tr>
+        <tr>
+            <td>TransferFees</td>
+            <td>
+                <a href="#type-target-address">TargetAddress[0]</a>
+            </td>
+            <td>
+                Transfer fees (in bitcoin) and addresses(PKHs) where fees should be paid. Added by each contract as settlement data is added.
+                
+            </td>
+        </tr>
 </table>
 
 
