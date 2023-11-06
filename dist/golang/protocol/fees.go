@@ -26,6 +26,12 @@ var (
 	SamplePeerChannelSize = 125
 )
 
+// OutputDetails is used to estimate the size of outputs like fee outputs for contract responses.
+type OutputDetails struct {
+	Value             uint64
+	LockingScriptSize int
+}
+
 // EstimatedContractOfferResponseTxFee estimates the satoshi amount to add to the contract fee in
 // the contract output of a contract offer transaction.
 // inputLockingScripts are needed to calculate the admin and operator admin fields of the contract
@@ -993,19 +999,33 @@ func EstimatedInstrumentModificationResponse(amendTx *wire.MsgTx, ac *actions.In
 	return size, value, nil
 }
 
+// EstimatedTransferResponse calls EstimatedTransferResponseFull with the assumption that all the
+// contract fees are paid to p2pkh locking scripts.
+func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitcoin.Script,
+	feeRate, dustFeeRate float32, contractFees []uint64,
+	isTest bool) ([]uint64, uint64, error) {
+
+	fullContractFees := make([]OutputDetails, len(contractFees))
+	for i, contractFee := range contractFees {
+		fullContractFees[i] = OutputDetails{
+			Value:             contractFee,
+			LockingScriptSize: txbuilder.P2PKHOutputScriptSize,
+		}
+	}
+
+	return EstimatedTransferResponseFull(requestTx, inputLockingScripts, feeRate, dustFeeRate,
+		fullContractFees, isTest)
+}
+
 // EstimatedTransferResponse calculates information about the contract's response to a transfer
 // request.
-// fees is a list of the contract fee for the contract corresponding to each contract. The list
-// lines up with the "Instruments" list in the transfer.
-// dustLimit is the smallest amount of satoshis to make an output valid.
-// feeRate is in satoshis per byte.
-// WARNING: This function is inaccurate and incomplete!
+//
 // Returns
 //
 //	estimated funding per "Instrument" object in transfer, including contract fees.
-//	boomerang funding. needs to be added to a second output to the first contract address.
-//	  if zero then only one contract is involved and no second output is needed.
-//	error if there were any
+//	boomerang funding. needs to be added to a second output to the first contract address. If zero
+//		then only one contract is involved and no second output is needed.
+//	error if there was any
 //
 // First contract is master contract. If other contracts are involved it initializes and sends
 // settlement request to next contract. Then after each contract has completed the settlement
@@ -1018,8 +1038,9 @@ func EstimatedInstrumentModificationResponse(amendTx *wire.MsgTx, ac *actions.In
 // All other contract outputs can be dust.
 // Attempts to use the maximum possible size of each element so the returned values are an
 // overestimation, ensuring that a transfer funded in this manner can complete successfully.
-func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitcoin.Script,
-	feeRate, dustFeeRate float32, contractFees []uint64, isTest bool) ([]uint64, uint64, error) {
+func EstimatedTransferResponseFull(requestTx *wire.MsgTx, inputLockingScripts []bitcoin.Script,
+	feeRate, dustFeeRate float32, contractFees []OutputDetails,
+	isTest bool) ([]uint64, uint64, error) {
 
 	// Find Tokenized Transfer
 	var err error
@@ -1185,9 +1206,8 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 		}
 
 		// An output for each contract's fee address, if they have a contract fee.
-		if contractFees[i] > 0 {
-			// TODO use contract's actual fee address --ce
-			txSizeOutputs += txbuilder.P2PKHOutputSize
+		if contractFees[i].Value > 0 {
+			txSizeOutputs += fees.OutputSizeForLockingScriptSize(contractFees[i].LockingScriptSize)
 			outputCount++
 		}
 	}
@@ -1204,7 +1224,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 	// Sum funding for each contract's output.
 	funding := make([]uint64, len(request.Instruments))
 	for i := range funding {
-		funding[i] = contractFees[i] + fundingForTokens[i]
+		funding[i] = contractFees[i].Value + fundingForTokens[i]
 	}
 	funding[masterContractIndex] += uint64(settlementTxFee)
 
@@ -1229,7 +1249,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 			requestContractFees = append(requestContractFees,
 				&messages.TargetAddressField{
 					Address:  make([]byte, 22),
-					Quantity: contractFees[i],
+					Quantity: contractFees[i].Value,
 				})
 
 			previousSettlementData = accumulatedSettlementData[i]
@@ -1344,7 +1364,7 @@ func EstimatedTransferResponse(requestTx *wire.MsgTx, inputLockingScripts []bitc
 		requestContractFees = append(requestContractFees,
 			&messages.TargetAddressField{
 				Address:  make([]byte, 22),
-				Quantity: contractFees[i],
+				Quantity: contractFees[i].Value,
 			})
 
 		previousLockingScript := requestTx.TxOut[instrument.ContractIndex].LockingScript
