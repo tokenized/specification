@@ -825,6 +825,7 @@ Code/Text combinations returned in rejection messages when a request is not acce
 - DoubleSpend
 - Deprecated
 - Inactive
+- NotConfigured
 - ContractExists
 - ContractDoesNotExist
 - ContractInstrumentQtyReduction

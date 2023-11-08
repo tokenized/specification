@@ -9172,6 +9172,12 @@
           "name": "Inactive"
         },
         {
+          "code": 8,
+          "description": "The smart contract agent is missing necessary configuration information.",
+          "label": "Not Configured",
+          "name": "NotConfigured"
+        },
+        {
           "code": 10,
           "description": "The contract already exists and can't be recreated.",
           "label": "Contract Already Exists",

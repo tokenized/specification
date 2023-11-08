@@ -47,6 +47,11 @@ values:
     label: Inactive
     description: The smart contract agent is inactive due to non payment or other reason.
 
+  - code: 8
+    name: NotConfigured
+    label: Not Configured
+    description: The smart contract agent is missing necessary configuration information.
+
 #################################### Contract ####################################
 
   - code: 10

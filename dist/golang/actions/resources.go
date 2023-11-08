@@ -11161,6 +11161,9 @@ const (
 	// Inactive - The smart contract agent is inactive due to non payment or other reason.
 	RejectionsInactive = 7
 
+	// NotConfigured - The smart contract agent is missing necessary configuration information.
+	RejectionsNotConfigured = 8
+
 	// ContractExists - The contract already exists and can't be recreated.
 	RejectionsContractExists = 10
 
@@ -11345,6 +11348,14 @@ func RejectionsData(code uint32) *RejectionsCode {
 			Name:        "Inactive",
 			Label:       "Inactive",
 			Description: "The smart contract agent is inactive due to non payment or other reason.",
+			MetaData:    `{}`,
+		}
+
+	case RejectionsNotConfigured:
+		return &RejectionsCode{
+			Name:        "NotConfigured",
+			Label:       "Not Configured",
+			Description: "The smart contract agent is missing necessary configuration information.",
 			MetaData:    `{}`,
 		}
 
@@ -11705,6 +11716,13 @@ func RejectionsMap() map[uint32]*RejectionsCode {
 			Name:        "Inactive",
 			Label:       "Inactive",
 			Description: "The smart contract agent is inactive due to non payment or other reason.",
+			MetaData:    `{}`,
+		},
+
+		RejectionsNotConfigured: &RejectionsCode{
+			Name:        "NotConfigured",
+			Label:       "Not Configured",
+			Description: "The smart contract agent is missing necessary configuration information.",
 			MetaData:    `{}`,
 		},
 
