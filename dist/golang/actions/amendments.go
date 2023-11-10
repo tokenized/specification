@@ -2478,6 +2478,7 @@ const (
 	InstrumentTransferFieldInstrumentCode      = uint32(3)
 	InstrumentTransferFieldInstrumentSenders   = uint32(4)
 	InstrumentTransferFieldInstrumentReceivers = uint32(5)
+	InstrumentTransferFieldRefundAddress       = uint32(6)
 )
 
 // ApplyAmendment updates a InstrumentTransferField based on amendment data.
@@ -2664,6 +2665,10 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 			return permissions.SubPermissions(fip, operation, true)
 		}
 
+	case InstrumentTransferFieldRefundAddress: // []byte
+		a.RefundAddress = data
+		return permissions.SubPermissions(fip, operation, false)
+
 	}
 
 	return nil, fmt.Errorf("Unknown InstrumentTransfer amendment field index : %v", fip)
@@ -2802,6 +2807,15 @@ func (a *InstrumentTransferField) CreateAmendments(fip permissions.FieldIndexPat
 		}
 
 		result = append(result, amendment)
+	}
+
+	// RefundAddress []byte
+	fip = append(ofip, InstrumentTransferFieldRefundAddress)
+	if !bytes.Equal(a.RefundAddress, newValue.RefundAddress) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.RefundAddress,
+		})
 	}
 
 	return result, nil
@@ -3840,7 +3854,8 @@ func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 
 // FeeField Permission / Amendment Field Indices
 const (
-	FeeFieldQuantity = uint32(1)
+	FeeFieldAddress  = uint32(1)
+	FeeFieldQuantity = uint32(2)
 )
 
 // ApplyAmendment updates a FeeField based on amendment data.
@@ -3854,6 +3869,10 @@ func (a *FeeField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint
 	}
 
 	switch fip[0] {
+	case FeeFieldAddress: // []byte
+		a.Address = data
+		return permissions.SubPermissions(fip, operation, false)
+
 	case FeeFieldQuantity: // uint64
 		if len(fip) > 1 {
 			return nil, fmt.Errorf("Amendment field index path too deep for Quantity : %v", fip)
@@ -3891,6 +3910,15 @@ func (a *FeeField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	if a.Equal(newValue) {
 		return nil, nil
+	}
+
+	// Address []byte
+	fip = append(ofip, FeeFieldAddress)
+	if !bytes.Equal(a.Address, newValue.Address) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.Address,
+		})
 	}
 
 	// Quantity uint64

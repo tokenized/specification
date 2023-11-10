@@ -1191,6 +1191,10 @@ func (a *InstrumentTransferField) Copy() *InstrumentTransferField {
 		result.InstrumentReceivers[i] = v.Copy()
 	}
 
+	// Field RefundAddress - varbin
+	result.RefundAddress = make([]byte, len(a.RefundAddress))
+	copy(result.RefundAddress, a.RefundAddress)
+
 	return result
 }
 
@@ -1344,6 +1348,10 @@ func (a *FeeField) Copy() *FeeField {
 	}
 
 	result := &FeeField{}
+
+	// Field Address - varbin
+	result.Address = make([]byte, len(a.Address))
+	copy(result.Address, a.Address)
 
 	// Field Quantity - uint
 	result.Quantity = a.Quantity

@@ -34,3 +34,8 @@ fields:
     description: "Each element has the value of tokens to be received, the address, and an oracle signature if required."
     type: InstrumentReceiver[]
     listSize: small
+
+  - name: RefundAddress
+    label: Refund Address
+    description: "The address to receive the refund of the instrument transfer fee if the transfer is rejected."
+    type: Address

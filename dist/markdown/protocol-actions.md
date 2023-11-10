@@ -4593,6 +4593,17 @@ InstrumentTransfer is the data required to transfer an instrument.
         </td>
     </tr>
 
+    <tr>
+        <td>RefundAddress</td>
+        <td>
+            <a href="#alias-address">Address</a>
+        </td>
+        <td>
+            The address to receive the refund of the instrument transfer fee if the transfer is rejected.
+            
+        </td>
+    </tr>
+
 </table>
 
 
@@ -4993,6 +5004,17 @@ A fee paid for a service. Only bitcoin currently supported as the instrument.
         <th style="width:15%">Type</th>
         <th>Description</th>
     </tr>
+    <tr>
+        <td>Address</td>
+        <td>
+            <a href="#alias-address">Address</a>
+        </td>
+        <td>
+            The address to receive the fee.
+             This field is always required. 
+        </td>
+    </tr>
+
     <tr>
         <td>Quantity</td>
         <td>

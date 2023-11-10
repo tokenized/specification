@@ -392,6 +392,7 @@ message InstrumentTransferField {
     bytes InstrumentCode                           = 3;   // InstrumentCode
     repeated QuantityIndexField InstrumentSenders  = 4;   // QuantityIndex[]
     repeated InstrumentReceiverField InstrumentReceivers = 5;   // InstrumentReceiver[]
+    bytes RefundAddress                            = 6;   // Address
 }
 
 // Field - Chapter
@@ -444,7 +445,8 @@ message EntityField {
 
 // Field - Fee
 message FeeField {
-    uint64 Quantity                                = 1;   // uint
+    bytes Address                                  = 1;   // Address
+    uint64 Quantity                                = 2;   // uint
 }
 
 // Field - Manager

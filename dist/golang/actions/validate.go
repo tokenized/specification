@@ -1894,6 +1894,16 @@ func (a *InstrumentTransferField) Validate() error {
 		}
 	}
 
+	// Field RefundAddress - varbin
+	if len(a.RefundAddress) > 0 {
+		if err := AddressIsValid(a.RefundAddress); err != nil {
+			return errors.Wrap(err, "RefundAddress")
+		}
+	}
+	if len(a.RefundAddress) > max2ByteInteger {
+		return fmt.Errorf("RefundAddress over max size : %d > %d", len(a.RefundAddress), max2ByteInteger)
+	}
+
 	return nil
 }
 
@@ -2110,6 +2120,19 @@ func (a *EntityField) Validate() error {
 func (a *FeeField) Validate() error {
 	if a == nil {
 		return nil
+	}
+
+	// Field Address - varbin
+	if len(a.Address) > 0 {
+		if err := AddressIsValid(a.Address); err != nil {
+			return errors.Wrap(err, "Address")
+		}
+	}
+	if len(a.Address) > max2ByteInteger {
+		return fmt.Errorf("Address over max size : %d > %d", len(a.Address), max2ByteInteger)
+	}
+	if len(a.Address) == 0 {
+		return fmt.Errorf("Address required")
 	}
 
 	// Field Quantity - uint

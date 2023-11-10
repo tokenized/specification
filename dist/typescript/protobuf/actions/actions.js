@@ -13496,7 +13496,8 @@ proto.actions.InstrumentTransferField.toObject = function(includeInstance, msg) 
     instrumentsendersList: jspb.Message.toObjectList(msg.getInstrumentsendersList(),
     proto.actions.QuantityIndexField.toObject, includeInstance),
     instrumentreceiversList: jspb.Message.toObjectList(msg.getInstrumentreceiversList(),
-    proto.actions.InstrumentReceiverField.toObject, includeInstance)
+    proto.actions.InstrumentReceiverField.toObject, includeInstance),
+    refundaddress: msg.getRefundaddress_asB64()
   };
 
   if (includeInstance) {
@@ -13554,6 +13555,10 @@ proto.actions.InstrumentTransferField.deserializeBinaryFromReader = function(msg
       var value = new proto.actions.InstrumentReceiverField;
       reader.readMessage(value,proto.actions.InstrumentReceiverField.deserializeBinaryFromReader);
       msg.addInstrumentreceivers(value);
+      break;
+    case 6:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setRefundaddress(value);
       break;
     default:
       reader.skipField();
@@ -13619,6 +13624,13 @@ proto.actions.InstrumentTransferField.serializeBinaryToWriter = function(message
       5,
       f,
       proto.actions.InstrumentReceiverField.serializeBinaryToWriter
+    );
+  }
+  f = message.getRefundaddress_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      6,
+      f
     );
   }
 };
@@ -13775,6 +13787,48 @@ proto.actions.InstrumentTransferField.prototype.addInstrumentreceivers = functio
  */
 proto.actions.InstrumentTransferField.prototype.clearInstrumentreceiversList = function() {
   return this.setInstrumentreceiversList([]);
+};
+
+
+/**
+ * optional bytes RefundAddress = 6;
+ * @return {!(string|Uint8Array)}
+ */
+proto.actions.InstrumentTransferField.prototype.getRefundaddress = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/**
+ * optional bytes RefundAddress = 6;
+ * This is a type-conversion wrapper around `getRefundaddress()`
+ * @return {string}
+ */
+proto.actions.InstrumentTransferField.prototype.getRefundaddress_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getRefundaddress()));
+};
+
+
+/**
+ * optional bytes RefundAddress = 6;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getRefundaddress()`
+ * @return {!Uint8Array}
+ */
+proto.actions.InstrumentTransferField.prototype.getRefundaddress_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getRefundaddress()));
+};
+
+
+/**
+ * @param {!(string|Uint8Array)} value
+ * @return {!proto.actions.InstrumentTransferField} returns this
+ */
+proto.actions.InstrumentTransferField.prototype.setRefundaddress = function(value) {
+  return jspb.Message.setProto3BytesField(this, 6, value);
 };
 
 
@@ -15257,7 +15311,8 @@ proto.actions.FeeField.prototype.toObject = function(opt_includeInstance) {
  */
 proto.actions.FeeField.toObject = function(includeInstance, msg) {
   var f, obj = {
-    quantity: jspb.Message.getFieldWithDefault(msg, 1, 0)
+    address: msg.getAddress_asB64(),
+    quantity: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -15295,6 +15350,10 @@ proto.actions.FeeField.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setAddress(value);
+      break;
+    case 2:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setQuantity(value);
       break;
@@ -15327,10 +15386,17 @@ proto.actions.FeeField.prototype.serializeBinary = function() {
  */
 proto.actions.FeeField.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getAddress_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      1,
+      f
+    );
+  }
   f = message.getQuantity();
   if (f !== 0) {
     writer.writeUint64(
-      1,
+      2,
       f
     );
   }
@@ -15338,11 +15404,53 @@ proto.actions.FeeField.serializeBinaryToWriter = function(message, writer) {
 
 
 /**
- * optional uint64 Quantity = 1;
+ * optional bytes Address = 1;
+ * @return {!(string|Uint8Array)}
+ */
+proto.actions.FeeField.prototype.getAddress = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * optional bytes Address = 1;
+ * This is a type-conversion wrapper around `getAddress()`
+ * @return {string}
+ */
+proto.actions.FeeField.prototype.getAddress_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getAddress()));
+};
+
+
+/**
+ * optional bytes Address = 1;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getAddress()`
+ * @return {!Uint8Array}
+ */
+proto.actions.FeeField.prototype.getAddress_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getAddress()));
+};
+
+
+/**
+ * @param {!(string|Uint8Array)} value
+ * @return {!proto.actions.FeeField} returns this
+ */
+proto.actions.FeeField.prototype.setAddress = function(value) {
+  return jspb.Message.setProto3BytesField(this, 1, value);
+};
+
+
+/**
+ * optional uint64 Quantity = 2;
  * @return {number}
  */
 proto.actions.FeeField.prototype.getQuantity = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
@@ -15351,7 +15459,7 @@ proto.actions.FeeField.prototype.getQuantity = function() {
  * @return {!proto.actions.FeeField} returns this
  */
 proto.actions.FeeField.prototype.setQuantity = function(value) {
-  return jspb.Message.setProto3IntField(this, 1, value);
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 

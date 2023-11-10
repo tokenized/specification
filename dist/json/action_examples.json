@@ -409,6 +409,7 @@
         "GBR"
       ],
       "TransferFee": {
+        "Address": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
         "Quantity": "100"
       },
       "VoteMultiplier": "3",
@@ -438,6 +439,7 @@
         "GBR"
       ],
       "TransferFee": {
+        "Address": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
         "Quantity": "100"
       },
       "VoteMultiplier": "3",
@@ -490,7 +492,8 @@
               "Quantity": "100"
             }
           ],
-          "InstrumentType": "SHC"
+          "InstrumentType": "SHC",
+          "RefundAddress": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
         }
       ],
       "OfferExpiry": "1594668650000000000"

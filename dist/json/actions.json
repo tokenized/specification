@@ -331,6 +331,12 @@
           "listSize": "small",
           "name": "InstrumentReceivers",
           "type": "InstrumentReceiver[]"
+        },
+        {
+          "description": "The address to receive the refund of the instrument transfer fee if the transfer is rejected.",
+          "label": "Refund Address",
+          "name": "RefundAddress",
+          "type": "Address"
         }
       ],
       "label": "Instrument Transfer",
@@ -578,6 +584,13 @@
     {
       "description": "A fee paid for a service. Only bitcoin currently supported as the instrument.",
       "fields": [
+        {
+          "description": "The address to receive the fee.",
+          "label": "Address",
+          "name": "Address",
+          "required": true,
+          "type": "Address"
+        },
         {
           "description": "The quantity of tokens of the specified instrument to be paid.",
           "example": 100,

@@ -9036,6 +9036,7 @@ class InstrumentTransferField PROTOBUF_FINAL :
     kInstrumentReceiversFieldNumber = 5,
     kInstrumentTypeFieldNumber = 2,
     kInstrumentCodeFieldNumber = 3,
+    kRefundAddressFieldNumber = 6,
     kContractIndexFieldNumber = 1,
   };
   // repeated .actions.QuantityIndexField InstrumentSenders = 4;
@@ -9124,6 +9125,31 @@ class InstrumentTransferField PROTOBUF_FINAL :
   std::string* _internal_mutable_instrumentcode();
   public:
 
+  // bytes RefundAddress = 6;
+  void clear_refundaddress();
+  const std::string& refundaddress() const;
+  void set_refundaddress(const std::string& value);
+  void set_refundaddress(std::string&& value);
+  void set_refundaddress(const char* value);
+  void set_refundaddress(const void* value, size_t size);
+  std::string* mutable_refundaddress();
+  std::string* release_refundaddress();
+  void set_allocated_refundaddress(std::string* refundaddress);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_refundaddress();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_refundaddress(
+      std::string* refundaddress);
+  private:
+  const std::string& _internal_refundaddress() const;
+  void _internal_set_refundaddress(const std::string& value);
+  std::string* _internal_mutable_refundaddress();
+  public:
+
   // uint32 ContractIndex = 1;
   void clear_contractindex();
   ::PROTOBUF_NAMESPACE_ID::uint32 contractindex() const;
@@ -9144,6 +9170,7 @@ class InstrumentTransferField PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::actions::InstrumentReceiverField > instrumentreceivers_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr instrumenttype_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr instrumentcode_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr refundaddress_;
   ::PROTOBUF_NAMESPACE_ID::uint32 contractindex_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_actions_2eproto;
@@ -10594,9 +10621,35 @@ class FeeField PROTOBUF_FINAL :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kQuantityFieldNumber = 1,
+    kAddressFieldNumber = 1,
+    kQuantityFieldNumber = 2,
   };
-  // uint64 Quantity = 1;
+  // bytes Address = 1;
+  void clear_address();
+  const std::string& address() const;
+  void set_address(const std::string& value);
+  void set_address(std::string&& value);
+  void set_address(const char* value);
+  void set_address(const void* value, size_t size);
+  std::string* mutable_address();
+  std::string* release_address();
+  void set_allocated_address(std::string* address);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_address();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_address(
+      std::string* address);
+  private:
+  const std::string& _internal_address() const;
+  void _internal_set_address(const std::string& value);
+  std::string* _internal_mutable_address();
+  public:
+
+  // uint64 Quantity = 2;
   void clear_quantity();
   ::PROTOBUF_NAMESPACE_ID::uint64 quantity() const;
   void set_quantity(::PROTOBUF_NAMESPACE_ID::uint64 value);
@@ -10612,6 +10665,7 @@ class FeeField PROTOBUF_FINAL :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr address_;
   ::PROTOBUF_NAMESPACE_ID::uint64 quantity_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_actions_2eproto;
@@ -23317,6 +23371,87 @@ InstrumentTransferField::instrumentreceivers() const {
   return instrumentreceivers_;
 }
 
+// bytes RefundAddress = 6;
+inline void InstrumentTransferField::clear_refundaddress() {
+  refundaddress_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& InstrumentTransferField::refundaddress() const {
+  // @@protoc_insertion_point(field_get:actions.InstrumentTransferField.RefundAddress)
+  return _internal_refundaddress();
+}
+inline void InstrumentTransferField::set_refundaddress(const std::string& value) {
+  _internal_set_refundaddress(value);
+  // @@protoc_insertion_point(field_set:actions.InstrumentTransferField.RefundAddress)
+}
+inline std::string* InstrumentTransferField::mutable_refundaddress() {
+  // @@protoc_insertion_point(field_mutable:actions.InstrumentTransferField.RefundAddress)
+  return _internal_mutable_refundaddress();
+}
+inline const std::string& InstrumentTransferField::_internal_refundaddress() const {
+  return refundaddress_.Get();
+}
+inline void InstrumentTransferField::_internal_set_refundaddress(const std::string& value) {
+  
+  refundaddress_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void InstrumentTransferField::set_refundaddress(std::string&& value) {
+  
+  refundaddress_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:actions.InstrumentTransferField.RefundAddress)
+}
+inline void InstrumentTransferField::set_refundaddress(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  refundaddress_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:actions.InstrumentTransferField.RefundAddress)
+}
+inline void InstrumentTransferField::set_refundaddress(const void* value,
+    size_t size) {
+  
+  refundaddress_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:actions.InstrumentTransferField.RefundAddress)
+}
+inline std::string* InstrumentTransferField::_internal_mutable_refundaddress() {
+  
+  return refundaddress_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* InstrumentTransferField::release_refundaddress() {
+  // @@protoc_insertion_point(field_release:actions.InstrumentTransferField.RefundAddress)
+  return refundaddress_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void InstrumentTransferField::set_allocated_refundaddress(std::string* refundaddress) {
+  if (refundaddress != nullptr) {
+    
+  } else {
+    
+  }
+  refundaddress_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), refundaddress,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:actions.InstrumentTransferField.RefundAddress)
+}
+inline std::string* InstrumentTransferField::unsafe_arena_release_refundaddress() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:actions.InstrumentTransferField.RefundAddress)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return refundaddress_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void InstrumentTransferField::unsafe_arena_set_allocated_refundaddress(
+    std::string* refundaddress) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (refundaddress != nullptr) {
+    
+  } else {
+    
+  }
+  refundaddress_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      refundaddress, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:actions.InstrumentTransferField.RefundAddress)
+}
+
 // -------------------------------------------------------------------
 
 // ChapterField
@@ -25360,7 +25495,88 @@ inline void EntityField::unsafe_arena_set_allocated_paymailhandle(
 
 // FeeField
 
-// uint64 Quantity = 1;
+// bytes Address = 1;
+inline void FeeField::clear_address() {
+  address_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& FeeField::address() const {
+  // @@protoc_insertion_point(field_get:actions.FeeField.Address)
+  return _internal_address();
+}
+inline void FeeField::set_address(const std::string& value) {
+  _internal_set_address(value);
+  // @@protoc_insertion_point(field_set:actions.FeeField.Address)
+}
+inline std::string* FeeField::mutable_address() {
+  // @@protoc_insertion_point(field_mutable:actions.FeeField.Address)
+  return _internal_mutable_address();
+}
+inline const std::string& FeeField::_internal_address() const {
+  return address_.Get();
+}
+inline void FeeField::_internal_set_address(const std::string& value) {
+  
+  address_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void FeeField::set_address(std::string&& value) {
+  
+  address_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:actions.FeeField.Address)
+}
+inline void FeeField::set_address(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  address_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:actions.FeeField.Address)
+}
+inline void FeeField::set_address(const void* value,
+    size_t size) {
+  
+  address_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:actions.FeeField.Address)
+}
+inline std::string* FeeField::_internal_mutable_address() {
+  
+  return address_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* FeeField::release_address() {
+  // @@protoc_insertion_point(field_release:actions.FeeField.Address)
+  return address_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void FeeField::set_allocated_address(std::string* address) {
+  if (address != nullptr) {
+    
+  } else {
+    
+  }
+  address_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), address,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:actions.FeeField.Address)
+}
+inline std::string* FeeField::unsafe_arena_release_address() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:actions.FeeField.Address)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return address_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void FeeField::unsafe_arena_set_allocated_address(
+    std::string* address) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (address != nullptr) {
+    
+  } else {
+    
+  }
+  address_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      address, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:actions.FeeField.Address)
+}
+
+// uint64 Quantity = 2;
 inline void FeeField::clear_quantity() {
   quantity_ = PROTOBUF_ULONGLONG(0);
 }

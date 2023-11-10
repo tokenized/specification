@@ -2,6 +2,10 @@
 description: A fee paid for a service. Only bitcoin currently supported as the instrument.
 type: object
 properties:
+  Address:
+    description: The address to receive the fee.
+    type: string
+    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
   Quantity:
     description: The quantity of tokens of the specified instrument to be paid.
     type: number

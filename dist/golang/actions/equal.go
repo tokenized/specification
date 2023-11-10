@@ -2023,6 +2023,11 @@ func (l *InstrumentTransferField) Equal(right proto.Message) bool {
 		}
 	}
 
+	// Field RefundAddress - varbin
+	if !bytes.Equal(c.RefundAddress, r.RefundAddress) {
+		return false // fmt.Errorf("RefundAddress bytes mismatched")
+	}
+
 	return true
 }
 
@@ -2296,6 +2301,11 @@ func (l *FeeField) Equal(right proto.Message) bool {
 
 	if r == nil {
 		r = &FeeField{}
+	}
+
+	// Field Address - varbin
+	if !bytes.Equal(c.Address, r.Address) {
+		return false // fmt.Errorf("Address bytes mismatched")
 	}
 
 	// Field Quantity - uint

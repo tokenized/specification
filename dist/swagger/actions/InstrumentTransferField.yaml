@@ -31,4 +31,9 @@ properties:
     items:
       type: object
       $ref: "#/components/schemas/InstrumentReceiverField"
+  RefundAddress:
+    description:  >
+      The address to receive the refund of the instrument transfer fee if the transfer is rejected.
+    type: string
+    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
 
