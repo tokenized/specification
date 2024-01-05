@@ -520,13 +520,13 @@ func TestExampleTransferResponseFees(t *testing.T) {
 
 	key, _ := bitcoin.GenerateKey(bitcoin.TestNet)
 	script, _ := key.LockingScript()
-	var lockingScripts []bitcoin.Script
+	var inputLockingScripts []bitcoin.Script
 	for range requestTx.TxIn {
-		lockingScripts = append(lockingScripts, script)
+		inputLockingScripts = append(inputLockingScripts, script)
 	}
 
 	// Estimate funding
-	funding, boomerang, err := EstimatedTransferResponse(requestTx, lockingScripts, feeRate,
+	funding, boomerang, err := EstimatedTransferResponse(requestTx, inputLockingScripts, feeRate,
 		dustFeeRate, contractFees, true)
 
 	if err != nil {
@@ -869,9 +869,10 @@ func TestMultiContractExample2TransferResponseFees(t *testing.T) {
 
 	if funding[0] < 4852 {
 		t.Errorf("Not enough contract funding : got %d, want %d", funding[0], 4852)
+	} else {
+		t.Logf("Master funding is over by %d (%d%%)", funding[0]-4852,
+			int(100.0*(float32(funding[0]-4852)/float32(4852))))
 	}
-	t.Logf("Master funding is over by %d (%d%%)", funding[0]-4852,
-		int(100.0*(float32(funding[0]-4852)/float32(4852))))
 
 	if funding[1] != 2000 {
 		t.Errorf("Not enough contract funding : got %d, want %d", funding[1], 2000)
@@ -880,9 +881,10 @@ func TestMultiContractExample2TransferResponseFees(t *testing.T) {
 	// Example Boomerang of 2967 was 1219 too high. Correct boomerang amount would be 1748
 	if boomerang < 1748 {
 		t.Errorf("Not enough boomerang : got %d, want >= %d", boomerang, 1748)
+	} else {
+		t.Logf("Boomerang is over by %d (%d%%)", boomerang-1748,
+			int(100.0*(float32(boomerang-1748)/float32(1748))))
 	}
-	t.Logf("Boomerang is over by %d (%d%%)", boomerang-1748,
-		int(100.0*(float32(boomerang-1748)/float32(1748))))
 }
 
 func Test_EstimatedConfiscationResponse(t *testing.T) {
@@ -1125,4 +1127,76 @@ func Test_TransferResponseFees_Example2(t *testing.T) {
 	if boomerang > 0 {
 		t.Errorf("Not enough boomerang : got %d, want %d", boomerang, 0)
 	}
+}
+
+func Test_SpecificTx(t *testing.T) {
+	h := `01000000067643be9a6e6615c76d2bbbd34f1fef34ab38cdd3a4fbaaf00ee567b1d9a3de18010000006a473044022001e2a40a766bcf06c6507ac75e978018958ebf935a242ba1efd5ebed68d88a0f022049c0c91124e18e2d7f9b7ab04cf5bf218ca050bbcff0250415fded6bdfe3c607c12102fd775b71a9f4f90788112f61dce9794721b3f1ccebb3374d0b687b80e64ee4c0ffffffffdd504536da3bb2245ac2e58521f876de8755255d239411f75a940af96b4306a50a0000006b4830450221009b63d0d25862c68c91274d30f5158d549cf6fbda27785fa32dc2021575293e5f022022de9765c7d1712bf50d952bf60ff44ce96b60a84b2e111011d7ef0cb828ad214121028d51d35fda1a639515c4aebf1bdd8159ead23154360b877d74bc90f29a6dc645ffffffff95c447012291b22f9d2cc4aa2474ebc21d2699e846bd024bf7f355c0fd27e5ea020000006b483045022100b699edee08d1581d4ac6e4e5bd94f6fd228a94a6c468a0d66c1c8739e0ebc9b6022060d155b3f92424cca24e7c441eaeac71fab0b5a5ae845dcc21291664dacdc4a34121030a3f0c0e534b4ee18fe9041bbaf2cfa538bb57dd49e407bec8b4ec075052c387ffffffff8862b7246e0aebb69ca1867546d6126e7f270b40b60159fa6268f241089d6933070000006b4830450221008f367f00f6eec5ebd22cbee13c8d7295868d6823b2ec273221c3ccbcd1746ad7022072ca0c7398c7d33e6bd7326a86cc5e766444f77fce85fe8f33ec7d96b47da148412102dfea769c83ebe796f3dc7b3443199e60388373fa9dd4cae7c6eb2688756f9730ffffffff8862b7246e0aebb69ca1867546d6126e7f270b40b60159fa6268f241089d6933050000006a473044022018fedd6d6eb17a7c5f91ff3e145ba15e4eadcc6a41d3636b113eb8b8542a5ef402207e456dcb581e1bfde19d1ba1fe3c6f6803188356c40b6823c0e60773392dc1044121022a946889920b748aea92727b5f4b35e9960bde8026ed665d8ea510b636b41e4bfffffffff1f1521fe33bd07dbb2b301bde118193679a8d07992aab09886bdbdede7a9d4d010000006b483045022100b9a3bb2c244799a9d8107f9ebe2ef9d442787d2cfbaae34a6763ec585da99a6302205d01d1b62387d2f8b0ab5a99caef3d86884a9ad8eae2aa50f5746d6ed4b40a4bc121020dbf9481ce0ccf81ca41bca77f2d2322ca41b554aec6da68e6e04d55ba75b24affffffff0506080000000000001976a914fe8035949caf387ccbcf1fcfa20d63cfd2a3c85488acd0070000000000001976a9140f6d995fe98f71e396afef7e05b679eddd6f538a88ac0000000000000000fd0601006a02bd015108746573742e544b4e5301000254314cef0a4f120343524e1a1488c3864e9da38b12cf20308117b3876041ad3f5e2204080110642204080210142204080310092204080410012a1a0a1520f4b990bc444e2a4aa7e012e808fbd27c5700bf941082010a91010801120343524e1a14c0b2ef52cdaafe5d38f3dfe17a3d2fa6625a4c0d220310c4132a1a0a152057b7adb6ab2ad406f4fffbc1279f2dbc05dc2c7d1097042a1a0a152057c38db48d2dd2210aadea5bf3d51ea2e380d2d910e8072a1a0a1520e0db6dd31539391c172fe6e888fad71b88e2dd6710e1062a190a1520bd4282247d60158a1fa1ee2809fccadf760b1226106410c08cc0a7e7b9d2d3174b000000000000001976a914fe8035949caf387ccbcf1fcfa20d63cfd2a3c85488acb2160000000000001976a9145d9db8b3167a036951e7cbaf8f2e2ab304577b4c88ac00000000`
+	b, err := hex.DecodeString(h)
+	if err != nil {
+		t.Fatalf("Failed to decode hex : %s", err)
+	}
+
+	tx := &wire.MsgTx{}
+	if err := tx.Deserialize(bytes.NewReader(b)); err != nil {
+		t.Fatalf("Failed to deserialize tx : %s", err)
+	}
+
+	t.Logf("Tx : %s", tx)
+
+	// Generate random p2pkh input locking scripts
+	key, _ := bitcoin.GenerateKey(bitcoin.TestNet)
+	script, _ := key.LockingScript()
+	unlockingScriptSize := len(script)
+	inputUnlockingScriptSizes := make([]int, len(tx.TxIn))
+	inputLockingScripts := make([]bitcoin.Script, len(tx.TxIn))
+	for i := range inputUnlockingScriptSizes {
+		// if i > 0 {
+		// 	continue // zeroize all but first input script
+		// }
+		inputUnlockingScriptSizes[i] = unlockingScriptSize
+
+		key, _ := bitcoin.GenerateKey(bitcoin.TestNet)
+		script, _ := key.LockingScript()
+		inputLockingScripts[i] = script
+	}
+
+	contractFeeDetails := []OutputDetails{
+		{
+			Value:             2000,
+			LockingScriptSize: txbuilder.P2PKHOutputScriptSize,
+		},
+		{
+			Value:             2000,
+			LockingScriptSize: txbuilder.P2PKHOutputScriptSize,
+		},
+	}
+
+	transferFeeDetails := []OutputDetails{
+		{
+			Value:             0,
+			LockingScriptSize: 0,
+		},
+		{
+			Value:             0,
+			LockingScriptSize: 0,
+		},
+	}
+
+	contractFundingEstimate, boomerangEstimate, err := EstimatedTransferResponseFull(tx,
+		inputLockingScripts, 0.05, 0.0, contractFeeDetails, transferFeeDetails, true)
+	if err != nil {
+		t.Fatalf("Failed to estimate response : %s", err)
+	}
+
+	t.Logf("Contract Funding : %v", contractFundingEstimate)
+	t.Logf("Boomerang : %v", boomerangEstimate)
+
+	contractFundingEstimate, boomerangEstimate, err = EstimatedTransferResponseFullSize(tx,
+		inputUnlockingScriptSizes, 0.05, 0.0, contractFeeDetails, transferFeeDetails, true)
+	if err != nil {
+		t.Fatalf("Failed to estimate response : %s", err)
+	}
+
+	t.Logf("Contract Funding : %v", contractFundingEstimate)
+	t.Logf("Boomerang : %v", boomerangEstimate)
 }

@@ -1042,6 +1042,19 @@ func EstimatedTransferResponseFull(requestTx *wire.MsgTx, inputLockingScripts []
 	feeRate, dustFeeRate float32, contractFees, transferFees []OutputDetails,
 	isTest bool) ([]uint64, uint64, error) {
 
+	inputUnlockingScriptSizes := make([]int, len(inputLockingScripts))
+	for i, inputLockingScript := range inputLockingScripts {
+		inputUnlockingScriptSizes[i] = txbuilder.OutputSize(inputLockingScript)
+	}
+
+	return EstimatedTransferResponseFullSize(requestTx, inputUnlockingScriptSizes, feeRate,
+		dustFeeRate, contractFees, transferFees, isTest)
+}
+
+func EstimatedTransferResponseFullSize(requestTx *wire.MsgTx, inputUnlockingScriptSizes []int,
+	feeRate, dustFeeRate float32, contractFees, transferFees []OutputDetails,
+	isTest bool) ([]uint64, uint64, error) {
+
 	// Find Tokenized Transfer
 	var err error
 	var action actions.Action
@@ -1128,10 +1141,10 @@ func EstimatedTransferResponseFull(requestTx *wire.MsgTx, inputLockingScripts []
 						Quantity: math.MaxUint64,
 					})
 
-				txSizeOutputs += txbuilder.OutputSize(inputLockingScripts[sender.Index])
+				outputSize := fees.OutputSizeForLockingScriptSize(inputUnlockingScriptSizes[sender.Index])
+				txSizeOutputs += outputSize
 				outputCount++
-				dustLimit := txbuilder.DustLimitForLockingScript(inputLockingScripts[sender.Index],
-					dustFeeRate)
+				dustLimit := fees.DustLimit(outputSize, float64(dustFeeRate))
 				fundingForTokens[masterContractIndex] += dustLimit // Dust will be put in each notification output.
 			}
 
