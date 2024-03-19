@@ -4,6 +4,11 @@
 	{{- if .IsList }}
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.{{ .Name }} = nil
+				return permissions.SubPermissions(fip[1:], operation, {{ .IsList }})
+			}
+
 		{{- if .IsCompoundType }}
 			if len(fip) < 3 { // includes list index and subfield index
 		{{- else }}
@@ -59,7 +64,7 @@
 
 		{{- if .IsCompoundType }}
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, {{ .IsList }})
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -136,7 +141,7 @@
 
 		{{- if .IsCompoundType }}
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, {{ .IsList }})
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -172,12 +177,28 @@
 		{{- end }}
 		{{- if .IsCompoundType }}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, {{ .IsList }})
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, {{ .IsList }})
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.{{ .Name }}.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.{{ .Name }}.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *{{ .GoSingularType }}
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &{{ .GoSingularType }}{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for {{ .Name }} failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.{{ .Name }} = newValue
+		return permissions.SubPermissions(fip[1:], operation, {{ .IsList }})
+
 		{{- else if eq .BaseType "fixedchar" "varchar" }}
 		a.{{ .Name }} = string(data)
 		return permissions.SubPermissions(fip, operation, {{ .IsList }})

@@ -474,6 +474,10 @@ func TestContractApplyAmendments(t *testing.T) {
 				return
 			}
 
+			for _, amendment := range amendments {
+				t.Logf("Amendment : %s", amendment.FullString())
+			}
+
 			amended := &ContractFormation{}
 			if err := convert(amended, tt.current); err != nil {
 				t.Errorf("Failed to convert current value : %s", err)
@@ -510,7 +514,6 @@ func TestContractApplyAmendments(t *testing.T) {
 }
 
 func TestBodyOfAgreementCreateAmendments(t *testing.T) {
-
 	newTerm := &DefinedTermField{
 		Term:       "New Term",
 		Definition: "Definition of new term",
@@ -1153,6 +1156,12 @@ func TestInstrumentCreateAmendments(t *testing.T) {
 	}
 	currencyPayload, _ := currency.Bytes()
 
+	key, _ := bitcoin.GenerateKey(bitcoin.MainNet)
+	ra, _ := key.RawAddress()
+
+	transferFeeData := append([]byte{10, 21}, ra.Bytes()...)
+	transferFeeData = append(transferFeeData, []byte{16, 136, 39}...)
+
 	tests := []struct {
 		name       string
 		current    *InstrumentCreation
@@ -1238,10 +1247,42 @@ func TestInstrumentCreateAmendments(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "Add transfer fee",
+			current: &InstrumentCreation{
+				EnforcementOrdersPermitted: false,
+				TradeRestrictions:          []string{"AUS"},
+				AuthorizedTokenQty:         10000,
+				InstrumentType:             "CCY",
+				InstrumentPayload:          currencyPayload,
+			},
+			newValue: &InstrumentDefinition{
+				EnforcementOrdersPermitted: false,
+				TradeRestrictions:          []string{"AUS"},
+				AuthorizedTokenQty:         10000,
+				InstrumentType:             "CCY",
+				InstrumentPayload:          currencyPayload,
+				TransferFee: &FeeField{
+					Address:  ra.Bytes(),
+					Quantity: 5000,
+				},
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{1, byte(InstrumentFieldTransferFee)},
+					Operation:      0,
+					Data:           transferFeeData,
+				},
+			},
+		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			js, _ := json.MarshalIndent(tt.current, "", "  ")
+			t.Logf("Previous value : %s", js)
+
 			amendments, err := tt.current.CreateAmendments(tt.newValue)
 			if err != nil {
 				if tt.err == nil {
@@ -1260,6 +1301,10 @@ func TestInstrumentCreateAmendments(t *testing.T) {
 			if tt.err != nil {
 				t.Errorf("Error not returned : want %s", tt.err)
 				return
+			}
+
+			for _, amendment := range amendments {
+				t.Logf("Amendment : %s", amendment.FullString())
 			}
 
 			if len(amendments) != len(tt.amendments) {
@@ -1300,6 +1345,10 @@ func TestInstrumentCreateAmendments(t *testing.T) {
 				t.Errorf("Failed to convert new value : %s", err)
 				return
 			}
+
+			js, _ = json.MarshalIndent(newValue, "", "  ")
+			t.Logf("Amended value : %s", js)
+
 			if !amended.Equal(newValue) {
 				t.Errorf("Amended value doesn't match : \n  got  %+v\n  want %+v", *amended,
 					*newValue)

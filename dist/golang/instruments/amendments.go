@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"fmt"
 
+	"github.com/golang/protobuf/proto"
 	"github.com/tokenized/pkg/bitcoin"
 	"github.com/tokenized/specification/dist/golang/internal"
 	"github.com/tokenized/specification/dist/golang/permissions"
@@ -53,12 +54,27 @@ func (a *Membership) ApplyAmendment(fip permissions.FieldIndexPath, operation ui
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *AgeRestrictionField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &AgeRestrictionField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for AgeRestriction failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.AgeRestriction = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	case MembershipFieldValidFrom: // uint64
 		if len(fip) > 1 {
@@ -487,12 +503,27 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.ParValue.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.ParValue.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *CurrencyValueField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &CurrencyValueField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for ParValue failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.ParValue = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	case BondFixedRateFieldInterestRate: // RateField
 		if len(fip) == 1 && len(data) == 0 {
@@ -500,12 +531,27 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.InterestRate.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.InterestRate.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *RateField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &RateField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for InterestRate failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.InterestRate = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	case BondFixedRateFieldInterestPaymentInitialDate: // uint64
 		if len(fip) > 1 {
@@ -522,6 +568,10 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 	case BondFixedRateFieldInterestPaymentDateDeltas: // []uint64
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.InterestPaymentDateDeltas = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) != 2 { // includes list index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify InterestPaymentDateDeltas : %v",
 					fip)
@@ -587,12 +637,27 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.LatePaymentPenaltyRate.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.LatePaymentPenaltyRate.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *RateField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &RateField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for LatePaymentPenaltyRate failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.LatePaymentPenaltyRate = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	case BondFixedRateFieldLatePaymentWindow: // uint64
 		if len(fip) > 1 {
@@ -636,12 +701,27 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *AgeRestrictionField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &AgeRestrictionField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for AgeRestriction failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.AgeRestriction = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	case BondFixedRateFieldTransfersPermitted: // bool
 		if len(fip) > 1 {
@@ -950,12 +1030,27 @@ func (a *DiscountCoupon) ApplyAmendment(fip permissions.FieldIndexPath, operatio
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.FaceValue.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.FaceValue.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *CurrencyValueField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &CurrencyValueField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for FaceValue failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.FaceValue = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	case DiscountCouponFieldRedemptionVenue: // string
 		a.RedemptionVenue = string(data)
@@ -1105,12 +1200,27 @@ func (a *DeprecatedLoyaltyPoints) ApplyAmendment(fip permissions.FieldIndexPath,
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *AgeRestrictionField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &AgeRestrictionField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for AgeRestriction failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.AgeRestriction = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	case DeprecatedLoyaltyPointsFieldProgramName: // string
 		a.ProgramName = string(data)
@@ -1260,12 +1370,27 @@ func (a *TicketAdmission) ApplyAmendment(fip permissions.FieldIndexPath, operati
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *AgeRestrictionField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &AgeRestrictionField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for AgeRestriction failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.AgeRestriction = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	case DeprecatedTicketAdmissionFieldAdmissionType: // deprecated
 
@@ -1518,12 +1643,27 @@ func (a *CasinoChip) ApplyAmendment(fip permissions.FieldIndexPath, operation ui
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *AgeRestrictionField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &AgeRestrictionField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for AgeRestriction failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.AgeRestriction = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	case DeprecatedCasinoChipFieldValidFrom: // deprecated
 
@@ -1564,12 +1704,27 @@ func (a *CasinoChip) ApplyAmendment(fip permissions.FieldIndexPath, operation ui
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.FaceValue.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.FaceValue.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *CurrencyValueField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &CurrencyValueField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for FaceValue failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.FaceValue = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	}
 
@@ -1687,12 +1842,27 @@ func (a *InformationServiceLicense) ApplyAmendment(fip permissions.FieldIndexPat
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *AgeRestrictionField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &AgeRestrictionField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for AgeRestriction failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.AgeRestriction = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	case InformationServiceLicenseFieldExpirationTimestamp: // uint64
 		if len(fip) > 1 {
@@ -1829,12 +1999,27 @@ func (a *CreditNote) ApplyAmendment(fip permissions.FieldIndexPath, operation ui
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.FaceValue.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.FaceValue.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *FixedCurrencyValueField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &FixedCurrencyValueField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for FaceValue failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.FaceValue = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	case CreditNoteFieldExpirationTimestamp: // uint64
 		if len(fip) > 1 {
@@ -1947,12 +2132,27 @@ func (a *RewardPoint) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			return permissions.SubPermissions(fip[1:], operation, false)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		return a.AgeRestriction.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		var newValue *AgeRestrictionField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &AgeRestrictionField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for AgeRestriction failed to deserialize : %s",
+					err)
+			}
+		}
+
+		a.AgeRestriction = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	case RewardPointFieldProgramName: // string
 		a.ProgramName = string(data)

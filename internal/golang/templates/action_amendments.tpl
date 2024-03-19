@@ -25,6 +25,29 @@ const (
 	AmendmentOperationRemoveElement = uint32(2)
 )
 
+func (a AmendmentField) FullString() string {
+	fip, err := permissions.FieldIndexPathFromBytes(a.FieldIndexPath)
+	if err != nil {
+		return err.Error()
+	}
+
+	return fmt.Sprintf("Index: %v, Operation: %s, Data: %x", fip, OperationName(a.Operation),
+		a.Data)
+}
+
+func OperationName(o uint32) string {
+	switch o {
+	case AmendmentOperationModify:
+		return "modify"
+	case AmendmentOperationAddElement:
+		return "add"
+	case AmendmentOperationRemoveElement:
+		return "remove"
+	default:
+		return "unknown"
+	}
+}
+
 {{- range $i, $message := .Messages }}
 	{{- if eq $message.Name "ContractOffer" }}
 // Contract Permission / Amendment Field Indices
@@ -90,13 +113,6 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, ope
 		return nil, fmt.Errorf("{{ $field.Name }} field not amendable")
 			{{- else if not (eq $field.Name "ContractRevision" "Timestamp" "AdminAddress" "OperatorAddress" "RequestPeerChannel") }}
 	case ContractField{{ $field.Name }}: // {{ $field.GoType }}
-				{{- if .IsCompoundType }}
-		if len(fip) == 1 && len(data) == 0 {
-			a.{{ $field.Name }} = nil
-			return permissions.SubPermissions(fip[1:], operation, {{ $field.IsList }})
-		}
-				{{- end }}
-
 	{{- template "ApplyAmendmentField" $field }}
 			{{- end }}
 		{{ end }}
@@ -232,15 +248,8 @@ func (a *{{ $message.Name }}) ApplyAmendment(fip permissions.FieldIndexPath, ope
 		{{- range $offset, $field := .Fields }}
 			{{- if eq $field.Type "deprecated" }}
 	case DeprecatedInstrumentField{{ $field.Name }}: // {{ $field.GoType }}
-		{{- else if not (eq $field.Name "InstrumentCode" "InstrumentIndex" "InstrumentRevision" "Timestamp") }}
+			{{- else if not (eq $field.Name "InstrumentCode" "InstrumentIndex" "InstrumentRevision" "Timestamp") }}
 	case InstrumentField{{ $field.Name }}: // {{ $field.GoType }}
-				{{- if .IsCompoundType }}
-		if len(fip) == 1 && len(data) == 0 {
-			a.{{ $field.Name }} = nil
-			return permissions.SubPermissions(fip[1:], operation, {{ $field.IsList }})
-		}
-				{{- end }}
-
 	{{- template "ApplyAmendmentField" $field }}
 			{{- end }}
 		{{ end }}
@@ -270,6 +279,7 @@ func (a *{{ $message.Name }}Field) ApplyAmendment(fip permissions.FieldIndexPath
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty {{ $message.Name }} amendment field index path")
 	}
 
@@ -294,6 +304,22 @@ func (a *{{ $message.Name }}Field) CreateAmendments(fip permissions.FieldIndexPa
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to {{ $message.Name }} failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP: fip,
+			Operation: 0, // Modify element
+			Data: data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{

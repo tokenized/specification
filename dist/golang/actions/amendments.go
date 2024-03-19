@@ -25,6 +25,29 @@ const (
 	AmendmentOperationRemoveElement = uint32(2)
 )
 
+func (a AmendmentField) FullString() string {
+	fip, err := permissions.FieldIndexPathFromBytes(a.FieldIndexPath)
+	if err != nil {
+		return err.Error()
+	}
+
+	return fmt.Sprintf("Index: %v, Operation: %s, Data: %x", fip, OperationName(a.Operation),
+		a.Data)
+}
+
+func OperationName(o uint32) string {
+	switch o {
+	case AmendmentOperationModify:
+		return "modify"
+	case AmendmentOperationAddElement:
+		return "add"
+	case AmendmentOperationRemoveElement:
+		return "remove"
+	default:
+		return "unknown"
+	}
+}
+
 // Contract Permission / Amendment Field Indices
 const (
 	ContractFieldContractName                         = uint32(1)
@@ -523,12 +546,12 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 	case DeprecatedContractFieldContractType: // deprecated
 
 	case ContractFieldSupportingDocs: // []*DocumentField
-		if len(fip) == 1 && len(data) == 0 {
-			a.SupportingDocs = nil
-			return permissions.SubPermissions(fip[1:], operation, true)
-		}
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.SupportingDocs = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify SupportingDocs : %v",
 					fip)
@@ -546,7 +569,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -583,7 +606,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -622,17 +645,28 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldIssuer: // EntityField
-		if len(fip) == 1 && len(data) == 0 {
-			a.Issuer = nil
-			return permissions.SubPermissions(fip[1:], operation, false)
+
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.Issuer.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		var newValue *EntityField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &EntityField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for Issuer failed to deserialize : %s",
+					err)
+			}
 		}
 
-		return a.Issuer.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		a.Issuer = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	case DeprecatedContractFieldIssuerLogoURL: // deprecated
 
@@ -657,12 +691,12 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldVotingSystems: // []*VotingSystemField
-		if len(fip) == 1 && len(data) == 0 {
-			a.VotingSystems = nil
-			return permissions.SubPermissions(fip[1:], operation, true)
-		}
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.VotingSystems = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify VotingSystems : %v",
 					fip)
@@ -680,7 +714,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -717,7 +751,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -778,12 +812,12 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldOracles: // []*OracleField
-		if len(fip) == 1 && len(data) == 0 {
-			a.Oracles = nil
-			return permissions.SubPermissions(fip[1:], operation, true)
-		}
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.Oracles = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Oracles : %v",
 					fip)
@@ -801,7 +835,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -838,7 +872,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -880,12 +914,12 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		return permissions.SubPermissions(fip, operation, false)
 
 	case ContractFieldServices: // []*ServiceField
-		if len(fip) == 1 && len(data) == 0 {
-			a.Services = nil
-			return permissions.SubPermissions(fip[1:], operation, true)
-		}
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.Services = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Services : %v",
 					fip)
@@ -903,7 +937,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -940,7 +974,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -959,12 +993,12 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 		}
 
 	case ContractFieldAdminIdentityCertificates: // []*AdminIdentityCertificateField
-		if len(fip) == 1 && len(data) == 0 {
-			a.AdminIdentityCertificates = nil
-			return permissions.SubPermissions(fip[1:], operation, true)
-		}
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.AdminIdentityCertificates = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify AdminIdentityCertificates : %v",
 					fip)
@@ -982,7 +1016,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -1019,7 +1053,7 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -1175,6 +1209,10 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 	case BodyOfAgreementFieldChapters: // []*ChapterField
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.Chapters = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Chapters : %v",
 					fip)
@@ -1192,7 +1230,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -1229,7 +1267,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -1250,6 +1288,10 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 	case BodyOfAgreementFieldDefinitions: // []*DefinedTermField
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.Definitions = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Definitions : %v",
 					fip)
@@ -1267,7 +1309,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -1304,7 +1346,7 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -1665,6 +1707,10 @@ func (a *InstrumentCreation) ApplyAmendment(fip permissions.FieldIndexPath, oper
 	case InstrumentFieldTradeRestrictions: // []string
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.TradeRestrictions = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) != 2 { // includes list index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify TradeRestrictions : %v",
 					fip)
@@ -1713,17 +1759,28 @@ func (a *InstrumentCreation) ApplyAmendment(fip permissions.FieldIndexPath, oper
 		}
 
 	case InstrumentFieldTransferFee: // FeeField
-		if len(fip) == 1 && len(data) == 0 {
-			a.TransferFee = nil
-			return permissions.SubPermissions(fip[1:], operation, false)
+
+		if len(fip) > 1 {
+			// For sub-field
+			subPermissions, err := permissions.SubPermissions(fip, operation, false)
+			if err != nil {
+				return nil, errors.Wrap(err, "sub permissions")
+			}
+
+			return a.TransferFee.ApplyAmendment(fip[1:], operation, data, subPermissions)
 		}
 
-		subPermissions, err := permissions.SubPermissions(fip, operation, false)
-		if err != nil {
-			return nil, errors.Wrap(err, "sub permissions")
+		var newValue *FeeField
+		if len(data) != 0 { // Leave default values if data is empty
+			newValue = &FeeField{}
+			if err := proto.Unmarshal(data, newValue); err != nil {
+				return nil, fmt.Errorf("Amendment for TransferFee failed to deserialize : %s",
+					err)
+			}
 		}
 
-		return a.TransferFee.ApplyAmendment(fip[1:], operation, data, subPermissions)
+		a.TransferFee = newValue
+		return permissions.SubPermissions(fip[1:], operation, false)
 
 	}
 
@@ -1743,6 +1800,7 @@ func (a *AdministratorField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty Administrator amendment field index path")
 	}
 
@@ -1778,6 +1836,22 @@ func (a *AdministratorField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to Administrator failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -1834,6 +1908,7 @@ func (a *AdminIdentityCertificateField) ApplyAmendment(fip permissions.FieldInde
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty AdminIdentityCertificate amendment field index path")
 	}
 
@@ -1882,6 +1957,22 @@ func (a *AdminIdentityCertificateField) CreateAmendments(fip permissions.FieldIn
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to AdminIdentityCertificate failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -1960,6 +2051,7 @@ func (a *AmendmentField) ApplyAmendment(fip permissions.FieldIndexPath, operatio
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty Amendment amendment field index path")
 	}
 
@@ -1996,6 +2088,22 @@ func (a *AmendmentField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to Amendment failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -2064,6 +2172,7 @@ func (a *InstrumentReceiverField) ApplyAmendment(fip permissions.FieldIndexPath,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty InstrumentReceiver amendment field index path")
 	}
 
@@ -2148,6 +2257,22 @@ func (a *InstrumentReceiverField) CreateAmendments(fip permissions.FieldIndexPat
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to InstrumentReceiver failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -2269,6 +2394,7 @@ func (a *InstrumentSettlementField) ApplyAmendment(fip permissions.FieldIndexPat
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty InstrumentSettlement amendment field index path")
 	}
 
@@ -2299,6 +2425,10 @@ func (a *InstrumentSettlementField) ApplyAmendment(fip permissions.FieldIndexPat
 	case InstrumentSettlementFieldSettlements: // []*QuantityIndexField
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.Settlements = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Settlements : %v",
 					fip)
@@ -2316,7 +2446,7 @@ func (a *InstrumentSettlementField) ApplyAmendment(fip permissions.FieldIndexPat
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -2353,7 +2483,7 @@ func (a *InstrumentSettlementField) ApplyAmendment(fip permissions.FieldIndexPat
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -2383,6 +2513,22 @@ func (a *InstrumentSettlementField) CreateAmendments(fip permissions.FieldIndexP
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to InstrumentSettlement failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -2488,6 +2634,7 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty InstrumentTransfer amendment field index path")
 	}
 
@@ -2518,6 +2665,10 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 	case InstrumentTransferFieldInstrumentSenders: // []*QuantityIndexField
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.InstrumentSenders = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify InstrumentSenders : %v",
 					fip)
@@ -2535,7 +2686,7 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -2572,7 +2723,7 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -2593,6 +2744,10 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 	case InstrumentTransferFieldInstrumentReceivers: // []*InstrumentReceiverField
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.InstrumentReceivers = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify InstrumentReceivers : %v",
 					fip)
@@ -2610,7 +2765,7 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -2647,7 +2802,7 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -2681,6 +2836,22 @@ func (a *InstrumentTransferField) CreateAmendments(fip permissions.FieldIndexPat
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to InstrumentTransfer failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -2835,6 +3006,7 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty Chapter amendment field index path")
 	}
 
@@ -2850,6 +3022,10 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 	case ChapterFieldArticles: // []*ClauseField
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.Articles = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Articles : %v",
 					fip)
@@ -2867,7 +3043,7 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -2904,7 +3080,7 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -2934,6 +3110,22 @@ func (a *ChapterField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to Chapter failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -3027,6 +3219,7 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty Clause amendment field index path")
 	}
 
@@ -3042,6 +3235,10 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 	case ClauseFieldChildren: // []*ClauseField
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.Children = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Children : %v",
 					fip)
@@ -3059,7 +3256,7 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -3096,7 +3293,7 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -3126,6 +3323,22 @@ func (a *ClauseField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to Clause failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -3218,6 +3431,7 @@ func (a *DefinedTermField) ApplyAmendment(fip permissions.FieldIndexPath, operat
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty DefinedTerm amendment field index path")
 	}
 
@@ -3242,6 +3456,22 @@ func (a *DefinedTermField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to DefinedTerm failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -3292,6 +3522,7 @@ func (a *DocumentField) ApplyAmendment(fip permissions.FieldIndexPath, operation
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty Document amendment field index path")
 	}
 
@@ -3320,6 +3551,22 @@ func (a *DocumentField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to Document failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -3393,6 +3640,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty Entity amendment field index path")
 	}
 
@@ -3451,6 +3699,10 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 	case EntityFieldAdministration: // []*AdministratorField
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.Administration = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Administration : %v",
 					fip)
@@ -3468,7 +3720,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -3505,7 +3757,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -3526,6 +3778,10 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 	case EntityFieldManagement: // []*ManagerField
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.Management = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) < 3 { // includes list index and subfield index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Management : %v",
 					fip)
@@ -3543,7 +3799,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 
 		case 1: // Add element
 			if len(fip) > 2 { // includes list index
-				// Add is for sub-object
+				// Add is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -3580,7 +3836,7 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 
 		case 2: // Delete element
 			if len(fip) > 2 { // includes list index
-				// Delete is for sub-object
+				// Delete is for sub-field
 				subPermissions, err := permissions.SubPermissions(fip, operation, true)
 				if err != nil {
 					return nil, errors.Wrap(err, "sub permissions")
@@ -3620,6 +3876,22 @@ func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to Entity failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -3865,6 +4137,7 @@ func (a *FeeField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty Fee amendment field index path")
 	}
 
@@ -3897,6 +4170,22 @@ func (a *FeeField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to Fee failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -3951,6 +4240,7 @@ func (a *ManagerField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty Manager amendment field index path")
 	}
 
@@ -3986,6 +4276,22 @@ func (a *ManagerField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to Manager failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -4043,6 +4349,7 @@ func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty Oracle amendment field index path")
 	}
 
@@ -4056,6 +4363,10 @@ func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 	case OracleFieldOracleTypes: // []uint32
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.OracleTypes = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) != 2 { // includes list index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify OracleTypes : %v",
 					fip)
@@ -4131,6 +4442,22 @@ func (a *OracleField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to Oracle failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -4226,6 +4553,7 @@ func (a *QuantityIndexField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty QuantityIndex amendment field index path")
 	}
 
@@ -4266,6 +4594,22 @@ func (a *QuantityIndexField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to QuantityIndex failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -4325,6 +4669,7 @@ func (a *ReferenceTransactionField) ApplyAmendment(fip permissions.FieldIndexPat
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty ReferenceTransaction amendment field index path")
 	}
 
@@ -4336,6 +4681,10 @@ func (a *ReferenceTransactionField) ApplyAmendment(fip permissions.FieldIndexPat
 	case ReferenceTransactionFieldOutputs: // [][]byte
 		switch operation {
 		case 0: // Modify
+			if len(fip) == 1 && len(data) == 0 {
+				a.Outputs = nil
+				return permissions.SubPermissions(fip[1:], operation, true)
+			}
 			if len(fip) != 2 { // includes list index
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for modify Outputs : %v",
 					fip)
@@ -4395,6 +4744,22 @@ func (a *ReferenceTransactionField) CreateAmendments(fip permissions.FieldIndexP
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to ReferenceTransaction failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -4476,6 +4841,7 @@ func (a *ServiceField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty Service amendment field index path")
 	}
 
@@ -4515,6 +4881,22 @@ func (a *ServiceField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to Service failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -4578,6 +4960,7 @@ func (a *TargetAddressField) ApplyAmendment(fip permissions.FieldIndexPath, oper
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty TargetAddress amendment field index path")
 	}
 
@@ -4610,6 +4993,22 @@ func (a *TargetAddressField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to TargetAddress failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
@@ -4668,6 +5067,7 @@ func (a *VotingSystemField) ApplyAmendment(fip permissions.FieldIndexPath, opera
 	data []byte, permissions permissions.Permissions) (permissions.Permissions, error) {
 
 	if len(fip) == 0 {
+		// modify operation must specify which field to modify in a struct
 		return nil, errors.New("Empty VotingSystem amendment field index path")
 	}
 
@@ -4741,6 +5141,22 @@ func (a *VotingSystemField) CreateAmendments(fip permissions.FieldIndexPath,
 
 	var result []*internal.Amendment
 	ofip := fip.Copy() // save original to be appended for each field
+
+	if a == nil && newValue != nil {
+		data, err := proto.Marshal(newValue)
+		if err != nil {
+			return nil, fmt.Errorf("Amendment addition to VotingSystem failed to serialize : %s",
+				err)
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:       fip,
+			Operation: 0, // Modify element
+			Data:      data,
+		})
+
+		return result, nil
+	}
 
 	if a != nil && newValue == nil {
 		result = append(result, &internal.Amendment{
