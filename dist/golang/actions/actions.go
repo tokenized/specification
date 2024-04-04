@@ -15,6 +15,8 @@ type Action interface {
 	Code() string
 	TypeName() string
 
+	IsClientRequest() bool
+
 	Validate() error
 	Equal(proto.Message) bool
 }
@@ -269,12 +271,20 @@ func (a *ContractOffer) TypeName() string {
 	return "ContractOffer"
 }
 
+func (a *ContractOffer) IsClientRequest() bool {
+	return true
+}
+
 func (a *ContractFormation) Code() string {
 	return CodeContractFormation
 }
 
 func (a *ContractFormation) TypeName() string {
 	return "ContractFormation"
+}
+
+func (a *ContractFormation) IsClientRequest() bool {
+	return false
 }
 
 func (a *ContractAmendment) Code() string {
@@ -285,12 +295,20 @@ func (a *ContractAmendment) TypeName() string {
 	return "ContractAmendment"
 }
 
+func (a *ContractAmendment) IsClientRequest() bool {
+	return true
+}
+
 func (a *StaticContractFormation) Code() string {
 	return CodeStaticContractFormation
 }
 
 func (a *StaticContractFormation) TypeName() string {
 	return "StaticContractFormation"
+}
+
+func (a *StaticContractFormation) IsClientRequest() bool {
+	return false
 }
 
 func (a *ContractAddressChange) Code() string {
@@ -301,12 +319,20 @@ func (a *ContractAddressChange) TypeName() string {
 	return "ContractAddressChange"
 }
 
+func (a *ContractAddressChange) IsClientRequest() bool {
+	return false
+}
+
 func (a *BodyOfAgreementOffer) Code() string {
 	return CodeBodyOfAgreementOffer
 }
 
 func (a *BodyOfAgreementOffer) TypeName() string {
 	return "BodyOfAgreementOffer"
+}
+
+func (a *BodyOfAgreementOffer) IsClientRequest() bool {
+	return true
 }
 
 func (a *BodyOfAgreementFormation) Code() string {
@@ -317,12 +343,20 @@ func (a *BodyOfAgreementFormation) TypeName() string {
 	return "BodyOfAgreementFormation"
 }
 
+func (a *BodyOfAgreementFormation) IsClientRequest() bool {
+	return false
+}
+
 func (a *BodyOfAgreementAmendment) Code() string {
 	return CodeBodyOfAgreementAmendment
 }
 
 func (a *BodyOfAgreementAmendment) TypeName() string {
 	return "BodyOfAgreementAmendment"
+}
+
+func (a *BodyOfAgreementAmendment) IsClientRequest() bool {
+	return true
 }
 
 func (a *InstrumentDefinition) Code() string {
@@ -333,12 +367,20 @@ func (a *InstrumentDefinition) TypeName() string {
 	return "InstrumentDefinition"
 }
 
+func (a *InstrumentDefinition) IsClientRequest() bool {
+	return true
+}
+
 func (a *InstrumentCreation) Code() string {
 	return CodeInstrumentCreation
 }
 
 func (a *InstrumentCreation) TypeName() string {
 	return "InstrumentCreation"
+}
+
+func (a *InstrumentCreation) IsClientRequest() bool {
+	return false
 }
 
 func (a *InstrumentModification) Code() string {
@@ -349,12 +391,20 @@ func (a *InstrumentModification) TypeName() string {
 	return "InstrumentModification"
 }
 
+func (a *InstrumentModification) IsClientRequest() bool {
+	return true
+}
+
 func (a *Transfer) Code() string {
 	return CodeTransfer
 }
 
 func (a *Transfer) TypeName() string {
 	return "Transfer"
+}
+
+func (a *Transfer) IsClientRequest() bool {
+	return true
 }
 
 func (a *Settlement) Code() string {
@@ -365,12 +415,20 @@ func (a *Settlement) TypeName() string {
 	return "Settlement"
 }
 
+func (a *Settlement) IsClientRequest() bool {
+	return false
+}
+
 func (a *RectificationSettlement) Code() string {
 	return CodeRectificationSettlement
 }
 
 func (a *RectificationSettlement) TypeName() string {
 	return "RectificationSettlement"
+}
+
+func (a *RectificationSettlement) IsClientRequest() bool {
+	return false
 }
 
 func (a *Proposal) Code() string {
@@ -381,12 +439,20 @@ func (a *Proposal) TypeName() string {
 	return "Proposal"
 }
 
+func (a *Proposal) IsClientRequest() bool {
+	return true
+}
+
 func (a *Vote) Code() string {
 	return CodeVote
 }
 
 func (a *Vote) TypeName() string {
 	return "Vote"
+}
+
+func (a *Vote) IsClientRequest() bool {
+	return false
 }
 
 func (a *BallotCast) Code() string {
@@ -397,12 +463,20 @@ func (a *BallotCast) TypeName() string {
 	return "BallotCast"
 }
 
+func (a *BallotCast) IsClientRequest() bool {
+	return true
+}
+
 func (a *BallotCounted) Code() string {
 	return CodeBallotCounted
 }
 
 func (a *BallotCounted) TypeName() string {
 	return "BallotCounted"
+}
+
+func (a *BallotCounted) IsClientRequest() bool {
+	return false
 }
 
 func (a *Result) Code() string {
@@ -413,12 +487,20 @@ func (a *Result) TypeName() string {
 	return "Result"
 }
 
+func (a *Result) IsClientRequest() bool {
+	return false
+}
+
 func (a *Order) Code() string {
 	return CodeOrder
 }
 
 func (a *Order) TypeName() string {
 	return "Order"
+}
+
+func (a *Order) IsClientRequest() bool {
+	return true
 }
 
 func (a *Freeze) Code() string {
@@ -429,12 +511,20 @@ func (a *Freeze) TypeName() string {
 	return "Freeze"
 }
 
+func (a *Freeze) IsClientRequest() bool {
+	return false
+}
+
 func (a *Thaw) Code() string {
 	return CodeThaw
 }
 
 func (a *Thaw) TypeName() string {
 	return "Thaw"
+}
+
+func (a *Thaw) IsClientRequest() bool {
+	return false
 }
 
 func (a *Confiscation) Code() string {
@@ -445,12 +535,20 @@ func (a *Confiscation) TypeName() string {
 	return "Confiscation"
 }
 
+func (a *Confiscation) IsClientRequest() bool {
+	return false
+}
+
 func (a *DeprecatedReconciliation) Code() string {
 	return CodeDeprecatedReconciliation
 }
 
 func (a *DeprecatedReconciliation) TypeName() string {
 	return "DeprecatedReconciliation"
+}
+
+func (a *DeprecatedReconciliation) IsClientRequest() bool {
+	return false
 }
 
 func (a *Establishment) Code() string {
@@ -461,12 +559,20 @@ func (a *Establishment) TypeName() string {
 	return "Establishment"
 }
 
+func (a *Establishment) IsClientRequest() bool {
+	return false
+}
+
 func (a *Addition) Code() string {
 	return CodeAddition
 }
 
 func (a *Addition) TypeName() string {
 	return "Addition"
+}
+
+func (a *Addition) IsClientRequest() bool {
+	return false
 }
 
 func (a *Alteration) Code() string {
@@ -477,12 +583,20 @@ func (a *Alteration) TypeName() string {
 	return "Alteration"
 }
 
+func (a *Alteration) IsClientRequest() bool {
+	return false
+}
+
 func (a *Removal) Code() string {
 	return CodeRemoval
 }
 
 func (a *Removal) TypeName() string {
 	return "Removal"
+}
+
+func (a *Removal) IsClientRequest() bool {
+	return false
 }
 
 func (a *Message) Code() string {
@@ -493,12 +607,20 @@ func (a *Message) TypeName() string {
 	return "Message"
 }
 
+func (a *Message) IsClientRequest() bool {
+	return false
+}
+
 func (a *Rejection) Code() string {
 	return CodeRejection
 }
 
 func (a *Rejection) TypeName() string {
 	return "Rejection"
+}
+
+func (a *Rejection) IsClientRequest() bool {
+	return false
 }
 
 // Formation creates a contract formation with all the values from the contract offer.

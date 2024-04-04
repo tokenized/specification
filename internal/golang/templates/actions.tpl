@@ -15,6 +15,9 @@ type Action interface {
 	Code() string
 	TypeName() string
 
+	// IsClientRequest returns true when this action is a client request to a smart contract agent.
+	IsClientRequest() bool
+
 	Validate() error
 	Equal(proto.Message) bool
 }
@@ -127,6 +130,15 @@ func (a *{{.Name}}) Code() string {
 
 func (a *{{.Name}}) TypeName() string {
 	return "{{.Name}}"
+}
+
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
+func (a *{{.Name}}) IsClientRequest() bool {
+	{{- if eq (len .MetaData.Validation) 0 }}
+	return false
+	{{- else }}
+	return true
+	{{- end }}
 }
 {{ end }}
 
