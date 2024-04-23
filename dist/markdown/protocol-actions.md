@@ -5026,6 +5026,42 @@ A fee paid for a service. Only bitcoin currently supported as the instrument.
         </td>
     </tr>
 
+    <tr>
+        <td>UseCurrentInstrument</td>
+        <td>
+            bool
+        </td>
+        <td>
+            When true this means the fee quantity is paid in the current instrument&#39;s tokens. For example, for transfer fees the transfer fee is paid by including extra sender quantity of the instrument being transfered. When using the current instrument this should not be specified via the InstrumentCode field below as the instrument code value is not known for certain until the instrument is created and this field can be specified at instrument definition.
+
+             Example: true
+        </td>
+    </tr>
+
+    <tr>
+        <td>Contract</td>
+        <td>
+            <a href="#alias-address">Address</a>
+        </td>
+        <td>
+            This feature is not supported by the reference implementation yet but the field is included for backwards compatibility so when support is added the quantity will not be mistaken for a bitcoin quantity by older clients. The contract containing the instrument&#39;s tokens that should be used for the fee.
+
+            
+        </td>
+    </tr>
+
+    <tr>
+        <td>InstrumentCode</td>
+        <td>
+            <a href="#alias-instrument-code">InstrumentCode</a>
+        </td>
+        <td>
+            This feature is not supported by the reference implementation yet but the field is included for backwards compatibility so when support is added the quantity will not be mistaken for a bitcoin quantity by older clients. The instrument code identifying the instrument&#39;s tokens that should be used for the fee.
+
+            
+        </td>
+    </tr>
+
 </table>
 
 

@@ -4126,8 +4126,11 @@ func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 
 // FeeField Permission / Amendment Field Indices
 const (
-	FeeFieldAddress  = uint32(1)
-	FeeFieldQuantity = uint32(2)
+	FeeFieldAddress              = uint32(1)
+	FeeFieldQuantity             = uint32(2)
+	FeeFieldUseCurrentInstrument = uint32(3)
+	FeeFieldContract             = uint32(4)
+	FeeFieldInstrumentCode       = uint32(5)
 )
 
 // ApplyAmendment updates a FeeField based on amendment data.
@@ -4156,6 +4159,30 @@ func (a *FeeField) ApplyAmendment(fip permissions.FieldIndexPath, operation uint
 		} else {
 			a.Quantity = uint64(value)
 		}
+		return permissions.SubPermissions(fip, operation, false)
+
+	case FeeFieldUseCurrentInstrument: // bool
+		if len(fip) > 1 {
+			return nil, fmt.Errorf("Amendment field index path too deep for UseCurrentInstrument : %v", fip)
+		}
+		if len(data) != 1 {
+			return nil, fmt.Errorf("UseCurrentInstrument amendment value is wrong size : %d", len(data))
+		}
+		buf := bytes.NewBuffer(data)
+		if err := binary.Read(buf, binary.LittleEndian, &a.UseCurrentInstrument); err != nil {
+			return nil, fmt.Errorf("UseCurrentInstrument amendment value failed to deserialize : %s", err)
+		}
+		return permissions.SubPermissions(fip, operation, false)
+
+	case FeeFieldContract: // []byte
+		a.Contract = data
+		return permissions.SubPermissions(fip, operation, false)
+
+	case FeeFieldInstrumentCode: // []byte
+		if len(data) != 20 {
+			return nil, fmt.Errorf("bin size wrong : got %d, want %d", len(data), 20)
+		}
+		copy(a.InstrumentCode, data)
 		return permissions.SubPermissions(fip, operation, false)
 
 	}
@@ -4221,6 +4248,38 @@ func (a *FeeField) CreateAmendments(fip permissions.FieldIndexPath,
 		result = append(result, &internal.Amendment{
 			FIP:  fip,
 			Data: buf.Bytes(),
+		})
+	}
+
+	// UseCurrentInstrument bool
+	fip = append(ofip, FeeFieldUseCurrentInstrument)
+	if a.UseCurrentInstrument != newValue.UseCurrentInstrument {
+		var buf bytes.Buffer
+		if err := binary.Write(&buf, binary.LittleEndian, newValue.UseCurrentInstrument); err != nil {
+			return nil, errors.Wrap(err, "UseCurrentInstrument")
+		}
+
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: buf.Bytes(),
+		})
+	}
+
+	// Contract []byte
+	fip = append(ofip, FeeFieldContract)
+	if !bytes.Equal(a.Contract, newValue.Contract) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.Contract,
+		})
+	}
+
+	// InstrumentCode []byte
+	fip = append(ofip, FeeFieldInstrumentCode)
+	if !bytes.Equal(a.InstrumentCode[:], newValue.InstrumentCode[:]) {
+		result = append(result, &internal.Amendment{
+			FIP:  fip,
+			Data: newValue.InstrumentCode[:],
 		})
 	}
 

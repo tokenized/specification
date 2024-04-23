@@ -2313,6 +2313,21 @@ func (l *FeeField) Equal(right proto.Message) bool {
 		return false // fmt.Errorf("Quantity integer mismatched")
 	}
 
+	// Field UseCurrentInstrument - bool
+	if c.UseCurrentInstrument != r.UseCurrentInstrument {
+		return false // fmt.Errorf("UseCurrentInstrument boolean mismatched")
+	}
+
+	// Field Contract - varbin
+	if !bytes.Equal(c.Contract, r.Contract) {
+		return false // fmt.Errorf("Contract bytes mismatched")
+	}
+
+	// Field InstrumentCode - bin
+	if !bytes.Equal(c.InstrumentCode, r.InstrumentCode) {
+		return false // fmt.Errorf("InstrumentCode bytes mismatched")
+	}
+
 	return true
 }
 

@@ -447,6 +447,9 @@ message EntityField {
 message FeeField {
     bytes Address                                  = 1;   // Address
     uint64 Quantity                                = 2;   // uint
+    bool UseCurrentInstrument                      = 3;   // bool
+    bytes Contract                                 = 4;   // Address
+    bytes InstrumentCode                           = 5;   // InstrumentCode
 }
 
 // Field - Manager

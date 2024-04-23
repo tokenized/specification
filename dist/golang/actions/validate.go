@@ -2137,6 +2137,24 @@ func (a *FeeField) Validate() error {
 
 	// Field Quantity - uint
 
+	// Field UseCurrentInstrument - bool
+
+	// Field Contract - varbin
+	if len(a.Contract) > 0 {
+		if err := AddressIsValid(a.Contract); err != nil {
+			return errors.Wrap(err, "Contract")
+		}
+	}
+	if len(a.Contract) > max2ByteInteger {
+		return fmt.Errorf("Contract over max size : %d > %d", len(a.Contract), max2ByteInteger)
+	}
+
+	// Field InstrumentCode - bin
+	if len(a.InstrumentCode) != 0 && len(a.InstrumentCode) != 20 {
+		return fmt.Errorf("InstrumentCode fixed width field wrong size : %d should be %d",
+			len(a.InstrumentCode), 20)
+	}
+
 	return nil
 }
 

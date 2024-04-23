@@ -410,7 +410,10 @@
       ],
       "TransferFee": {
         "Address": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
-        "Quantity": "100"
+        "Contract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+        "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+        "Quantity": "100",
+        "UseCurrentInstrument": "true"
       },
       "VoteMultiplier": "3",
       "VotingRights": "true"
@@ -440,7 +443,10 @@
       ],
       "TransferFee": {
         "Address": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
-        "Quantity": "100"
+        "Contract": "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43",
+        "InstrumentCode": "0e6996402ea456156838652e3bd82c6c0986ef79",
+        "Quantity": "100",
+        "UseCurrentInstrument": "true"
       },
       "VoteMultiplier": "3",
       "VotingRights": "true"

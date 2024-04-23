@@ -10622,7 +10622,10 @@ class FeeField PROTOBUF_FINAL :
 
   enum : int {
     kAddressFieldNumber = 1,
+    kContractFieldNumber = 4,
+    kInstrumentCodeFieldNumber = 5,
     kQuantityFieldNumber = 2,
+    kUseCurrentInstrumentFieldNumber = 3,
   };
   // bytes Address = 1;
   void clear_address();
@@ -10649,6 +10652,56 @@ class FeeField PROTOBUF_FINAL :
   std::string* _internal_mutable_address();
   public:
 
+  // bytes Contract = 4;
+  void clear_contract();
+  const std::string& contract() const;
+  void set_contract(const std::string& value);
+  void set_contract(std::string&& value);
+  void set_contract(const char* value);
+  void set_contract(const void* value, size_t size);
+  std::string* mutable_contract();
+  std::string* release_contract();
+  void set_allocated_contract(std::string* contract);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_contract();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_contract(
+      std::string* contract);
+  private:
+  const std::string& _internal_contract() const;
+  void _internal_set_contract(const std::string& value);
+  std::string* _internal_mutable_contract();
+  public:
+
+  // bytes InstrumentCode = 5;
+  void clear_instrumentcode();
+  const std::string& instrumentcode() const;
+  void set_instrumentcode(const std::string& value);
+  void set_instrumentcode(std::string&& value);
+  void set_instrumentcode(const char* value);
+  void set_instrumentcode(const void* value, size_t size);
+  std::string* mutable_instrumentcode();
+  std::string* release_instrumentcode();
+  void set_allocated_instrumentcode(std::string* instrumentcode);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_instrumentcode();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_instrumentcode(
+      std::string* instrumentcode);
+  private:
+  const std::string& _internal_instrumentcode() const;
+  void _internal_set_instrumentcode(const std::string& value);
+  std::string* _internal_mutable_instrumentcode();
+  public:
+
   // uint64 Quantity = 2;
   void clear_quantity();
   ::PROTOBUF_NAMESPACE_ID::uint64 quantity() const;
@@ -10656,6 +10709,15 @@ class FeeField PROTOBUF_FINAL :
   private:
   ::PROTOBUF_NAMESPACE_ID::uint64 _internal_quantity() const;
   void _internal_set_quantity(::PROTOBUF_NAMESPACE_ID::uint64 value);
+  public:
+
+  // bool UseCurrentInstrument = 3;
+  void clear_usecurrentinstrument();
+  bool usecurrentinstrument() const;
+  void set_usecurrentinstrument(bool value);
+  private:
+  bool _internal_usecurrentinstrument() const;
+  void _internal_set_usecurrentinstrument(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:actions.FeeField)
@@ -10666,7 +10728,10 @@ class FeeField PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr address_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr contract_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr instrumentcode_;
   ::PROTOBUF_NAMESPACE_ID::uint64 quantity_;
+  bool usecurrentinstrument_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_actions_2eproto;
 };
@@ -25594,6 +25659,188 @@ inline void FeeField::_internal_set_quantity(::PROTOBUF_NAMESPACE_ID::uint64 val
 inline void FeeField::set_quantity(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   _internal_set_quantity(value);
   // @@protoc_insertion_point(field_set:actions.FeeField.Quantity)
+}
+
+// bool UseCurrentInstrument = 3;
+inline void FeeField::clear_usecurrentinstrument() {
+  usecurrentinstrument_ = false;
+}
+inline bool FeeField::_internal_usecurrentinstrument() const {
+  return usecurrentinstrument_;
+}
+inline bool FeeField::usecurrentinstrument() const {
+  // @@protoc_insertion_point(field_get:actions.FeeField.UseCurrentInstrument)
+  return _internal_usecurrentinstrument();
+}
+inline void FeeField::_internal_set_usecurrentinstrument(bool value) {
+  
+  usecurrentinstrument_ = value;
+}
+inline void FeeField::set_usecurrentinstrument(bool value) {
+  _internal_set_usecurrentinstrument(value);
+  // @@protoc_insertion_point(field_set:actions.FeeField.UseCurrentInstrument)
+}
+
+// bytes Contract = 4;
+inline void FeeField::clear_contract() {
+  contract_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& FeeField::contract() const {
+  // @@protoc_insertion_point(field_get:actions.FeeField.Contract)
+  return _internal_contract();
+}
+inline void FeeField::set_contract(const std::string& value) {
+  _internal_set_contract(value);
+  // @@protoc_insertion_point(field_set:actions.FeeField.Contract)
+}
+inline std::string* FeeField::mutable_contract() {
+  // @@protoc_insertion_point(field_mutable:actions.FeeField.Contract)
+  return _internal_mutable_contract();
+}
+inline const std::string& FeeField::_internal_contract() const {
+  return contract_.Get();
+}
+inline void FeeField::_internal_set_contract(const std::string& value) {
+  
+  contract_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void FeeField::set_contract(std::string&& value) {
+  
+  contract_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:actions.FeeField.Contract)
+}
+inline void FeeField::set_contract(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  contract_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:actions.FeeField.Contract)
+}
+inline void FeeField::set_contract(const void* value,
+    size_t size) {
+  
+  contract_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:actions.FeeField.Contract)
+}
+inline std::string* FeeField::_internal_mutable_contract() {
+  
+  return contract_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* FeeField::release_contract() {
+  // @@protoc_insertion_point(field_release:actions.FeeField.Contract)
+  return contract_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void FeeField::set_allocated_contract(std::string* contract) {
+  if (contract != nullptr) {
+    
+  } else {
+    
+  }
+  contract_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), contract,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:actions.FeeField.Contract)
+}
+inline std::string* FeeField::unsafe_arena_release_contract() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:actions.FeeField.Contract)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return contract_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void FeeField::unsafe_arena_set_allocated_contract(
+    std::string* contract) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (contract != nullptr) {
+    
+  } else {
+    
+  }
+  contract_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      contract, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:actions.FeeField.Contract)
+}
+
+// bytes InstrumentCode = 5;
+inline void FeeField::clear_instrumentcode() {
+  instrumentcode_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& FeeField::instrumentcode() const {
+  // @@protoc_insertion_point(field_get:actions.FeeField.InstrumentCode)
+  return _internal_instrumentcode();
+}
+inline void FeeField::set_instrumentcode(const std::string& value) {
+  _internal_set_instrumentcode(value);
+  // @@protoc_insertion_point(field_set:actions.FeeField.InstrumentCode)
+}
+inline std::string* FeeField::mutable_instrumentcode() {
+  // @@protoc_insertion_point(field_mutable:actions.FeeField.InstrumentCode)
+  return _internal_mutable_instrumentcode();
+}
+inline const std::string& FeeField::_internal_instrumentcode() const {
+  return instrumentcode_.Get();
+}
+inline void FeeField::_internal_set_instrumentcode(const std::string& value) {
+  
+  instrumentcode_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void FeeField::set_instrumentcode(std::string&& value) {
+  
+  instrumentcode_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:actions.FeeField.InstrumentCode)
+}
+inline void FeeField::set_instrumentcode(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  instrumentcode_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:actions.FeeField.InstrumentCode)
+}
+inline void FeeField::set_instrumentcode(const void* value,
+    size_t size) {
+  
+  instrumentcode_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:actions.FeeField.InstrumentCode)
+}
+inline std::string* FeeField::_internal_mutable_instrumentcode() {
+  
+  return instrumentcode_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* FeeField::release_instrumentcode() {
+  // @@protoc_insertion_point(field_release:actions.FeeField.InstrumentCode)
+  return instrumentcode_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void FeeField::set_allocated_instrumentcode(std::string* instrumentcode) {
+  if (instrumentcode != nullptr) {
+    
+  } else {
+    
+  }
+  instrumentcode_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), instrumentcode,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:actions.FeeField.InstrumentCode)
+}
+inline std::string* FeeField::unsafe_arena_release_instrumentcode() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:actions.FeeField.InstrumentCode)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return instrumentcode_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void FeeField::unsafe_arena_set_allocated_instrumentcode(
+    std::string* instrumentcode) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (instrumentcode != nullptr) {
+    
+  } else {
+    
+  }
+  instrumentcode_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      instrumentcode, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:actions.FeeField.InstrumentCode)
 }
 
 // -------------------------------------------------------------------

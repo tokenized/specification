@@ -15,6 +15,7 @@ type Action interface {
 	Code() string
 	TypeName() string
 
+	// IsClientRequest returns true when this action is a client request to a smart contract agent.
 	IsClientRequest() bool
 
 	Validate() error
@@ -271,6 +272,7 @@ func (a *ContractOffer) TypeName() string {
 	return "ContractOffer"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *ContractOffer) IsClientRequest() bool {
 	return true
 }
@@ -283,6 +285,7 @@ func (a *ContractFormation) TypeName() string {
 	return "ContractFormation"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *ContractFormation) IsClientRequest() bool {
 	return false
 }
@@ -295,6 +298,7 @@ func (a *ContractAmendment) TypeName() string {
 	return "ContractAmendment"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *ContractAmendment) IsClientRequest() bool {
 	return true
 }
@@ -307,6 +311,7 @@ func (a *StaticContractFormation) TypeName() string {
 	return "StaticContractFormation"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *StaticContractFormation) IsClientRequest() bool {
 	return false
 }
@@ -319,6 +324,7 @@ func (a *ContractAddressChange) TypeName() string {
 	return "ContractAddressChange"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *ContractAddressChange) IsClientRequest() bool {
 	return false
 }
@@ -331,6 +337,7 @@ func (a *BodyOfAgreementOffer) TypeName() string {
 	return "BodyOfAgreementOffer"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *BodyOfAgreementOffer) IsClientRequest() bool {
 	return true
 }
@@ -343,6 +350,7 @@ func (a *BodyOfAgreementFormation) TypeName() string {
 	return "BodyOfAgreementFormation"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *BodyOfAgreementFormation) IsClientRequest() bool {
 	return false
 }
@@ -355,6 +363,7 @@ func (a *BodyOfAgreementAmendment) TypeName() string {
 	return "BodyOfAgreementAmendment"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *BodyOfAgreementAmendment) IsClientRequest() bool {
 	return true
 }
@@ -367,6 +376,7 @@ func (a *InstrumentDefinition) TypeName() string {
 	return "InstrumentDefinition"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *InstrumentDefinition) IsClientRequest() bool {
 	return true
 }
@@ -379,6 +389,7 @@ func (a *InstrumentCreation) TypeName() string {
 	return "InstrumentCreation"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *InstrumentCreation) IsClientRequest() bool {
 	return false
 }
@@ -391,6 +402,7 @@ func (a *InstrumentModification) TypeName() string {
 	return "InstrumentModification"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *InstrumentModification) IsClientRequest() bool {
 	return true
 }
@@ -403,6 +415,7 @@ func (a *Transfer) TypeName() string {
 	return "Transfer"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Transfer) IsClientRequest() bool {
 	return true
 }
@@ -415,6 +428,7 @@ func (a *Settlement) TypeName() string {
 	return "Settlement"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Settlement) IsClientRequest() bool {
 	return false
 }
@@ -427,6 +441,7 @@ func (a *RectificationSettlement) TypeName() string {
 	return "RectificationSettlement"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *RectificationSettlement) IsClientRequest() bool {
 	return false
 }
@@ -439,6 +454,7 @@ func (a *Proposal) TypeName() string {
 	return "Proposal"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Proposal) IsClientRequest() bool {
 	return true
 }
@@ -451,6 +467,7 @@ func (a *Vote) TypeName() string {
 	return "Vote"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Vote) IsClientRequest() bool {
 	return false
 }
@@ -463,6 +480,7 @@ func (a *BallotCast) TypeName() string {
 	return "BallotCast"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *BallotCast) IsClientRequest() bool {
 	return true
 }
@@ -475,6 +493,7 @@ func (a *BallotCounted) TypeName() string {
 	return "BallotCounted"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *BallotCounted) IsClientRequest() bool {
 	return false
 }
@@ -487,6 +506,7 @@ func (a *Result) TypeName() string {
 	return "Result"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Result) IsClientRequest() bool {
 	return false
 }
@@ -499,6 +519,7 @@ func (a *Order) TypeName() string {
 	return "Order"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Order) IsClientRequest() bool {
 	return true
 }
@@ -511,6 +532,7 @@ func (a *Freeze) TypeName() string {
 	return "Freeze"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Freeze) IsClientRequest() bool {
 	return false
 }
@@ -523,6 +545,7 @@ func (a *Thaw) TypeName() string {
 	return "Thaw"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Thaw) IsClientRequest() bool {
 	return false
 }
@@ -535,6 +558,7 @@ func (a *Confiscation) TypeName() string {
 	return "Confiscation"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Confiscation) IsClientRequest() bool {
 	return false
 }
@@ -547,6 +571,7 @@ func (a *DeprecatedReconciliation) TypeName() string {
 	return "DeprecatedReconciliation"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *DeprecatedReconciliation) IsClientRequest() bool {
 	return false
 }
@@ -559,6 +584,7 @@ func (a *Establishment) TypeName() string {
 	return "Establishment"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Establishment) IsClientRequest() bool {
 	return false
 }
@@ -571,6 +597,7 @@ func (a *Addition) TypeName() string {
 	return "Addition"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Addition) IsClientRequest() bool {
 	return false
 }
@@ -583,6 +610,7 @@ func (a *Alteration) TypeName() string {
 	return "Alteration"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Alteration) IsClientRequest() bool {
 	return false
 }
@@ -595,6 +623,7 @@ func (a *Removal) TypeName() string {
 	return "Removal"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Removal) IsClientRequest() bool {
 	return false
 }
@@ -607,6 +636,7 @@ func (a *Message) TypeName() string {
 	return "Message"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Message) IsClientRequest() bool {
 	return false
 }
@@ -619,6 +649,7 @@ func (a *Rejection) TypeName() string {
 	return "Rejection"
 }
 
+// IsClientRequest returns true when this action is a client request to a smart contract agent.
 func (a *Rejection) IsClientRequest() bool {
 	return false
 }

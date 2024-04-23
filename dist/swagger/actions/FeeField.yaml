@@ -10,4 +10,29 @@ properties:
     description: The quantity of tokens of the specified instrument to be paid.
     type: number
     example: 100
+  UseCurrentInstrument:
+    description:  >
+      When true this means the fee quantity is paid in the current instrument's tokens. For example,
+      for transfer fees the transfer fee is paid by including extra sender quantity of the instrument
+      being transfered. When using the current instrument this should not be specified via the
+      InstrumentCode field below as the instrument code value is not known for certain until the
+      instrument is created and this field can be specified at instrument definition.
+    type: boolean
+    example: true
+  Contract:
+    description:  >
+      This feature is not supported by the reference implementation yet but the field is included for
+      backwards compatibility so when support is added the quantity will not be mistaken for a
+      bitcoin quantity by older clients. The contract containing the instrument's tokens that should
+      be used for the fee.
+    type: string
+    example: "20f8d521553a2b0de0ceba82b70c5dd184c6cd2f43"
+  InstrumentCode:
+    description:  >
+      This feature is not supported by the reference implementation yet but the field is included for
+      backwards compatibility so when support is added the quantity will not be mistaken for a
+      bitcoin quantity by older clients. The instrument code identifying the instrument's tokens that
+      should be used for the fee.
+    type: string
+    example: "0e6996402ea456156838652e3bd82c6c0986ef79"
 

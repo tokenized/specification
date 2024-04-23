@@ -1347,6 +1347,18 @@ func (a *FeeField) WriteDeterministic(w io.Writer) error {
 		return errors.Wrap(err, "Quantity")
 	}
 
+	if err := binary.Write(w, binary.LittleEndian, a.UseCurrentInstrument); err != nil {
+		return errors.Wrap(err, "UseCurrentInstrument")
+	}
+
+	if _, err := w.Write(a.Contract); err != nil {
+		return errors.Wrap(err, "Contract")
+	}
+
+	if _, err := w.Write(a.InstrumentCode[:]); err != nil {
+		return errors.Wrap(err, "InstrumentCode")
+	}
+
 	return nil
 }
 

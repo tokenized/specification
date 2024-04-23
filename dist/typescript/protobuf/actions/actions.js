@@ -15312,7 +15312,10 @@ proto.actions.FeeField.prototype.toObject = function(opt_includeInstance) {
 proto.actions.FeeField.toObject = function(includeInstance, msg) {
   var f, obj = {
     address: msg.getAddress_asB64(),
-    quantity: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    quantity: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    usecurrentinstrument: jspb.Message.getBooleanFieldWithDefault(msg, 3, false),
+    contract: msg.getContract_asB64(),
+    instrumentcode: msg.getInstrumentcode_asB64()
   };
 
   if (includeInstance) {
@@ -15357,6 +15360,18 @@ proto.actions.FeeField.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {number} */ (reader.readUint64());
       msg.setQuantity(value);
       break;
+    case 3:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setUsecurrentinstrument(value);
+      break;
+    case 4:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setContract(value);
+      break;
+    case 5:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setInstrumentcode(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -15397,6 +15412,27 @@ proto.actions.FeeField.serializeBinaryToWriter = function(message, writer) {
   if (f !== 0) {
     writer.writeUint64(
       2,
+      f
+    );
+  }
+  f = message.getUsecurrentinstrument();
+  if (f) {
+    writer.writeBool(
+      3,
+      f
+    );
+  }
+  f = message.getContract_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      4,
+      f
+    );
+  }
+  f = message.getInstrumentcode_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      5,
       f
     );
   }
@@ -15460,6 +15496,108 @@ proto.actions.FeeField.prototype.getQuantity = function() {
  */
 proto.actions.FeeField.prototype.setQuantity = function(value) {
   return jspb.Message.setProto3IntField(this, 2, value);
+};
+
+
+/**
+ * optional bool UseCurrentInstrument = 3;
+ * @return {boolean}
+ */
+proto.actions.FeeField.prototype.getUsecurrentinstrument = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 3, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.actions.FeeField} returns this
+ */
+proto.actions.FeeField.prototype.setUsecurrentinstrument = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 3, value);
+};
+
+
+/**
+ * optional bytes Contract = 4;
+ * @return {!(string|Uint8Array)}
+ */
+proto.actions.FeeField.prototype.getContract = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * optional bytes Contract = 4;
+ * This is a type-conversion wrapper around `getContract()`
+ * @return {string}
+ */
+proto.actions.FeeField.prototype.getContract_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getContract()));
+};
+
+
+/**
+ * optional bytes Contract = 4;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getContract()`
+ * @return {!Uint8Array}
+ */
+proto.actions.FeeField.prototype.getContract_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getContract()));
+};
+
+
+/**
+ * @param {!(string|Uint8Array)} value
+ * @return {!proto.actions.FeeField} returns this
+ */
+proto.actions.FeeField.prototype.setContract = function(value) {
+  return jspb.Message.setProto3BytesField(this, 4, value);
+};
+
+
+/**
+ * optional bytes InstrumentCode = 5;
+ * @return {!(string|Uint8Array)}
+ */
+proto.actions.FeeField.prototype.getInstrumentcode = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/**
+ * optional bytes InstrumentCode = 5;
+ * This is a type-conversion wrapper around `getInstrumentcode()`
+ * @return {string}
+ */
+proto.actions.FeeField.prototype.getInstrumentcode_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getInstrumentcode()));
+};
+
+
+/**
+ * optional bytes InstrumentCode = 5;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getInstrumentcode()`
+ * @return {!Uint8Array}
+ */
+proto.actions.FeeField.prototype.getInstrumentcode_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getInstrumentcode()));
+};
+
+
+/**
+ * @param {!(string|Uint8Array)} value
+ * @return {!proto.actions.FeeField} returns this
+ */
+proto.actions.FeeField.prototype.setInstrumentcode = function(value) {
+  return jspb.Message.setProto3BytesField(this, 5, value);
 };
 
 

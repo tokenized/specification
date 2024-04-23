@@ -1356,6 +1356,17 @@ func (a *FeeField) Copy() *FeeField {
 	// Field Quantity - uint
 	result.Quantity = a.Quantity
 
+	// Field UseCurrentInstrument - bool
+	result.UseCurrentInstrument = a.UseCurrentInstrument
+
+	// Field Contract - varbin
+	result.Contract = make([]byte, len(a.Contract))
+	copy(result.Contract, a.Contract)
+
+	// Field InstrumentCode - bin
+	result.InstrumentCode = make([]byte, len(a.InstrumentCode))
+	copy(result.InstrumentCode, a.InstrumentCode)
+
 	return result
 }
 
