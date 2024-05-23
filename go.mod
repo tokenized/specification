@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/dgryski/go-bitstream v0.0.0-20180413035011-3522498ce2c8
 	github.com/ghodss/yaml v1.0.0
-	github.com/golang/protobuf v1.4.2
+	github.com/golang/protobuf v1.5.0
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/cobra v0.0.5
 	github.com/tokenized/bitcoin_interpreter v0.1.1
@@ -14,7 +14,7 @@ require (
 	github.com/tokenized/pkg v0.7.1-0.20230728163803-9a855fa7d049
 	github.com/tokenized/txbuilder v1.1.1-0.20230816003850-4414c86d5db4
 	golang.org/x/crypto v0.8.0
-	google.golang.org/protobuf v1.23.0
+	google.golang.org/protobuf v1.33.0
 	gopkg.in/yaml.v2 v2.2.8
 )
 
