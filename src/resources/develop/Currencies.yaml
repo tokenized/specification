@@ -1,9 +1,8 @@
-
 name: Currencies
 description: "International Organization for Standardization code for Currency. 3 character code."
 codeType:
-    type: fixedchar
-    size: 3
+  type: fixedchar
+  size: 3
 
 values:
   - code: AED
@@ -677,7 +676,7 @@ values:
     metadata:
       symbol: "G"
       precision: 2
-      fractional_unit: 	centime
+      fractional_unit: centime
       polity:
         - HTI
       monetary_authority: Bank of the Republic of Haiti
@@ -688,7 +687,7 @@ values:
     metadata:
       symbol: "Ft"
       precision: 2
-      fractional_unit: 	fillér
+      fractional_unit: fillér
       polity:
         - HUN
       monetary_authority: Hungarian National Bank
@@ -700,7 +699,7 @@ values:
       symbol: "Rp"
       precision: 0
       fractions: 100
-      fractional_unit: 	sen
+      fractional_unit: sen
       polity:
         - IDN
       monetary_authority: Bank of Indonesia
@@ -711,7 +710,7 @@ values:
     metadata:
       symbol: "₪"
       precision: 2
-      fractional_unit: 	agora
+      fractional_unit: agora
       polity:
         - ISR
         - PSE
@@ -723,7 +722,7 @@ values:
     metadata:
       symbol: "₹"
       precision: 2
-      fractional_unit: 	paisa
+      fractional_unit: paisa
       polity:
         - IND
         - BTN
@@ -736,7 +735,7 @@ values:
       symbol: "ID"
       precision: 0
       fractions: 1000
-      fractional_unit: 	fils
+      fractional_unit: fils
       polity:
         - IRQ
       monetary_authority: Central Bank of Iraq
@@ -1730,13 +1729,27 @@ values:
     metadata:
       symbol: "Ag"
       precision: 4
-  
+
+  - code: GAG
+    name: SilverGram
+    label: Silver gram
+    metadata:
+      symbol: "Ag"
+      precision: 3
+
   - code: XAU
     name: GoldTroyOunce
     label: Gold troy ounce
     metadata:
       symbol: "Au"
       precision: 4
+
+  - code: GAU
+    name: GoldGram
+    label: Gold gram
+    metadata:
+      symbol: "Au"
+      precision: 3
 
   - code: XCD
     name: EastCaribbeanDollar
@@ -1788,6 +1801,13 @@ values:
       symbol: "Pd"
       precision: 4
 
+  - code: GPD
+    name: PalladiumGram
+    label: Palladium gram
+    metadata:
+      symbol: "Pd"
+      precision: 3
+
   - code: XPF
     name: CFPFranc
     label: CFP franc
@@ -1808,6 +1828,13 @@ values:
     metadata:
       symbol: "Pt"
       precision: 4
+
+  - code: GPT
+    name: PlatinumGram
+    label: Platinum gram
+    metadata:
+      symbol: "Pt"
+      precision: 3
 
   - code: YER
     name: YemeniRial
