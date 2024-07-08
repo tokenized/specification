@@ -3102,6 +3102,15 @@
           "name": "SilverTroyOunce"
         },
         {
+          "code": "GAG",
+          "label": "Silver gram",
+          "metadata": {
+            "precision": 3,
+            "symbol": "Ag"
+          },
+          "name": "SilverGram"
+        },
+        {
           "code": "XAU",
           "label": "Gold troy ounce",
           "metadata": {
@@ -3109,6 +3118,15 @@
             "symbol": "Au"
           },
           "name": "GoldTroyOunce"
+        },
+        {
+          "code": "GAU",
+          "label": "Gold gram",
+          "metadata": {
+            "precision": 3,
+            "symbol": "Au"
+          },
+          "name": "GoldGram"
         },
         {
           "code": "XCD",
@@ -3171,6 +3189,15 @@
           "name": "PalladiumTroyOunce"
         },
         {
+          "code": "GPD",
+          "label": "Palladium gram",
+          "metadata": {
+            "precision": 3,
+            "symbol": "Pd"
+          },
+          "name": "PalladiumGram"
+        },
+        {
           "code": "XPF",
           "label": "CFP franc",
           "metadata": {
@@ -3195,6 +3222,15 @@
             "symbol": "Pt"
           },
           "name": "PlatinumTroyOunce"
+        },
+        {
+          "code": "GPT",
+          "label": "Platinum gram",
+          "metadata": {
+            "precision": 3,
+            "symbol": "Pt"
+          },
+          "name": "PlatinumGram"
         },
         {
           "code": "YER",

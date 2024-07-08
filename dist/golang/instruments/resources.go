@@ -450,8 +450,14 @@ const (
 	// SilverTroyOunce -
 	CurrenciesSilverTroyOunce = "XAG"
 
+	// SilverGram -
+	CurrenciesSilverGram = "GAG"
+
 	// GoldTroyOunce -
 	CurrenciesGoldTroyOunce = "XAU"
+
+	// GoldGram -
+	CurrenciesGoldGram = "GAU"
 
 	// EastCaribbeanDollar -
 	CurrenciesEastCaribbeanDollar = "XCD"
@@ -465,11 +471,17 @@ const (
 	// PalladiumTroyOunce -
 	CurrenciesPalladiumTroyOunce = "XPD"
 
+	// PalladiumGram -
+	CurrenciesPalladiumGram = "GPD"
+
 	// CFPFranc -
 	CurrenciesCFPFranc = "XPF"
 
 	// PlatinumTroyOunce -
 	CurrenciesPlatinumTroyOunce = "XPT"
+
+	// PlatinumGram -
+	CurrenciesPlatinumGram = "GPT"
 
 	// YemeniRial -
 	CurrenciesYemeniRial = "YER"
@@ -1684,12 +1696,28 @@ func CurrenciesData(code string) *CurrenciesCode {
 			MetaData:    `{"precision":4,"symbol":"Ag"}`,
 		}
 
+	case CurrenciesSilverGram:
+		return &CurrenciesCode{
+			Name:        "SilverGram",
+			Label:       "Silver gram",
+			Description: "",
+			MetaData:    `{"precision":3,"symbol":"Ag"}`,
+		}
+
 	case CurrenciesGoldTroyOunce:
 		return &CurrenciesCode{
 			Name:        "GoldTroyOunce",
 			Label:       "Gold troy ounce",
 			Description: "",
 			MetaData:    `{"precision":4,"symbol":"Au"}`,
+		}
+
+	case CurrenciesGoldGram:
+		return &CurrenciesCode{
+			Name:        "GoldGram",
+			Label:       "Gold gram",
+			Description: "",
+			MetaData:    `{"precision":3,"symbol":"Au"}`,
 		}
 
 	case CurrenciesEastCaribbeanDollar:
@@ -1724,6 +1752,14 @@ func CurrenciesData(code string) *CurrenciesCode {
 			MetaData:    `{"precision":4,"symbol":"Pd"}`,
 		}
 
+	case CurrenciesPalladiumGram:
+		return &CurrenciesCode{
+			Name:        "PalladiumGram",
+			Label:       "Palladium gram",
+			Description: "",
+			MetaData:    `{"precision":3,"symbol":"Pd"}`,
+		}
+
 	case CurrenciesCFPFranc:
 		return &CurrenciesCode{
 			Name:        "CFPFranc",
@@ -1738,6 +1774,14 @@ func CurrenciesData(code string) *CurrenciesCode {
 			Label:       "Platinum troy ounce",
 			Description: "",
 			MetaData:    `{"precision":4,"symbol":"Pt"}`,
+		}
+
+	case CurrenciesPlatinumGram:
+		return &CurrenciesCode{
+			Name:        "PlatinumGram",
+			Label:       "Platinum gram",
+			Description: "",
+			MetaData:    `{"precision":3,"symbol":"Pt"}`,
 		}
 
 	case CurrenciesYemeniRial:
@@ -2815,11 +2859,25 @@ func CurrenciesMap() map[string]*CurrenciesCode {
 			MetaData:    `{"precision":4,"symbol":"Ag"}`,
 		},
 
+		CurrenciesSilverGram: &CurrenciesCode{
+			Name:        "SilverGram",
+			Label:       "Silver gram",
+			Description: "",
+			MetaData:    `{"precision":3,"symbol":"Ag"}`,
+		},
+
 		CurrenciesGoldTroyOunce: &CurrenciesCode{
 			Name:        "GoldTroyOunce",
 			Label:       "Gold troy ounce",
 			Description: "",
 			MetaData:    `{"precision":4,"symbol":"Au"}`,
+		},
+
+		CurrenciesGoldGram: &CurrenciesCode{
+			Name:        "GoldGram",
+			Label:       "Gold gram",
+			Description: "",
+			MetaData:    `{"precision":3,"symbol":"Au"}`,
 		},
 
 		CurrenciesEastCaribbeanDollar: &CurrenciesCode{
@@ -2850,6 +2908,13 @@ func CurrenciesMap() map[string]*CurrenciesCode {
 			MetaData:    `{"precision":4,"symbol":"Pd"}`,
 		},
 
+		CurrenciesPalladiumGram: &CurrenciesCode{
+			Name:        "PalladiumGram",
+			Label:       "Palladium gram",
+			Description: "",
+			MetaData:    `{"precision":3,"symbol":"Pd"}`,
+		},
+
 		CurrenciesCFPFranc: &CurrenciesCode{
 			Name:        "CFPFranc",
 			Label:       "CFP franc",
@@ -2862,6 +2927,13 @@ func CurrenciesMap() map[string]*CurrenciesCode {
 			Label:       "Platinum troy ounce",
 			Description: "",
 			MetaData:    `{"precision":4,"symbol":"Pt"}`,
+		},
+
+		CurrenciesPlatinumGram: &CurrenciesCode{
+			Name:        "PlatinumGram",
+			Label:       "Platinum gram",
+			Description: "",
+			MetaData:    `{"precision":3,"symbol":"Pt"}`,
 		},
 
 		CurrenciesYemeniRial: &CurrenciesCode{

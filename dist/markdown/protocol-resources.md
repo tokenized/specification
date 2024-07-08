@@ -178,13 +178,17 @@ International Organization for Standardization code for Currency. 3 character co
 - SamoanTala
 - CentralAfricanCFAFranc
 - SilverTroyOunce
+- SilverGram
 - GoldTroyOunce
+- GoldGram
 - EastCaribbeanDollar
 - IMFSpecialDrawingRights
 - WestAfricanCFAFranc
 - PalladiumTroyOunce
+- PalladiumGram
 - CFPFranc
 - PlatinumTroyOunce
+- PlatinumGram
 - YemeniRial
 - SouthAfricanRand
 - ZambianKwacha
