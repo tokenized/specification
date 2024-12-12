@@ -15,7 +15,7 @@ require (
 	github.com/tokenized/logger v0.1.3
 	github.com/tokenized/pkg v0.7.1-0.20240430132450-c70719707437
 	github.com/tokenized/txbuilder v1.1.1-0.20230816003850-4414c86d5db4
-	golang.org/x/crypto v0.22.0
+	golang.org/x/crypto v0.31.0
 	google.golang.org/protobuf v1.34.0
 	gopkg.in/yaml.v2 v2.3.0
 )
@@ -34,6 +34,6 @@ require (
 	github.com/tokenized/channels v0.1.1 // indirect
 	github.com/tokenized/threads v0.1.2 // indirect
 	github.com/tyler-smith/go-bip32 v0.0.0-20170922074101-2c9cfd177564 // indirect
-	golang.org/x/sys v0.19.0 // indirect
+	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 )
