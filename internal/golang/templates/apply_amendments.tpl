@@ -160,10 +160,11 @@
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete {{ .Name }} : %v",
 					fip)
 			}
+		{{- end }}
+
 			if int(fip[1]) >= len(a.{{ .Name }}) {
 				return nil, fmt.Errorf("Amendment element index out of range for delete {{ .Name }} : %d", fip[1])
 			}
-		{{- end }}
 
 			// Remove item from list
 			a.{{ .Name }} = append(a.{{ .Name }}[:fip[1]], a.{{ .Name }}[fip[1]+1:]...)

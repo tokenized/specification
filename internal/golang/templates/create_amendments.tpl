@@ -77,13 +77,15 @@
 	}
 
 	// Add/Remove values
+	{{ .Name }}Index := {{ .Name }}Min
 	for i:={{ .Name }}Min;i<{{ .Name }}Max;i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32({{ .Name }}Index)), // Add array index to path
 		}
 
 		if i < len(newValue.{{ .Name }}) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			{{ .Name }}Index++
 		{{- if .IsCompoundType }}
 			b, err := proto.Marshal(newValue.{{ .Name }}[i])
 			if err != nil {
@@ -110,7 +112,7 @@
 			amendment.Data = buf.Bytes()
 		{{- end }}
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)

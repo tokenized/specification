@@ -770,6 +770,288 @@ func TestBodyOfAgreementCreateAmendments(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "Remove all paragraphs",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Intro 1",
+						Articles: []*ClauseField{
+							{
+								Title: "Article 1",
+								Body:  "Body 1",
+							},
+						},
+					},
+				},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Intro 1",
+						Articles: []*ClauseField{},
+					},
+				},
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{
+						byte(4), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldArticles),
+						byte(0), // first article
+					},
+					Operation: AmendmentOperationRemoveElement,
+					Data:      []byte{},
+				},
+			},
+		},
+		{
+			name: "Remove last paragraph",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Intro 1",
+						Articles: []*ClauseField{
+							{
+								Title: "Article 1",
+								Body:  "Body 1",
+							},
+							{
+								Title: "Article 2",
+								Body:  "Body 2",
+							},
+						},
+					},
+				},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Intro 1",
+						Articles: []*ClauseField{
+							{
+								Title: "Article 1",
+								Body:  "Body 1",
+							},
+						},
+					},
+				},
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{
+						byte(4), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldArticles),
+						byte(1), // second article
+					},
+					Operation: AmendmentOperationRemoveElement,
+					Data:      []byte{},
+				},
+			},
+		},
+		{
+			name: "Remove paragraph",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Intro 1",
+						Articles: []*ClauseField{
+							{
+								Title: "Article 1",
+								Body:  "Body 1",
+								Children: []*ClauseField{
+									{
+										Title: "Article 1-1",
+										Body:  "Body 1-1",
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Intro 1",
+						Articles: []*ClauseField{
+							{
+								Title: "Article 1",
+								Body:  "Body 1",
+							},
+						},
+					},
+				},
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				&AmendmentField{
+					FieldIndexPath: []byte{
+						byte(6), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldArticles),
+						byte(0), // first article
+						byte(ClauseFieldChildren),
+						byte(0), // first clause
+					},
+					Operation: AmendmentOperationRemoveElement,
+					Data:      []byte{},
+				},
+			},
+		},
+		{
+			name: "Remove 2 and modify 1",
+			current: &BodyOfAgreementFormation{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Intro 1",
+						Articles: []*ClauseField{
+							{
+								Title: "Article 1",
+								Body:  "Body 1",
+								Children: []*ClauseField{
+									{
+										Title: "Article 1-1",
+										Body:  "Body 1-1",
+									},
+								},
+							},
+							{
+								Title: "Article 2",
+								Body:  "Body 2",
+								Children: []*ClauseField{
+									{
+										Title: "Article 2-1",
+										Body:  "Body 2-1",
+									},
+								},
+							},
+							{
+								Title: "Article 3",
+								Body:  "Body 3",
+								Children: []*ClauseField{
+									{
+										Title: "Article 3-1",
+										Body:  "Body 3-1",
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			newValue: &BodyOfAgreementOffer{
+				Chapters: []*ChapterField{
+					&ChapterField{
+						Title:    "Title 1",
+						Preamble: "Intro 1",
+						Articles: []*ClauseField{
+							{
+								Title: "Article 4",
+								Body:  "Body 4",
+								Children: []*ClauseField{
+									{
+										Title: "Article 4-1",
+										Body:  "Body 4-1",
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+			err: nil,
+			amendments: []*AmendmentField{
+				{
+					FieldIndexPath: []byte{
+						byte(5), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldArticles),
+						byte(0), // first article
+						byte(ClauseFieldTitle),
+					},
+					Operation: AmendmentOperationModify,
+					Data:      []byte{0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x20, 0x34},
+				},
+				{
+					FieldIndexPath: []byte{
+						byte(5), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldArticles),
+						byte(0), // first article
+						byte(ClauseFieldBody),
+					},
+					Operation: AmendmentOperationModify,
+					Data:      []byte{0x42, 0x6f, 0x64, 0x79, 0x20, 0x34},
+				},
+				{
+					FieldIndexPath: []byte{
+						byte(7), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldArticles),
+						byte(0), // first article
+						byte(ClauseFieldChildren),
+						byte(0), // first clause
+						byte(ClauseFieldTitle),
+					},
+					Operation: AmendmentOperationModify,
+					Data:      []byte{0x41, 0x72, 0x74, 0x69, 0x63, 0x6c, 0x65, 0x20, 0x34, 0x2d, 0x31},
+				},
+				{
+					FieldIndexPath: []byte{
+						byte(7), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldArticles),
+						byte(0), // first article
+						byte(ClauseFieldChildren),
+						byte(0), // first clause
+						byte(ClauseFieldBody),
+					},
+					Operation: AmendmentOperationModify,
+					Data:      []byte{0x42, 0x6f, 0x64, 0x79, 0x20, 0x34, 0x2d, 0x31},
+				},
+				{
+					FieldIndexPath: []byte{
+						byte(4), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldArticles),
+						byte(1), // second article
+					},
+					Operation: AmendmentOperationRemoveElement,
+					Data:      []byte{},
+				},
+				{
+					FieldIndexPath: []byte{
+						byte(4), // number of items in field index path
+						byte(BodyOfAgreementFieldChapters),
+						byte(0), // first chapter
+						byte(ChapterFieldArticles),
+						byte(1), // second article
+					},
+					Operation: AmendmentOperationRemoveElement,
+					Data:      []byte{},
+				},
+			},
+		},
 	}
 
 	for _, tt := range tests {
@@ -794,9 +1076,12 @@ func TestBodyOfAgreementCreateAmendments(t *testing.T) {
 				return
 			}
 
+			js, _ := json.MarshalIndent(amendments, "", "  ")
+			t.Logf("Amendments: %s", js)
+
 			if len(amendments) != len(tt.amendments) {
-				t.Errorf("Wrong amendment count : got %d, want %d\n%+v", len(amendments),
-					len(tt.amendments), amendments)
+				t.Errorf("Wrong amendment count : got %d, want %d", len(amendments),
+					len(tt.amendments))
 				return
 			}
 
@@ -826,6 +1111,9 @@ func TestBodyOfAgreementCreateAmendments(t *testing.T) {
 					return
 				}
 			}
+
+			js, _ = json.MarshalIndent(amended, "", "  ")
+			t.Logf("Amended : %s", js)
 
 			newValue := &BodyOfAgreementFormation{}
 			if err := convert(newValue, tt.newValue); err != nil {

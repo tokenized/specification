@@ -152,20 +152,22 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 	}
 
 	// Add/Remove values
+	SupportingDocsIndex := SupportingDocsMin
 	for i := SupportingDocsMin; i < SupportingDocsMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(SupportingDocsIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.SupportingDocs) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			SupportingDocsIndex++
 			b, err := proto.Marshal(newValue.SupportingDocs[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize SupportingDocs %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -255,20 +257,22 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 	}
 
 	// Add/Remove values
+	VotingSystemsIndex := VotingSystemsMin
 	for i := VotingSystemsMin; i < VotingSystemsMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(VotingSystemsIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.VotingSystems) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			VotingSystemsIndex++
 			b, err := proto.Marshal(newValue.VotingSystems[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize VotingSystems %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -349,20 +353,22 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 	}
 
 	// Add/Remove values
+	OraclesIndex := OraclesMin
 	for i := OraclesMin; i < OraclesMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(OraclesIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.Oracles) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			OraclesIndex++
 			b, err := proto.Marshal(newValue.Oracles[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Oracles %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -424,20 +430,22 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 	}
 
 	// Add/Remove values
+	ServicesIndex := ServicesMin
 	for i := ServicesMin; i < ServicesMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(ServicesIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.Services) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			ServicesIndex++
 			b, err := proto.Marshal(newValue.Services[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Services %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -467,20 +475,22 @@ func (a *ContractFormation) CreateAmendments(newValue *ContractOffer) ([]*Amendm
 	}
 
 	// Add/Remove values
+	AdminIdentityCertificatesIndex := AdminIdentityCertificatesMin
 	for i := AdminIdentityCertificatesMin; i < AdminIdentityCertificatesMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(AdminIdentityCertificatesIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.AdminIdentityCertificates) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			AdminIdentityCertificatesIndex++
 			b, err := proto.Marshal(newValue.AdminIdentityCertificates[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize AdminIdentityCertificates %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -617,6 +627,10 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for delete SupportingDocs : %v",
 					fip)
+			}
+
+			if int(fip[1]) >= len(a.SupportingDocs) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete SupportingDocs : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -764,6 +778,10 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 					fip)
 			}
 
+			if int(fip[1]) >= len(a.VotingSystems) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete VotingSystems : %d", fip[1])
+			}
+
 			// Remove item from list
 			a.VotingSystems = append(a.VotingSystems[:fip[1]], a.VotingSystems[fip[1]+1:]...)
 			return permissions.SubPermissions(fip, operation, true)
@@ -885,6 +903,10 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 					fip)
 			}
 
+			if int(fip[1]) >= len(a.Oracles) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete Oracles : %d", fip[1])
+			}
+
 			// Remove item from list
 			a.Oracles = append(a.Oracles[:fip[1]], a.Oracles[fip[1]+1:]...)
 			return permissions.SubPermissions(fip, operation, true)
@@ -987,6 +1009,10 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 					fip)
 			}
 
+			if int(fip[1]) >= len(a.Services) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete Services : %d", fip[1])
+			}
+
 			// Remove item from list
 			a.Services = append(a.Services[:fip[1]], a.Services[fip[1]+1:]...)
 			return permissions.SubPermissions(fip, operation, true)
@@ -1066,6 +1092,10 @@ func (a *ContractFormation) ApplyAmendment(fip permissions.FieldIndexPath, opera
 					fip)
 			}
 
+			if int(fip[1]) >= len(a.AdminIdentityCertificates) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete AdminIdentityCertificates : %d", fip[1])
+			}
+
 			// Remove item from list
 			a.AdminIdentityCertificates = append(a.AdminIdentityCertificates[:fip[1]], a.AdminIdentityCertificates[fip[1]+1:]...)
 			return permissions.SubPermissions(fip, operation, true)
@@ -1125,20 +1155,22 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *BodyOfAgreementOff
 	}
 
 	// Add/Remove values
+	ChaptersIndex := ChaptersMin
 	for i := ChaptersMin; i < ChaptersMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(ChaptersIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.Chapters) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			ChaptersIndex++
 			b, err := proto.Marshal(newValue.Chapters[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Chapters %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -1168,20 +1200,22 @@ func (a *BodyOfAgreementFormation) CreateAmendments(newValue *BodyOfAgreementOff
 	}
 
 	// Add/Remove values
+	DefinitionsIndex := DefinitionsMin
 	for i := DefinitionsMin; i < DefinitionsMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(DefinitionsIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.Definitions) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			DefinitionsIndex++
 			b, err := proto.Marshal(newValue.Definitions[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Definitions %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -1280,6 +1314,10 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 					fip)
 			}
 
+			if int(fip[1]) >= len(a.Chapters) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete Chapters : %d", fip[1])
+			}
+
 			// Remove item from list
 			a.Chapters = append(a.Chapters[:fip[1]], a.Chapters[fip[1]+1:]...)
 			return permissions.SubPermissions(fip, operation, true)
@@ -1357,6 +1395,10 @@ func (a *BodyOfAgreementFormation) ApplyAmendment(fip permissions.FieldIndexPath
 			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for delete Definitions : %v",
 					fip)
+			}
+
+			if int(fip[1]) >= len(a.Definitions) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete Definitions : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -1556,16 +1598,18 @@ func (a *InstrumentCreation) CreateAmendments(newValue *InstrumentDefinition) ([
 	}
 
 	// Add/Remove values
+	TradeRestrictionsIndex := TradeRestrictionsMin
 	for i := TradeRestrictionsMin; i < TradeRestrictionsMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(TradeRestrictionsIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.TradeRestrictions) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			TradeRestrictionsIndex++
 			amendment.Data = []byte(newValue.TradeRestrictions[i])
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -1749,6 +1793,7 @@ func (a *InstrumentCreation) ApplyAmendment(fip permissions.FieldIndexPath, oper
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete TradeRestrictions : %v",
 					fip)
 			}
+
 			if int(fip[1]) >= len(a.TradeRestrictions) {
 				return nil, fmt.Errorf("Amendment element index out of range for delete TradeRestrictions : %d", fip[1])
 			}
@@ -2496,6 +2541,10 @@ func (a *InstrumentSettlementField) ApplyAmendment(fip permissions.FieldIndexPat
 					fip)
 			}
 
+			if int(fip[1]) >= len(a.Settlements) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete Settlements : %d", fip[1])
+			}
+
 			// Remove item from list
 			a.Settlements = append(a.Settlements[:fip[1]], a.Settlements[fip[1]+1:]...)
 			return permissions.SubPermissions(fip, operation, true)
@@ -2595,20 +2644,22 @@ func (a *InstrumentSettlementField) CreateAmendments(fip permissions.FieldIndexP
 	}
 
 	// Add/Remove values
+	SettlementsIndex := SettlementsMin
 	for i := SettlementsMin; i < SettlementsMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(SettlementsIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.Settlements) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			SettlementsIndex++
 			b, err := proto.Marshal(newValue.Settlements[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Settlements %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -2736,6 +2787,10 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 					fip)
 			}
 
+			if int(fip[1]) >= len(a.InstrumentSenders) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete InstrumentSenders : %d", fip[1])
+			}
+
 			// Remove item from list
 			a.InstrumentSenders = append(a.InstrumentSenders[:fip[1]], a.InstrumentSenders[fip[1]+1:]...)
 			return permissions.SubPermissions(fip, operation, true)
@@ -2813,6 +2868,10 @@ func (a *InstrumentTransferField) ApplyAmendment(fip permissions.FieldIndexPath,
 			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for delete InstrumentReceivers : %v",
 					fip)
+			}
+
+			if int(fip[1]) >= len(a.InstrumentReceivers) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete InstrumentReceivers : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -2918,20 +2977,22 @@ func (a *InstrumentTransferField) CreateAmendments(fip permissions.FieldIndexPat
 	}
 
 	// Add/Remove values
+	InstrumentSendersIndex := InstrumentSendersMin
 	for i := InstrumentSendersMin; i < InstrumentSendersMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(InstrumentSendersIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.InstrumentSenders) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			InstrumentSendersIndex++
 			b, err := proto.Marshal(newValue.InstrumentSenders[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize InstrumentSenders %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -2961,20 +3022,22 @@ func (a *InstrumentTransferField) CreateAmendments(fip permissions.FieldIndexPat
 	}
 
 	// Add/Remove values
+	InstrumentReceiversIndex := InstrumentReceiversMin
 	for i := InstrumentReceiversMin; i < InstrumentReceiversMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(InstrumentReceiversIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.InstrumentReceivers) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			InstrumentReceiversIndex++
 			b, err := proto.Marshal(newValue.InstrumentReceivers[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize InstrumentReceivers %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -3093,6 +3156,10 @@ func (a *ChapterField) ApplyAmendment(fip permissions.FieldIndexPath, operation 
 					fip)
 			}
 
+			if int(fip[1]) >= len(a.Articles) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete Articles : %d", fip[1])
+			}
+
 			// Remove item from list
 			a.Articles = append(a.Articles[:fip[1]], a.Articles[fip[1]+1:]...)
 			return permissions.SubPermissions(fip, operation, true)
@@ -3183,20 +3250,22 @@ func (a *ChapterField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// Add/Remove values
+	ArticlesIndex := ArticlesMin
 	for i := ArticlesMin; i < ArticlesMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(ArticlesIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.Articles) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			ArticlesIndex++
 			b, err := proto.Marshal(newValue.Articles[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Articles %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -3306,6 +3375,10 @@ func (a *ClauseField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 					fip)
 			}
 
+			if int(fip[1]) >= len(a.Children) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete Children : %d", fip[1])
+			}
+
 			// Remove item from list
 			a.Children = append(a.Children[:fip[1]], a.Children[fip[1]+1:]...)
 			return permissions.SubPermissions(fip, operation, true)
@@ -3396,20 +3469,22 @@ func (a *ClauseField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// Add/Remove values
+	ChildrenIndex := ChildrenMin
 	for i := ChildrenMin; i < ChildrenMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(ChildrenIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.Children) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			ChildrenIndex++
 			b, err := proto.Marshal(newValue.Children[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Children %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -3770,6 +3845,10 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 					fip)
 			}
 
+			if int(fip[1]) >= len(a.Administration) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete Administration : %d", fip[1])
+			}
+
 			// Remove item from list
 			a.Administration = append(a.Administration[:fip[1]], a.Administration[fip[1]+1:]...)
 			return permissions.SubPermissions(fip, operation, true)
@@ -3847,6 +3926,10 @@ func (a *EntityField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 			} else if len(fip) < 2 {
 				return nil, fmt.Errorf("Amendment field index path wrong depth for delete Management : %v",
 					fip)
+			}
+
+			if int(fip[1]) >= len(a.Management) {
+				return nil, fmt.Errorf("Amendment element index out of range for delete Management : %d", fip[1])
 			}
 
 			// Remove item from list
@@ -4039,20 +4122,22 @@ func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// Add/Remove values
+	AdministrationIndex := AdministrationMin
 	for i := AdministrationMin; i < AdministrationMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(AdministrationIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.Administration) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			AdministrationIndex++
 			b, err := proto.Marshal(newValue.Administration[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Administration %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -4082,20 +4167,22 @@ func (a *EntityField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// Add/Remove values
+	ManagementIndex := ManagementMin
 	for i := ManagementMin; i < ManagementMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(ManagementIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.Management) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			ManagementIndex++
 			b, err := proto.Marshal(newValue.Management[i])
 			if err != nil {
 				return nil, errors.Wrapf(err, "serialize Management %d", i)
 			}
 			amendment.Data = b
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -4476,6 +4563,7 @@ func (a *OracleField) ApplyAmendment(fip permissions.FieldIndexPath, operation u
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete OracleTypes : %v",
 					fip)
 			}
+
 			if int(fip[1]) >= len(a.OracleTypes) {
 				return nil, fmt.Errorf("Amendment element index out of range for delete OracleTypes : %d", fip[1])
 			}
@@ -4568,20 +4656,22 @@ func (a *OracleField) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// Add/Remove values
+	OracleTypesIndex := OracleTypesMin
 	for i := OracleTypesMin; i < OracleTypesMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(OracleTypesIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.OracleTypes) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			OracleTypesIndex++
 			var buf bytes.Buffer
 			if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.OracleTypes[i])); err != nil {
 				return nil, errors.Wrapf(err, "OracleTypes %d", i)
 			}
 			amendment.Data = buf.Bytes()
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
@@ -4782,6 +4872,7 @@ func (a *ReferenceTransactionField) ApplyAmendment(fip permissions.FieldIndexPat
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete Outputs : %v",
 					fip)
 			}
+
 			if int(fip[1]) >= len(a.Outputs) {
 				return nil, fmt.Errorf("Amendment element index out of range for delete Outputs : %d", fip[1])
 			}
@@ -4868,16 +4959,18 @@ func (a *ReferenceTransactionField) CreateAmendments(fip permissions.FieldIndexP
 	}
 
 	// Add/Remove values
+	OutputsIndex := OutputsMin
 	for i := OutputsMin; i < OutputsMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(OutputsIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.Outputs) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			OutputsIndex++
 			amendment.Data = newValue.Outputs[i]
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)

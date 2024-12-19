@@ -622,6 +622,7 @@ func (a *BondFixedRate) ApplyAmendment(fip permissions.FieldIndexPath, operation
 				return nil, fmt.Errorf("Amendment field index path incorrect depth for delete InterestPaymentDateDeltas : %v",
 					fip)
 			}
+
 			if int(fip[1]) >= len(a.InterestPaymentDateDeltas) {
 				return nil, fmt.Errorf("Amendment element index out of range for delete InterestPaymentDateDeltas : %d", fip[1])
 			}
@@ -851,20 +852,22 @@ func (a *BondFixedRate) CreateAmendments(fip permissions.FieldIndexPath,
 	}
 
 	// Add/Remove values
+	InterestPaymentDateDeltasIndex := InterestPaymentDateDeltasMin
 	for i := InterestPaymentDateDeltasMin; i < InterestPaymentDateDeltasMax; i++ {
 		amendment := &internal.Amendment{
-			FIP: append(fip, uint32(i)), // Add array index to path
+			FIP: append(fip, uint32(InterestPaymentDateDeltasIndex)), // Add array index to path
 		}
 
 		if i < len(newValue.InterestPaymentDateDeltas) {
-			amendment.Operation = 1 // Add element
+			amendment.Operation = 1 // Add element and increment index
+			InterestPaymentDateDeltasIndex++
 			var buf bytes.Buffer
 			if err := bitcoin.WriteBase128VarInt(&buf, uint64(newValue.InterestPaymentDateDeltas[i])); err != nil {
 				return nil, errors.Wrapf(err, "InterestPaymentDateDeltas %d", i)
 			}
 			amendment.Data = buf.Bytes()
 		} else {
-			amendment.Operation = 2 // Remove element
+			amendment.Operation = 2 // Remove element and don't increment index
 		}
 
 		result = append(result, amendment)
